@@ -1,0 +1,165 @@
+[08:53:47.394] [INFO] Initializing Storybook
+[08:53:47.495] [DEBUG] Getting package.json info for /home/claude/impact-ds-storybook/package.json...
+[08:53:47.495] [INFO] Package manager: npm
+[08:53:47.497] [DEBUG] Getting CLI versions from NPM for storybook...
+[08:53:47.497] [DEBUG] Executing command: npm info storybook version
+[08:53:49.247] [INFO] Adding Storybook version 10.6.0 to your project
+[08:53:49.248] [DEBUG] Executing command: npm config get min-release-age --workspaces=false --include-workspace-root
+[08:53:49.354] [INFO] Installing Storybook for user specified project type: react
+[08:53:49.355] [DEBUG] Using cached package.json for /home/claude/impact-ds-storybook/package.json...
+[08:53:49.356] [DEBUG] Using cached package.json for /home/claude/impact-ds-storybook/package.json...
+[08:53:49.356] [INFO] Framework detected: react-vite
+[08:53:49.356] [DEBUG] Getting installed version for vitest...
+[08:53:49.357] [DEBUG] Executing command: npm ls --json --depth=99
+[08:53:49.733] [DEBUG] No installations found for vitest
+[08:53:49.733] [DEBUG] Getting installed version for msw...
+[08:53:49.734] [DEBUG] Executing command: npm ls --json --depth=99
+[08:53:50.062] [DEBUG] No installations found for msw
+[08:53:50.064] [INFO] Storybook collects completely anonymous usage telemetry. We use it to shape Storybook's roadmap and prioritize features. You can learn more, including how to opt out, at https://storybook.js.org/telemetry
+[08:53:50.139] [DEBUG] Using cached package.json for /home/claude/impact-ds-storybook/package.json...
+[08:53:50.140] [DEBUG] Using cached package.json for /home/claude/impact-ds-storybook/package.json...
+[08:53:50.140] [DEBUG] Using cached package.json for /home/claude/impact-ds-storybook/package.json...
+[08:53:50.140] [DEBUG] Using cached version for storybook...
+[08:53:50.140] [DEBUG] Getting CLI versions from NPM for @storybook/react-vite...
+[08:53:50.140] [DEBUG] Executing command: npm info @storybook/react-vite version
+[08:53:50.143] [DEBUG] Getting CLI versions from NPM for @storybook/addon-vitest...
+[08:53:50.143] [DEBUG] Executing command: npm info @storybook/addon-vitest version
+[08:53:50.154] [DEBUG] Getting CLI versions from NPM for @storybook/addon-a11y...
+[08:53:50.154] [DEBUG] Executing command: npm info @storybook/addon-a11y version
+[08:53:50.158] [DEBUG] Getting CLI versions from NPM for @storybook/addon-docs...
+[08:53:50.158] [DEBUG] Executing command: npm info @storybook/addon-docs version
+[08:53:50.169] [DEBUG] Getting CLI versions from NPM for @storybook/addon-mcp...
+[08:53:50.169] [DEBUG] Executing command: npm info @storybook/addon-mcp version
+[08:53:54.088] [INFO] - Configuring main.ts
+[08:53:54.090] [INFO] - Configuring preview.ts
+[08:53:54.090] [INFO] - Adding Storybook command to package.json
+[08:53:54.091] [DEBUG] Getting package.json info for /home/claude/impact-ds-storybook/package.json...
+[08:53:54.091] [DEBUG] Using cached package.json for /home/claude/impact-ds-storybook/package.json...
+[08:53:54.091] [DEBUG] Using cached package.json for /home/claude/impact-ds-storybook/package.json...
+[08:53:54.091] [INFO] - Copying framework templates
+[08:53:54.108] [DEBUG] Executing command: npm config get registry --workspaces=false --include-workspace-root
+[08:53:54.321] [INFO] Storybook configuration generated
+[08:53:54.322] [DEBUG] Using cached package.json for /home/claude/impact-ds-storybook/package.json...
+[08:53:54.322] [DEBUG] Using cached installed version for vitest...
+[08:53:54.322] [DEBUG] Using cached package.json for /home/claude/impact-ds-storybook/package.json...
+[08:53:54.322] [DEBUG] Getting installed version for @vitest/coverage-v8...
+[08:53:54.322] [DEBUG] Executing command: npm ls --json --depth=99
+[08:53:54.692] [DEBUG] No installations found for @vitest/coverage-v8
+[08:53:54.692] [DEBUG] Getting installed version for @vitest/coverage-istanbul...
+[08:53:54.692] [DEBUG] Executing command: npm ls --json --depth=99
+[08:53:55.029] [DEBUG] No installations found for @vitest/coverage-istanbul
+[08:53:55.030] [INFO] Adding devDependencies:
+- storybook@^10.6.0
+- @storybook/react-vite@^10.6.0
+- @chromatic-com/storybook
+- @storybook/addon-vitest@^10.6.0
+- @storybook/addon-a11y@^10.6.0
+- @storybook/addon-docs@^10.6.0
+- @storybook/addon-mcp@^10.6.0
+- vitest
+- playwright
+- @vitest/browser-playwright
+- @vitest/coverage-v8
+[08:53:55.031] [DEBUG] Using cached package.json for /home/claude/impact-ds-storybook/package.json...
+[08:53:55.031] [DEBUG] Using cached package.json for /home/claude/impact-ds-storybook/package.json...
+[08:53:55.031] [INFO] Dependencies added to package.json
+[08:53:55.032] [INFO] Installing dependencies...
+[08:53:55.032] [INFO] Installing dependencies...
+[08:53:55.032] [DEBUG] Executing command: npm install
+[08:54:18.415] [INFO] Installing dependencies...: 
+added 229 packages, and audited 257 packages in 23s
+
+[08:54:18.415] [INFO] Installing dependencies...: added 229 packages, and a
+[08:54:18.424] [INFO] Installing dependencies...: 
+66 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+[08:54:18.424] [INFO] Installing dependencies...: 66 packages are looking f
+[08:54:18.442] [INFO] Dependencies installed
+[08:54:18.442] [INFO] Dependencies installed
+[08:54:18.444] [INFO] Configuring @chromatic-com/storybook...
+[08:54:18.476] [WARN] Could not resolve the postinstall hook of @chromatic-com/storybook, skipping its configuration. Run `npx storybook add @chromatic-com/storybook` to set it up manually.
+[08:54:18.477] [INFO] @chromatic-com/storybook configured
+
+[08:54:18.481] [INFO] Configuring @storybook/addon-vitest...
+[08:54:18.483] [DEBUG] Getting package.json info for /home/claude/impact-ds-storybook/package.json...
+[08:54:18.483] [DEBUG] Using cached package.json for /home/claude/impact-ds-storybook/package.json...
+[08:54:18.483] [DEBUG] Getting installed version for vitest...
+[08:54:18.483] [DEBUG] Executing command: npm ls --json --depth=99
+[08:54:18.935] [DEBUG] Installed version for vitest: 4.1.11
+[08:54:18.936] [DEBUG] Vitest version specifier: 4.1.11
+[08:54:19.073] [DEBUG] Using cached installed version for vitest...
+[08:54:19.073] [DEBUG] Getting installed version for msw...
+[08:54:19.073] [DEBUG] Executing command: npm ls --json --depth=99
+[08:54:19.523] [DEBUG] No installations found for msw
+[08:54:19.557] [INFO] Updating your Vite config file:
+[08:54:19.557] [INFO]   /home/claude/impact-ds-storybook/vite.config.ts
+[08:54:19.570] [INFO] Setting up a11y addon for @storybook/addon-vitest
+[08:54:19.570] [INFO] Setting up a11y addon for @storybook/addon-vitest
+[08:54:19.571] [DEBUG] Executing command: npx storybook automigrate addon-a11y-addon-test --loglevel silent --yes --skip-doctor --package-manager npm --skip-install
+[08:54:35.852] [INFO] a11y addon setup successfully
+[08:54:35.852] [INFO] a11y addon setup successfully
+[08:54:35.852] [INFO] @storybook/addon-vitest setup completed successfully
+[08:54:35.853] [INFO] @storybook/addon-vitest is now configured and you're ready to run your tests!
+Here are a couple of tips to get you started:
+
+• You can run tests with "npx vitest --project=storybook"
+• Vitest IDE extension shows all stories as tests in your editor!
+
+Check the documentation for more information about its features and options at:
+https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
+[08:54:35.857] [INFO] @storybook/addon-vitest configured
+
+[08:54:35.857] [INFO] Configuring @storybook/addon-a11y...
+[08:54:35.857] [INFO] @storybook/addon-a11y configured
+
+[08:54:35.858] [INFO] Configuring @storybook/addon-docs...
+[08:54:35.892] [WARN] Could not resolve the postinstall hook of @storybook/addon-docs, skipping its configuration. Run `npx storybook add @storybook/addon-docs` to set it up manually.
+[08:54:35.893] [INFO] @storybook/addon-docs configured
+
+[08:54:35.893] [INFO] Configuring @storybook/addon-mcp...
+[08:54:35.923] [WARN] Could not resolve the postinstall hook of @storybook/addon-mcp, skipping its configuration. Run `npx storybook add @storybook/addon-mcp` to set it up manually.
+[08:54:35.927] [INFO] @storybook/addon-mcp configured
+
+[08:54:35.927] [INFO] Addons configured successfully
+[08:54:35.927] [INFO] ✅ @chromatic-com/storybook
+[08:54:35.927] [INFO] ✅ @storybook/addon-vitest
+[08:54:35.927] [INFO] ✅ @storybook/addon-a11y
+[08:54:35.927] [INFO] ✅ @storybook/addon-docs
+[08:54:35.927] [INFO] ✅ @storybook/addon-mcp
+[08:54:35.928] [INFO] Installing Playwright browser binaries (press "c" to abort)
+[08:54:35.928] [INFO] Installing Playwright browser binaries (press "c" to abort)
+[08:54:35.930] [DEBUG] Executing command: npx playwright install chromium
+[08:54:36.983] [INFO] Installing Playwright browser binaries (press "c" to abort): Downloading Chrome for Testing 153.0.8010.12 (playwright chromium v1243)[2m from https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-linux64.zip[22m
+
+[08:54:36.983] [INFO] Installing Playwright browser binaries (press "c" to abort): Downloading Chrome for Te
+[08:54:37.477] [INFO] Installing Playwright browser binaries (press "c" to abort): Downloading Chrome for Testing 153.0.8010.12 (playwright chromium v1243)[2m from https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-linux64.zip[22m
+
+[08:54:37.477] [INFO] Installing Playwright browser binaries (press "c" to abort): Downloading Chrome for Te
+[08:54:37.959] [INFO] Installing Playwright browser binaries (press "c" to abort): Downloading Chrome for Testing 153.0.8010.12 (playwright chromium v1243)[2m from https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-linux64.zip[22m
+
+[08:54:37.959] [INFO] Installing Playwright browser binaries (press "c" to abort): Downloading Chrome for Te
+[08:54:38.429] [INFO] Installing Playwright browser binaries (press "c" to abort): Downloading Chrome for Testing 153.0.8010.12 (playwright chromium v1243)[2m from https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-linux64.zip[22m
+
+[08:54:38.429] [INFO] Installing Playwright browser binaries (press "c" to abort): Downloading Chrome for Te
+[08:54:38.929] [INFO] Installing Playwright browser binaries (press "c" to abort): Downloading Chrome for Testing 153.0.8010.12 (playwright chromium v1243)[2m from https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-linux64.zip[22m
+
+[08:54:38.929] [INFO] Installing Playwright browser binaries (press "c" to abort): Downloading Chrome for Te
+[08:54:39.448] [INFO] Installing Playwright browser binaries (press "c" to abort): Failed to install browsers
+Error: Failed to download Chrome for Testing 153.0.8010.12 (playwright chromium v1243), caused by
+Error: Download failure, code=1
+    at ChildProcess.<anonymous> (/home/claude/impact-ds-storybook/node_modules/playwright-core/lib/coreBundle.js:32428:32)
+    at ChildProcess.emit (node:events:519:28)
+    at ChildProcess._handle.onexit (node:internal/child_process:293:12)
+
+[08:54:39.448] [INFO] Installing Playwright browser binaries (press "c" to abort): Failed to install browser
+[08:54:39.471] [ERROR] An error occurred while installing Playwright browser binaries. Please run the following command later: npx playwright install chromium {"error":"SB_CLI_INIT_0016 (PlaywrightInstallFailedError): Failed to install Playwright browser binaries.\n\nCommand failed with exit code 1: npx playwright install chromium\nError: Download failed: server returned code 403 body 'Host not in allowlist: cdn.playwright.dev. Add this host to your network egress settings to allow access.'. URL: https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-linux64.zip\n    at IncomingMessage.handleError (/home/claude/impact-ds-storybook/node_modules/playwright-core/lib/coreBundle.js:32551:23)\n    at IncomingMessage.emit (node:events:531:35)\n    at endReadableNT (node:internal/streams/readable:1698:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)\nError: Download failed: server returned code 403 body 'Host not in allowlist: cdn.playwright.dev. Add this host to your network egress settings to allow access.'. URL: https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-linux64.zip\n    at IncomingMessage.handleError (/home/claude/impact-ds-storybook/node_modules/playwright-core/lib/coreBundle.js:32551:23)\n    at IncomingMessage.emit (node:events:531:35)\n    at endReadableNT (node:internal/streams/readable:1698:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)\nError: Download failed: server returned code 403 body 'Host not in allowlist: cdn.playwright.dev. Add this host to your network egress settings to allow access.'. URL: https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-linux64.zip\n    at IncomingMessage.handleError (/home/claude/impact-ds-storybook/node_modules/playwright-core/lib/coreBundle.js:32551:23)\n    at IncomingMessage.emit (node:events:531:35)\n    at endReadableNT (node:internal/streams/readable:1698:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)\nError: Download failed: server returned code 403 body 'Host not in allowlist: cdn.playwright.dev. Add this host to your network egress settings to allow access.'. URL: https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-linux64.zip\n    at IncomingMessage.handleError (/home/claude/impact-ds-storybook/node_modules/playwright-core/lib/coreBundle.js:32551:23)\n    at IncomingMessage.emit (node:events:531:35)\n    at endReadableNT (node:internal/streams/readable:1698:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)\nError: Download failed: server returned code 403 body 'Host not in allowlist: cdn.playwright.dev. Add this host to your network egress settings to allow access.'. URL: https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-linux64.zip\n    at IncomingMessage.handleError (/home/claude/impact-ds-storybook/node_modules/playwright-core/lib/coreBundle.js:32551:23)\n    at IncomingMessage.emit (node:events:531:35)\n    at endReadableNT (node:internal/streams/readable:1698:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)\nDownloading Chrome for Testing 153.0.8010.12 (playwright chromium v1243)\u001b[2m from https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-linux64.zip\u001b[22m\nDownloading Chrome for Testing 153.0.8010.12 (playwright chromium v1243)\u001b[2m from https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-linux64.zip\u001b[22m\nDownloading Chrome for Testing 153.0.8010.12 (playwright chromium v1243)\u001b[2m from https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-linux64.zip\u001b[22m\nDownloading Chrome for Testing 153.0.8010.12 (playwright chromium v1243)\u001b[2m from https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-linux64.zip\u001b[22m\nDownloading Chrome for Testing 153.0.8010.12 (playwright chromium v1243)\u001b[2m from https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-linux64.zip\u001b[22m\nFailed to install browsers\nError: Failed to download Chrome for Testing 153.0.8010.12 (playwright chromium v1243), caused by\nError: Download failure, code=1\n    at ChildProcess.<anonymous> (/home/claude/impact-ds-storybook/node_modules/playwright-core/lib/coreBundle.js:32428:32)\n    at ChildProcess.emit (node:events:519:28)\n    at ChildProcess._handle.onexit (node:internal/child_process:293:12)\nCommand failed with exit code 1: npx playwright install chromium\n\nError: Download failed: server returned code 403 body 'Host not in allowlist: cdn.playwright.dev. Add this host to your network egress settings to allow access.'. URL: https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-linux64.zip\n    at IncomingMessage.handleError (/home/claude/impact-ds-storybook/node_modules/playwright-core/lib/coreBundle.js:32551:23)\n    at IncomingMessage.emit (node:events:531:35)\n    at endReadableNT (node:internal/streams/readable:1698:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)\nError: Download failed: server returned code 403 body 'Host not in allowlist: cdn.playwright.dev. Add this host to your network egress settings to allow access.'. URL: https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-linux64.zip\n    at IncomingMessage.handleError (/home/claude/impact-ds-storybook/node_modules/playwright-core/lib/coreBundle.js:32551:23)\n    at IncomingMessage.emit (node:events:531:35)\n    at endReadableNT (node:internal/streams/readable:1698:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)\nError: Download failed: server returned code 403 body 'Host not in allowlist: cdn.playwright.dev. Add this host to your network egress settings to allow access.'. URL: https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-linux64.zip\n    at IncomingMessage.handleError (/home/claude/impact-ds-storybook/node_modules/playwright-core/lib/coreBundle.js:32551:23)\n    at IncomingMessage.emit (node:events:531:35)\n    at endReadableNT (node:internal/streams/readable:1698:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)\nError: Download failed: server returned code 403 body 'Host not in allowlist: cdn.playwright.dev. Add this host to your network egress settings to allow access.'. URL: https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-linux64.zip\n    at IncomingMessage.handleError (/home/claude/impact-ds-storybook/node_modules/playwright-core/lib/coreBundle.js:32551:23)\n    at IncomingMessage.emit (node:events:531:35)\n    at endReadableNT (node:internal/streams/readable:1698:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)\nError: Download failed: server returned code 403 body 'Host not in allowlist: cdn.playwright.dev. Add this host to your network egress settings to allow access.'. URL: https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-linux64.zip\n    at IncomingMessage.handleError (/home/claude/impact-ds-storybook/node_modules/playwright-core/lib/coreBundle.js:32551:23)\n    at IncomingMessage.emit (node:events:531:35)\n    at endReadableNT (node:internal/streams/readable:1698:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)\n\nDownloading Chrome for Testing 153.0.8010.12 (playwright chromium v1243) from https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-linux64.zip\nDownloading Chrome for Testing 153.0.8010.12 (playwright chromium v1243) from https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-linux64.zip\nDownloading Chrome for Testing 153.0.8010.12 (playwright chromium v1243) from https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-linux64.zip\nDownloading Chrome for Testing 153.0.8010.12 (playwright chromium v1243) from https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-linux64.zip\nDownloading Chrome for Testing 153.0.8010.12 (playwright chromium v1243) from https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-linux64.zip\nFailed to install browsers\nError: Failed to download Chrome for Testing 153.0.8010.12 (playwright chromium v1243), caused by\nError: Download failure, code=1\n    at ChildProcess.<anonymous> (/home/claude/impact-ds-storybook/node_modules/playwright-core/lib/coreBundle.js:32428:32)\n    at ChildProcess.emit (node:events:519:28)\n    at ChildProcess._handle.onexit (node:internal/child_process:293:12)\n    at categorizeExecaError (file:///home/claude/.npm/_npx/7e672272a3586f1f/node_modules/storybook/dist/_node-chunks/chunk-IQHYYTFR.js:15540:218)\n    at categorize (file:///home/claude/.npm/_npx/7e672272a3586f1f/node_modules/storybook/dist/_node-chunks/chunk-IQHYYTFR.js:15550:31)\n    at file:///home/claude/.npm/_npx/7e672272a3586f1f/node_modules/storybook/dist/_node-chunks/chunk-IQHYYTFR.js:15553:61\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)"}
+[08:54:39.471] [ERROR] An error occurred while installing Playwright browser binaries. Please run the following command later: npx playwright install chromium
+[08:54:39.636] [WARN] Storybook setup completed, but some non-blocking errors occurred. Please check the log file below for details.
+[08:54:39.637] [INFO] To run Storybook, run npm run storybook. CTRL+C to stop.
+[08:54:39.637] [INFO] Official documentation reference: https://storybook.js.org/llms.txt
+[08:54:39.638] [INFO] To finalize setting up with AI, paste this prompt to your AI agent:
+
+[38;2;255;71;133mRun `npx storybook skills setup` and follow its instructions precisely.[39m
