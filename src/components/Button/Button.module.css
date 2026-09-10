@@ -23,7 +23,7 @@
    M = lg token (18px / 24px line-height). L = 2xl token (24px / 32px). */
 .size-m {
   padding: var(--spacing-spacing-2xs) var(--spacing-spacing-s);
-  font-family: var(--font-interactive-label-text-lg-sans-regular-family);
+  font-family: var(--font-interactive-label-text-lg-sans-regular-family), sans-serif;
   font-weight: var(--font-interactive-label-text-lg-sans-regular-weight);
   font-size: var(--font-interactive-label-text-lg-sans-regular-size);
   line-height: var(--font-interactive-label-text-lg-sans-regular-line-height);
@@ -31,7 +31,7 @@
 }
 .size-l {
   padding: var(--spacing-spacing-s) var(--spacing-spacing-m);
-  font-family: var(--font-interactive-label-text-2xl-sans-regular-family);
+  font-family: var(--font-interactive-label-text-2xl-sans-regular-family), sans-serif;
   font-weight: var(--font-interactive-label-text-2xl-sans-regular-weight);
   font-size: var(--font-interactive-label-text-2xl-sans-regular-size);
   line-height: var(--font-interactive-label-text-2xl-sans-regular-line-height);
