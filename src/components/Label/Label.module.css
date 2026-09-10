@@ -1,0 +1,35 @@
+.label {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-radius-rounded);
+  background: var(--color-interactive-idle-purple);
+  color: var(--color-interactive-idle-primary-3);
+  white-space: nowrap;
+}
+
+.size-s {
+  gap: var(--spacing-spacing-2xs);
+  padding: var(--spacing-spacing-3xs) var(--spacing-spacing-s);
+  font-family: var(--font-interactive-label-text-md-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-md-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-md-sans-regular-size);
+  line-height: var(--font-interactive-label-text-md-sans-regular-line-height);
+}
+.size-s.has-icon {
+  gap: var(--spacing-spacing-3xs);
+  padding-right: var(--spacing-spacing-2xs);
+}
+
+.size-m {
+  gap: var(--spacing-spacing-2xs);
+  padding: var(--spacing-spacing-xs) var(--spacing-spacing-l);
+  font-family: var(--font-interactive-label-text-2xl-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-2xl-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-2xl-sans-regular-size);
+  line-height: var(--font-interactive-label-text-2xl-sans-regular-line-height);
+}
+.size-m.has-icon {
+  padding-right: var(--spacing-spacing-s);
+}
