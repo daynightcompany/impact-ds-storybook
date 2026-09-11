@@ -1,0 +1,85 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-spacing-2xs);
+  cursor: pointer;
+  width: fit-content;
+}
+.root:has(.input:disabled) {
+  cursor: not-allowed;
+}
+
+.input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.box {
+  position: relative;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-radius-rounded);
+  box-sizing: border-box;
+  transition: background-color 0.15s ease, opacity 0.15s ease;
+}
+
+.fill {
+  position: absolute;
+  inset: 2px;
+  border-radius: var(--radius-radius-rounded);
+  border: 1px solid var(--color-border-primary);
+  background: transparent;
+  transition: background-color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+}
+
+.input:hover:not(:disabled):not(:checked) ~ .box {
+  background: var(--color-interactive-idle-shadow);
+}
+
+.input:checked ~ .box .fill {
+  background: var(--color-interactive-idle-primary);
+  border-color: transparent;
+}
+
+.dot {
+  position: absolute;
+  inset: 4px;
+  color: var(--color-interactive-idle-primary-3);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+.input:checked ~ .box .dot {
+  opacity: 1;
+}
+
+.input:disabled:not(:checked) ~ .box {
+  opacity: 0.32;
+}
+
+.input:disabled:checked ~ .box .fill {
+  opacity: 0.12;
+}
+
+.input:focus-visible ~ .box {
+  outline: 2px solid var(--color-interactive-idle-primary);
+  outline-offset: 2px;
+}
+
+.label {
+  font-family: var(--font-interactive-label-text-sm-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-sm-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-sm-sans-regular-size);
+  line-height: var(--font-interactive-label-text-sm-sans-regular-line-height);
+  color: var(--color-interactive-idle-tertiary-2);
+}
+.input:disabled ~ .label {
+  opacity: 0.32;
+}
