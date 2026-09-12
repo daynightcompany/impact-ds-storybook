@@ -5,10 +5,21 @@ import { Icon } from '../Icon';
 import '../../styles/tokens.css';
 
 export interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'> {
+  /** Whether to show the text label — matches Figma's own `label` boolean prop. */
+  label?: boolean;
   children?: ReactNode;
 }
 
-export function Checkbox({ children, className, id, ...rest }: CheckboxProps) {
+/**
+ * Impact DS Checkbox — converted from the Figma "Checkbox" component
+ * (node 3304:10132).
+ *
+ * Built on a real, visually-hidden native <input type="checkbox"> so
+ * idle/hover/checked/disabled/focus are all driven by real CSS state.
+ * `label` (boolean, default true) matches Figma's own prop exactly;
+ * `children` supplies the text, defaulting to "Label" as Figma does.
+ */
+export function Checkbox({ label = true, children = 'Label', className, id, ...rest }: CheckboxProps) {
   const generatedId = useId();
   const inputId = id ?? generatedId;
 
@@ -19,7 +30,7 @@ export function Checkbox({ children, className, id, ...rest }: CheckboxProps) {
         <span className={styles.fill} />
         <Icon size={16} className={styles.check} />
       </span>
-      {children != null && <span className={styles.label}>{children}</span>}
+      {label && <span className={styles.label}>{children}</span>}
     </label>
   );
 }

@@ -17,10 +17,6 @@
   cursor: not-allowed;
 }
 
-/* Base (no icon) padding + gap + label typography.
-   Label typography comes from the semantically-correct token category —
-   font-interactive-label-text-* — not the generic paragraph text scale.
-   M = lg token (18px / 24px line-height). L = 2xl token (24px / 32px). */
 .size-m {
   padding: var(--spacing-spacing-2xs) var(--spacing-spacing-s);
   font-family: var(--font-interactive-label-text-lg-sans-regular-family), sans-serif;
@@ -38,32 +34,27 @@
   gap: var(--spacing-spacing-xs);
 }
 
-/* Icon = Only: equal padding on all sides */
 .icon-only.size-m { padding: var(--spacing-spacing-2xs); }
 .icon-only.size-l { padding: var(--spacing-spacing-s); }
 
-/* Icon = Leading: tighter on the icon side, wider on the text side */
 .icon-leading.size-m { padding: var(--spacing-spacing-2xs) var(--spacing-spacing-s) var(--spacing-spacing-2xs) var(--spacing-spacing-2xs); }
 .icon-leading.size-l { padding: var(--spacing-spacing-s) var(--spacing-spacing-m) var(--spacing-spacing-s) var(--spacing-spacing-s); }
 
-/* Icon = Trailing: wider on the text side, tighter on the icon side */
 .icon-trailing.size-m { padding: var(--spacing-spacing-2xs) var(--spacing-spacing-2xs) var(--spacing-spacing-2xs) var(--spacing-spacing-s); }
 .icon-trailing.size-l { padding: var(--spacing-spacing-s) var(--spacing-spacing-s) var(--spacing-spacing-s) var(--spacing-spacing-m); }
 
-/* Hierarchy: Primary */
+/* Hierarchy: Primary — text color renamed: was --color-interactive-idle-primary-3 */
 .primary {
   background: var(--color-interactive-idle-primary);
-  color: var(--color-interactive-idle-primary-3);
+  color: var(--color-typography-and-icons-interactive-label-idle-primary);
 }
 .primary:hover:not(:disabled) { background: var(--color-interactive-hover-primary); }
 
-/* Hierarchy: Secondary — outline instead of border so the stroke draws
-   inward (matching Figma's default "inside" stroke) instead of adding
-   to the button's outer size. */
+/* Hierarchy: Secondary — text color renamed: was --color-interactive-idle-secondary-2 */
 .secondary {
   background: transparent;
-  color: var(--color-interactive-idle-secondary-2);
-  outline-color: var(--color-interactive-idle-secondary-2);
+  color: var(--color-typography-and-icons-interactive-label-idle-secondary);
+  outline-color: var(--color-typography-and-icons-interactive-label-idle-secondary);
 }
 .secondary:hover:not(:disabled) {
   background: var(--color-interactive-hover-secondary);
@@ -71,11 +62,12 @@
   color: var(--color-typography-and-icons-interactive-label-hover-secondary);
 }
 
-/* Hierarchy: Tertiary */
+/* Hierarchy: Tertiary — text color renamed: was --color-interactive-idle-tertiary-2.
+   Hover background renamed: was --color-interactive-idle-shadow */
 .tertiary {
   background: transparent;
-  color: var(--color-interactive-idle-tertiary-2);
+  color: var(--color-typography-and-icons-interactive-label-idle-tertiary);
 }
 .tertiary:hover:not(:disabled) {
-  background: var(--color-interactive-idle-shadow);
+  background: var(--color-border-shadow);
 }

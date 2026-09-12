@@ -41,7 +41,7 @@
 }
 
 .input:hover:not(:disabled):not(:checked) ~ .box {
-  background: var(--color-interactive-idle-shadow);
+  background: var(--color-border-shadow);
 }
 
 .input:checked ~ .box .fill {
@@ -52,7 +52,7 @@
 .dot {
   position: absolute;
   inset: 4px;
-  color: var(--color-interactive-idle-primary-3);
+  color: var(--color-typography-and-icons-interactive-label-idle-primary);
   opacity: 0;
   transition: opacity 0.15s ease;
 }
@@ -73,12 +73,14 @@
   outline-offset: 2px;
 }
 
+/* Same semantic fix as Checkbox: plain paragraph text, not an
+   interactive-control label token. */
 .label {
   font-family: var(--font-interactive-label-text-sm-sans-regular-family), sans-serif;
   font-weight: var(--font-interactive-label-text-sm-sans-regular-weight);
   font-size: var(--font-interactive-label-text-sm-sans-regular-size);
   line-height: var(--font-interactive-label-text-sm-sans-regular-line-height);
-  color: var(--color-interactive-idle-tertiary-2);
+  color: var(--color-typography-and-icons-paragraph-body-primary);
 }
 .input:disabled ~ .label {
   opacity: 0.32;

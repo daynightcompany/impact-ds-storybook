@@ -8,12 +8,13 @@ const meta = {
   argTypes: {
     disabled: { control: 'boolean' },
     defaultChecked: { control: 'boolean' },
+    label: { control: 'boolean' },
   },
   parameters: {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Checkbox" component (node 3304:10132). Built on a real native input, so try tabbing to it and pressing Space — it works like a real checkbox, not just a picture of one.',
+          'Converted from the Figma "Checkbox" component (node 3304:10132). Built on a real native input.',
       },
     },
   },
@@ -39,7 +40,7 @@ export const DisabledChecked: Story = {
 };
 
 export const NoLabel: Story = {
-  args: {},
+  args: { label: false },
 };
 
 export const AllVariants: Story = {

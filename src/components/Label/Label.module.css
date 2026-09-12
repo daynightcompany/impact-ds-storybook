@@ -4,8 +4,8 @@
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-radius-rounded);
-  background: var(--color-interactive-idle-purple);
-  color: var(--color-interactive-idle-primary-3);
+  background: var(--color-supportive-neutral-purple);
+  color: var(--color-typography-and-icons-interactive-label-idle-primary);
   white-space: nowrap;
 }
 

@@ -8,12 +8,13 @@ const meta = {
   argTypes: {
     disabled: { control: 'boolean' },
     name: { control: 'text' },
+    label: { control: 'boolean' },
   },
   parameters: {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Radiobutton" component (node 3386:13813). Built on a real native input — group multiple Radiobuttons by giving them the same `name`.',
+          'Converted from the Figma "Radiobutton" component (node 3386:13813). Group multiple Radiobuttons by giving them the same `name`.',
       },
     },
   },
@@ -36,6 +37,10 @@ export const Disabled: Story = {
 
 export const DisabledChecked: Story = {
   args: { children: 'Label', name: 'story-disabled-checked', disabled: true, defaultChecked: true },
+};
+
+export const NoLabel: Story = {
+  args: { name: 'story-no-label', label: false },
 };
 
 export const Group: Story = {

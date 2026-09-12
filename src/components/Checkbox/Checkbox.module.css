@@ -40,8 +40,9 @@
   transition: background-color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
 }
 
+/* Hover background: renamed, was --color-interactive-idle-shadow */
 .input:hover:not(:disabled):not(:checked) ~ .box {
-  background: var(--color-interactive-idle-shadow);
+  background: var(--color-border-shadow);
 }
 
 .input:checked ~ .box .fill {
@@ -52,7 +53,7 @@
 .check {
   position: absolute;
   inset: 4px;
-  color: var(--color-interactive-idle-primary-3);
+  color: var(--color-typography-and-icons-interactive-label-idle-primary);
   opacity: 0;
   transition: opacity 0.15s ease;
 }
@@ -73,12 +74,16 @@
   outline-offset: 2px;
 }
 
+/* Label text color: SEMANTIC fix, not just a rename. This is plain
+   paragraph text next to the control (page background), not an
+   interactive-control label sitting on a colored surface — so it uses
+   paragraph-body-primary, not an interactive-label-idle-* token. */
 .label {
   font-family: var(--font-interactive-label-text-sm-sans-regular-family), sans-serif;
   font-weight: var(--font-interactive-label-text-sm-sans-regular-weight);
   font-size: var(--font-interactive-label-text-sm-sans-regular-size);
   line-height: var(--font-interactive-label-text-sm-sans-regular-line-height);
-  color: var(--color-interactive-idle-tertiary-2);
+  color: var(--color-typography-and-icons-paragraph-body-primary);
 }
 .input:disabled ~ .label {
   opacity: 0.32;
