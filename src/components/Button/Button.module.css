@@ -62,11 +62,15 @@
   color: var(--color-typography-and-icons-interactive-label-hover-secondary);
 }
 
-/* Hierarchy: Tertiary — text color renamed: was --color-interactive-idle-tertiary-2.
-   Hover background renamed: was --color-interactive-idle-shadow */
+/* Hierarchy: Tertiary — text color confirmed against Figma's real
+   Tertiary button node: it reuses the Secondary label token family,
+   not a Tertiary one — the name doesn't match the hierarchy, but the
+   binding is real. The Tertiary-named token (#2d2d2d in Dark) put
+   dark text on Tertiary's transparent/dark background, nearly
+   invisible. */
 .tertiary {
   background: transparent;
-  color: var(--color-typography-and-icons-interactive-label-idle-tertiary);
+  color: var(--color-typography-and-icons-interactive-label-idle-secondary);
 }
 .tertiary:hover:not(:disabled) {
   background: var(--color-border-shadow);
