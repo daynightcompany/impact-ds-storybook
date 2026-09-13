@@ -1,0 +1,110 @@
+.root {
+  display: inline-flex;
+  cursor: pointer;
+  width: fit-content;
+}
+.root:has(.input:disabled) {
+  cursor: not-allowed;
+}
+
+.input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.track {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: var(--radius-radius-rounded);
+  background-color: var(--color-border-secondary);
+  box-sizing: border-box;
+  transition: background-color 0.15s ease, opacity 0.15s ease;
+}
+
+.knob {
+  display: block;
+  border-radius: var(--radius-radius-rounded);
+  background: var(--color-interactive-idle-tertiary);
+  box-shadow: var(--shadow-shadow-s);
+  transition: transform 0.15s ease;
+}
+
+/* Icon color confirmed from a real usage instance in Figma (stroke
+   bound to Typography and Icons/Paragraph-Body/Tertiary) — not the
+   empty slot itself, which carries no fill/stroke of its own */
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-typography-and-icons-paragraph-body-tertiary);
+}
+
+/* Sizes: track (width x height), padding, and matching knob diameter +
+   slide distance (track width - knob width - 2x padding), verified
+   against Figma's real per-size geometry, not assumed from a flat
+   padding value */
+.size-s { width: 32px; height: 16px; padding: 2px; }
+.size-s .knob { width: 12px; height: 12px; }
+
+.size-m { width: 48px; height: 24px; padding: 4px; }
+.size-m .knob { width: 16px; height: 16px; }
+
+.size-l { width: 64px; height: 32px; padding: 4px; }
+.size-l .knob { width: 24px; height: 24px; }
+.size-l .icon { width: 24px; height: 24px; }
+
+/* Checked: track turns green (success token), knob slides to the right
+   by the track's real inner travel distance */
+.input:checked ~ .track {
+  background-color: var(--color-supportive-semantic-success);
+}
+.input:checked ~ .size-s .knob { transform: translateX(16px); }
+.input:checked ~ .size-m .knob { transform: translateX(24px); }
+.input:checked ~ .size-l .knob { transform: translateX(32px); }
+
+/* With-icon variant (Figma: Size=L only, nodes 9701:25432 / 9701:25439)
+   — track color swaps to a neutral/primary pair instead of the success
+   green, and the icon/knob swap sides by sliding in opposite
+   directions rather than a single knob traveling across an empty
+   track. Absolute positioning (instead of flex order) keeps both
+   slides animatable. */
+.track.withIcon {
+  background-color: var(--color-border-primary);
+}
+.input:checked ~ .track.withIcon {
+  background-color: var(--color-interactive-idle-primary);
+}
+.track.withIcon .knob,
+.track.withIcon .icon {
+  position: absolute;
+  top: 4px;
+  transition: transform 0.15s ease;
+}
+.track.withIcon .knob { left: 4px; }
+.track.withIcon .icon { left: 36px; }
+.input:checked ~ .track.withIcon .knob { transform: translateX(32px); }
+.input:checked ~ .track.withIcon .icon { transform: translateX(-32px); }
+
+/* No hover state: unlike Checkbox/Radiobutton (which have real
+   State=Hover variants in Figma), the Switch component set has none —
+   confirmed by enumerating all 8 of its variants (S/M/L x On/Off, plus
+   the L-only icon pair). So Switch intentionally has no hover styling
+   at all, rather than a guessed convention. */
+
+.input:disabled ~ .track {
+  opacity: 0.32;
+}
+
+.input:focus-visible ~ .track {
+  outline: 2px solid var(--color-interactive-idle-primary);
+  outline-offset: 2px;
+}
