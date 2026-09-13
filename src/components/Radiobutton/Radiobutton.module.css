@@ -49,10 +49,15 @@
   border-color: transparent;
 }
 
+/* Ring color and stroke width confirmed against Figma's real "Icon"
+   frame (2px stroke, bound to Interactive/Idle/Tertiary) — the
+   component's own "check-alternative" checkmark layer is set to
+   visible:false in Figma, so the actual selected marker is this ring,
+   not a checkmark. */
 .dot {
   position: absolute;
   inset: 4px;
-  color: var(--color-typography-and-icons-interactive-label-idle-primary);
+  color: var(--color-interactive-idle-tertiary);
   opacity: 0;
   transition: opacity 0.15s ease;
 }
