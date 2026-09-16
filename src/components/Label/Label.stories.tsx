@@ -8,12 +8,16 @@ const meta = {
   argTypes: {
     size: { control: 'select', options: ['S', 'M'] },
     icon: { control: 'boolean' },
+    tone: {
+      control: 'select',
+      options: ['purple', 'gray', 'dark', 'warning', 'error', 'success', 'orange', 'salad', 'ochre', 'azure', 'pink', 'wine'],
+    },
   },
   parameters: {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Base/Label" component (node 2801:25227). Note: despite the Figma name, this is a purple pill/tag — not a form-field HTML label.',
+          'Converted from the Figma "Base/Label" component (node 2801:25227). Note: this is a purple pill/tag, not a form-field HTML label. `tone` reflects the documented manual-override color options shown on the page — Figma itself only defines Size/Icon as real variants.',
       },
     },
   },
@@ -22,35 +26,24 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Small: Story = {
-  args: { size: 'S', icon: false, children: 'Label' },
+export const Default: Story = {
+  args: { size: 'S', tone: 'purple', children: 'Label' },
+};
+
+export const WithIcon: Story = {
+  args: { size: 'S', tone: 'purple', icon: true, children: 'Label' },
 };
 
 export const Medium: Story = {
-  args: { size: 'M', icon: false, children: 'Label' },
+  args: { size: 'M', tone: 'purple', children: 'Label' },
 };
 
-export const SmallWithIcon: Story = {
-  args: { size: 'S', icon: true, children: 'Label' },
-};
-
-export const MediumWithIcon: Story = {
-  args: { size: 'M', icon: true, children: 'Label' },
-};
-
-export const AllVariants: Story = {
+export const AllTones: Story = {
   render: () => (
-    <div style={{ display: 'grid', gap: 16 }}>
-      <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-        <span style={{ width: 60, fontSize: 12, color: '#888' }}>S</span>
-        <Label size="S">Label</Label>
-        <Label size="S" icon>Label</Label>
-      </div>
-      <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-        <span style={{ width: 60, fontSize: 12, color: '#888' }}>M</span>
-        <Label size="M">Label</Label>
-        <Label size="M" icon>Label</Label>
-      </div>
+    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+      {(['purple', 'gray', 'dark', 'warning', 'error', 'success', 'orange', 'salad', 'ochre', 'azure', 'pink', 'wine'] as const).map((tone) => (
+        <Label key={tone} tone={tone}>{tone}</Label>
+      ))}
     </div>
   ),
 };

@@ -4,8 +4,6 @@
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-radius-rounded);
-  background: var(--color-supportive-neutral-purple);
-  color: var(--color-typography-and-icons-interactive-label-idle-primary);
   white-space: nowrap;
 }
 
@@ -33,3 +31,25 @@
 .size-m.has-icon {
   padding-right: var(--spacing-spacing-s);
 }
+
+/* Tones — measured directly from the Figma documentation page.
+   "purple" is the component's own true, unmodified default (white
+   text). Every other tone is a documented manual-override example
+   from the same page, not a formal Figma variant.
+   Fixed accent tones pair with forced-black (theme-invariant) since
+   their fills don't shift per theme; gray/dark pair with theme-
+   reactive tokens since their fills DO shift per theme. */
+.tone-purple { background: var(--color-supportive-neutral-purple); color: var(--color-interactive-idle-tertiary); }
+.tone-gray   { background: var(--color-background-surface);        color: var(--color-interactive-idle-primary); }
+.tone-dark   { background: var(--color-interactive-idle-primary);  color: var(--color-interactive-idle-tertiary); }
+
+.tone-warning { background: var(--color-supportive-semantic-warning); color: var(--color-supportive-neutral-forced-black); }
+.tone-error   { background: var(--color-supportive-semantic-error);   color: var(--color-supportive-neutral-forced-black); }
+.tone-success { background: var(--color-supportive-semantic-success); color: var(--color-supportive-neutral-forced-black); }
+
+.tone-orange { background: var(--color-supportive-neutral-orange); color: var(--color-supportive-neutral-forced-black); }
+.tone-salad  { background: var(--color-supportive-neutral-salad);  color: var(--color-supportive-neutral-forced-black); }
+.tone-ochre  { background: var(--color-supportive-neutral-ochre);  color: var(--color-supportive-neutral-forced-black); }
+.tone-azure  { background: var(--color-supportive-neutral-azure);  color: var(--color-supportive-neutral-forced-black); }
+.tone-pink   { background: var(--color-supportive-neutral-pink);   color: var(--color-supportive-neutral-forced-black); }
+.tone-wine   { background: var(--color-supportive-neutral-wine);   color: var(--color-supportive-neutral-forced-black); }
