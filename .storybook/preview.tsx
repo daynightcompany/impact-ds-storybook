@@ -26,8 +26,8 @@ const preview: Preview = {
   decorators: [
     withThemeByDataAttribute<Renderer>({
       themes: {
-        Light: 'light',
-        Dark: 'impact-dark-mode',
+        Day: 'light',
+        Night: 'impact-night-mode',
         SMAL: 'smal',
       },
       defaultTheme: 'Light',
