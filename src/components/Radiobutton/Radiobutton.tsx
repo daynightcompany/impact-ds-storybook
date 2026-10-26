@@ -2,6 +2,7 @@ import { useId } from 'react';
 import type { InputHTMLAttributes, ReactNode } from 'react';
 import styles from './Radiobutton.module.css';
 import '../../styles/tokens.css';
+import '../../styles/tokens.extras.css';
 
 export interface RadiobuttonProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'> {
   /** Whether to show the text label — matches Figma's own `label` boolean prop. */

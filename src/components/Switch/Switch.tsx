@@ -1,6 +1,7 @@
 import type { InputHTMLAttributes, ReactNode } from 'react';
 import styles from './Switch.module.css';
 import '../../styles/tokens.css';
+import '../../styles/tokens.extras.css';
 
 export type SwitchSize = 'S' | 'M' | 'L';
 

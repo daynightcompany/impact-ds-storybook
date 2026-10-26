@@ -24,28 +24,29 @@
   display: inline-flex;
   align-items: center;
   flex-shrink: 0;
-  border-radius: var(--radius-radius-rounded);
-  background-color: var(--color-border-secondary);
+  border-radius: var(--breakpoint-cornerradius-rounded);
+  background-color: var(--theme-color-border-secondary);
   box-sizing: border-box;
   transition: background-color 0.15s ease, opacity 0.15s ease;
 }
 
 .knob {
   display: block;
-  border-radius: var(--radius-radius-rounded);
-  background: var(--color-interactive-idle-tertiary);
+  border-radius: var(--breakpoint-cornerradius-rounded);
+  background: var(--theme-color-interactive-idle-tertiary);
   box-shadow: var(--shadow-shadow-s);
   transition: transform 0.15s ease;
 }
 
 /* Icon color confirmed from a real usage instance in Figma (stroke
-   bound to Typography and Icons/Paragraph-Body/Tertiary) — not the
-   empty slot itself, which carries no fill/stroke of its own */
+   bound to font/paragraph/tertiary, formerly Typography and
+   Icons/Paragraph-Body/Tertiary) — not the empty slot itself, which
+   carries no fill/stroke of its own */
 .icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-typography-and-icons-paragraph-body-tertiary);
+  color: var(--theme-color-font-paragraph-tertiary);
 }
 
 /* Sizes: track (width x height), padding, and matching knob diameter +
@@ -65,7 +66,7 @@
 /* Checked: track turns green (success token), knob slides to the right
    by the track's real inner travel distance */
 .input:checked ~ .track {
-  background-color: var(--color-supportive-semantic-success);
+  background-color: var(--theme-color-supportive-feedback-success);
 }
 .input:checked ~ .size-s .knob { transform: translateX(16px); }
 .input:checked ~ .size-m .knob { transform: translateX(24px); }
@@ -78,10 +79,10 @@
    track. Absolute positioning (instead of flex order) keeps both
    slides animatable. */
 .track.withIcon {
-  background-color: var(--color-border-primary);
+  background-color: var(--theme-color-border-primary);
 }
 .input:checked ~ .track.withIcon {
-  background-color: var(--color-interactive-idle-primary);
+  background-color: var(--theme-color-interactive-idle-primary);
 }
 .track.withIcon .knob,
 .track.withIcon .icon {
@@ -105,6 +106,6 @@
 }
 
 .input:focus-visible ~ .track {
-  outline: 2px solid var(--color-interactive-idle-primary);
+  outline: 2px solid var(--theme-color-interactive-idle-primary);
   outline-offset: 2px;
 }

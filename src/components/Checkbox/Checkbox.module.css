@@ -1,7 +1,7 @@
 .root {
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-spacing-2xs);
+  gap: var(--breakpoint-spacing-2xs);
   cursor: pointer;
   width: fit-content;
 }
@@ -26,7 +26,7 @@
   flex-shrink: 0;
   width: 24px;
   height: 24px;
-  border-radius: var(--radius-radius-xs);
+  border-radius: var(--breakpoint-cornerradius-xs);
   box-sizing: border-box;
   transition: background-color 0.15s ease, opacity 0.15s ease;
 }
@@ -34,26 +34,26 @@
 .fill {
   position: absolute;
   inset: 2px;
-  border-radius: var(--radius-radius-xs);
-  border: 1px solid var(--color-border-primary);
+  border-radius: var(--breakpoint-cornerradius-xs);
+  border: 1px solid var(--theme-color-border-primary);
   background: transparent;
   transition: background-color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
 }
 
 /* Hover background: renamed, was --color-interactive-idle-shadow */
 .input:hover:not(:disabled):not(:checked) ~ .box {
-  background: var(--color-border-shadow);
+  background: var(--theme-color-border-tertiary);
 }
 
 .input:checked ~ .box .fill {
-  background: var(--color-interactive-idle-primary);
+  background: var(--theme-color-interactive-idle-primary);
   border-color: transparent;
 }
 
 .check {
   position: absolute;
   inset: 4px;
-  color: var(--color-typography-and-icons-interactive-label-idle-primary);
+  color: var(--theme-color-font-interactive-idle-primary);
   opacity: 0;
   transition: opacity 0.15s ease;
 }
@@ -70,7 +70,7 @@
 }
 
 .input:focus-visible ~ .box {
-  outline: 2px solid var(--color-interactive-idle-primary);
+  outline: 2px solid var(--theme-color-interactive-idle-primary);
   outline-offset: 2px;
 }
 
@@ -83,7 +83,7 @@
   font-weight: var(--font-interactive-label-text-sm-sans-regular-weight);
   font-size: var(--font-interactive-label-text-sm-sans-regular-size);
   line-height: var(--font-interactive-label-text-sm-sans-regular-line-height);
-  color: var(--color-typography-and-icons-paragraph-body-primary);
+  color: var(--theme-color-font-paragraph-primary);
 }
 .input:disabled ~ .label {
   opacity: 0.32;

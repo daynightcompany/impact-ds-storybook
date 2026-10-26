@@ -3,9 +3,13 @@ import { withThemeByDataAttribute } from '@storybook/addon-themes';
 import { useEffect } from 'storybook/preview-api';
 import { applyBreakpoint } from '../src/styles/breakpoint';
 import '../src/styles/tokens.css';
+// Hand-maintained companion to tokens.css: font import + alpha-color stopgap.
+import '../src/styles/tokens.extras.css';
 // Stopgap until the "Variables to Tokens" plugin exports text styles per mode:
 // Mobile values for the Interactive-Label and paragraph text styles.
 import '../src/styles/tokens.text-modes.css';
+// Storybook-only styles (Docs background follows the theme).
+import './preview.css';
 
 /**
  * Breakpoint axis (Desktop is the default, Mobile is the 375 mode), driven by
@@ -76,7 +80,7 @@ const preview: Preview = {
         SMAL: 'smal',
       },
       defaultTheme: 'Day',
-      attributeName: 'data-color',
+      attributeName: 'data-theme',
       parentSelector: 'html',
     }),
     withBreakpoint,

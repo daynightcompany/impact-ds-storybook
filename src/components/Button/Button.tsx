@@ -3,11 +3,13 @@ import styles from './Button.module.css';
 import { Icon } from '../Icon';
 import '../../styles/tokens.css';
 import '../../styles/tokens.text-modes.css';
+// Hand-maintained companion to tokens.css: font import + alpha-color stopgap.
+import '../../styles/tokens.extras.css';
 
 export type ButtonHierarchy = 'Primary' | 'Secondary' | 'Tertiary';
 /**
  * Figma size ladder (Desktop height):
- * L = 56px (40px on Mobile), XL = 64px (56px on Mobile).
+ * L = 56px (40px on Mobile), XL = 64px (48px on Mobile).
  * Mobile values come from the breakpoint tokens, not from a prop.
  * Every layout of a size (text, icon leading/trailing, icon only) has the
  * same height: the XL icon follows spacing/l (32 Desktop, 24 Mobile), the

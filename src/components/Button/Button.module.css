@@ -3,7 +3,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius-radius-rounded);
+  border-radius: var(--breakpoint-cornerradius-rounded);
   white-space: nowrap;
   cursor: pointer;
   border: none;
@@ -20,22 +20,24 @@
 /* Sizes follow the Figma ladder (Base/Button). Every spacing and text
    value below is a token that switches with the Mobile breakpoint mode:
      L  = 56px Desktop / 40px Mobile
-     XL = 64px Desktop / 56px Mobile */
+     XL = 64px Desktop / 48px Mobile
+   Spacing comes from the button group spacing/button/*
+   (--breakpoint-spacing-button-*: xs 12/8, s 16/12, m 24/16). */
 .size-l {
-  padding: var(--spacing-spacing-xs) var(--spacing-spacing-m);
+  padding: var(--breakpoint-spacing-button-xs) var(--breakpoint-spacing-button-m);
   font-family: var(--font-interactive-label-text-xl-sans-regular-family), sans-serif;
   font-weight: var(--font-interactive-label-text-xl-sans-regular-weight);
   font-size: var(--font-interactive-label-text-xl-sans-regular-size);
   line-height: var(--font-interactive-label-text-xl-sans-regular-line-height);
-  gap: var(--spacing-spacing-xs);
+  gap: var(--breakpoint-spacing-button-xs);
 }
 .size-xl {
-  padding: var(--spacing-spacing-s) var(--spacing-spacing-m);
+  padding: var(--breakpoint-spacing-button-s) var(--breakpoint-spacing-button-m);
   font-family: var(--font-interactive-label-text-2xl-sans-regular-family), sans-serif;
   font-weight: var(--font-interactive-label-text-2xl-sans-regular-weight);
   font-size: var(--font-interactive-label-text-2xl-sans-regular-size);
   line-height: var(--font-interactive-label-text-2xl-sans-regular-line-height);
-  gap: var(--spacing-spacing-xs);
+  gap: var(--breakpoint-spacing-button-xs);
 }
 
 /* Icon box. L is a fixed 24. XL follows spacing/l (32 Desktop, 24 Mobile),
@@ -53,45 +55,46 @@
   height: 100%;
 }
 .size-xl .icon {
-  width: var(--spacing-spacing-l);
-  height: var(--spacing-spacing-l);
+  width: var(--breakpoint-spacing-l);
+  height: var(--breakpoint-spacing-l);
 }
 
 /* Icon only: padding plus a minimum size, exactly as in Figma, so it stays
    as tall as text L in both modes. Desktop 12 + 24 + 12 = 48 is lifted to
    the 56 minimum; Mobile 8 + 24 + 8 = 40 sits above the 32 minimum. */
 .icon-only.size-l {
-  padding: var(--spacing-spacing-xs);
-  min-width: var(--spacing-spacing-3xl);
-  min-height: var(--spacing-spacing-3xl);
+  padding: var(--breakpoint-spacing-button-xs);
+  min-width: var(--breakpoint-spacing-3xl);
+  min-height: var(--breakpoint-spacing-3xl);
 }
-.icon-only.size-xl { padding: var(--spacing-spacing-s); }
+.icon-only.size-xl { padding: var(--breakpoint-spacing-button-s); }
 
-/* With an icon: the icon side takes spacing/s (16) in both sizes and the text
-   side keeps spacing/m (24), as in Figma Base/Button. */
-.icon-leading.size-l { padding: var(--spacing-spacing-xs) var(--spacing-spacing-m) var(--spacing-spacing-xs) var(--spacing-spacing-s); }
-.icon-leading.size-xl { padding: var(--spacing-spacing-s) var(--spacing-spacing-m) var(--spacing-spacing-s) var(--spacing-spacing-s); }
+/* With an icon: the icon side takes spacing/button/s (16 Desktop, 12 Mobile) in
+   both sizes and the text side spacing/button/m (24 / 16), as in Figma
+   Base/Button. */
+.icon-leading.size-l { padding: var(--breakpoint-spacing-button-xs) var(--breakpoint-spacing-button-m) var(--breakpoint-spacing-button-xs) var(--breakpoint-spacing-button-s); }
+.icon-leading.size-xl { padding: var(--breakpoint-spacing-button-s) var(--breakpoint-spacing-button-m) var(--breakpoint-spacing-button-s) var(--breakpoint-spacing-button-s); }
 
-.icon-trailing.size-l { padding: var(--spacing-spacing-xs) var(--spacing-spacing-s) var(--spacing-spacing-xs) var(--spacing-spacing-m); }
-.icon-trailing.size-xl { padding: var(--spacing-spacing-s) var(--spacing-spacing-s) var(--spacing-spacing-s) var(--spacing-spacing-m); }
+.icon-trailing.size-l { padding: var(--breakpoint-spacing-button-xs) var(--breakpoint-spacing-button-s) var(--breakpoint-spacing-button-xs) var(--breakpoint-spacing-button-m); }
+.icon-trailing.size-xl { padding: var(--breakpoint-spacing-button-s) var(--breakpoint-spacing-button-s) var(--breakpoint-spacing-button-s) var(--breakpoint-spacing-button-m); }
 
 /* Hierarchy: Primary — text color renamed: was --color-interactive-idle-primary-3 */
 .primary {
-  background: var(--color-interactive-idle-primary);
-  color: var(--color-typography-and-icons-interactive-label-idle-primary);
+  background: var(--theme-color-interactive-idle-primary);
+  color: var(--theme-color-font-interactive-idle-primary);
 }
-.primary:hover:not(:disabled) { background: var(--color-interactive-hover-primary); }
+.primary:hover:not(:disabled) { background: var(--theme-color-interactive-hover-primary); }
 
 /* Hierarchy: Secondary — text color renamed: was --color-interactive-idle-secondary-2 */
 .secondary {
   background: transparent;
-  color: var(--color-typography-and-icons-interactive-label-idle-secondary);
-  outline-color: var(--color-typography-and-icons-interactive-label-idle-secondary);
+  color: var(--theme-color-font-interactive-idle-secondary);
+  outline-color: var(--theme-color-font-interactive-idle-secondary);
 }
 .secondary:hover:not(:disabled) {
-  background: var(--color-interactive-hover-secondary);
-  outline-color: var(--color-interactive-hover-secondary);
-  color: var(--color-typography-and-icons-interactive-label-hover-secondary);
+  background: var(--theme-color-interactive-hover-secondary);
+  outline-color: var(--theme-color-interactive-hover-secondary);
+  color: var(--theme-color-font-interactive-hover-secondary);
 }
 
 /* Hierarchy: Tertiary — text color confirmed against Figma's real
@@ -102,8 +105,8 @@
    invisible. */
 .tertiary {
   background: transparent;
-  color: var(--color-typography-and-icons-interactive-label-idle-secondary);
+  color: var(--theme-color-font-interactive-idle-secondary);
 }
 .tertiary:hover:not(:disabled) {
-  background: var(--color-border-shadow);
+  background: var(--theme-color-border-tertiary);
 }

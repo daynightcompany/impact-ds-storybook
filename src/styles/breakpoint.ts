@@ -4,22 +4,20 @@ import { useLayoutEffect } from 'react';
  * Breakpoint mode of the design tokens: Desktop (1920, the default) or
  * Mobile (375).
  *
- * tokens.css ships Mobile as four attribute blocks, one per Figma variable
- * collection. Switching mode means setting all four attributes on <html>
- * (tokens.text-modes.css relies on <html> too); Desktop is simply none of
- * them. The components are not breakpoint-aware themselves: they only read
- * tokens, so every size follows this switch.
+ * tokens.css ships Mobile as a single attribute block,
+ * [data-breakpoint='375-mobile'] (the Figma "breakpoints" collection:
+ * spacing, corner radius, font sizes, viewport). Switching mode means
+ * setting that attribute on <html> (tokens.text-modes.css keys on it too);
+ * Desktop is simply without it. The components are not breakpoint-aware
+ * themselves: they only read tokens, so every size follows this switch.
  *
- * If the attribute names change after a tokens re-export, update
+ * If the attribute name changes after a tokens re-export, update
  * MOBILE_ATTRIBUTES. Nothing else needs to change.
  */
 export type BreakpointMode = 'desktop' | 'mobile';
 
 export const MOBILE_ATTRIBUTES: Readonly<Record<string, string>> = {
   'data-breakpoint': '375-mobile',
-  'data-spacing': 'impact-mobile',
-  'data-font': 'impact-mobile',
-  'data-radius': 'impact-mobile',
 };
 
 /** Viewports narrower than this many px use the Mobile tokens. */

@@ -3,36 +3,38 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius-radius-rounded);
+  border-radius: var(--breakpoint-cornerradius-rounded);
   white-space: nowrap;
 }
 
+/* Spacing uses the button group spacing/button/*
+   (--breakpoint-spacing-button-*), as in Figma Base/Label. */
 .size-s {
-  gap: var(--spacing-spacing-2xs);
-  padding: var(--spacing-spacing-3xs) var(--spacing-spacing-s);
+  gap: var(--breakpoint-spacing-button-2xs);
+  padding: var(--breakpoint-spacing-button-3xs) var(--breakpoint-spacing-button-s);
   font-family: var(--font-interactive-label-text-md-sans-regular-family), sans-serif;
   font-weight: var(--font-interactive-label-text-md-sans-regular-weight);
   font-size: var(--font-interactive-label-text-md-sans-regular-size);
   line-height: var(--font-interactive-label-text-md-sans-regular-line-height);
 }
-/* Figma Base/Label S with icon: padding 4 / 8 / 4 / 16 (top / right / bottom / left), gap 4 */
+/* Figma Base/Label S with icon: padding 4 / 4 / 4 / 16 (top / right / bottom / left), gap 4 */
 .size-s.has-icon {
-  gap: var(--spacing-spacing-3xs);
-  padding: var(--spacing-spacing-3xs) var(--spacing-spacing-2xs) var(--spacing-spacing-3xs) var(--spacing-spacing-s);
+  gap: var(--breakpoint-spacing-button-3xs);
+  padding: var(--breakpoint-spacing-button-3xs) var(--breakpoint-spacing-button-3xs) var(--breakpoint-spacing-button-3xs) var(--breakpoint-spacing-button-s);
 }
 
 /* L = 56px Desktop / 40px Mobile, with or without icon */
 .size-l {
-  gap: var(--spacing-spacing-2xs);
-  padding: var(--spacing-spacing-xs) var(--spacing-spacing-l);
+  gap: var(--breakpoint-spacing-button-2xs);
+  padding: var(--breakpoint-spacing-button-xs) var(--breakpoint-spacing-button-m);
   font-family: var(--font-interactive-label-text-2xl-sans-regular-family), sans-serif;
   font-weight: var(--font-interactive-label-text-2xl-sans-regular-weight);
   font-size: var(--font-interactive-label-text-2xl-sans-regular-size);
   line-height: var(--font-interactive-label-text-2xl-sans-regular-line-height);
 }
-/* Figma Base/Label L with icon: right padding 16, left stays 32, gap 8 */
+/* Figma Base/Label L with icon: padding 12 / 12 / 12 / 24 (top / right / bottom / left), gap 8 */
 .size-l.has-icon {
-  padding-right: var(--spacing-spacing-s);
+  padding-right: var(--breakpoint-spacing-button-xs);
 }
 
 /* Icon box. S is a fixed 24. L follows spacing/l (32 Desktop, 24 Mobile),
@@ -50,8 +52,8 @@
   height: 100%;
 }
 .size-l .icon {
-  width: var(--spacing-spacing-l);
-  height: var(--spacing-spacing-l);
+  width: var(--breakpoint-spacing-l);
+  height: var(--breakpoint-spacing-l);
 }
 
 /* Tones — measured directly from the Figma documentation page.
@@ -61,17 +63,17 @@
    Fixed accent tones pair with forced-black (theme-invariant) since
    their fills don't shift per theme; gray/dark pair with theme-
    reactive tokens since their fills DO shift per theme. */
-.tone-purple { background: var(--color-supportive-neutral-purple); color: var(--color-interactive-idle-tertiary); }
-.tone-gray   { background: var(--color-background-surface);        color: var(--color-interactive-idle-primary); }
-.tone-dark   { background: var(--color-interactive-idle-primary);  color: var(--color-interactive-idle-tertiary); }
+.tone-purple { background: var(--theme-color-supportive-neutral-purple); color: var(--theme-color-interactive-idle-tertiary); }
+.tone-gray   { background: var(--theme-color-surface-primary);        color: var(--theme-color-interactive-idle-primary); }
+.tone-dark   { background: var(--theme-color-interactive-idle-primary);  color: var(--theme-color-interactive-idle-tertiary); }
 
-.tone-warning { background: var(--color-supportive-semantic-warning); color: var(--color-supportive-neutral-forced-black); }
-.tone-error   { background: var(--color-supportive-semantic-error);   color: var(--color-supportive-neutral-forced-black); }
-.tone-success { background: var(--color-supportive-semantic-success); color: var(--color-supportive-neutral-forced-black); }
+.tone-warning { background: var(--theme-color-supportive-feedback-warning); color: var(--theme-color-supportive-neutral-forcedblack); }
+.tone-error   { background: var(--theme-color-supportive-feedback-error);   color: var(--theme-color-supportive-neutral-forcedblack); }
+.tone-success { background: var(--theme-color-supportive-feedback-success); color: var(--theme-color-supportive-neutral-forcedblack); }
 
-.tone-orange { background: var(--color-supportive-neutral-orange); color: var(--color-supportive-neutral-forced-black); }
-.tone-salad  { background: var(--color-supportive-neutral-salad);  color: var(--color-supportive-neutral-forced-black); }
-.tone-ochre  { background: var(--color-supportive-neutral-ochre);  color: var(--color-supportive-neutral-forced-black); }
-.tone-azure  { background: var(--color-supportive-neutral-azure);  color: var(--color-supportive-neutral-forced-black); }
-.tone-pink   { background: var(--color-supportive-neutral-pink);   color: var(--color-supportive-neutral-forced-black); }
-.tone-wine   { background: var(--color-supportive-neutral-wine);   color: var(--color-supportive-neutral-forced-black); }
+.tone-orange { background: var(--theme-color-supportive-neutral-orange); color: var(--theme-color-supportive-neutral-forcedblack); }
+.tone-salad  { background: var(--theme-color-supportive-neutral-salad);  color: var(--theme-color-supportive-neutral-forcedblack); }
+.tone-ochre  { background: var(--theme-color-supportive-neutral-ochre);  color: var(--theme-color-supportive-neutral-forcedblack); }
+.tone-azure  { background: var(--theme-color-supportive-neutral-azure);  color: var(--theme-color-supportive-neutral-forcedblack); }
+.tone-pink   { background: var(--theme-color-supportive-neutral-pink);   color: var(--theme-color-supportive-neutral-forcedblack); }
+.tone-wine   { background: var(--theme-color-supportive-neutral-wine);   color: var(--theme-color-supportive-neutral-forcedblack); }

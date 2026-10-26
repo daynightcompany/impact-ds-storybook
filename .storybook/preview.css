@@ -1,0 +1,9 @@
+/* Storybook-only styles. Kept out of the generated tokens.css so a
+   re-export never drops them. */
+
+/* Storybook Docs mode sets its own background on this class; override
+   it so the Day/Night/SMAL switcher is reflected there too, not just
+   in Canvas view. */
+.sbdocs-preview {
+  background: var(--theme-color-background-primary) !important;
+}

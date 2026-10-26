@@ -3,6 +3,8 @@ import styles from './Label.module.css';
 import { Icon } from '../Icon';
 import '../../styles/tokens.css';
 import '../../styles/tokens.text-modes.css';
+// Hand-maintained companion to tokens.css: font import + alpha-color stopgap.
+import '../../styles/tokens.extras.css';
 
 /**
  * Figma size ladder (Desktop height):

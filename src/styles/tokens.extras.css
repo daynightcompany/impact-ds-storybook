@@ -1,0 +1,37 @@
+/* Hand-maintained companion to the generated tokens.css. Load it right
+   after tokens.css. A re-export only replaces tokens.css, so everything
+   here survives it.
+
+   1. FONTS (permanent). The plugin export has no font import, and a
+      missing font silently falls back to a system font.
+
+   2. ALPHA COLORS (stopgap). In Figma these three variables are a color
+      whose opacity is bound to another variable (theme/opacity/NN). The
+      plugin can't serialize that shape yet, so tokens.css has
+      #NaNNaNNaN for them, which also voids every --shadow-shadow-*.
+      Values below were read from Figma (theme collection, all three
+      modes); the opacity step is in each comment.
+      REMOVE section 2 once a re-export no longer contains "NaN"
+      (check: grep -n NaN src/styles/tokens.css). Not auto-generated:
+      re-read values from Figma instead of hand-editing them. */
+
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Instrument+Serif:ital@0;1&display=swap');
+
+/* IMPACT day */
+:root {
+  --theme-color-interactive-idle-secondary: rgb(255 255 255 / 0%); /* opacity/0 */
+  --theme-color-interactive-hover-stroke: rgb(0 0 0 / 50%); /* opacity/50 */
+  --theme-color-border-tertiary: rgb(29 31 31 / 20%); /* opacity/20 */
+}
+
+[data-theme='impact-night-mode'] {
+  --theme-color-interactive-idle-secondary: rgb(0 0 0 / 0%); /* opacity/0 */
+  --theme-color-interactive-hover-stroke: rgb(255 255 255 / 50%); /* opacity/50 */
+  --theme-color-border-tertiary: rgb(217 225 231 / 30%); /* opacity/30 */
+}
+
+[data-theme='smal'] {
+  --theme-color-interactive-idle-secondary: rgb(28 28 30 / 0%); /* opacity/0 */
+  --theme-color-interactive-hover-stroke: rgb(28 28 30 / 50%); /* opacity/50 */
+  --theme-color-border-tertiary: rgb(186 186 186 / 10%); /* opacity/10 */
+}

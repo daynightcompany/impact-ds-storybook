@@ -66,13 +66,14 @@ Actions tab → green checkmark, then check the permanent link:
   border adds to the element's outer size even with `box-sizing:
   border-box`, unless width/height are explicitly set
 - **Typography**: `font-interactive-label-text-*` tokens for any
-  interactive control label — not the generic `font-text-size-*` scale
+  interactive control label — not the generic `breakpoint-fontsize-*` scale
 - **Sizing**: explicit `line-height` per size, `box-sizing: border-box`,
   padding/gap verified against Figma's actual Hug dimensions — never
   assumed from a token's name alone
 - **Fonts**: confirm the referenced font is actually imported in
-  `tokens.css` — a missing font fails silently into a wrong-looking
-  fallback, it doesn't error
+  `tokens.extras.css` (the generated `tokens.css` has no font import)
+  — a missing font fails silently into a wrong-looking fallback, it
+  doesn't error
 - **Accessibility**: real form controls (Checkbox, Radiobutton, etc.)
   build on the actual native element (`<input>`), visually hidden but
   still focusable
@@ -83,9 +84,9 @@ Actions tab → green checkmark, then check the permanent link:
   reorganized upstream. Always re-verify against a fresh Figma pull,
   never assume a name survives.
 - **Contrast-paired tokens, not "a light/dark color."** For any icon
-  or text sitting on top of `--color-interactive-idle-primary` (a
+  or text sitting on top of `--theme-color-interactive-idle-primary` (a
   colored fill), use the token specifically paired to contrast against
-  it — `--color-typography-and-icons-interactive-label-idle-primary` —
+  it — `--theme-color-font-interactive-idle-primary` —
   not a generically "light" or "dark" token. This matters most for
   themes with unusual fill colors (e.g. SMAL's pastel purple), where a
   plain white/black guess can have poor contrast even though it looks
