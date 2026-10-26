@@ -2,8 +2,14 @@ import type { HTMLAttributes, ReactNode } from 'react';
 import styles from './Label.module.css';
 import { Icon } from '../Icon';
 import '../../styles/tokens.css';
+import '../../styles/tokens.text-modes.css';
 
-export type LabelSize = 'S' | 'M';
+/**
+ * Figma size ladder (Desktop height):
+ * S = 32px (32px on Mobile), L = 56px (40px on Mobile).
+ * Mobile values come from the breakpoint tokens, not from a prop.
+ */
+export type LabelSize = 'S' | 'L';
 export type LabelTone =
   | 'purple'   // component's own true default (fill + white text)
   | 'gray'     // documented override: light surface fill + dark text
@@ -21,10 +27,11 @@ export interface LabelProps extends HTMLAttributes<HTMLSpanElement> {
 
 /**
  * Impact DS Label — converted from the Figma "Base/Label" component
- * (node 2801:25227). This is a purple pill/tag, not an HTML form-field
+ * (node 9587:4638 in the SMAL Impact Design System (Public) Figma file).
+ * This is a purple pill/tag, not an HTML form-field
  * <label> — Figma's naming, not a semantic form label.
  *
- * Figma's own component only defines Size (S/M) and Icon (true/false)
+ * Figma's own component only defines Size (S/L) and Icon (true/false)
  * as real variants — there is no formal color/hierarchy variant.
  * The documentation page separately demonstrates a set of approved
  * manual fill overrides (a light/dark pair, plus a palette of
@@ -53,7 +60,7 @@ export function Label({
     .filter(Boolean)
     .join(' ');
 
-  const iconSize = size === 'M' ? 32 : 24;
+  const iconSize = size === 'L' ? 32 : 24;
 
   return (
     <span className={classes} {...rest}>

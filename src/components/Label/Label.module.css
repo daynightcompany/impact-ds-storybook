@@ -15,12 +15,14 @@
   font-size: var(--font-interactive-label-text-md-sans-regular-size);
   line-height: var(--font-interactive-label-text-md-sans-regular-line-height);
 }
+/* Figma Base/Label S with icon: padding 4 / 12 / 4 / 24, gap 4 */
 .size-s.has-icon {
   gap: var(--spacing-spacing-3xs);
-  padding-right: var(--spacing-spacing-2xs);
+  padding: var(--spacing-spacing-3xs) var(--spacing-spacing-xs) var(--spacing-spacing-3xs) var(--spacing-spacing-m);
 }
 
-.size-m {
+/* L = 56px Desktop / 40px Mobile (text only) */
+.size-l {
   gap: var(--spacing-spacing-2xs);
   padding: var(--spacing-spacing-xs) var(--spacing-spacing-l);
   font-family: var(--font-interactive-label-text-2xl-sans-regular-family), sans-serif;
@@ -28,7 +30,7 @@
   font-size: var(--font-interactive-label-text-2xl-sans-regular-size);
   line-height: var(--font-interactive-label-text-2xl-sans-regular-line-height);
 }
-.size-m.has-icon {
+.size-l.has-icon {
   padding-right: var(--spacing-spacing-s);
 }
 

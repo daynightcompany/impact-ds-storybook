@@ -17,15 +17,19 @@
   cursor: not-allowed;
 }
 
-.size-m {
-  padding: var(--spacing-spacing-2xs) var(--spacing-spacing-s);
-  font-family: var(--font-interactive-label-text-lg-sans-regular-family), sans-serif;
-  font-weight: var(--font-interactive-label-text-lg-sans-regular-weight);
-  font-size: var(--font-interactive-label-text-lg-sans-regular-size);
-  line-height: var(--font-interactive-label-text-lg-sans-regular-line-height);
-  gap: var(--spacing-spacing-2xs);
-}
+/* Sizes follow the Figma ladder (Base/Button). Every spacing and text
+   value below is a token that switches with the Mobile breakpoint mode:
+     L  = 56px Desktop / 40px Mobile
+     XL = 64px Desktop / 56px Mobile (text buttons) */
 .size-l {
+  padding: var(--spacing-spacing-xs) var(--spacing-spacing-m);
+  font-family: var(--font-interactive-label-text-xl-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-xl-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-xl-sans-regular-size);
+  line-height: var(--font-interactive-label-text-xl-sans-regular-line-height);
+  gap: var(--spacing-spacing-xs);
+}
+.size-xl {
   padding: var(--spacing-spacing-s) var(--spacing-spacing-m);
   font-family: var(--font-interactive-label-text-2xl-sans-regular-family), sans-serif;
   font-weight: var(--font-interactive-label-text-2xl-sans-regular-weight);
@@ -34,14 +38,21 @@
   gap: var(--spacing-spacing-xs);
 }
 
-.icon-only.size-m { padding: var(--spacing-spacing-2xs); }
-.icon-only.size-l { padding: var(--spacing-spacing-s); }
+/* Icon only: padding plus a minimum size, exactly as in Figma, so it stays
+   as tall as text L in both modes. Desktop 12 + 24 + 12 = 48 is lifted to
+   the 56 minimum; Mobile 8 + 24 + 8 = 40 sits above the 32 minimum. */
+.icon-only.size-l {
+  padding: var(--spacing-spacing-xs);
+  min-width: var(--spacing-spacing-3xl);
+  min-height: var(--spacing-spacing-3xl);
+}
+.icon-only.size-xl { padding: var(--spacing-spacing-s); }
 
-.icon-leading.size-m { padding: var(--spacing-spacing-2xs) var(--spacing-spacing-s) var(--spacing-spacing-2xs) var(--spacing-spacing-2xs); }
-.icon-leading.size-l { padding: var(--spacing-spacing-s) var(--spacing-spacing-m) var(--spacing-spacing-s) var(--spacing-spacing-s); }
+.icon-leading.size-l { padding: var(--spacing-spacing-xs) var(--spacing-spacing-m) var(--spacing-spacing-xs) var(--spacing-spacing-xs); }
+.icon-leading.size-xl { padding: var(--spacing-spacing-s) var(--spacing-spacing-m) var(--spacing-spacing-s) var(--spacing-spacing-s); }
 
-.icon-trailing.size-m { padding: var(--spacing-spacing-2xs) var(--spacing-spacing-2xs) var(--spacing-spacing-2xs) var(--spacing-spacing-s); }
-.icon-trailing.size-l { padding: var(--spacing-spacing-s) var(--spacing-spacing-s) var(--spacing-spacing-s) var(--spacing-spacing-m); }
+.icon-trailing.size-l { padding: var(--spacing-spacing-xs) var(--spacing-spacing-xs) var(--spacing-spacing-xs) var(--spacing-spacing-m); }
+.icon-trailing.size-xl { padding: var(--spacing-spacing-s) var(--spacing-spacing-s) var(--spacing-spacing-s) var(--spacing-spacing-m); }
 
 /* Hierarchy: Primary — text color renamed: was --color-interactive-idle-primary-3 */
 .primary {

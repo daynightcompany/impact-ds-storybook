@@ -112,8 +112,20 @@ Actions tab → green checkmark, then check the permanent link:
   switcher — stacking two `withThemeByDataAttribute` calls silently
   overwrites the first instead of adding a second toolbar item. This
   is a confirmed limitation of the addon itself, not a config mistake.
-  A second independent axis (e.g. device/breakpoint) needs a more
-  involved custom decorator to coexist properly.
+  The second independent axis, **Breakpoint** (Desktop / Mobile), is a
+  `globalTypes` toolbar item plus a small custom decorator
+  (`withBreakpoint` in `.storybook/preview.tsx`). It follows the
+  addon's own pattern — `useEffect` setting attributes on `<html>`, no
+  wrapper `<div>` — so it updates in Docs as well as Canvas. The
+  attribute names live in one `MOBILE_ATTRIBUTES` object in
+  `src/styles/breakpoint.ts` (shared with the `useBreakpointTokens` hook
+  that apps use); update it if a tokens re-export renames them.
+  Storybook follows the toolbar, not the preview width, so the Viewport
+  tool alone doesn't switch modes.
+- Chromatic snapshots Desktop only by default. The stories that show
+  the size ladder (Button → `AllVariants`, Label → `AllSizes`) opt into
+  a second `mobile` mode with `parameters.chromatic.modes`. Keep it to
+  those stories so the snapshot count doesn't double.
 - Canvas view's story root is `#storybook-root`; Docs view's embedded
   preview boxes use a different class, `.sbdocs-preview` — a global
   background/color rule needs to target both (with `!important` on

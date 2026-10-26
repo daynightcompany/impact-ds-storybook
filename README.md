@@ -23,6 +23,8 @@ npm run build-storybook # static build
 npm run chromatic       # publish to Chromatic manually (CI does this automatically on push to main)
 ```
 
+`npm run chromatic` reads the project token from the `CHROMATIC_PROJECT_TOKEN` environment variable (CI uses the repository secret of the same name). Never commit the token to `package.json`.
+
 ## Design tokens
 
 `src/styles/tokens.css` is the full, authoritative token set for the whole library — every color, font, spacing, radius, shadow and blur value, sourced directly from Figma rather than hand-typed.
@@ -43,12 +45,28 @@ Color ships three modes, switchable live from the Storybook toolbar:
 | Night | `impact-night-mode` |
 | SMAL | `smal` |
 
+Spacing, radius and text sizes also have a **Mobile** mode (375); Desktop (1920) is the default. The components only read tokens, so every size follows the mode.
+
+- **In Storybook**, switch it with the **Breakpoint** item in the toolbar. It follows the toolbar, not the preview width, so the Viewport tool alone doesn't change it.
+- **In an app**, call the `useBreakpointTokens()` hook once near the root. It follows the viewport width: Mobile below 768px, Desktop at 768px and up.
+
+  ```tsx
+  import { useBreakpointTokens } from './styles/breakpoint';
+
+  export default function App() {
+    useBreakpointTokens();
+    // ...
+  }
+  ```
+
+Both set `data-breakpoint`, `data-spacing`, `data-font` and `data-radius` on `<html>`. Those names live in one place, `MOBILE_ATTRIBUTES` in `src/styles/breakpoint.ts`; update it if a tokens re-export renames them. Mobile text-style values that the plugin does not export per mode yet live in `src/styles/tokens.text-modes.css`.
+
 ## Status
 
 | Component | Status |
 |---|---|
-| Button | ✅ Implemented — all hierarchies (Primary/Secondary/Tertiary) × sizes (M/L) × icon layouts × states |
-| Label | ✅ Implemented — sizes (S/M) × icon × tone |
+| Button | ✅ Implemented — all hierarchies (Primary/Secondary/Tertiary) × sizes (L/XL) × icon layouts × states, Desktop and Mobile |
+| Label | ✅ Implemented — sizes (S/L) × icon × tone, Desktop and Mobile |
 | Checkbox | ✅ Implemented — all states |
 | Radiobutton | ✅ Implemented — all states |
 | Switch | ✅ Implemented — sizes (S/M/L) × states |
@@ -66,6 +84,8 @@ Every push to `main` runs [`.github/workflows/chromatic.yml`](.github/workflows/
 src/
   styles/
     tokens.css          # full design-token set — see "Design tokens" above
+    tokens.text-modes.css  # Mobile text-style values (stopgap, see "Design tokens")
+    breakpoint.ts       # Desktop/Mobile switch: attribute names + useBreakpointTokens hook
   components/
     Button/
     Label/
