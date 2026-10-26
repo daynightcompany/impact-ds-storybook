@@ -67,10 +67,12 @@
 }
 .icon-only.size-xl { padding: var(--spacing-spacing-s); }
 
-.icon-leading.size-l { padding: var(--spacing-spacing-xs) var(--spacing-spacing-m) var(--spacing-spacing-xs) var(--spacing-spacing-xs); }
+/* With an icon: the icon side takes spacing/s (16) in both sizes and the text
+   side keeps spacing/m (24), as in Figma Base/Button. */
+.icon-leading.size-l { padding: var(--spacing-spacing-xs) var(--spacing-spacing-m) var(--spacing-spacing-xs) var(--spacing-spacing-s); }
 .icon-leading.size-xl { padding: var(--spacing-spacing-s) var(--spacing-spacing-m) var(--spacing-spacing-s) var(--spacing-spacing-s); }
 
-.icon-trailing.size-l { padding: var(--spacing-spacing-xs) var(--spacing-spacing-xs) var(--spacing-spacing-xs) var(--spacing-spacing-m); }
+.icon-trailing.size-l { padding: var(--spacing-spacing-xs) var(--spacing-spacing-s) var(--spacing-spacing-xs) var(--spacing-spacing-m); }
 .icon-trailing.size-xl { padding: var(--spacing-spacing-s) var(--spacing-spacing-s) var(--spacing-spacing-s) var(--spacing-spacing-m); }
 
 /* Hierarchy: Primary — text color renamed: was --color-interactive-idle-primary-3 */
