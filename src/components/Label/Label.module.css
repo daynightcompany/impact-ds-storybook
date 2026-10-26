@@ -34,6 +34,25 @@
   padding-right: var(--spacing-spacing-s);
 }
 
+/* Icon box. S is a fixed 24. L follows spacing/l (32 Desktop, 24 Mobile),
+   the same variable as the text line height, so a label with an icon keeps
+   the height of one without. Whatever sits inside (the default Icon or a
+   custom iconElement) fills the box. */
+.icon {
+  display: inline-flex;
+  flex: none;
+  width: 24px;
+  height: 24px;
+}
+.icon > * {
+  width: 100%;
+  height: 100%;
+}
+.size-l .icon {
+  width: var(--spacing-spacing-l);
+  height: var(--spacing-spacing-l);
+}
+
 /* Tones — measured directly from the Figma documentation page.
    "purple" is the component's own true, unmodified default (white
    text). Every other tone is a documented manual-override example

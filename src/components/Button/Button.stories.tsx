@@ -15,7 +15,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Base/Button" component (node 9587:3078) in the SMAL Impact Design System file. Source of truth for variants: Figma. Sizes follow the Figma ladder: L is 56px tall (40px on Mobile), XL is 64px (56px on Mobile for text buttons). Use the Breakpoint switch in the toolbar to see the Mobile values.',
+          'Converted from the Figma "Base/Button" component (node 9587:3078) in the SMAL Impact Design System file. Source of truth for variants: Figma. Sizes follow the Figma ladder: L is 56px tall (40px on Mobile), XL is 64px (56px on Mobile); every layout of a size has the same height. Use the Breakpoint switch in the toolbar to see the Mobile values.',
       },
     },
   },

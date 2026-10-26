@@ -20,7 +20,7 @@
 /* Sizes follow the Figma ladder (Base/Button). Every spacing and text
    value below is a token that switches with the Mobile breakpoint mode:
      L  = 56px Desktop / 40px Mobile
-     XL = 64px Desktop / 56px Mobile (text buttons) */
+     XL = 64px Desktop / 56px Mobile */
 .size-l {
   padding: var(--spacing-spacing-xs) var(--spacing-spacing-m);
   font-family: var(--font-interactive-label-text-xl-sans-regular-family), sans-serif;
@@ -36,6 +36,25 @@
   font-size: var(--font-interactive-label-text-2xl-sans-regular-size);
   line-height: var(--font-interactive-label-text-2xl-sans-regular-line-height);
   gap: var(--spacing-spacing-xs);
+}
+
+/* Icon box. L is a fixed 24. XL follows spacing/l (32 Desktop, 24 Mobile),
+   the same variable as the text line height, so icon and text buttons share
+   one height in both modes. Whatever sits inside (the default Icon or a
+   custom iconElement) fills the box. */
+.icon {
+  display: inline-flex;
+  flex: none;
+  width: 24px;
+  height: 24px;
+}
+.icon > * {
+  width: 100%;
+  height: 100%;
+}
+.size-xl .icon {
+  width: var(--spacing-spacing-l);
+  height: var(--spacing-spacing-l);
 }
 
 /* Icon only: padding plus a minimum size, exactly as in Figma, so it stays

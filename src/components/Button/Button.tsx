@@ -7,8 +7,11 @@ import '../../styles/tokens.text-modes.css';
 export type ButtonHierarchy = 'Primary' | 'Secondary' | 'Tertiary';
 /**
  * Figma size ladder (Desktop height):
- * L = 56px (40px on Mobile), XL = 64px (56px on Mobile for text buttons).
+ * L = 56px (40px on Mobile), XL = 64px (56px on Mobile).
  * Mobile values come from the breakpoint tokens, not from a prop.
+ * Every layout of a size (text, icon leading/trailing, icon only) has the
+ * same height: the XL icon follows spacing/l (32 Desktop, 24 Mobile), the
+ * same variable as the text line height.
  */
 export type ButtonSize = 'L' | 'XL';
 export type ButtonIcon = 'False' | 'Leading' | 'Trailing' | 'Only';
@@ -60,8 +63,10 @@ export function Button({
     .filter(Boolean)
     .join(' ');
 
+  // The box is sized by CSS tokens (see .icon in Button.module.css); the
+  // number is only the glyph's intrinsic size before CSS applies.
   const iconSize = size === 'XL' ? 32 : 24;
-  const iconNode = iconElement ?? <Icon size={iconSize} />;
+  const iconNode = <span className={styles.icon}>{iconElement ?? <Icon size={iconSize} />}</span>;
 
   return (
     <button className={classes} disabled={disabled} {...rest}>

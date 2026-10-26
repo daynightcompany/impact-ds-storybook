@@ -8,6 +8,8 @@ import '../../styles/tokens.text-modes.css';
  * Figma size ladder (Desktop height):
  * S = 32px (32px on Mobile), L = 56px (40px on Mobile).
  * Mobile values come from the breakpoint tokens, not from a prop.
+ * With or without an icon a size has the same height: the L icon follows
+ * spacing/l (32 Desktop, 24 Mobile), the same variable as the text line height.
  */
 export type LabelSize = 'S' | 'L';
 export type LabelTone =
@@ -60,12 +62,14 @@ export function Label({
     .filter(Boolean)
     .join(' ');
 
+  // The box is sized by CSS tokens (see .icon in Label.module.css); the
+  // number is only the glyph's intrinsic size before CSS applies.
   const iconSize = size === 'L' ? 32 : 24;
 
   return (
     <span className={classes} {...rest}>
       <span>{children}</span>
-      {icon && (iconElement ?? <Icon size={iconSize} />)}
+      {icon && <span className={styles.icon}>{iconElement ?? <Icon size={iconSize} />}</span>}
     </span>
   );
 }
