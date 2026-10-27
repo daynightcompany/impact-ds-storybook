@@ -1,0 +1,36 @@
+/* The positioned shell of a popup that opens from an element (no Figma
+   counterpart). With the Popover API it is in the browser's top layer, so it
+   needs no z-index and no ancestor can clip it; Popover.tsx sets top / left
+   (px) and --popover-max-height / --popover-width against the anchor.
+
+   Do not set `display` on the base rule: the UA hides a closed [popover] with
+   `display: none`, and an author `display` would override that. */
+.popover {
+  position: fixed;
+  inset: auto;
+  box-sizing: border-box;
+  width: var(--popover-width, max-content);
+  max-width: calc(100vw - 16px);
+  max-height: var(--popover-max-height, none);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: visible;
+  background: transparent;
+  color: inherit;
+  outline: none;
+}
+.popover:popover-open {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Browsers without the Popover API: a fixed box above the page. */
+.fallback {
+  z-index: 1000;
+  display: none;
+}
+.fallback[data-open='true'] {
+  display: flex;
+  flex-direction: column;
+}

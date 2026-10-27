@@ -1,0 +1,74 @@
+/* Figma "cell selector": a row of icon, text and selector, 12px apart
+   (spacing/xs), 12px above and below (spacing/xs) and no padding at the sides.
+   Desktop 48px (64px with a subtitle); Mobile 40px (56px) because spacing/xs
+   drops to 8. The width is the container's. */
+.cell {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: var(--breakpoint-spacing-xs);
+  width: 100%;
+  padding: var(--breakpoint-spacing-xs) var(--breakpoint-spacing-none);
+  color: var(--theme-color-font-interactive-idle-secondary);
+}
+
+.icon {
+  display: inline-flex;
+  flex: none;
+  width: 24px;
+  height: 24px;
+}
+.icon > * {
+  width: 100%;
+  height: 100%;
+}
+
+.text {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* Title: MD regular, or MD semibold when there is a subtitle. */
+.title {
+  font-family: var(--font-interactive-label-text-md-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-md-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-md-sans-regular-size);
+  line-height: var(--font-interactive-label-text-md-sans-regular-line-height);
+}
+.hasSubtitle .title {
+  font-family: var(--font-interactive-label-text-md-sans-semibold-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-md-sans-semibold-weight);
+  font-size: var(--font-interactive-label-text-md-sans-semibold-size);
+  line-height: var(--font-interactive-label-text-md-sans-semibold-line-height);
+}
+
+.subtitle {
+  font-family: var(--font-interactive-label-text-xs-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-xs-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-xs-sans-regular-size);
+  line-height: var(--font-interactive-label-text-xs-sans-regular-line-height);
+}
+
+.selector {
+  display: inline-flex;
+  flex: none;
+}
+
+/* The control's label is stretched over the whole row, so a click anywhere on
+   it toggles the input. The control stays above the text in the tab order. */
+.control::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.disabled .icon,
+.disabled .text {
+  opacity: 0.3;
+}
+.disabled {
+  cursor: not-allowed;
+}

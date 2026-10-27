@@ -1,0 +1,54 @@
+/* Figma "Popup/Dropdown" (node 9723:19631): vertical, 24px (spacing/m) padding
+   and gap, primary background, corner radius m, Shadow M, clipped.
+
+   Width: 688px in Figma. It follows --popover-width when a Popover sets it (the
+   popup is as wide as its anchor), else --popup-width (the `width` prop), and
+   never exceeds the space it is in.
+
+   Height: as tall as the parts. Inside a Popover that limits the height, the
+   panel shrinks and only the list scrolls. */
+.popup {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--breakpoint-spacing-m);
+  width: var(--popover-width, var(--popup-width, 688px));
+  max-width: 100%;
+  min-height: 0;
+  padding: var(--breakpoint-spacing-m);
+  overflow: hidden;
+  border-radius: var(--breakpoint-cornerradius-m);
+  background: var(--theme-color-background-primary);
+  box-shadow: var(--shadow-shadow-m);
+  color: var(--theme-color-font-interactive-idle-secondary);
+}
+
+/* Search, Tabs and Footer keep their height. */
+.fixed {
+  flex: none;
+  min-width: 0;
+}
+
+/* The tab row scrolls sideways when the tabs are wider than the popup. */
+.tabs {
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar {
+  display: none;
+}
+
+/* The Footer instance has no padding of its own inside the popup. */
+.footer {
+  --dialog-footer-padding: 0;
+}
+
+/* The list takes the rest of the height and scrolls. The 4px of padding, taken
+   back by the negative margin, keep the focus rings of the cells from being cut. */
+.list {
+  flex: 1 1 auto;
+  min-height: 0;
+  margin: -4px;
+  padding: 4px;
+  overflow-y: auto;
+}

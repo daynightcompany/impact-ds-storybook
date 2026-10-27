@@ -1,0 +1,93 @@
+/* Figma "Dialog/Header": 16px (spacing/s) padding on the white background, a
+   24px row. Inside a Dialog or Popup the instance padding is overridden to
+   none, here through --dialog-header-padding. */
+.header {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--breakpoint-spacing-s);
+  width: 100%;
+  padding: var(--dialog-header-padding, var(--breakpoint-spacing-s));
+  background: var(--theme-color-background-primary);
+  color: var(--theme-color-font-interactive-idle-secondary);
+}
+
+.container {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+/* Left and right groups grow equally, so the title stays centred. */
+.left,
+.right {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  min-width: 0;
+}
+.left {
+  gap: var(--breakpoint-spacing-2xs);
+}
+.right {
+  justify-content: flex-end;
+  gap: var(--breakpoint-spacing-xs);
+}
+.additional {
+  display: flex;
+  align-items: center;
+  gap: var(--breakpoint-spacing-xs);
+}
+
+/* Title: LG regular (18/24 Desktop, 16/24 Mobile), centred. */
+.title {
+  flex: 0 1 auto;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  font-family: var(--font-interactive-label-text-lg-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-lg-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-lg-sans-regular-size);
+  line-height: var(--font-interactive-label-text-lg-sans-regular-line-height);
+  color: var(--theme-color-font-interactive-idle-secondary);
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 24px icon holder (the Figma "icons" instance). */
+.iconButton,
+.placeholder {
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: var(--breakpoint-cornerradius-rounded);
+  background: none;
+  color: var(--theme-color-font-interactive-idle-secondary);
+}
+.iconButton {
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+.iconButton:hover {
+  background: var(--theme-color-border-tertiary);
+}
+.iconButton:focus-visible {
+  outline: 2px solid var(--theme-color-interactive-idle-primary);
+  outline-offset: 2px;
+}
+.iconButton > svg,
+.placeholder > svg {
+  width: 100%;
+  height: 100%;
+}

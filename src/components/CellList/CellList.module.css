@@ -1,0 +1,85 @@
+/* Figma "cell list": a row of icon (or avatar), text, label and chevron,
+   12px apart (spacing/xs), 12px above and below (spacing/xs) and no padding at
+   the sides. Desktop 48px (64px with a subtitle); Mobile 40px (56px) because
+   spacing/xs drops to 8. With an avatar and no subtitle the vertical padding is
+   spacing/3xs (4px) so the 40px avatar still makes a 48px row. The width is the
+   container's. */
+.cell {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: var(--breakpoint-spacing-xs);
+  width: 100%;
+  margin: 0;
+  padding: var(--breakpoint-spacing-xs) var(--breakpoint-spacing-none);
+  border: none;
+  background: none;
+  color: var(--theme-color-font-interactive-idle-secondary);
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+.hasAvatar:not(.hasSubtitle) {
+  padding-block: var(--breakpoint-spacing-3xs);
+}
+
+.icon {
+  display: inline-flex;
+  flex: none;
+  width: 24px;
+  height: 24px;
+}
+.icon > * {
+  width: 100%;
+  height: 100%;
+}
+
+.avatar {
+  display: inline-flex;
+  flex: none;
+}
+
+.text {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* Title: MD regular, or MD semibold when there is a subtitle. */
+.title {
+  font-family: var(--font-interactive-label-text-md-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-md-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-md-sans-regular-size);
+  line-height: var(--font-interactive-label-text-md-sans-regular-line-height);
+}
+.hasSubtitle .title {
+  font-family: var(--font-interactive-label-text-md-sans-semibold-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-md-sans-semibold-weight);
+  font-size: var(--font-interactive-label-text-md-sans-semibold-size);
+  line-height: var(--font-interactive-label-text-md-sans-semibold-line-height);
+}
+
+.subtitle,
+.label {
+  font-family: var(--font-interactive-label-text-xs-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-xs-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-xs-sans-regular-size);
+  line-height: var(--font-interactive-label-text-xs-sans-regular-line-height);
+}
+.label {
+  flex: none;
+  white-space: nowrap;
+}
+
+.disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Keyboard focus: a ring 2px outside the row. */
+.cell:focus-visible {
+  outline: 2px solid var(--theme-color-interactive-idle-primary);
+  outline-offset: 2px;
+}

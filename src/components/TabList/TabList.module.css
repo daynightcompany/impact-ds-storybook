@@ -1,0 +1,18 @@
+.list {
+  box-sizing: border-box;
+  display: flex;
+  gap: var(--breakpoint-spacing-button-2xs);
+}
+
+/* Figma Position=Horizontal: a row that fills its container, tabs at the start. */
+.horizontal {
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+/* Figma Position=Vertical: a column that hugs its widest tab. */
+.vertical {
+  flex-direction: column;
+  align-items: flex-start;
+  width: fit-content;
+}

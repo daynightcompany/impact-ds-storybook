@@ -1,0 +1,118 @@
+/* Figma "Spinbox": 56px high, hugging its width. A 62px number container (the
+   value, 16px around it), a 1px divider (border/primary) and a 32px spin
+   container with the up and down chevrons (4px above and below, 24px each).
+   The stroke is 1px border/primary drawn inside, radius cornerRadius/m, on the
+   background. Hover, Focus and Disabled follow the Input field. */
+.spinbox {
+  --spinbox-stroke-color: var(--theme-color-border-primary);
+  --spinbox-stroke-width: var(--theme-borderstroke-s);
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: stretch;
+  height: 56px;
+  overflow: hidden;
+  border-radius: var(--breakpoint-cornerradius-m);
+  background: var(--theme-color-background-primary);
+  color: var(--theme-color-font-interactive-idle-secondary);
+  outline: var(--spinbox-stroke-width) solid var(--spinbox-stroke-color);
+  outline-offset: calc(-1 * var(--spinbox-stroke-width));
+}
+.spinbox:hover,
+.spinbox[data-state='hover'] {
+  --spinbox-stroke-color: var(--theme-color-interactive-hover-primary);
+}
+.spinbox:focus-within,
+.spinbox[data-state='focus'] {
+  --spinbox-stroke-color: var(--theme-color-font-interactive-idle-secondary);
+  --spinbox-stroke-width: var(--theme-borderstroke-m);
+}
+.spinbox.disabled {
+  --spinbox-stroke-color: var(--theme-color-border-primary);
+  --spinbox-stroke-width: var(--theme-borderstroke-s);
+  opacity: 0.5;
+}
+
+.number {
+  box-sizing: border-box;
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  min-width: 62px;
+  padding: var(--breakpoint-spacing-s);
+  cursor: text;
+}
+
+/* The value: MD regular, as wide as its digits. */
+.value {
+  box-sizing: content-box;
+  min-width: 1ch;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: var(--theme-color-font-interactive-idle-secondary);
+  font-family: var(--font-interactive-label-text-md-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-md-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-md-sans-regular-size);
+  line-height: var(--font-interactive-label-text-md-sans-regular-line-height);
+  height: var(--font-interactive-label-text-md-sans-regular-line-height);
+  text-align: center;
+  outline: none;
+  appearance: none;
+}
+.value:disabled {
+  color: inherit;
+  -webkit-text-fill-color: currentcolor;
+  cursor: not-allowed;
+}
+
+.divider {
+  flex: none;
+  width: 1px;
+  background: var(--theme-color-border-primary);
+}
+
+.spin {
+  box-sizing: border-box;
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  width: 32px;
+  padding: var(--breakpoint-spacing-3xs) 0;
+}
+.spinButton {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 24px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: none;
+  color: var(--theme-color-font-interactive-idle-secondary);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+.spinButton:hover:not(:disabled) {
+  background: var(--theme-color-border-tertiary);
+}
+.spinButton:focus-visible {
+  outline: 2px solid var(--theme-color-interactive-idle-primary);
+  outline-offset: -2px;
+}
+.spinButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.3;
+}
+.spinButton > svg {
+  width: 24px;
+  height: 24px;
+}
+.disabled .spinButton {
+  cursor: not-allowed;
+}

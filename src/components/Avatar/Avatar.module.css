@@ -1,0 +1,140 @@
+/* The look is four custom properties, so every state is one override and a
+   parent (Profile photo) can restyle the avatar without knowing its markup:
+     --avatar-fill      the circle's fill
+     --avatar-stroke-w  width of the inside ring
+     --avatar-stroke-c  colour of the inside ring
+     --avatar-tint      colour laid over a photo (Image type only) */
+.avatar {
+  --avatar-size: 40px;
+  --avatar-fill: var(--theme-color-background-primary);
+  --avatar-stroke-w: var(--theme-borderstroke-s);
+  --avatar-stroke-c: var(--theme-color-border-primary);
+  --avatar-tint: transparent;
+
+  position: relative;
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--avatar-size);
+  height: var(--avatar-size);
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: var(--breakpoint-cornerradius-rounded);
+  background: var(--avatar-fill);
+  color: var(--theme-color-font-interactive-idle-secondary);
+  font-family: var(--font-interactive-label-text-md-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-md-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-md-sans-regular-size);
+  line-height: var(--font-interactive-label-text-md-sans-regular-line-height);
+  transition: background-color 0.15s ease;
+}
+
+/* The ring is drawn by ::after, above the content, so it also sits on top of
+   a photo (an outline would be painted underneath positioned children). */
+.avatar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 var(--avatar-stroke-w) var(--avatar-stroke-c);
+  pointer-events: none;
+  transition: box-shadow 0.15s ease;
+}
+
+/* A photo covers the whole circle and the fill is not drawn. */
+.type-image {
+  --avatar-fill: transparent;
+}
+.type-image::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--avatar-tint);
+  pointer-events: none;
+  transition: background-color 0.15s ease;
+}
+
+/* Selected: a 2px ring in the primary interactive colour. */
+.selected {
+  --avatar-stroke-w: var(--theme-borderstroke-m);
+  --avatar-stroke-c: var(--theme-color-interactive-idle-primary);
+}
+
+/* Pressed: grey fill (tint over a photo), the ring goes away. */
+.pressed,
+.interactive:active {
+  --avatar-fill: var(--theme-color-border-tertiary);
+  --avatar-stroke-c: transparent;
+  --avatar-tint: var(--theme-color-border-tertiary);
+}
+.type-image.pressed,
+.type-image.interactive:active {
+  --avatar-fill: transparent;
+}
+
+/* Selected and pressed: the light fill comes back with a hover-coloured ring. */
+.selected.pressed,
+.selected.interactive:active {
+  --avatar-fill: var(--theme-color-surface-primary);
+  --avatar-stroke-c: var(--theme-color-interactive-hover-primary);
+}
+.type-image.selected.pressed,
+.type-image.selected.interactive:active {
+  --avatar-fill: transparent;
+}
+
+/* Interactive avatars are buttons. */
+.interactive {
+  cursor: pointer;
+}
+.interactive:focus-visible {
+  outline: 2px solid var(--theme-color-interactive-idle-primary);
+  outline-offset: 2px;
+}
+
+/* Content keeps its 24px size however large the avatar is. */
+.glyph {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+.glyph > * {
+  width: 100%;
+  height: 100%;
+}
+
+.initials {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  white-space: nowrap;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  object-fit: cover;
+}
+
+/* The grey Image placeholder with its small picture glyph. */
+.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--theme-color-border-primary);
+  color: var(--theme-color-surface-primary);
+}

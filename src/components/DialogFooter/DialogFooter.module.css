@@ -1,0 +1,74 @@
+/* Figma "Dialog/Footer". Padding is spacing/s (16px) on the wide 3 CTA
+   Horizontal footer and spacing/l (32px, 24px on Mobile) on the others; a
+   Dialog or Popup overrides it through --dialog-footer-padding. */
+.footer {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+}
+.wide {
+  padding: var(--dialog-footer-padding, var(--breakpoint-spacing-s));
+}
+.fill {
+  padding: var(--dialog-footer-padding, var(--breakpoint-spacing-l));
+}
+
+.buttons {
+  display: flex;
+  flex: 1 1 0;
+  flex-wrap: wrap;
+  align-items: center;
+  min-width: 0;
+}
+
+/* The slot is the layout box of a button, so any node can sit in it. */
+.slot {
+  display: flex;
+}
+
+/* "Right container": Secondary and Primary, 12px apart. */
+.group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* 3 CTA Horizontal: Tertiary at the start, Secondary and Primary at the end
+   (the end group stays at the end when Tertiary is hidden). */
+.wide .buttons {
+  justify-content: space-between;
+  gap: var(--breakpoint-spacing-xs);
+}
+.wide .group {
+  justify-content: flex-end;
+  gap: var(--breakpoint-spacing-xs);
+  margin-left: auto;
+}
+
+/* 2 CTA and Vertical: buttons fill the row, 16px (spacing/s) apart, at least
+   176px each, so they wrap into a stack when the dialog is narrow. */
+.fill .buttons {
+  justify-content: flex-end;
+  gap: var(--breakpoint-spacing-s);
+}
+.fill .group {
+  display: contents;
+}
+.fill .slot {
+  flex: 1 1 176px;
+  min-width: 176px;
+}
+.fill .slot > * {
+  flex: 1 1 auto;
+}
+
+/* Vertical: always one button per row. */
+.stacked .buttons {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+}
+.stacked .slot {
+  flex: none;
+  min-width: 0;
+}

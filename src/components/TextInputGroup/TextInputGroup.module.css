@@ -1,0 +1,39 @@
+/* Figma "Text Input group": fields in one box, 56px high each, side by side
+   with a 1px divider, wrapping into rows when the box is narrower than two
+   fields (a field is 310px wide at the least). The container's colour is the
+   stroke colour, so the 1px gap between fields shows as the vertical divider;
+   when the fields wrap, each field draws the 1px divider above itself. */
+.group {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 1px;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--breakpoint-cornerradius-m);
+  background: var(--theme-color-border-primary);
+}
+
+.group > * {
+  box-shadow: 0 -1px 0 0 var(--theme-color-border-primary);
+}
+
+/* The outer stroke, drawn inside (border/primary, borderStroke/s), under a
+   hovered or focused field so that field's own stroke shows on top. */
+.group::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 var(--theme-borderstroke-s) var(--theme-color-border-primary);
+  pointer-events: none;
+}
+.group > *:hover,
+.group > *:focus-within,
+.group > [data-state='hover'],
+.group > [data-state='focus'] {
+  position: relative;
+  z-index: 1;
+}

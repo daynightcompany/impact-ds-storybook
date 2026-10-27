@@ -1,0 +1,89 @@
+/* Figma "Code input" (Base/Input Field, node 9587:5028): one box per character,
+   56px high, sharing the width equally with spacing/xs (12px, 8px on Mobile)
+   between them, radius cornerRadius/m, the character MD regular and centred.
+
+   An empty box is dimmed (half opacity, 1px border/primary stroke); a filled
+   one has a 2px interactive/idle/stroke stroke and interactive/idle/primary
+   text; the focused box has a 2px interactive/idle/primary stroke; a hovered
+   one a 1px interactive/hover/primary stroke; Error draws every box with a 1px
+   supportive/feedback/error stroke; Disabled halves every box. */
+.row {
+  display: flex;
+  gap: var(--breakpoint-spacing-xs);
+  width: 100%;
+}
+
+.digit {
+  --digit-stroke-color: var(--theme-color-border-primary);
+  --digit-stroke-width: var(--theme-borderstroke-s);
+  box-sizing: border-box;
+  flex: 1 1 0;
+  min-width: 0;
+  height: 56px;
+  margin: 0;
+  padding: 0 var(--breakpoint-spacing-s);
+  border: none;
+  border-radius: var(--breakpoint-cornerradius-m);
+  background: transparent;
+  color: var(--theme-color-font-interactive-idle-secondary);
+  font-family: var(--font-interactive-label-text-md-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-md-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-md-sans-regular-size);
+  line-height: var(--font-interactive-label-text-md-sans-regular-line-height);
+  text-align: center;
+  opacity: 0.5;
+  outline: var(--digit-stroke-width) solid var(--digit-stroke-color);
+  outline-offset: calc(-1 * var(--digit-stroke-width));
+  caret-color: var(--theme-color-interactive-idle-primary);
+  appearance: none;
+}
+.digit::placeholder {
+  color: inherit;
+  opacity: 1;
+}
+
+.digit.filled {
+  --digit-stroke-color: var(--theme-color-interactive-idle-stroke);
+  --digit-stroke-width: var(--theme-borderstroke-m);
+  color: var(--theme-color-interactive-idle-primary);
+  opacity: 1;
+}
+
+.digit:hover:not(:disabled),
+[data-state='hover'] .digit:first-child {
+  --digit-stroke-color: var(--theme-color-interactive-hover-primary);
+  --digit-stroke-width: var(--theme-borderstroke-s);
+  opacity: 1;
+}
+/* A filled box keeps its 2px stroke when hovered. */
+.digit.filled:hover:not(:disabled),
+[data-state='hover'] .digit.filled:first-child {
+  --digit-stroke-width: var(--theme-borderstroke-m);
+}
+
+.digit:focus,
+[data-state='focus'] .digit:first-child {
+  --digit-stroke-color: var(--theme-color-interactive-idle-primary);
+  --digit-stroke-width: var(--theme-borderstroke-m);
+  opacity: 1;
+}
+
+/* Error: every box has the error stroke, hovered or not; focus makes it 2px. */
+.error .digit.digit:not(:disabled) {
+  --digit-stroke-color: var(--theme-color-supportive-feedback-error);
+  --digit-stroke-width: var(--theme-borderstroke-s);
+  color: var(--theme-color-interactive-idle-primary);
+  opacity: 1;
+}
+.error .digit.digit:focus {
+  --digit-stroke-width: var(--theme-borderstroke-m);
+}
+
+.digit:disabled {
+  --digit-stroke-color: var(--theme-color-border-primary);
+  --digit-stroke-width: var(--theme-borderstroke-s);
+  color: var(--theme-color-font-interactive-idle-secondary);
+  -webkit-text-fill-color: currentcolor;
+  opacity: 0.5;
+  cursor: not-allowed;
+}

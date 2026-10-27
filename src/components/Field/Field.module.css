@@ -1,0 +1,296 @@
+/* Shared by the input components (Input field, Dropdown, Input field area,
+   Text input group, Search): the Figma "Base/Input Field" box and its helper
+   text and link.
+
+   Box: 56px high at least, 16px around (8px above and below once the field has
+   a value, because the small label then sits above the value), 8px between
+   the parts, radius cornerRadius/m, a 1px stroke drawn INSIDE (border/primary).
+   Hover is a 1px interactive/hover/primary stroke, Focus a 2px stroke,
+   Error a 1px supportive/feedback/error stroke and Disabled halves the box.
+
+   Stories without a pointer (docs, Chromatic) show the Hover and Focus states by
+   putting data-state="hover" | "focus" on a wrapper around the field. */
+
+.field {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--breakpoint-spacing-xs);
+  width: 100%;
+  min-width: 0;
+  color: var(--theme-color-font-interactive-idle-secondary);
+}
+
+/* ---- the box ---------------------------------------------------------- */
+.box {
+  --field-stroke-color: var(--theme-color-border-primary);
+  --field-stroke-width: var(--theme-borderstroke-s);
+  --field-pad-y: var(--breakpoint-spacing-s);
+  --field-label-color: var(--theme-color-font-interactive-idle-secondary);
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: var(--breakpoint-spacing-2xs);
+  width: 100%;
+  min-height: 56px;
+  margin: 0;
+  padding: var(--field-pad-y) var(--breakpoint-spacing-s);
+  border: none;
+  border-radius: var(--breakpoint-cornerradius-m);
+  background: transparent;
+  color: var(--theme-color-font-interactive-idle-secondary);
+  text-align: start;
+  outline: var(--field-stroke-width) solid var(--field-stroke-color);
+  outline-offset: calc(-1 * var(--field-stroke-width));
+  cursor: text;
+}
+
+/* Value present: the label moves above it and the box pads 8px above and below
+   (a box without a label, like Search, keeps its padding). */
+.box.filled:not(.noLabel),
+.box:not(.noLabel):has(.control:not(:placeholder-shown)) {
+  --field-pad-y: var(--breakpoint-spacing-2xs);
+}
+
+/* Tags (Search, Populated multi) pad spacing/xs above and below the 32px pills. */
+.box.tagged {
+  --field-pad-y: var(--breakpoint-spacing-xs);
+}
+
+.box:hover,
+[data-state='hover'] .box {
+  --field-stroke-color: var(--theme-color-interactive-hover-primary);
+}
+
+.box:focus-within,
+[data-state='focus'] .box,
+.box[data-open='true'] {
+  --field-stroke-color: var(--field-focus-color, var(--theme-color-font-interactive-idle-secondary));
+  --field-stroke-width: var(--theme-borderstroke-m);
+}
+
+.box.error {
+  --field-stroke-color: var(--theme-color-supportive-feedback-error);
+}
+
+.box.disabled {
+  --field-stroke-color: var(--theme-color-border-primary);
+  --field-stroke-width: var(--theme-borderstroke-s);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* A box that is a button (Dropdown) is pressed, not typed into. The Figma
+   Dropdown tints the small label font/interactive/hover/tertiary. */
+.box.pointer {
+  cursor: pointer;
+}
+.box.pointer.disabled {
+  cursor: not-allowed;
+}
+.box.tint {
+  --field-label-color: var(--theme-color-font-interactive-hover-tertiary);
+}
+
+/* Inside a Text input group the field has no box of its own: the group draws
+   the stroke and the divider, a hovered or focused field draws its own. Kept
+   above the state rules so those still win. */
+.grouped {
+  flex: 1 1 310px;
+  min-width: min(310px, 100%);
+  background: var(--theme-color-background-primary);
+}
+.grouped .box {
+  --field-stroke-color: transparent;
+}
+.grouped .box:hover,
+.grouped[data-state='hover'] .box,
+[data-state='hover'] .grouped .box {
+  --field-stroke-color: var(--theme-color-interactive-hover-primary);
+}
+.grouped .box:focus-within,
+.grouped[data-state='focus'] .box,
+[data-state='focus'] .grouped .box {
+  --field-stroke-color: var(--theme-color-font-interactive-idle-secondary);
+}
+.grouped .box.error {
+  --field-stroke-color: var(--theme-color-supportive-feedback-error);
+}
+.grouped .box.disabled {
+  --field-stroke-color: transparent;
+}
+
+/* ---- inside the box --------------------------------------------------- */
+
+/* Figma "flag-label-input": the icon and the label/value. It is at half
+   opacity while the field is empty and idle. */
+.flag {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  gap: var(--breakpoint-spacing-2xs);
+  min-width: 0;
+  opacity: 0.5;
+}
+.box.filled .flag,
+.box:has(.control:not(:placeholder-shown)) .flag,
+.box:focus-within .flag,
+[data-state='focus'] .box .flag,
+.box[data-open='true'] .flag,
+.box.error .flag,
+.box.disabled .flag,
+.box.noLabel:hover .flag,
+[data-state='hover'] .box.noLabel .flag {
+  opacity: 1;
+}
+
+.icon {
+  display: inline-flex;
+  flex: none;
+  width: 24px;
+  height: 24px;
+}
+.icon > * {
+  width: 100%;
+  height: 100%;
+}
+
+/* Figma "label-input": the small label above the value. The label is always in
+   the page for assistive tech and only takes room once there is a value. */
+.content {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.label {
+  display: block;
+  height: 0;
+  overflow: hidden;
+  color: var(--field-label-color);
+  font-family: var(--font-interactive-label-text-xs-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-xs-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-xs-sans-regular-size);
+  line-height: var(--font-interactive-label-text-xs-sans-regular-line-height);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  cursor: inherit;
+}
+.box.filled .label,
+.box:has(.control:not(:placeholder-shown)) .label {
+  height: var(--font-interactive-label-text-xs-sans-regular-line-height);
+}
+
+/* The value: MD regular. For an <input> or <textarea> the browser draws the
+   placeholder (the label text while the field is empty). */
+.control,
+.value {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: var(--theme-color-font-interactive-idle-secondary);
+  font-family: var(--font-interactive-label-text-md-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-md-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-md-sans-regular-size);
+  line-height: var(--font-interactive-label-text-md-sans-regular-line-height);
+  text-align: start;
+  outline: none;
+  appearance: none;
+}
+.control {
+  height: var(--font-interactive-label-text-md-sans-regular-line-height);
+  text-overflow: ellipsis;
+}
+/* A <textarea> grows with its text (the component sets the height). */
+textarea.control {
+  height: auto;
+  overflow: hidden;
+  text-overflow: clip;
+  resize: none;
+}
+.control::placeholder {
+  color: inherit;
+  opacity: 1;
+}
+.control:disabled {
+  color: inherit;
+  -webkit-text-fill-color: currentcolor;
+  cursor: not-allowed;
+}
+.value {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  cursor: inherit;
+}
+
+/* Figma "text-icon": the Required text and the chevron at the far end. */
+.trailing {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--breakpoint-spacing-2xs);
+}
+.required {
+  font-family: var(--font-interactive-label-text-xs-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-xs-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-xs-sans-regular-size);
+  line-height: var(--font-interactive-label-text-xs-sans-regular-line-height);
+  white-space: nowrap;
+}
+.chevron {
+  display: inline-flex;
+  flex: none;
+  width: 24px;
+  height: 24px;
+}
+.chevron > * {
+  width: 100%;
+  height: 100%;
+}
+
+/* ---- under the box: helper text and link ------------------------------ */
+.helper,
+.link {
+  font-family: var(--font-interactive-label-text-sm-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-sm-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-sm-sans-regular-size);
+  line-height: var(--font-interactive-label-text-sm-sans-regular-line-height);
+}
+.helper {
+  color: var(--theme-color-font-interactive-idle-secondary);
+}
+.helperError {
+  color: var(--theme-color-supportive-feedback-error);
+}
+
+/* Figma "SM/Sans Regular Link": underlined, interactive/idle/primary. */
+.link {
+  color: var(--theme-color-interactive-idle-primary);
+  text-decoration: underline;
+}
+.link > button,
+.link > a {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-decoration: inherit;
+  cursor: pointer;
+}
+.link > button:focus-visible,
+.link > a:focus-visible {
+  outline: 2px solid var(--theme-color-interactive-idle-primary);
+  outline-offset: 2px;
+  border-radius: var(--breakpoint-cornerradius-xs);
+}

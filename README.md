@@ -85,6 +85,28 @@ Also known, no action needed: `--theme-opacity-*` is exported in `px` (not usabl
 | Checkbox | ✅ Implemented — all states |
 | Radiobutton | ✅ Implemented — all states |
 | Switch | ✅ Implemented — sizes (S/M/L) × states |
+| Chip, Chip group | ✅ Implemented — sizes (M/XL) × 7 icon layouts (incl. removable) × unselected/selected/disabled, Desktop and Mobile |
+| Tab, Tab list | ✅ Implemented — Primary/Secondary × sizes (L/XL) × icon layouts × unselected/selected/disabled; the list adds tab semantics and arrow keys, horizontal or vertical |
+| Avatar | ✅ Implemented — Icon/Initials/Image × selected × pressed |
+| Profile photo | ✅ Implemented — add/edit badge × pressed |
+| Switch button | ✅ Implemented — Primary/Secondary × off/on, text or icon items |
+| Segment control | ✅ Implemented — sizes (M/L), radio-group semantics |
+| Divider | ✅ Implemented |
+| Cell selector | ✅ Implemented — switch/radio/check × subtitle × selected, show-icon boolean, Desktop and Mobile |
+| Cell list | ✅ Implemented — subtitle × avatar, label/chevron/icon-left booleans; button or link |
+| Cell group | ✅ Implemented — Link/Radio/Switch/Checkbox, dividers added between rows, radio group semantics |
+| Dialog header | ✅ Implemented — Left icons / Title / Right icons / Additional icons booleans and slots |
+| Dialog footer | ✅ Implemented — 3 CTA / 2 CTA × Horizontal / Vertical, Primary / Secondary / Tertiary button booleans |
+| Input field | ✅ Implemented — the Figma "Input field" and its "Base" field: icon, chevron, required, helper text, link booleans × idle/hover/focused/error/disabled × empty/populated |
+| Input field area | ✅ Implemented — grows with the text (minimum and maximum rows), helper text and link |
+| Text input group | ✅ Implemented — fields in one box with 1px dividers, wrapping into rows when narrow |
+| Dropdown | ✅ Implemented — the dropdown field (button) with the same booleans and states; opens a Popup |
+| Search | ✅ Implemented — icon / clear booleans, tags ("Populated multi"), all states |
+| Spinbox | ✅ Implemented — number with increase / decrease buttons, min / max / step, keyboard |
+| Code input | ✅ Implemented — one box per character, auto-advance, paste and one-time-code autofill |
+| Popup | ✅ Implemented — the Figma "Popup/Dropdown" with the Search / Tabs / Footer booleans; opens from an element as a popover |
+| Popover | ✅ Implemented — top-layer shell for popups (no Figma counterpart): placement, flip, height limit, Escape / outside / focus-out |
+| Dialog | ✅ Implemented — Form Default / Select with the Header / Footer / Radio / Checkboxes / Switches / Tabs / Search booleans and slots; optional modal |
 | Everything else | 🚧 Not yet started |
 
 Components are added incrementally, converted node-by-node from the Figma file, then hand-verified against exact Figma dimensions (padding, gap, line-height) rather than assumed.
@@ -108,5 +130,30 @@ src/
     Checkbox/
     Radiobutton/
     Switch/
-    Icon.tsx             # shared placeholder icon, used until real Figma icons are wired in
+    Chip/
+    ChipGroup/
+    Tab/                 # also holds the context a Tab list shares with its tabs
+    TabList/
+    Avatar/
+    ProfilePhoto/
+    SwitchButton/
+    SegmentControl/      # SegmentControl + SegmentItem
+    Divider/
+    CellSelector/
+    CellList/
+    CellGroup/
+    DialogHeader/
+    DialogFooter/
+    Field/               # the box, stroke and helper-text parts shared by the inputs (no story)
+    InputField/
+    InputFieldArea/
+    TextInputGroup/
+    Dropdown/
+    Search/
+    Spinbox/
+    CodeInput/
+    Popover/             # anchored top-layer shell for popups (no Figma counterpart)
+    Popup/               # Popup/Dropdown panel + PopupParts, which Dialog reuses
+    Dialog/
+    Icon.tsx             # shared icon set: glyph outlines from the Figma icons, picked with the `name` prop
 ```

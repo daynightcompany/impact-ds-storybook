@@ -1,0 +1,102 @@
+/* Track. Figma: fill border/secondary, 4px padding and 4px between segments
+   (spacing/button/3xs). Everything switches with the Mobile breakpoint mode. */
+.control {
+  --segment-pad: var(--breakpoint-spacing-button-3xs);
+  position: relative;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: stretch;
+  gap: var(--segment-pad);
+  padding: var(--segment-pad);
+  background: var(--theme-color-border-secondary);
+}
+
+/* Sizes follow the Figma ladder:
+     M  track 40px, 4px corners, S segments (32px tall, 4px corners, text sm)
+     L  track 48px, rounded,     M segments (40px tall, rounded,     text md)
+   Segment padding is the button group spacing/button/*:
+     --item-pad-y  3xs (4/4) at M, 2xs (8/8) at L
+     --item-pad-x  2xs (8/8) at M, xs (12/8) at L */
+.size-m {
+  --item-pad-y: var(--breakpoint-spacing-button-3xs);
+  --item-pad-x: var(--breakpoint-spacing-button-2xs);
+  --item-radius: var(--breakpoint-cornerradius-xs);
+  border-radius: var(--breakpoint-cornerradius-s);
+  font-family: var(--font-interactive-label-text-sm-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-sm-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-sm-sans-regular-size);
+  line-height: var(--font-interactive-label-text-sm-sans-regular-line-height);
+}
+.size-l {
+  --item-pad-y: var(--breakpoint-spacing-button-2xs);
+  --item-pad-x: var(--breakpoint-spacing-button-xs);
+  --item-radius: var(--breakpoint-cornerradius-rounded);
+  border-radius: var(--breakpoint-cornerradius-rounded);
+  font-family: var(--font-interactive-label-text-md-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-md-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-md-sans-regular-size);
+  line-height: var(--font-interactive-label-text-md-sans-regular-line-height);
+}
+
+.item {
+  position: relative;
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  padding: var(--item-pad-y) var(--item-pad-x);
+  border-radius: var(--item-radius);
+  background: transparent;
+  color: var(--theme-color-font-interactive-idle-secondary);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+}
+
+/* The native radio is visually hidden; the label is the target. */
+.input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Icons inside a segment keep the 24px icon box. */
+.text {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--breakpoint-spacing-button-3xs);
+}
+
+/* Active: white pill, black text, in every theme (forcedWhite / forcedBlack). */
+.active {
+  background: var(--theme-color-supportive-neutral-forcedwhite);
+  color: var(--theme-color-supportive-neutral-forcedblack);
+}
+
+/* Hover (not in Figma, same fill as Tab/Secondary): unselected segments only. */
+.item:not(.active):not(.disabled):hover {
+  background: var(--theme-color-border-tertiary);
+}
+
+.disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Keyboard focus: a ring around the whole control, 2px outside it. Focus
+   follows selection in a radio group, so the ring and the white pill agree. */
+.control:has(.input:focus-visible)::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border: 2px solid var(--theme-color-interactive-idle-primary);
+  border-radius: inherit;
+  pointer-events: none;
+}

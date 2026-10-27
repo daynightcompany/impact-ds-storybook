@@ -1,0 +1,161 @@
+.chip {
+  position: relative;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: var(--chip-pad-y) var(--chip-pad-text);
+  gap: var(--chip-gap);
+  border: none;
+  border-radius: var(--breakpoint-cornerradius-rounded);
+  background: transparent;
+  color: var(--theme-color-font-interactive-idle-secondary);
+  white-space: nowrap;
+  cursor: pointer;
+  outline: var(--theme-borderstroke-m) solid transparent;
+  outline-offset: calc(-1 * var(--theme-borderstroke-m));
+  transition: background-color 0.15s ease, color 0.15s ease, outline-color 0.15s ease;
+}
+
+/* Sizes follow the Figma ladder (Base/Chip). Every spacing and text value is
+   a token that switches with the Mobile breakpoint mode:
+     M  = 40px Desktop / 40px Mobile (text lg)
+     XL = 64px Desktop / 48px Mobile (text 2xl)
+   Spacing comes from the button group spacing/button/*
+   (--breakpoint-spacing-button-*: 2xs 8/8, xs 12/8, s 16/12, m 24/16).
+     --chip-pad-text  padding on the side that carries the label
+     --chip-pad-icon  padding on a side that carries an icon */
+.size-m {
+  --chip-icon: 24px;
+  --chip-gap: var(--breakpoint-spacing-button-2xs);
+  --chip-pad-y: var(--breakpoint-spacing-button-2xs);
+  --chip-pad-text: var(--breakpoint-spacing-button-s);
+  --chip-pad-icon: var(--breakpoint-spacing-button-2xs);
+  font-family: var(--font-interactive-label-text-lg-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-lg-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-lg-sans-regular-size);
+  line-height: var(--font-interactive-label-text-lg-sans-regular-line-height);
+}
+.size-xl {
+  /* spacing/l (32 Desktop, 24 Mobile) is also the text line height */
+  --chip-icon: var(--breakpoint-spacing-l);
+  --chip-gap: var(--breakpoint-spacing-button-2xs);
+  --chip-pad-y: var(--breakpoint-spacing-button-s);
+  --chip-pad-text: var(--breakpoint-spacing-button-m);
+  --chip-pad-icon: var(--breakpoint-spacing-button-s);
+  font-family: var(--font-interactive-label-text-2xl-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-2xl-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-2xl-sans-regular-size);
+  line-height: var(--font-interactive-label-text-2xl-sans-regular-line-height);
+}
+
+/* Icon layouts: the icon side takes --chip-pad-icon, the label side
+   --chip-pad-text. With icon on both sides the gap widens to xs. */
+.icon-leading { padding-left: var(--chip-pad-icon); }
+.icon-trailing,
+.icon-trailing-close { padding-right: var(--chip-pad-icon); }
+.icon-both {
+  --chip-gap: var(--breakpoint-spacing-button-xs);
+  padding-left: var(--chip-pad-icon);
+  padding-right: var(--chip-pad-icon);
+}
+.icon-only,
+.icon-only-2 { padding: var(--chip-pad-icon); }
+
+/* Icon box: whatever sits inside (the default Icon or a custom iconElement)
+   fills it. */
+.icon {
+  display: inline-flex;
+  flex: none;
+  width: var(--chip-icon);
+  height: var(--chip-icon);
+}
+.icon > * {
+  width: 100%;
+  height: 100%;
+}
+
+/* Close layouts: the chip is a wrapper around two buttons. The label button
+   stretches over the whole chip (::after) so the padding is clickable, and
+   the close button sits above it. */
+.body {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--chip-gap);
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  white-space: inherit;
+  cursor: inherit;
+}
+.body::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+.close {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: var(--breakpoint-cornerradius-rounded);
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* Condition: Unselected hover fills like the Tertiary button. */
+.chip:hover:not(.disabled):not(.selected) {
+  background: var(--theme-color-border-tertiary);
+}
+
+/* Condition: Selected — filled pill with a ring (Figma strokes the inner
+   Base/Chip with interactive/hover/secondary: 2px for the label-only, leading,
+   trailing and icon-only layouts, 1px for the three close layouts). */
+.chip.selected:not(.disabled) {
+  background: var(--theme-color-interactive-idle-primary);
+  color: var(--theme-color-font-interactive-idle-primary);
+  outline-color: var(--theme-color-interactive-hover-secondary);
+}
+.chip.selected:not(.disabled):hover {
+  background: var(--theme-color-interactive-hover-primary);
+  color: var(--theme-color-font-interactive-hover-primary);
+}
+.icon-both.selected:not(.disabled),
+.icon-trailing-close.selected:not(.disabled),
+.icon-only-2.selected:not(.disabled) {
+  outline-width: var(--theme-borderstroke-s);
+  outline-offset: calc(-1 * var(--theme-borderstroke-s));
+}
+
+/* State: Disabled — outlined pill at 30% opacity, selected or not. */
+.chip.disabled {
+  background: transparent;
+  color: var(--theme-color-font-interactive-idle-secondary);
+  outline-color: var(--theme-color-font-interactive-idle-secondary);
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+.chip.disabled .close { cursor: not-allowed; }
+
+/* Keyboard focus: a ring 2px outside the chip, so it never fights the
+   Selected ring drawn inside. The inner buttons of the close layouts draw
+   no ring of their own. */
+.chip:focus-visible::after,
+.chip:has(:focus-visible)::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border: 2px solid var(--theme-color-interactive-idle-primary);
+  border-radius: inherit;
+  pointer-events: none;
+}
+.body:focus-visible,
+.close:focus-visible { outline: none; }

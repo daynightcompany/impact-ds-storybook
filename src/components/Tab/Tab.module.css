@@ -1,0 +1,142 @@
+.tab {
+  position: relative;
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: var(--tab-pad-y) var(--tab-pad-text);
+  gap: var(--tab-gap);
+  border: none;
+  background: transparent;
+  color: var(--theme-color-font-interactive-idle-secondary);
+  white-space: nowrap;
+  cursor: pointer;
+  outline: var(--theme-borderstroke-m) solid transparent;
+  outline-offset: calc(-1 * var(--theme-borderstroke-m));
+  transition: opacity 0.15s ease, background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease,
+    outline-color 0.15s ease;
+}
+
+/* Sizes follow the Figma ladder (Base/Tab/Primary and Base/Tab/Secondary).
+   Every spacing and text value is a token that switches with the Mobile
+   breakpoint mode:
+     L  = 56px Desktop / 40px Mobile
+     XL = 64px Desktop / 48px Mobile
+   Spacing comes from the button group spacing/button/*
+   (--breakpoint-spacing-button-*: 2xs 8/8, xs 12/8, s 16/12, m 24/16).
+     --tab-pad-text  padding on the side that carries the label
+     --tab-pad-icon  padding on a side that carries an icon
+   The icon box is a fixed 24 at L; at XL it follows spacing/l (32 Desktop,
+   24 Mobile), the same variable as the text line height. */
+.size-l {
+  --tab-icon: 24px;
+  --tab-pad-y: var(--breakpoint-spacing-button-xs);
+}
+.size-xl {
+  --tab-icon: var(--breakpoint-spacing-l);
+  --tab-pad-y: var(--breakpoint-spacing-button-s);
+}
+
+.icon {
+  display: inline-flex;
+  flex: none;
+  width: var(--tab-icon);
+  height: var(--tab-icon);
+}
+.icon > * {
+  width: 100%;
+  height: 100%;
+}
+
+/* Icon layouts: the icon side takes --tab-pad-icon, the label side
+   --tab-pad-text. */
+.icon-leading { padding-left: var(--tab-pad-icon); }
+.icon-trailing { padding-right: var(--tab-pad-icon); }
+.icon-only { padding: var(--tab-pad-y) var(--tab-pad-icon); }
+
+/* ── Primary ─ underlined text tab ─────────────────────────────────────── */
+.primary {
+  --tab-pad-text: var(--breakpoint-spacing-button-s);
+  --tab-pad-icon: var(--breakpoint-spacing-button-s);
+  --tab-gap: var(--breakpoint-spacing-button-2xs);
+  font-family: var(--font-interactive-label-text-2xl-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-2xl-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-2xl-sans-regular-size);
+  line-height: var(--font-interactive-label-text-2xl-sans-regular-line-height);
+  border-radius: var(--breakpoint-cornerradius-xs);
+  opacity: 0.5;
+}
+.primary.size-xl { --tab-gap: var(--breakpoint-spacing-button-s); }
+/* Icon only at L: the vertical padding gives 48 Desktop / 24 Mobile, lifted by
+   the 56 / 40 minimum height (spacing/3xl). Figma sets no minimum width, so
+   Mobile is 48 wide. */
+.primary.size-l.icon-only { min-height: var(--breakpoint-spacing-3xl); }
+
+/* Hover brings an unselected tab to full opacity. */
+.primary:hover:not(.selected):not(:disabled) {
+  opacity: 1;
+  color: var(--theme-color-interactive-hover-primary);
+}
+/* Selected: full opacity and a 2px bottom stroke drawn inside the tab. */
+.primary.selected {
+  opacity: 1;
+  box-shadow: inset 0 calc(-1 * var(--theme-borderstroke-m)) 0 0 var(--theme-color-interactive-idle-stroke);
+}
+
+/* ── Secondary ─ filled pill ───────────────────────────────────────────── */
+.secondary {
+  --tab-pad-text: var(--breakpoint-spacing-button-m);
+  --tab-pad-icon: var(--breakpoint-spacing-button-s);
+  --tab-gap: var(--breakpoint-spacing-button-2xs);
+  border-radius: var(--breakpoint-cornerradius-rounded);
+}
+.secondary.size-l {
+  font-family: var(--font-interactive-label-text-xl-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-xl-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-xl-sans-regular-size);
+  line-height: var(--font-interactive-label-text-xl-sans-regular-line-height);
+}
+.secondary.size-xl {
+  font-family: var(--font-interactive-label-text-2xl-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-2xl-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-2xl-sans-regular-size);
+  line-height: var(--font-interactive-label-text-2xl-sans-regular-line-height);
+}
+/* Icon only: equal padding, plus a minimum size at L so it stays as tall as a
+   text tab (Desktop 12 + 24 + 12 = 48 is lifted to 56; Mobile 8 + 24 + 8 = 40
+   already sits at the 40 minimum). */
+.secondary.icon-only { padding: var(--tab-pad-y); }
+.secondary.size-l.icon-only {
+  min-width: var(--breakpoint-spacing-3xl);
+  min-height: var(--breakpoint-spacing-3xl);
+}
+
+.secondary:hover:not(.selected):not(:disabled) {
+  background: var(--theme-color-border-tertiary);
+}
+/* Selected: filled pill with a ring (Figma strokes the inner Base/Tab with
+   interactive/hover/secondary). */
+.secondary.selected {
+  background: var(--theme-color-interactive-idle-primary);
+  color: var(--theme-color-font-interactive-idle-primary);
+  outline-color: var(--theme-color-interactive-hover-secondary);
+}
+
+/* State: Disabled — 30% opacity, selected or not. */
+.tab:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Keyboard focus: a ring 2px outside the tab, so it never fights the
+   Selected ring drawn inside. */
+.tab:focus-visible::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border: 2px solid var(--theme-color-interactive-idle-primary);
+  border-radius: inherit;
+  pointer-events: none;
+}

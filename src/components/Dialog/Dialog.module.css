@@ -1,0 +1,128 @@
+/* Figma "Dialog" (node 9587:6878), drawn in the Mobile mode: a vertical stack,
+   8px (spacing/2xs) apart, of the drag handle and the Content frame (primary
+   background, corner radius m, Shadow M, padding spacing/l above and at the
+   sides, none below as the footer brings its own, 24px (spacing/l) between the
+   parts). 375px wide, hugging its height. */
+.dialog {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--breakpoint-spacing-2xs);
+  width: var(--dialog-width, 375px);
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: visible;
+  background: transparent;
+  color: var(--theme-color-font-interactive-idle-secondary);
+}
+
+/* Figma "Drag Skeleton": a 32 x 4 pill, on Mobile only (its visibility is
+   bound to the $device/mobile variable). Decorative. */
+.handle {
+  display: none;
+  flex: none;
+  align-self: center;
+  width: 32px;
+  height: 4px;
+  border-radius: var(--breakpoint-cornerradius-s);
+  background: var(--theme-color-border-tertiary);
+}
+:global([data-breakpoint='375-mobile']) .handle {
+  display: block;
+}
+
+.content {
+  box-sizing: border-box;
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: column;
+  gap: var(--breakpoint-spacing-l);
+  min-height: 0;
+  padding: var(--breakpoint-spacing-l) var(--breakpoint-spacing-l) 0;
+  overflow-y: auto;
+  border-radius: var(--breakpoint-cornerradius-m);
+  background: var(--theme-color-background-primary);
+  box-shadow: var(--shadow-shadow-m);
+}
+/* No footer, so nothing brings the bottom padding. */
+.noFooter {
+  padding-bottom: var(--breakpoint-spacing-l);
+}
+
+.fixed {
+  flex: none;
+  min-width: 0;
+}
+
+/* The Header instance has no padding of its own inside the dialog. */
+.header {
+  --dialog-header-padding: 0;
+}
+
+/* The Footer instance: spacing/l above and below, none at the sides. */
+.footer {
+  --dialog-footer-padding: var(--breakpoint-spacing-l) 0;
+}
+
+/* Default form: the inner Content frame, spacing/l between its groups. */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--breakpoint-spacing-l);
+}
+/* "Form fields" slot: spacing/m between the fields. */
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--breakpoint-spacing-m);
+}
+
+/* A titled set of cells: the title and the cells, spacing/xs apart. */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--breakpoint-spacing-xs);
+}
+.sectionTitle {
+  font-family: var(--font-interactive-label-text-md-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-md-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-md-sans-regular-size);
+  line-height: var(--font-interactive-label-text-md-sans-regular-line-height);
+  color: var(--theme-color-font-interactive-idle-secondary);
+}
+
+/* Select form. Figma's tab instance is the width of the sheet, so the tabs run
+   to its right edge: the row bleeds over the padding and scrolls sideways. */
+.tabs {
+  margin-inline-end: calc(-1 * var(--breakpoint-spacing-l));
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar {
+  display: none;
+}
+.list {
+  flex: 1 1 auto;
+  min-height: 0;
+  margin: -4px;
+  padding: 4px;
+  overflow-y: auto;
+}
+
+/* A modal dialog: the native <dialog> in the top layer, centred on Desktop and
+   a bottom sheet on Mobile. There is no scrim token, so the backdrop is a
+   neutral 40% black. */
+.modal {
+  max-width: 100%;
+  max-height: calc(100dvh - 2 * var(--breakpoint-spacing-s));
+  margin: auto;
+}
+:global([data-breakpoint='375-mobile']) .modal {
+  max-height: calc(100dvh - var(--breakpoint-spacing-s));
+  margin: auto auto 0;
+}
+.modal::backdrop {
+  background: rgb(0 0 0 / 0.4);
+}

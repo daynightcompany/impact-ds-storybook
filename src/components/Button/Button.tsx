@@ -1,4 +1,4 @@
-import type { ButtonHTMLAttributes, ReactNode } from 'react';
+import type { ButtonHTMLAttributes, ReactNode, Ref } from 'react';
 import styles from './Button.module.css';
 import { Icon } from '../Icon';
 import '../../styles/tokens.css';
@@ -24,6 +24,8 @@ export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement
   icon?: ButtonIcon;
   iconElement?: ReactNode;
   children?: ReactNode;
+  /** The <button> element, e.g. as the anchor of a <Popover>. */
+  ref?: Ref<HTMLButtonElement>;
 }
 
 /**
