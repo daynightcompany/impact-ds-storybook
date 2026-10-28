@@ -1,4 +1,4 @@
-import { useContext, useId } from 'react';
+import { useContext, useId, useState } from 'react';
 import type { ButtonHTMLAttributes, ReactNode, Ref } from 'react';
 import styles from '../Field/Field.module.css';
 import {
@@ -19,7 +19,8 @@ export interface DropdownProps
     FieldMessageProps {
   /**
    * The label. While nothing is selected it is the placeholder (half opacity);
-   * once there is a value it becomes the small caption above the value.
+   * once there is a value it becomes the small caption above the value, gliding
+   * up as the value arrives and back down when it goes (300ms, ease out).
    */
   label?: string;
   /** The selected value. The field is Populated when there is one. */
@@ -51,7 +52,8 @@ export interface DropdownProps
  * "Dropdown with a popup").
  *
  * The label is the placeholder while nothing is selected, a small caption
- * above the selected `value` afterwards. The Figma booleans are props (`icon`,
+ * above the selected `value` afterwards; it glides from one to the other when
+ * the value arrives or goes. The Figma booleans are props (`icon`,
  * `chevron`, `required`, `link`, `helperText`); `error` and `disabled` set the
  * Error and Disabled states, Hover and Focused are the browser's own.
  * `className` / `style` apply to the field as a whole, a `ref` to the button.
@@ -81,6 +83,10 @@ export function Dropdown({
   const messageId = useId();
   const { message, hasError } = resolveFieldMessage({ helperText, error });
   const filled = value !== undefined && value !== null && value !== false && value !== '';
+  // The last value stays in the value row, hidden, while the label glides back down, so a cleared
+  // field fades its text out instead of blinking it away.
+  const [lastValue, setLastValue] = useState<ReactNode>(filled ? value : undefined);
+  if (filled && value !== lastValue) setLastValue(value);
 
   return (
     <div className={cx(styles.field, grouped && styles.grouped, className)} style={style} data-state={dataState}>
@@ -109,7 +115,7 @@ export function Dropdown({
           <span className={styles.content}>
             <span className={styles.label}>{label}</span>
             <span className={styles.value} aria-hidden={filled ? undefined : true}>
-              {filled ? value : label}
+              {filled ? value : lastValue}
             </span>
           </span>
         </span>

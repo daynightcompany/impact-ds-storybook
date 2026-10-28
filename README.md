@@ -97,7 +97,7 @@ Also known, no action needed: `--theme-opacity-*` is exported in `px` (not usabl
 | Cell group | ✅ Implemented — Link/Radio/Switch/Checkbox, dividers added between rows, radio group semantics |
 | Dialog header | ✅ Implemented — Left icons / Title / Right icons / Additional icons booleans and slots |
 | Dialog footer | ✅ Implemented — 3 CTA / 2 CTA × Horizontal / Vertical, Primary / Secondary / Tertiary button booleans |
-| Input field | ✅ Implemented — the Figma "Input field" and its "Base" field: icon, chevron, required, helper text, link booleans × idle/hover/focused/error/disabled × empty/populated |
+| Input field | ✅ Implemented — the Figma "Input field" and its "Base" field: icon, chevron, required, helper text, link booleans × idle/hover/focused/error/disabled × empty/populated; the label glides from the placeholder into the caption when there is a value (also in Input field area and Dropdown) |
 | Input field area | ✅ Implemented — grows with the text (minimum and maximum rows), helper text and link |
 | Text input group | ✅ Implemented — fields in one box with 1px dividers, wrapping into rows when narrow |
 | Dropdown | ✅ Implemented — the dropdown field (button) with the same booleans and states; opens a Popup: the "Open" story is the list view from the Figma demo, "Interactive" opens it from the field as a popover |

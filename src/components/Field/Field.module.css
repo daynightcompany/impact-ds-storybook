@@ -2,11 +2,26 @@
    Text input group, Search): the Figma "Base/Input Field" box and its helper
    text and link.
 
-   Box: 56px high at least, 16px around (8px above and below once the field has
-   a value, because the small label then sits above the value), 8px between
-   the parts, radius cornerRadius/m, a 1px stroke drawn INSIDE (border/primary).
-   Hover is a 1px interactive/hover/primary stroke, Focus a 2px stroke,
-   Error a 1px supportive/feedback/error stroke and Disabled halves the box.
+   Box: 56px high at least, 16px at the sides, 8px between the parts, radius
+   cornerRadius/m, a 1px stroke drawn INSIDE (border/primary). Hover is a 1px
+   interactive/hover/primary stroke, Focus a 2px stroke, Error a 1px
+   supportive/feedback/error stroke and Disabled halves the box.
+
+   Label: while the field is empty the label is its placeholder (MD text, 16px
+   from the edges); once there is a value it is the small caption above the
+   value (XS text, 8px from the top, the value 8px lower). The label glides
+   from one to the other as the value arrives or goes, over 300ms ease out like
+   the Smart animate of the Figma prototypes. A box without a label (Search) has
+   no caption row.
+
+   How it works: a box with a label always holds the caption row (16px) and the
+   value row (24px) between its 8px of padding, so it never changes size.
+   Empty: the label sits where Figma has the placeholder, --field-lift (8px)
+   higher than the value row's place in the layout, and the value row is
+   lifted over it (its text hidden). With a value: the label moves up into the
+   caption row, shrinking to the caption style, and the value row comes down
+   into its place. --label-* and --value-* below are those two states, set on
+   the box; the label and the value row transition towards them.
 
    Stories without a pointer (docs, Chromatic) show the Hover and Focus states by
    putting data-state="hover" | "focus" on a wrapper around the field. */
@@ -52,11 +67,39 @@
     opacity 0.3s ease-out;
 }
 
-/* Value present: the label moves above it and the box pads 8px above and below
-   (a box without a label, like Search, keeps its padding). */
-.box.filled:not(.noLabel),
-.box:not(.noLabel):has(.control:not(:placeholder-shown)) {
+/* A box with a label (all but Search): 8px of padding, the caption row, the
+   value row. Empty is the state described at the top: the label is the MD
+   placeholder at --label-top, the value row is lifted over it, its text hidden. */
+.box:not(.noLabel) {
   --field-pad-y: var(--breakpoint-spacing-2xs);
+  --field-caption: var(--font-interactive-label-text-xs-sans-regular-line-height);
+  --field-lift: calc(var(--breakpoint-spacing-2xs) + var(--field-caption) - var(--breakpoint-spacing-s));
+  --label-top: var(--field-lift);
+  --label-height: var(--font-interactive-label-text-md-sans-regular-line-height);
+  --label-size: var(--font-interactive-label-text-md-sans-regular-size);
+  --label-color: var(--theme-color-font-interactive-idle-secondary);
+  --value-shift: calc(-1 * var(--field-lift));
+  --value-color: transparent;
+  /* How the text of the value row fades: out at once, so it is gone before the
+     label glides back over it. */
+  --value-fade: 0.1s ease-out;
+}
+
+/* A value present: the label is the caption above it. A field with a hint (a
+   `placeholder` other than the label) takes this state as soon as it is
+   focused, so the hint shows under the caption. */
+.box.filled:not(.noLabel),
+.box:not(.noLabel):has(.control:not(:placeholder-shown)),
+.box.hinted:focus-within,
+[data-state='focus'] .box.hinted {
+  --label-top: 0px;
+  --label-height: var(--field-caption);
+  --label-size: var(--font-interactive-label-text-xs-sans-regular-size);
+  --label-color: var(--field-label-color);
+  --value-shift: 0px;
+  --value-color: var(--theme-color-font-interactive-idle-secondary);
+  /* ... and fades in once the label has moved out of its way. */
+  --value-fade: 0.2s ease-out 0.1s;
 }
 
 /* Tags (Search, Populated multi) pad spacing/xs above and below the 32px pills. */
@@ -163,35 +206,47 @@
   height: 100%;
 }
 
-/* Figma "label-input": the small label above the value. The label is always in
-   the page for assistive tech and only takes room once there is a value. */
+/* Figma "label-input": the small label above the value. The caption row is
+   the padding on top; the label floats over it and over the value row. */
 .content {
+  position: relative;
   display: flex;
   flex: 1 1 0;
   flex-direction: column;
   min-width: 0;
+  padding-top: var(--field-caption, 0px);
 }
 
+/* The label: the MD placeholder while the field is empty, the XS caption once
+   there is a value, and every size in between while it glides from one to the
+   other (the line-height follows the height, so the text stays centred in it).
+   It never takes a click: the box and the control do. */
 .label {
+  position: absolute;
+  inset-inline: 0;
+  top: var(--label-top, 0px);
   display: block;
-  height: 0;
+  height: var(--label-height, var(--font-interactive-label-text-xs-sans-regular-line-height));
   overflow: hidden;
-  color: var(--field-label-color);
+  color: var(--label-color, var(--field-label-color));
   font-family: var(--font-interactive-label-text-xs-sans-regular-family), sans-serif;
   font-weight: var(--font-interactive-label-text-xs-sans-regular-weight);
-  font-size: var(--font-interactive-label-text-xs-sans-regular-size);
-  line-height: var(--font-interactive-label-text-xs-sans-regular-line-height);
+  font-size: var(--label-size, var(--font-interactive-label-text-xs-sans-regular-size));
+  line-height: var(--label-height, var(--font-interactive-label-text-xs-sans-regular-line-height));
   white-space: nowrap;
   text-overflow: ellipsis;
   cursor: inherit;
-}
-.box.filled .label,
-.box:has(.control:not(:placeholder-shown)) .label {
-  height: var(--font-interactive-label-text-xs-sans-regular-line-height);
+  pointer-events: none;
+  transition:
+    top 0.3s ease-out,
+    height 0.3s ease-out,
+    font-size 0.3s ease-out,
+    line-height 0.3s ease-out,
+    color 0.3s ease-out;
 }
 
 /* The value: MD regular. For an <input> or <textarea> the browser draws the
-   placeholder (the label text while the field is empty). */
+   placeholder (blank, or the hint). */
 .control,
 .value {
   display: block;
@@ -233,10 +288,46 @@ textarea.control {
   cursor: not-allowed;
 }
 .value {
+  height: var(--font-interactive-label-text-md-sans-regular-line-height);
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   cursor: inherit;
+}
+
+/* In a box with a label the value row takes part in the motion: it sits over
+   the label while the field is empty, its text hidden (the label is what the
+   field shows), and comes down into its row, fading in, when a value arrives.
+   The caret stays visible meanwhile. */
+.box:not(.noLabel) .control,
+.box:not(.noLabel) .value {
+  color: var(--value-color);
+  caret-color: var(--theme-color-font-interactive-idle-secondary);
+  transform: translateY(var(--value-shift));
+  transition:
+    transform 0.3s ease-out,
+    color var(--value-fade);
+}
+/* The hint of a field that has one (`placeholder`): hidden like the text until
+   the field is focused, then half opacity under the caption. */
+.box:not(.noLabel) .control::placeholder {
+  color: transparent;
+  opacity: 1;
+  transition: color var(--value-fade);
+}
+.box.hinted:focus-within .control::placeholder,
+[data-state='focus'] .box.hinted .control::placeholder {
+  color: var(--theme-color-font-interactive-idle-secondary);
+  opacity: 0.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .label,
+  .box:not(.noLabel) .control,
+  .box:not(.noLabel) .value,
+  .box:not(.noLabel) .control::placeholder {
+    transition: none;
+  }
 }
 
 /* Figma "text-icon": the Required text and the chevron at the far end. */

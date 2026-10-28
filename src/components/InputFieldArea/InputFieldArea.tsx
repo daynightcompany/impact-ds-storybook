@@ -19,9 +19,16 @@ export interface InputFieldAreaProps
     Pick<FieldMessageProps, 'helperText' | 'error' | 'link' | 'onLinkClick'> {
   /**
    * The label. While the field is empty it is the placeholder (half opacity);
-   * once there is text it becomes the small caption above it.
+   * once there is text it becomes the small caption above it, gliding up as the
+   * text arrives and back down when it goes (300ms, ease out).
    */
   label?: string;
+  /**
+   * A hint for the text. The label is what an empty field shows; a hint
+   * (a placeholder other than the label) appears under the caption while the
+   * field is focused, the label gliding up to make room for it.
+   */
+  placeholder?: string;
   /**
    * The most lines the field grows to before it scrolls. Figma has no limit,
    * so by default the field grows with its text.
@@ -37,7 +44,8 @@ export interface InputFieldAreaProps
  * text. The 56px box (one line) grows with the text, 24px a line, with the label
  * above the text and the helper text under the box. Idle, Hover, Focused and
  * Disabled are the browser's own states; `error` sets Error; Empty and Populated
- * follow the text. `rows` sets the least number of lines (1 by default).
+ * follow the text, and the label glides between the placeholder and the caption
+ * (300ms, ease out). `rows` sets the least number of lines (1 by default).
  *
  * It takes the props of a `<textarea>`, a `ref` to it, and `className` /
  * `style` for the field as a whole.
@@ -69,8 +77,9 @@ export function InputFieldArea({
 
   const inputId = id ?? autoId;
   const { message, hasError } = resolveFieldMessage({ helperText, error });
-  // The browser needs a placeholder to tell an empty field from one with text.
-  const placeholderText = placeholder === '' ? ' ' : (placeholder ?? label);
+  // A hint is a placeholder other than the label. Without one the placeholder is blank (the label is what an
+  // empty field shows), but the browser still needs one to tell an empty field from one with text.
+  const hint = placeholder?.trim() && placeholder !== label ? placeholder : undefined;
 
   // The box is as high as its text: reset, then take the scroll height.
   const grow = useCallback(() => {
@@ -104,7 +113,7 @@ export function InputFieldArea({
   return (
     <div className={cx(styles.field, grouped && styles.grouped, className)} style={style} data-state={dataState}>
       <div
-        className={cx(styles.box, hasError && styles.error, disabled && styles.disabled)}
+        className={cx(styles.box, hint && styles.hinted, hasError && styles.error, disabled && styles.disabled)}
         onMouseDown={focusControlOnBoxPress(areaRef)}
       >
         <div className={styles.flag}>
@@ -118,7 +127,7 @@ export function InputFieldArea({
               id={inputId}
               rows={rows}
               className={styles.control}
-              placeholder={placeholderText}
+              placeholder={hint ?? ' '}
               disabled={disabled}
               aria-invalid={hasError || undefined}
               aria-describedby={cx(message != null && messageId, describedBy) || undefined}

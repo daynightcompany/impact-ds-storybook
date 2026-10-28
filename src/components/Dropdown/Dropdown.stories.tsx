@@ -187,7 +187,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Dropdown" component set (node 9587:5298): the Base/Input Field box with a chevron that opens a popup. It is a button, so pressing it calls `onClick` and `open` shows the Focused state while the popup is open. The label is the placeholder while nothing is selected and a small caption above the `value` afterwards (Empty and Populated follow the value). Booleans: Icon, Chevron (on), Required, Link and Helper text are props; `error` and `disabled` set Error and Disabled, Hover and Focused are the browser\'s own, and the stroke eases in over 300ms (ease out), as in the Figma prototype. The Figma Dropdown tints the small label font/interactive/hover/tertiary, the Input field uses font/interactive/idle/secondary. The "Open" story is the list view from the Dropdown demo on the Figma Input page: the field with the Popup under it, list only, as wide as the field and spacing/s (16px) below it. In an app the Popup opens from the field as a popover (it fades and slides in over 300ms, ease out): see the "Interactive" story. The Popup stories have the version with a Search, Tabs and a Footer. Use the Breakpoint switch in the toolbar to see the Mobile values.',
+          'Converted from the Figma "Dropdown" component set (node 9587:5298): the Base/Input Field box with a chevron that opens a popup. It is a button, so pressing it calls `onClick` and `open` shows the Focused state while the popup is open. The label is the placeholder while nothing is selected and a small caption above the `value` afterwards (Empty and Populated follow the value); it glides from one to the other when a value arrives or goes (300ms, ease out). Booleans: Icon, Chevron (on), Required, Link and Helper text are props; `error` and `disabled` set Error and Disabled, Hover and Focused are the browser\'s own, and the stroke eases in over 300ms (ease out), as in the Figma prototype. The Figma Dropdown tints the small label font/interactive/hover/tertiary, the Input field uses font/interactive/idle/secondary. The "Open" story is the list view from the Dropdown demo on the Figma Input page: the field with the Popup under it, list only, as wide as the field and spacing/s (16px) below it. In an app the Popup opens from the field as a popover (it fades and slides in over 300ms, ease out): see the "Interactive" story. The Popup stories have the version with a Search, Tabs and a Footer. Use the Breakpoint switch in the toolbar to see the Mobile values.',
       },
     },
   },
@@ -235,11 +235,11 @@ export const Open: Story = {
 /**
  * The same list as a popover, with sample options: press the field and the Popup opens under it, fading and
  * sliding in (ease out, 300ms), while the field takes its Focused look. Picking an option selects it and closes
- * the list; Escape, a press outside and tabbing away close it too, and the field opens it again. The canvas
- * opens it when the story loads.
+ * the list, and the label glides up into the caption above the picked value (300ms, ease out); Escape, a press
+ * outside and tabbing away close it too, and the field opens it again. The field starts empty and the canvas
+ * opens the list when the story loads; set `value` in the controls to start with an option picked.
  */
 export const Interactive: Story = {
-  args: { value: 'Estonia' },
   argTypes: { open: { table: { disable: true } } },
   parameters: {
     layout: 'padded',

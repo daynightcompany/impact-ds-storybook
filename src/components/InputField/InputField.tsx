@@ -20,9 +20,16 @@ export interface InputFieldProps
     FieldMessageProps {
   /**
    * The label. While the field is empty it is the placeholder (half opacity);
-   * once there is a value it becomes the small caption above the value.
+   * once there is a value it becomes the small caption above the value, gliding
+   * up as the value arrives and back down when it goes (300ms, ease out).
    */
   label?: string;
+  /**
+   * A hint for the value. The label is what an empty field shows; a hint
+   * (a placeholder other than the label) appears under the caption while the
+   * field is focused, the label gliding up to make room for it.
+   */
+  placeholder?: string;
   /** Figma boolean "Icon": a 24px icon at the start. `true` shows the placeholder icon; pass a node to use your own. */
   icon?: boolean | ReactNode;
   /** Figma boolean "Chevron": a chevron at the end. */
@@ -42,7 +49,9 @@ export interface InputFieldProps
  * Impact DS Input field — converted from the Figma "Base/Input Field" component
  * set (node 9587:4908) and its "Input field" wrapper (node 9587:5220): a 56px
  * box with a label that is the placeholder while the field is empty and a small
- * caption above the value afterwards. The Figma booleans are props: `icon`,
+ * caption above the value afterwards; it glides from one to the other when the
+ * value arrives or goes (Smart animate, 300ms ease out, as in the Figma
+ * prototype). The Figma booleans are props: `icon`,
  * `chevron`, `required`, `link` and `helperText`; the "Left content" boolean
  * only groups the Required text and the chevron, so it is not a prop.
  *
@@ -84,13 +93,14 @@ export function InputField({
   const inputId = id ?? autoId;
   const { message, hasError } = resolveFieldMessage({ helperText, error });
   const showRequired = Boolean(required) && requiredLabel !== false;
-  // The browser needs a placeholder to tell an empty field from one with a value.
-  const placeholderText = placeholder === '' ? ' ' : (placeholder ?? label);
+  // A hint is a placeholder other than the label. Without one the placeholder is blank (the label is what an
+  // empty field shows), but the browser still needs one to tell an empty field from one with a value.
+  const hint = placeholder?.trim() && placeholder !== label ? placeholder : undefined;
 
   return (
     <div className={cx(styles.field, grouped && styles.grouped, className)} style={style} data-state={dataState}>
       <div
-        className={cx(styles.box, hasError && styles.error, disabled && styles.disabled)}
+        className={cx(styles.box, hint && styles.hinted, hasError && styles.error, disabled && styles.disabled)}
         onMouseDown={focusControlOnBoxPress(inputRef)}
       >
         <div className={styles.flag}>
@@ -107,7 +117,7 @@ export function InputField({
               id={inputId}
               type={type}
               className={styles.control}
-              placeholder={placeholderText}
+              placeholder={hint ?? ' '}
               disabled={disabled}
               required={required}
               aria-invalid={hasError || undefined}
