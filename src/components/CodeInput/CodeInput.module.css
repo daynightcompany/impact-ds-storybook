@@ -36,6 +36,14 @@
   outline-offset: calc(-1 * var(--digit-stroke-width));
   caret-color: var(--theme-color-interactive-idle-primary);
   appearance: none;
+  /* The stroke is an outline driven by the custom properties above. Its colour
+     eases in with the dimming and the text colour, ease out over 300ms like the
+     Figma prototypes; its width is not eased (the browser rounds outline widths
+     to whole pixels, so it would only arrive late). */
+  transition:
+    outline-color 0.3s ease-out,
+    opacity 0.3s ease-out,
+    color 0.3s ease-out;
 }
 .digit::placeholder {
   color: inherit;

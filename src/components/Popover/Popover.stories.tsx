@@ -25,7 +25,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'The positioned shell behind a popup that opens from an element, such as the Popup (it has no Figma counterpart: Figma draws the panel only). It is in the browser\'s top layer, so no ancestor clips it; it is placed against the anchor, flips to the other side when there is no room, limits its height to the room that is left, and follows the anchor on scroll and resize. The anchor owns the toggle. The popover closes by itself on Escape, on a press outside and when the focus moves away, by calling `onOpenChange(false, reason)`, and gives the focus back to the anchor. It has `role="dialog"`: give it an `aria-label`.',
+          'The positioned shell behind a popup that opens from an element, such as the Popup (it has no Figma counterpart: Figma draws the panel only). It is in the browser\'s top layer, so no ancestor clips it; it is placed against the anchor, flips to the other side when there is no room, limits its height to the room that is left, and follows the anchor on scroll and resize. The anchor owns the toggle. The popover closes by itself on Escape, on a press outside and when the focus moves away, by calling `onOpenChange(false, reason)`, and gives the focus back to the anchor. It has `role="dialog"`: give it an `aria-label`. It sits spacing/s (16px) from the anchor, as in the Figma Dropdown demo, unless you give it an `offset`, fades and slides in from the anchor (ease out, 300ms, the easing of the Figma prototypes) and fades out again in 150ms; with a reduced-motion preference it only appears and disappears.',
       },
     },
   },
@@ -59,8 +59,9 @@ function Card({ children }: { children?: React.ReactNode }) {
 // drops the hooks, and it reads `element.ref` on the anchor button, which React 19 warns about in dev.
 /** Any content: a button toggles it, Escape, a press outside or tabbing away closes it. */
 export const Default: Story = {
-  args: { placement: 'bottom-start', offset: 8, matchAnchorWidth: false, autoFocus: true, keepMounted: false },
-  parameters: { layout: 'padded', docs: { source: { type: 'code' } } },
+  args: { placement: 'bottom-start', matchAnchorWidth: false, autoFocus: true, keepMounted: false },
+  // The snapshot waits for the popover to finish fading in.
+  parameters: { layout: 'padded', docs: { source: { type: 'code' } }, chromatic: { delay: 700 } },
   render: function Render(args) {
     const anchor = useRef<HTMLButtonElement>(null);
     const id = useId();
@@ -88,7 +89,7 @@ export const Default: Story = {
 
 /** The four placements. Near the edge of the viewport a popover flips to the other side. */
 export const Placements: Story = {
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'padded', chromatic: { delay: 700 } },
   render: function Render() {
     const placements: PopoverPlacement[] = ['bottom-start', 'bottom-end', 'top-start', 'top-end'];
     const [active, setActive] = useState<PopoverPlacement>('bottom-start');

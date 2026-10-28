@@ -199,7 +199,8 @@ export const AllVariants: Story = {
  */
 export const DropdownWithAPopup: Story = {
   name: 'Dropdown with a popup',
-  parameters: { layout: 'padded' },
+  // The snapshot waits for the popup to finish fading in.
+  parameters: { layout: 'padded', chromatic: { delay: 700 } },
   render: function Render() {
     const anchor = useRef<HTMLButtonElement>(null);
     const popupId = useId();
@@ -314,7 +315,7 @@ export const DropdownWithAPopup: Story = {
 /** A simple dropdown popover: no Search, Tabs or Footer, as wide as the dropdown; picking an option closes it. */
 export const SimpleDropdown: Story = {
   name: 'Simple dropdown',
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'padded', chromatic: { delay: 700 } },
   render: function Render() {
     const anchor = useRef<HTMLButtonElement>(null);
     const popupId = useId();

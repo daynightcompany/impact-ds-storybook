@@ -16,6 +16,9 @@
   color: var(--theme-color-font-interactive-idle-secondary);
   outline: var(--spinbox-stroke-width) solid var(--spinbox-stroke-color);
   outline-offset: calc(-1 * var(--spinbox-stroke-width));
+  transition:
+    outline-color 0.3s ease-out,
+    opacity 0.3s ease-out;
 }
 .spinbox:hover,
 .spinbox[data-state='hover'] {

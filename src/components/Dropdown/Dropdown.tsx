@@ -47,7 +47,8 @@ export interface DropdownProps
  * (node 9587:5298), the "Base/Input Field" box with a chevron that opens a
  * popup. It is a button: pressing it asks the popup to open (`onClick`), and
  * `open` shows the Focused state while the popup is open. Pair it with a
- * <Popup> (see the Popup story "Dropdown with a popup").
+ * <Popup> (see the stories "Open" and "Interactive", and the Popup story
+ * "Dropdown with a popup").
  *
  * The label is the placeholder while nothing is selected, a small caption
  * above the selected `value` afterwards. The Figma booleans are props (`icon`,

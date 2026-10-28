@@ -87,8 +87,8 @@ Also known, no action needed: `--theme-opacity-*` is exported in `px` (not usabl
 | Switch | ✅ Implemented — sizes (S/M/L) × states |
 | Chip, Chip group | ✅ Implemented — sizes (M/XL) × 7 icon layouts (incl. removable) × unselected/selected/disabled, Desktop and Mobile |
 | Tab, Tab list | ✅ Implemented — Primary/Secondary × sizes (L/XL) × icon layouts × unselected/selected/disabled; the list adds tab semantics and arrow keys, horizontal or vertical |
-| Avatar | ✅ Implemented — Icon/Initials/Image × selected × pressed |
-| Profile photo | ✅ Implemented — add/edit badge × pressed |
+| Avatar | ✅ Implemented — Icon/Initials/Image placeholder × selected × pressed; with an `onClick` it is a button that shows Pressed on hover and press, as in the Figma prototype |
+| Profile photo | ✅ Implemented — add/edit badge × pressed (also on hover) |
 | Switch button | ✅ Implemented — Primary/Secondary × off/on, text or icon items |
 | Segment control | ✅ Implemented — sizes (M/L), radio-group semantics |
 | Divider | ✅ Implemented |
@@ -100,12 +100,12 @@ Also known, no action needed: `--theme-opacity-*` is exported in `px` (not usabl
 | Input field | ✅ Implemented — the Figma "Input field" and its "Base" field: icon, chevron, required, helper text, link booleans × idle/hover/focused/error/disabled × empty/populated |
 | Input field area | ✅ Implemented — grows with the text (minimum and maximum rows), helper text and link |
 | Text input group | ✅ Implemented — fields in one box with 1px dividers, wrapping into rows when narrow |
-| Dropdown | ✅ Implemented — the dropdown field (button) with the same booleans and states; opens a Popup |
+| Dropdown | ✅ Implemented — the dropdown field (button) with the same booleans and states; opens a Popup: the "Open" story is the list view from the Figma demo, "Interactive" opens it from the field as a popover |
 | Search | ✅ Implemented — icon / clear booleans, tags ("Populated multi"), all states |
 | Spinbox | ✅ Implemented — number with increase / decrease buttons, min / max / step, keyboard |
 | Code input | ✅ Implemented — one box per character, auto-advance, paste and one-time-code autofill |
 | Popup | ✅ Implemented — the Figma "Popup/Dropdown" with the Search / Tabs / Footer booleans; opens from an element as a popover |
-| Popover | ✅ Implemented — top-layer shell for popups (no Figma counterpart): placement, flip, height limit, Escape / outside / focus-out |
+| Popover | ✅ Implemented — top-layer shell for popups (no Figma counterpart): placement, flip, height limit, Escape / outside / focus-out, fades and slides in and out |
 | Dialog | ✅ Implemented — Form Default / Select with the Header / Footer / Radio / Checkboxes / Switches / Tabs / Search booleans and slots; optional modal |
 | Everything else | 🚧 Not yet started |
 

@@ -35,19 +35,31 @@
   background: var(--theme-color-interactive-idle-primary);
   color: var(--theme-color-font-interactive-idle-primary);
   pointer-events: none;
-  transition: background-color 0.15s ease;
+  /* Figma: hover and press ease in over 300ms. */
+  transition: background-color 0.3s ease-in;
 }
 .badge > svg {
   width: 16px;
   height: 16px;
 }
 
-/* Pressed: the badge goes to the hover colour and the photo takes the
-   Avatar's own Pressed look (through the Avatar's custom properties). */
+/* The photo eases the same way as the badge. */
+.root .avatar,
+.root .avatar::before,
+.root .avatar::after {
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in;
+}
+
+/* Pressed, which the Figma prototype also shows on hover: the badge goes to the
+   hover colour and the photo takes the Avatar's own Pressed look (through the
+   Avatar's custom properties). */
+.root:hover .badge,
 .root:active .badge,
 .pressed .badge {
   background: var(--theme-color-interactive-hover-primary);
 }
+.root:hover .avatar,
 .root:active .avatar,
 .pressed .avatar {
   --avatar-fill: var(--theme-color-border-tertiary);

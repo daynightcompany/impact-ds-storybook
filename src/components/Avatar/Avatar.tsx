@@ -9,7 +9,7 @@ import '../../styles/tokens.extras.css';
 /**
  * - `Icon`      the account glyph
  * - `Initials`  one or two letters (pass them as `children`)
- * - `Image`     a photo (`src` + `alt`, or your own element as `children`)
+ * - `Image`     the grey picture placeholder
  */
 export type AvatarType = 'Icon' | 'Initials' | 'Image';
 
@@ -24,16 +24,14 @@ export interface AvatarProps extends Omit<HTMLAttributes<HTMLElement>, 'children
   selected?: boolean;
   /**
    * Figma State=Pressed. An avatar with an `onClick` shows this by itself
-   * while it is pressed; set it to show the pressed look statically.
+   * under the pointer and while it is held down (the Figma prototype goes to
+   * Pressed on hover and on press); set it to show the pressed look statically.
    */
   pressed?: boolean;
-  /** Image type: the photo. Without it the Figma grey placeholder is shown. */
-  src?: string;
-  /** Image type: alternative text for `src`. */
-  alt?: string;
   /**
    * The content of the avatar: the initials for the Initials type, or a
-   * replacement for the default icon (Icon type) or photo (Image type).
+   * replacement for the default icon (Icon type). The Image type is always
+   * the placeholder.
    */
   children?: ReactNode;
 }
@@ -53,13 +51,16 @@ function ImageGlyph() {
  * 9587:3379) in the SMAL Impact Design System file. Type (Icon / Initials /
  * Image) x Selected x State (Default / Pressed).
  *
- * A round, 1px outlined badge. Figma has no hover state: Pressed greys the
- * fill (a tint over a photo) and drops the outline, Selected swaps the outline
- * for a 2px ring. An avatar with an `onClick` renders as a button and shows the
- * Pressed look while it is held down; without one it is a plain, non-interactive
- * element.
+ * A round, 1px outlined badge. Pressed greys the fill (a tint over the Image
+ * placeholder) and drops the outline, Selected swaps the outline for a 2px
+ * ring. The Figma prototype goes to Pressed on hover as well as on press, so an
+ * avatar with an `onClick` (it renders as a button) shows the Pressed look
+ * under the pointer and while it is held down, easing in over 300ms (50ms for
+ * the press itself); without an `onClick` it is a plain, non-interactive
+ * element. Keep `selected` in your own state and flip it in the `onClick`: a
+ * button with `selected` set is announced as a toggle.
  *
- * Colours are driven by four custom properties on the root, which a parent can
+ * Colours are driven by custom properties on the root, which a parent can
  * override for a composite (see Profile photo): `--avatar-fill`,
  * `--avatar-stroke-w`, `--avatar-stroke-c` and `--avatar-tint`.
  */
@@ -68,8 +69,6 @@ export function Avatar({
   size = 40,
   selected,
   pressed,
-  src,
-  alt = '',
   children,
   className,
   style,
@@ -93,15 +92,11 @@ export function Avatar({
   if (type === 'Initials') {
     content = <span className={styles.initials}>{children ?? 'AB'}</span>;
   } else if (type === 'Image') {
-    content =
-      children ??
-      (src ? (
-        <img className={styles.image} src={src} alt={alt} draggable={false} />
-      ) : (
-        <span className={styles.placeholder}>
-          <ImageGlyph />
-        </span>
-      ));
+    content = (
+      <span className={styles.placeholder}>
+        <ImageGlyph />
+      </span>
+    );
   } else {
     content = <span className={styles.glyph}>{children ?? <Icon name="account" />}</span>;
   }

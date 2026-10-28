@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
 import { ProfilePhoto } from './ProfilePhoto';
-import { SAMPLE_PHOTO } from '../Avatar/samplePhoto';
 
 const meta = {
   title: 'Impact DS/Profile photo',
@@ -18,7 +17,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Profile Photo" component set (node 9587:3436) in the SMAL Impact Design System file: a 100px Avatar with a 24px round action badge at its bottom-right corner. Adjustment is `add` (a plus, for a missing photo) or `edit` (a pencil). The whole thing is one button; pressing it greys the photo like the Avatar\'s Pressed state and moves the badge to the hover colour. Use `pressed` to show that look statically.',
+          'Converted from the Figma "Profile Photo" component set (node 9587:3436) in the SMAL Impact Design System file: a 100px Avatar with a 24px round action badge at its bottom-right corner. Adjustment is `add` (a plus, for a missing photo) or `edit` (a pencil). The whole thing is one button; hovering or pressing it (the Figma prototype goes to Pressed on both, ease in over 300ms) greys the photo like the Avatar\'s Pressed state and moves the badge to the hover colour. Use `pressed` to show that look statically.',
       },
     },
   },
@@ -39,8 +38,9 @@ export const Pressed: Story = {
   args: { adjustment: 'add', pressed: true },
 };
 
-export const WithPhoto: Story = {
-  args: { adjustment: 'edit', type: 'Image', src: SAMPLE_PHOTO, alt: '' },
+export const WithImagePlaceholder: Story = {
+  name: 'With image placeholder',
+  args: { adjustment: 'edit', type: 'Image' },
 };
 
 export const WithInitials: Story = {
@@ -63,7 +63,7 @@ export const AllVariants: Story = {
           <span style={{ width: 70, fontSize: 12, color: '#888' }}>{adjustment}</span>
           <ProfilePhoto adjustment={adjustment} aria-label="Change profile photo" />
           <ProfilePhoto adjustment={adjustment} pressed aria-label="Change profile photo (pressed)" />
-          <ProfilePhoto adjustment={adjustment} type="Image" src={SAMPLE_PHOTO} alt="" />
+          <ProfilePhoto adjustment={adjustment} type="Image" aria-label="Change profile photo" />
           <ProfilePhoto adjustment={adjustment} type="Initials" aria-label="Change profile photo">
             DN
           </ProfilePhoto>

@@ -39,7 +39,7 @@ export interface PopupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'childr
   onOpenChange?: (open: boolean, reason: PopoverCloseReason) => void;
   /** Only with `anchorRef`. */
   placement?: PopoverPlacement;
-  /** Only with `anchorRef`: the gap to the anchor, in px. */
+  /** Only with `anchorRef`: the gap to the anchor, in px (spacing/s, 16px, unless given). */
   offset?: number;
   /** Only with `anchorRef`: makes the popup as wide as the anchor instead of `width`. */
   matchAnchorWidth?: boolean;

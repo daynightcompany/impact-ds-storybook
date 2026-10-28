@@ -1,9 +1,13 @@
-/* The look is four custom properties, so every state is one override and a
+/* The look is a few custom properties, so every state is one override and a
    parent (Profile photo) can restyle the avatar without knowing its markup:
      --avatar-fill      the circle's fill
      --avatar-stroke-w  width of the inside ring
      --avatar-stroke-c  colour of the inside ring
-     --avatar-tint      colour laid over a photo (Image type only) */
+     --avatar-tint      colour laid over the Image placeholder (Image type only)
+
+   Motion follows the Figma prototype: hovering goes to Pressed, ease out over
+   300ms; pressing is quicker, ease in-out over 50ms; selecting eases out over
+   300ms. */
 .avatar {
   --avatar-size: 40px;
   --avatar-fill: var(--theme-color-background-primary);
@@ -29,11 +33,12 @@
   font-weight: var(--font-interactive-label-text-md-sans-regular-weight);
   font-size: var(--font-interactive-label-text-md-sans-regular-size);
   line-height: var(--font-interactive-label-text-md-sans-regular-line-height);
-  transition: background-color 0.15s ease;
+  transition: background-color 0.3s ease-out;
 }
 
 /* The ring is drawn by ::after, above the content, so it also sits on top of
-   a photo (an outline would be painted underneath positioned children). */
+   the Image placeholder (an outline would be painted underneath positioned
+   children). */
 .avatar::after {
   content: '';
   position: absolute;
@@ -41,12 +46,13 @@
   border-radius: inherit;
   box-shadow: inset 0 0 0 var(--avatar-stroke-w) var(--avatar-stroke-c);
   pointer-events: none;
-  transition: box-shadow 0.15s ease;
+  transition: box-shadow 0.3s ease-out;
 }
 
-/* A photo covers the whole circle and the fill is not drawn. */
+/* The Image placeholder covers the whole circle: no fill is drawn under it,
+   and the state shows as a tint on top. */
 .type-image {
-  --avatar-fill: transparent;
+  background: transparent;
 }
 .type-image::before {
   content: '';
@@ -55,8 +61,11 @@
   border-radius: inherit;
   background: var(--avatar-tint);
   pointer-events: none;
-  transition: background-color 0.15s ease;
+  transition: background-color 0.3s ease-out;
 }
+
+/* The states, in the order they win: Selected < Pressed < Selected pressed
+   (later rules beat earlier ones of equal weight). */
 
 /* Selected: a 2px ring in the primary interactive colour. */
 .selected {
@@ -64,32 +73,36 @@
   --avatar-stroke-c: var(--theme-color-interactive-idle-primary);
 }
 
-/* Pressed: grey fill (tint over a photo), the ring goes away. */
-.pressed,
+/* Pressed: grey fill (a tint over the placeholder), the ring goes away. Only a
+   clickable avatar reacts to the pointer: under it (the Figma prototype goes to
+   Pressed on hover) and while it is held down. */
+.avatar.pressed,
+.interactive:hover,
 .interactive:active {
   --avatar-fill: var(--theme-color-border-tertiary);
   --avatar-stroke-c: transparent;
   --avatar-tint: var(--theme-color-border-tertiary);
 }
-.type-image.pressed,
-.type-image.interactive:active {
-  --avatar-fill: transparent;
-}
 
 /* Selected and pressed: the light fill comes back with a hover-coloured ring. */
-.selected.pressed,
+.avatar.selected.pressed,
+.selected.interactive:hover,
 .selected.interactive:active {
   --avatar-fill: var(--theme-color-surface-primary);
   --avatar-stroke-c: var(--theme-color-interactive-hover-primary);
-}
-.type-image.selected.pressed,
-.type-image.selected.interactive:active {
-  --avatar-fill: transparent;
+  --avatar-tint: var(--theme-color-border-tertiary);
 }
 
 /* Interactive avatars are buttons. */
 .interactive {
   cursor: pointer;
+}
+/* Pressing is quicker than hovering. */
+.interactive:active,
+.interactive:active::before,
+.interactive:active::after {
+  transition-duration: 0.05s;
+  transition-timing-function: ease-in-out;
 }
 .interactive:focus-visible {
   outline: 2px solid var(--theme-color-interactive-idle-primary);
@@ -117,14 +130,6 @@
   justify-content: center;
   height: 24px;
   white-space: nowrap;
-}
-
-.image {
-  display: block;
-  width: 100%;
-  height: 100%;
-  border-radius: inherit;
-  object-fit: cover;
 }
 
 /* The grey Image placeholder with its small picture glyph. */

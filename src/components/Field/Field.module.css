@@ -44,6 +44,12 @@
   outline: var(--field-stroke-width) solid var(--field-stroke-color);
   outline-offset: calc(-1 * var(--field-stroke-width));
   cursor: text;
+  /* Hover, focus, error and disabled ease in, ease out over 300ms like the Figma
+     prototypes: the stroke colour and the dimming. The width is not eased (the
+     browser rounds outline widths to whole pixels, so it would only arrive late). */
+  transition:
+    outline-color 0.3s ease-out,
+    opacity 0.3s ease-out;
 }
 
 /* Value present: the label moves above it and the box pads 8px above and below
@@ -132,6 +138,7 @@
   gap: var(--breakpoint-spacing-2xs);
   min-width: 0;
   opacity: 0.5;
+  transition: opacity 0.3s ease-out;
 }
 .box.filled .flag,
 .box:has(.control:not(:placeholder-shown)) .flag,

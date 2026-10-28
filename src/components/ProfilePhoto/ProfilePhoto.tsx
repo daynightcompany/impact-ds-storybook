@@ -13,19 +13,16 @@ export type ProfilePhotoAdjustment = 'add' | 'edit';
 export interface ProfilePhotoProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children' | 'type'> {
   adjustment?: ProfilePhotoAdjustment;
   /**
-   * Figma State=pressed. The button shows this by itself while it is held
-   * down; set it to show the pressed look statically.
+   * Figma State=pressed. The button shows this by itself under the pointer and
+   * while it is held down (the Figma prototype goes to pressed on hover and on
+   * press); set it to show the pressed look statically.
    */
   pressed?: boolean;
-  /** What the round photo shows: the account icon, initials or an image. */
+  /** What the round photo shows: the account icon, initials or the grey image placeholder. */
   type?: AvatarType;
-  /** Image type: the photo. */
-  src?: string;
-  /** Image type: alternative text for `src`. */
-  alt?: string;
   /** Diameter in px; Figma draws it at 100. The badge keeps its 24px size. */
   size?: number;
-  /** Initials, or a replacement for the default icon / photo (see Avatar). */
+  /** Initials, or a replacement for the default icon (see Avatar). */
   children?: ReactNode;
 }
 
@@ -35,15 +32,14 @@ export interface ProfilePhotoProps extends Omit<ButtonHTMLAttributes<HTMLButtonE
  * bottom-right corner. Adjustment add / edit x State default / pressed.
  *
  * The whole thing is one button (give it an `aria-label`, e.g. "Change profile
- * photo"). Pressing it greys the avatar like the Avatar's own Pressed state and
- * moves the badge to the hover colour.
+ * photo"). Hovering or pressing it greys the avatar like the Avatar's own
+ * Pressed state and moves the badge to the hover colour, easing in over 300ms
+ * as the Figma prototype does.
  */
 export function ProfilePhoto({
   adjustment = 'add',
   pressed,
   type = 'Icon',
-  src,
-  alt,
   size = 100,
   children,
   className,
@@ -55,7 +51,7 @@ export function ProfilePhoto({
 
   return (
     <button type="button" className={classes} style={rootStyle} {...rest}>
-      <Avatar className={styles.avatar} type={type} src={src} alt={alt} size={size}>
+      <Avatar className={styles.avatar} type={type} size={size}>
         {children}
       </Avatar>
       <span className={styles.badge} aria-hidden>

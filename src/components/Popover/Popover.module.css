@@ -4,8 +4,20 @@
    (px) and --popover-max-height / --popover-width against the anchor.
 
    Do not set `display` on the base rule: the UA hides a closed [popover] with
-   `display: none`, and an author `display` would override that. */
+   `display: none`, and an author `display` would override that.
+
+   Motion: it fades in while it slides 8px away from the anchor, ease out over
+   300ms (the easing of the Figma prototypes), and fades out again over 150ms.
+   `display` and `overlay` are transitioned as well, so the element stays in
+   the top layer until the fade-out is over; Popover.tsx keeps the children in
+   the page until then. */
 .popover {
+  /* The gap to the anchor (the Figma Dropdown demo has spacing/s); Popover.tsx
+     reads it unless it is given an `offset`. */
+  --popover-offset: var(--breakpoint-spacing-s);
+  /* Where it slides in from: down from above when it opens below its anchor
+     (Popover.tsx puts the side in data-side), up from below when it opens above. */
+  --popover-shift: -8px;
   position: fixed;
   inset: auto;
   box-sizing: border-box;
@@ -19,18 +31,57 @@
   background: transparent;
   color: inherit;
   outline: none;
+  /* The closed look, which it fades out to. */
+  opacity: 0;
+  transform: translateY(var(--popover-shift));
+  pointer-events: none;
+  transition:
+    opacity 0.15s ease-out,
+    transform 0.15s ease-out,
+    overlay 0.15s ease-out allow-discrete,
+    display 0.15s ease-out allow-discrete;
+}
+.popover[data-side='top'] {
+  --popover-shift: 8px;
 }
 .popover:popover-open {
   display: flex;
   flex-direction: column;
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+  transition:
+    opacity 0.3s ease-out,
+    transform 0.3s ease-out,
+    overlay 0.3s ease-out allow-discrete,
+    display 0.3s ease-out allow-discrete;
+}
+/* Where it starts from when it opens. */
+@starting-style {
+  .popover:popover-open {
+    opacity: 0;
+    transform: translateY(var(--popover-shift));
+  }
 }
 
-/* Browsers without the Popover API: a fixed box above the page. */
+/* Browsers without the Popover API: a fixed box above the page that appears
+   and disappears at once. */
 .fallback {
   z-index: 1000;
   display: none;
+  transition: none;
 }
 .fallback[data-open='true'] {
   display: flex;
   flex-direction: column;
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .popover,
+  .popover:popover-open {
+    transition: none;
+  }
 }

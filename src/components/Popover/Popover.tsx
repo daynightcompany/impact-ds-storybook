@@ -1,4 +1,4 @@
-import { useEffect, useImperativeHandle, useLayoutEffect, useRef } from 'react';
+import { useEffect, useImperativeHandle, useLayoutEffect, useRef, useState } from 'react';
 import type { FocusEvent, HTMLAttributes, ReactNode, Ref, RefObject } from 'react';
 import styles from './Popover.module.css';
 import '../../styles/tokens.css';
@@ -21,7 +21,7 @@ export interface PopoverProps extends Omit<HTMLAttributes<HTMLDivElement>, 'popo
   anchorRef: RefObject<HTMLElement | null>;
   /** `bottom-start` lines the popover's start edge up with the anchor's, below it. */
   placement?: PopoverPlacement;
-  /** Gap between the anchor and the popover, in px. */
+  /** Gap between the anchor and the popover, in px. Defaults to spacing/s (16px), the gap in the Figma Dropdown demo. */
   offset?: number;
   /** Makes the popover as wide as the anchor (`--popover-width`). */
   matchAnchorWidth?: boolean;
@@ -37,6 +37,14 @@ export interface PopoverProps extends Omit<HTMLAttributes<HTMLDivElement>, 'popo
 const VIEWPORT_MARGIN = 8;
 /** The popover never gets squeezed below this height before it flips or scrolls, in px. */
 const MIN_HEIGHT = 96;
+/** The gap to the anchor when the CSS does not say (spacing/s), in px. */
+const DEFAULT_OFFSET = 16;
+
+/** The gap to the anchor from the CSS (`--popover-offset`, which follows spacing/s), in px. */
+function cssOffset(element: HTMLElement): number {
+  const value = parseFloat(getComputedStyle(element).getPropertyValue('--popover-offset'));
+  return Number.isFinite(value) ? value : DEFAULT_OFFSET;
+}
 
 const SUPPORTS_POPOVER =
   typeof HTMLElement !== 'undefined' && typeof HTMLElement.prototype.showPopover === 'function';
@@ -76,6 +84,10 @@ function firstFocusable(root: HTMLElement): HTMLElement | null {
  * limits its height (`--popover-max-height`) to the room that is left, so a
  * long list inside scrolls. It follows the anchor on scroll and resize.
  *
+ * It fades and slides in from the anchor (ease out, 300ms, the easing of the
+ * Figma prototypes) and out again (150ms); with a reduced-motion preference it
+ * only appears and disappears. Its children stay in the page until it is gone.
+ *
  * The anchor owns the toggle: open on its click and close on its next one.
  * The popover closes by itself on Escape, on a press outside it and on focus
  * moving away, by calling `onOpenChange(false, reason)`; the focus returns to
@@ -88,7 +100,7 @@ export function Popover({
   onOpenChange,
   anchorRef,
   placement = 'bottom-start',
-  offset = 8,
+  offset,
   matchAnchorWidth = false,
   autoFocus = true,
   keepMounted = false,
@@ -113,11 +125,19 @@ export function Popover({
   const skipRestoreFocus = useRef(false);
   const wasOpen = useRef(false);
 
+  // The children stay in the page while the popover fades out (see below).
+  const [present, setPresent] = useState(open);
+  if (open && !present) setPresent(true);
+
   // Show and hide in the top layer.
   useLayoutEffect(() => {
     const el = element.current;
     if (open) {
-      if (el && SUPPORTS_POPOVER && !el.matches(':popover-open')) el.showPopover();
+      if (el && SUPPORTS_POPOVER && !el.matches(':popover-open')) {
+        // The side it slides in from (see the CSS) is the one asked for, until place() decides.
+        el.dataset.side = placement.startsWith('top') ? 'top' : 'bottom';
+        el.showPopover();
+      }
       wasOpen.current = true;
       return;
     }
@@ -132,11 +152,30 @@ export function Popover({
       // would go on to press the anchor button as well and open the popover again.
       window.setTimeout(() => {
         const now = document.activeElement;
-        if (!now || now === document.body) anchorRef.current?.focus({ preventScroll: true });
+        // The focus can still be inside while the popover fades out.
+        if (!now || now === document.body || el?.contains(now)) anchorRef.current?.focus({ preventScroll: true });
       }, 0);
     }
     skipRestoreFocus.current = false;
-  }, [open, anchorRef]);
+  }, [open, placement, anchorRef]);
+
+  // Once the fade-out has run, take the children out of the page. Without the
+  // Popover API, or with reduced motion, there is nothing to wait for.
+  useLayoutEffect(() => {
+    if (open || !present) return;
+    const running = SUPPORTS_POPOVER ? (element.current?.getAnimations() ?? []) : [];
+    if (running.length === 0) {
+      setPresent(false);
+      return;
+    }
+    let cancelled = false;
+    void Promise.allSettled(running.map((animation) => animation.finished)).then(() => {
+      if (!cancelled) setPresent(false);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [open, present]);
 
   // Place it against the anchor, and keep it there.
   useLayoutEffect(() => {
@@ -146,6 +185,7 @@ export function Popover({
     if (!el || !anchor) return;
 
     const place = () => {
+      const gap = offset ?? cssOffset(el);
       const a = anchor.getBoundingClientRect();
       const viewportWidth = document.documentElement.clientWidth;
       const viewportHeight = document.documentElement.clientHeight;
@@ -157,15 +197,15 @@ export function Popover({
       const width = el.offsetWidth;
       const naturalHeight = el.offsetHeight;
 
-      const roomBelow = viewportHeight - a.bottom - offset - VIEWPORT_MARGIN;
-      const roomAbove = a.top - offset - VIEWPORT_MARGIN;
+      const roomBelow = viewportHeight - a.bottom - gap - VIEWPORT_MARGIN;
+      const roomAbove = a.top - gap - VIEWPORT_MARGIN;
       const preferred = placement.startsWith('top') ? 'top' : 'bottom';
       const room = { top: roomAbove, bottom: roomBelow };
       const other = preferred === 'top' ? 'bottom' : 'top';
       const side = naturalHeight <= room[preferred] || room[preferred] >= room[other] ? preferred : other;
 
       const height = Math.min(naturalHeight, Math.max(MIN_HEIGHT, room[side]));
-      const top = side === 'bottom' ? a.bottom + offset : a.top - offset - height;
+      const top = side === 'bottom' ? a.bottom + gap : a.top - gap - height;
       const left = placement.endsWith('end') ? a.right - width : a.left;
 
       el.style.setProperty('--popover-max-height', `${height}px`);
@@ -249,7 +289,7 @@ export function Popover({
       style={style}
       onBlur={handleBlur}
     >
-      {(open || keepMounted) && children}
+      {(open || present || keepMounted) && children}
     </div>
   );
 }
