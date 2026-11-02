@@ -19,7 +19,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Spinbox" component (node 9587:5318): a box with the number, a divider and a pair of chevrons that add or take one `step`. It hugs its width. The number is a text field with the `spinbutton` role: type it, press ArrowUp / ArrowDown (PageUp / PageDown move ten steps, Home / End go to `min` / `max`) or press the chevrons. The number is committed, and kept between `min` and `max`, when the field loses focus or Enter is pressed. Figma draws the number at half opacity like the placeholder of an empty Input field; here it is at full contrast. Figma has a single state, so Hover, Focus and Disabled follow the Input field. Use the Breakpoint switch in the toolbar to see the Mobile values.',
+          'Converted from the Figma "Spinbox" component (node 9587:5318): a box with the number, a divider and a pair of chevrons that add or take one `step`. It hugs its width. The number is a text field with the `spinbutton` role: type it, press ArrowUp / ArrowDown (PageUp / PageDown move ten steps, Home / End go to `min` / `max`) or press the chevrons, which are the two halves of the box: a hovered chevron fills its half from edge to edge. The number is committed, and kept between `min` and `max`, when the field loses focus or Enter is pressed. Figma draws the number at half opacity like the placeholder of an empty Input field; here it is at full contrast. Figma has a single state, so Hover, Focus and Disabled follow the Input field. Use the Breakpoint switch in the toolbar to see the Mobile values.',
       },
     },
   },

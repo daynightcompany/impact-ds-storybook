@@ -1,8 +1,13 @@
 /* Figma "Spinbox": 56px high, hugging its width. A 62px number container (the
    value, 16px around it), a 1px divider (border/primary) and a 32px spin
-   container with the up and down chevrons (4px above and below, 24px each).
+   container with the up and down chevrons (24px each).
    The stroke is 1px border/primary drawn inside, radius cornerRadius/m, on the
-   background. Hover, Focus and Disabled follow the Input field. */
+   background. Hover, Focus and Disabled follow the Input field.
+   Figma leaves 4px above and below the chevrons. Here each chevron button is a
+   whole half of the box, so the grey of a hovered chevron runs out to the
+   stroke (which is drawn over it) and to the other half, with no strip of the
+   box showing above or below it. The chevron is centred in the part of its half
+   that lies inside the stroke, so it sits 1px nearer the edge than in Figma. */
 .spinbox {
   --spinbox-stroke-color: var(--theme-color-border-primary);
   --spinbox-stroke-width: var(--theme-borderstroke-s);
@@ -83,15 +88,18 @@
   flex: none;
   flex-direction: column;
   width: 32px;
-  padding: var(--breakpoint-spacing-3xs) 0;
 }
+/* Each button is half of the box, edge to edge. Its padding on the outer side is
+   the thickness of the focused stroke (borderStroke/m, the thickest one), which
+   covers that much of the grey: the chevron is centred in what is left. */
 .spinButton {
+  box-sizing: border-box;
   display: inline-flex;
-  flex: none;
+  flex: 1 1 0;
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 24px;
+  min-height: 0;
   margin: 0;
   padding: 0;
   border: none;
@@ -99,7 +107,13 @@
   background: none;
   color: var(--theme-color-font-interactive-idle-secondary);
   cursor: pointer;
-  transition: background-color 0.15s ease;
+  transition: background-color 0.3s ease-out;
+}
+.spinButton:first-child {
+  padding-top: var(--theme-borderstroke-m);
+}
+.spinButton:last-child {
+  padding-bottom: var(--theme-borderstroke-m);
 }
 .spinButton:hover:not(:disabled) {
   background: var(--theme-color-border-tertiary);
