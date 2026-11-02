@@ -6,7 +6,11 @@
    one has a 2px interactive/idle/stroke stroke and interactive/idle/primary
    text; the focused box has a 2px interactive/idle/primary stroke; a hovered
    one a 1px interactive/hover/primary stroke; Error draws every box with a 1px
-   supportive/feedback/error stroke; Disabled halves every box. */
+   supportive/feedback/error stroke; Disabled halves every box.
+
+   An empty box that is focused has the full stroke and caret, but its "0" stays
+   at half opacity, as it is when the box is idle, until a character arrives:
+   the placeholder must not look like typed text. */
 .row {
   display: flex;
   gap: var(--breakpoint-spacing-xs);
@@ -48,6 +52,14 @@
 .digit::placeholder {
   color: inherit;
   opacity: 1;
+  transition: opacity 0.3s ease-out;
+}
+/* The box itself is at full opacity while it is focused, so the "0" is dimmed on
+   its own: half of full is the half of the idle box. An error draws it at full
+   opacity, idle or not (Figma Error / Empty). */
+.row:not(.error) .digit:focus:placeholder-shown::placeholder,
+[data-state='focus'] .row:not(.error) .digit:first-child:placeholder-shown::placeholder {
+  opacity: 0.5;
 }
 
 .digit.filled {

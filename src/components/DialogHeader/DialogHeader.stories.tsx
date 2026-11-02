@@ -26,7 +26,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Dialog/Header" component (node 9587:6860) in the SMAL Impact Design System file: left icons, a centred title and right icons with a close button. Booleans: Left icons, Title, Right icons, Additional icons (shown with Right icons, as in Figma). Slots: pass a node to `leftIcons` / `additionalIcons` to replace the default back arrow / placeholder icons. The title is centred while the left icons are shown and sits at the start when they are not. Inside a Dialog or Popup the header has no padding of its own. Use the Breakpoint switch in the toolbar to see the Mobile values.',
+          'Converted from the Figma "Dialog/Header" component (node 9587:6860) in the SMAL Impact Design System file: left icons, a centred title and right icons with a close button. The back arrow and the close button are the Button component (Tertiary, size M, icon only). Booleans: Left icons, Title, Right icons, Additional icons (shown with Right icons, as in Figma). Slots: pass a node to `leftIcons` / `additionalIcons` to replace the default back arrow / placeholder icons. The title is centred while the left icons are shown and sits at the start when they are not. Inside a Dialog or Popup the header has no padding of its own. Use the Breakpoint switch in the toolbar to see the Mobile values.',
       },
     },
   },

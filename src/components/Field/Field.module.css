@@ -14,6 +14,12 @@
    the Smart animate of the Figma prototypes. A box without a label (Search) has
    no caption row.
 
+   Empty and active: a field that is focused (or open, for a Dropdown) but has
+   no value yet looks like the idle one but for its stroke and its caret. The
+   icon and the label (in a box without a label, the placeholder) stay at half
+   opacity, so they are not taken for typed text, and take the full colour with
+   the first character or the selected value. --field-dim is that opacity.
+
    How it works: a box with a label always holds the caption row (16px) and the
    value row (24px) between its 8px of padding, so it never changes size.
    Empty: the label sits where Figma has the placeholder, --field-lift (8px)
@@ -42,6 +48,9 @@
   --field-stroke-width: var(--theme-borderstroke-s);
   --field-pad-y: var(--breakpoint-spacing-s);
   --field-label-color: var(--theme-color-font-interactive-idle-secondary);
+  /* The opacity of the icon and the label (the placeholder): half while the field
+     has no value, full otherwise (see below). */
+  --field-dim: 0.5;
   position: relative;
   box-sizing: border-box;
   display: flex;
@@ -102,9 +111,27 @@
   --value-fade: 0.2s ease-out 0.1s;
 }
 
-/* Tags (Search, Populated multi) pad spacing/xs above and below the 32px pills. */
+/* Search pads spacing/xs above and below the 32px of its tags and clear button
+   (a Label S is as high), so the box stays 56 high with them. */
+.box.noLabel,
 .box.tagged {
   --field-pad-y: var(--breakpoint-spacing-xs);
+}
+
+/* Not dimmed: a value or tags, the hint of a field that shows its label as the
+   caption (focused), an error (Figma draws Error and Disabled at full
+   opacity, Disabled halves the whole box instead) and, in a box without a label,
+   a pointer over it (Figma Search / Hover) unless it is focused. Focus or an
+   open popup alone does not undim an empty field. */
+.box.filled,
+.box:has(.control:not(:placeholder-shown)),
+.box.hinted:focus-within,
+[data-state='focus'] .box.hinted,
+.box.error,
+.box.disabled,
+.box.noLabel:hover:not(:focus-within),
+[data-state='hover'] .box.noLabel:not(:focus-within) {
+  --field-dim: 1;
 }
 
 .box:hover,
@@ -222,27 +249,16 @@
 
 /* ---- inside the box --------------------------------------------------- */
 
-/* Figma "flag-label-input": the icon and the label/value. It is at half
-   opacity while the field is empty and idle. */
+/* Figma "flag-label-input": the icon and the label/value. Figma dims the whole
+   group while the field is empty; here the icon, the label and the placeholder
+   are dimmed one by one (--field-dim), so the caret and the typed text, which
+   are in the group too, keep their full strength. */
 .flag {
   display: flex;
   flex: 1 1 0;
   align-items: center;
   gap: var(--breakpoint-spacing-2xs);
   min-width: 0;
-  opacity: 0.5;
-  transition: opacity 0.3s ease-out;
-}
-.box.filled .flag,
-.box:has(.control:not(:placeholder-shown)) .flag,
-.box:focus-within .flag,
-[data-state='focus'] .box .flag,
-.box[data-open='true'] .flag,
-.box.error .flag,
-.box.disabled .flag,
-.box.noLabel:hover .flag,
-[data-state='hover'] .box.noLabel .flag {
-  opacity: 1;
 }
 
 .icon {
@@ -250,6 +266,8 @@
   flex: none;
   width: 24px;
   height: 24px;
+  opacity: var(--field-dim, 1);
+  transition: opacity 0.3s ease-out;
 }
 .icon > * {
   width: 100%;
@@ -287,12 +305,14 @@
   text-overflow: ellipsis;
   cursor: inherit;
   pointer-events: none;
+  opacity: var(--field-dim, 1);
   transition:
     top 0.3s ease-out,
     height 0.3s ease-out,
     font-size 0.3s ease-out,
     line-height 0.3s ease-out,
-    color 0.3s ease-out;
+    color 0.3s ease-out,
+    opacity 0.3s ease-out;
 }
 
 /* The value: MD regular. For an <input> or <textarea> the browser draws the
@@ -331,6 +351,11 @@ textarea.control {
 .control::placeholder {
   color: inherit;
   opacity: 1;
+}
+/* The placeholder of a box without a label (Search) is its label: dimmed like it. */
+.box.noLabel .control::placeholder {
+  opacity: var(--field-dim);
+  transition: opacity 0.3s ease-out;
 }
 .control:disabled {
   color: inherit;
@@ -372,10 +397,13 @@ textarea.control {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .icon,
   .label,
   .box:not(.noLabel) .control,
   .box:not(.noLabel) .value,
-  .box:not(.noLabel) .control::placeholder {
+  .box:not(.noLabel) .control::placeholder,
+  .box.noLabel .control::placeholder,
+  .chevron {
     transition: none;
   }
 }
@@ -394,15 +422,26 @@ textarea.control {
   line-height: var(--font-interactive-label-text-xs-sans-regular-line-height);
   white-space: nowrap;
 }
+/* The chevron sits in a container as high as a Label S (sizing/button/s), like the
+   clear button of the Search, with the same round fill on hover. The icon keeps
+   its size and is centred in it. The fill is only drawn while the pointer is over
+   the container itself, and not in a disabled field. */
 .chevron {
   display: inline-flex;
   flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--breakpoint-sizing-button-s);
+  height: var(--breakpoint-sizing-button-s);
+  border-radius: var(--breakpoint-cornerradius-rounded);
+  transition: background-color 0.3s ease-out;
+}
+.chevron > * {
   width: 24px;
   height: 24px;
 }
-.chevron > * {
-  width: 100%;
-  height: 100%;
+.box:not(.disabled) .chevron:hover {
+  background: var(--theme-color-border-tertiary);
 }
 
 /* ---- under the box: helper text and link ------------------------------ */

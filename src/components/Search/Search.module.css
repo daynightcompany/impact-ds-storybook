@@ -47,12 +47,15 @@
 .tagged .clearSlot {
   display: inline-flex;
 }
+/* The container is as high as a Label S (sizing/button/s), imagine a Label with
+   no text and only the X: the tags next to it are as high, and so is the round
+   fill of the hover. The icon keeps its size and sits in the middle of it. */
 .clear {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+  width: var(--breakpoint-sizing-button-s);
+  height: var(--breakpoint-sizing-button-s);
   margin: 0;
   padding: 0;
   border: none;
@@ -60,7 +63,8 @@
   background: none;
   color: var(--theme-color-font-interactive-idle-secondary);
   cursor: pointer;
-  transition: background-color 0.15s ease;
+  /* Eases in and out over 300ms, like the other hover fills. */
+  transition: background-color 0.3s ease-out;
 }
 .clear:hover {
   background: var(--theme-color-border-tertiary);
@@ -69,8 +73,17 @@
   outline: 2px solid var(--theme-color-interactive-idle-primary);
   outline-offset: 2px;
 }
-.clear > svg,
+.clear > svg {
+  width: 24px;
+  height: 24px;
+}
 .remove > svg {
   width: 100%;
   height: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .clear {
+    transition: none;
+  }
 }

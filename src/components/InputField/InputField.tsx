@@ -21,7 +21,9 @@ export interface InputFieldProps
   /**
    * The label. While the field is empty it is the placeholder (half opacity);
    * once there is a value it becomes the small caption above the value, gliding
-   * up as the value arrives and back down when it goes (300ms, ease out).
+   * up as the value arrives and back down when it goes (300ms, ease out). It
+   * keeps its half opacity while the field is focused and still empty, so it is
+   * not taken for typed text.
    */
   label?: string;
   /**
@@ -32,7 +34,10 @@ export interface InputFieldProps
   placeholder?: string;
   /** Figma boolean "Icon": an icon at the start. `true` shows the placeholder icon; pass a node to use your own. */
   icon?: boolean | ReactNode;
-  /** Figma boolean "Chevron": a chevron at the end. */
+  /**
+   * Figma boolean "Chevron": a chevron at the end, in a round container as high
+   * as a Label S that is filled while the pointer is over it.
+   */
   chevron?: boolean;
   /**
    * Figma boolean "Required": shows the "Required" text at the end and sets the

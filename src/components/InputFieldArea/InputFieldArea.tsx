@@ -20,7 +20,9 @@ export interface InputFieldAreaProps
   /**
    * The label. While the field is empty it is the placeholder (half opacity);
    * once there is text it becomes the small caption above it, gliding up as the
-   * text arrives and back down when it goes (300ms, ease out).
+   * text arrives and back down when it goes (300ms, ease out). It keeps its half
+   * opacity while the field is focused and still empty, so it is not taken for
+   * typed text.
    */
   label?: string;
   /**

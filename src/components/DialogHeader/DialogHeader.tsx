@@ -1,5 +1,6 @@
 import type { HTMLAttributes, ReactNode } from 'react';
 import styles from './DialogHeader.module.css';
+import { Button } from '../Button/Button';
 import { Icon } from '../Icon';
 import '../../styles/tokens.css';
 import '../../styles/tokens.text-modes.css';
@@ -12,13 +13,15 @@ export interface DialogHeaderProps extends Omit<HTMLAttributes<HTMLDivElement>, 
   /** Figma boolean "Title". */
   showTitle?: boolean;
   /**
-   * Figma boolean "Left icons". `true` shows a back arrow (`onBack`); pass a
-   * node to fill the Figma "Left icon content" slot with your own icons.
+   * Figma boolean "Left icons". `true` shows a back arrow (`onBack`), a Button
+   * (size M, Tertiary, icon only); pass a node to fill the Figma "Left icon
+   * content" slot with your own icons.
    */
   leftIcons?: boolean | ReactNode;
   /**
-   * Figma boolean "Right icons": the close button (`onClose`) and, next to it,
-   * the additional icons. Turning it off hides both, as in Figma.
+   * Figma boolean "Right icons": the close button (`onClose`), a Button like
+   * the back arrow, and, next to it, the additional icons. Turning it off hides
+   * both, as in Figma.
    */
   rightIcons?: boolean;
   /**
@@ -42,8 +45,11 @@ export interface DialogHeaderProps extends Omit<HTMLAttributes<HTMLDivElement>, 
 /**
  * Impact DS Dialog header — converted from the Figma "Dialog/Header" component
  * (node 9587:6860): left icons, a centred title and right icons with a close
- * button, spacing/s around and between. Four booleans (Left icons,
- * Title, Right icons, Additional icons) and three slots.
+ * button, spacing/s at the sides and between, spacing/2xs above and below. The
+ * back arrow and the close button are the Button component (size M, Tertiary,
+ * icon only), as in Figma: round buttons that are as tall as the sizing token
+ * of Button M, with the icon spacing/button/2xs inside them. Four booleans
+ * (Left icons, Title, Right icons, Additional icons) and three slots.
  *
  * The title takes the space the two icon groups leave: both groups grow
  * equally, so it stays centred while the left icons are shown and sits at the
@@ -72,9 +78,16 @@ export function DialogHeader({
         {leftIcons && (
           <div className={styles.left}>
             {leftIcons === true ? (
-              <button type="button" className={styles.iconButton} aria-label={backLabel} onClick={onBack}>
-                <Icon name="arrow-left" size={24} />
-              </button>
+              <Button
+                type="button"
+                hierarchy="Tertiary"
+                size="M"
+                icon="Only"
+                iconElement={<Icon name="arrow-left" size={24} />}
+                className={styles.action}
+                aria-label={backLabel}
+                onClick={onBack}
+              />
             ) : (
               leftIcons
             )}
@@ -103,9 +116,16 @@ export function DialogHeader({
                 )}
               </div>
             )}
-            <button type="button" className={styles.iconButton} aria-label={closeLabel} onClick={onClose}>
-              <Icon name="x" size={24} />
-            </button>
+            <Button
+              type="button"
+              hierarchy="Tertiary"
+              size="M"
+              icon="Only"
+              iconElement={<Icon name="x" size={24} />}
+              className={styles.action}
+              aria-label={closeLabel}
+              onClick={onClose}
+            />
           </div>
         )}
       </div>

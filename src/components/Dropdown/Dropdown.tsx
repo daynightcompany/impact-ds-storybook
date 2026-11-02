@@ -20,14 +20,19 @@ export interface DropdownProps
   /**
    * The label. While nothing is selected it is the placeholder (half opacity);
    * once there is a value it becomes the small caption above the value, gliding
-   * up as the value arrives and back down when it goes (300ms, ease out).
+   * up as the value arrives and back down when it goes (300ms, ease out). It
+   * keeps its half opacity while the dropdown is focused or open and nothing is
+   * selected yet.
    */
   label?: string;
   /** The selected value. The field is Populated when there is one. */
   value?: ReactNode;
   /** Figma boolean "Icon": an icon at the start. `true` shows the placeholder icon; pass a node to use your own. */
   icon?: boolean | ReactNode;
-  /** Figma boolean "Chevron" (on in the Figma Dropdown). */
+  /**
+   * Figma boolean "Chevron" (on in the Figma Dropdown), in a round container as
+   * high as a Label S that is filled while the pointer is over it.
+   */
   chevron?: boolean;
   /** Figma boolean "Required": shows the "Required" text at the end. */
   required?: boolean;

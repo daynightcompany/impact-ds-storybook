@@ -31,7 +31,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Input field area" component set (node 9587:5270): the Base/Input Field box for several lines of text. The box is one line high to begin with; it grows with the text, a line at a time, with the label above the text and the helper text under the box. Idle, Hover, Focused and Disabled are the browser\'s own states; `error` sets Error; Empty and Populated follow the text, and the label glides between the placeholder and the caption when the first character arrives or the last one goes (300ms, ease out). `rows` sets the least number of lines and `maxRows` the most before it scrolls (Figma has no limit). Use the Breakpoint switch in the toolbar to see the Mobile values.',
+          'Converted from the Figma "Input field area" component set (node 9587:5270): the Base/Input Field box for several lines of text. The box is one line high to begin with; it grows with the text, a line at a time, with the label above the text and the helper text under the box. Idle, Hover, Focused and Disabled are the browser\'s own states; `error` sets Error; Empty and Populated follow the text, and the label glides between the placeholder and the caption when the first character arrives or the last one goes (300ms, ease out). A focused field that is still empty keeps the label at half opacity, so it is not taken for typed text. `rows` sets the least number of lines and `maxRows` the most before it scrolls (Figma has no limit). Use the Breakpoint switch in the toolbar to see the Mobile values.',
       },
     },
   },

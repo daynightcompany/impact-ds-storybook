@@ -26,7 +26,9 @@ export interface SearchProps extends Omit<ComponentPropsWithRef<'input'>, 'size'
   icon?: boolean;
   /**
    * Figma boolean "Chevron" (the clear icon in the Search set): a clear button
-   * at the end, shown while there is text or a tag.
+   * at the end, shown while there is text or a tag. It is a round container as
+   * high as a Label S (and so as high as the tags), filled while the pointer is
+   * over it; the icon keeps its size.
    */
   clear?: boolean;
   /** Called by the clear button, after it has emptied the text. Clear your tags here. */
@@ -55,7 +57,8 @@ function emptyInput(input: HTMLInputElement) {
  * (node 9587:5505): the Base/Input Field box with a search icon, the text and a
  * clear button. The Figma booleans are props (`icon`, `clear`); Idle, Hover,
  * Focused and Disabled are the browser's own states; Empty and Populated follow
- * the text. "Populated multi" is `tags`: pills (the Label component, Size S) in
+ * the text; while it is focused and empty the placeholder keeps its half opacity.
+ * "Populated multi" is `tags`: pills (the Label component, Size S) in
  * front of the text, each with a remove button; the box grows when they wrap.
  *
  * It takes the props of an `<input>` (`value`, `defaultValue`, `onChange`,

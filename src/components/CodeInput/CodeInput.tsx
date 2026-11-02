@@ -23,7 +23,7 @@ export interface CodeInputProps extends FieldMessageProps {
   type?: 'numeric' | 'alphanumeric';
   /** The accessible name of the code; each box is "<label> digit 1 of 6", and so on. */
   label?: string;
-  /** What an empty box shows (Figma "0"). */
+  /** What an empty box shows (Figma "0"); it keeps its half opacity while the box is focused, until a character arrives. */
   placeholder?: string;
   disabled?: boolean;
   /** Adds a hidden field with the code, for a form. */

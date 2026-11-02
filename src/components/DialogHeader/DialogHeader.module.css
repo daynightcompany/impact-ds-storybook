@@ -1,6 +1,8 @@
-/* Figma "Dialog/Header": 16px (spacing/s) padding on the white background, a
-   24px row. Inside a Dialog or Popup the instance padding is overridden to
-   none, here through --dialog-header-padding. */
+/* Figma "Dialog/Header": spacing/s at the sides and spacing/2xs above and below
+   on the white background, around a row that is as high as its tallest part:
+   the Button M of the back arrow and the close button. Inside a Dialog or Popup
+   the instance padding is overridden to none, here through
+   --dialog-header-padding. */
 .header {
   box-sizing: border-box;
   display: flex;
@@ -8,7 +10,7 @@
   justify-content: center;
   gap: var(--breakpoint-spacing-s);
   width: 100%;
-  padding: var(--dialog-header-padding, var(--breakpoint-spacing-s));
+  padding: var(--dialog-header-padding, var(--breakpoint-spacing-2xs) var(--breakpoint-spacing-s));
   background: var(--theme-color-background-primary);
   color: var(--theme-color-font-interactive-idle-secondary);
 }
@@ -58,8 +60,7 @@
   white-space: nowrap;
 }
 
-/* 24px icon holder (the Figma "icons" instance). */
-.iconButton,
+/* 24px icon holder (the Figma "icons" instance) of the additional icons. */
 .placeholder {
   box-sizing: border-box;
   display: inline-flex;
@@ -70,24 +71,22 @@
   height: 24px;
   margin: 0;
   padding: 0;
-  border: none;
-  border-radius: var(--breakpoint-cornerradius-rounded);
-  background: none;
   color: var(--theme-color-font-interactive-idle-secondary);
 }
-.iconButton {
-  cursor: pointer;
-  transition: background-color 0.15s ease;
-}
-.iconButton:hover {
-  background: var(--theme-color-border-tertiary);
-}
-.iconButton:focus-visible {
-  outline: 2px solid var(--theme-color-interactive-idle-primary);
-  outline-offset: 2px;
-}
-.iconButton > svg,
 .placeholder > svg {
   width: 100%;
   height: 100%;
+}
+
+/* The back arrow and the close button are the Button component (M, Tertiary,
+   icon only): its size, padding, hover and disabled look are the Button's own.
+   Keyboard focus keeps the ring the header has always had; Button draws its
+   inner stroke in a transparent colour, so the ring only recolours it and
+   moves it outside. */
+.action {
+  flex: none;
+}
+.action:focus-visible {
+  outline-color: var(--theme-color-interactive-idle-primary);
+  outline-offset: 2px;
 }
