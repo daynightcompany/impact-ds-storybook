@@ -24,7 +24,7 @@ export interface TabListProps extends Omit<HTMLAttributes<HTMLDivElement>, 'defa
 /**
  * Impact DS Tab list — converted from the Figma "Tab" component sets (nodes
  * 9587:4382 for Primary tabs and 9587:4584 for Secondary tabs): a row (or
- * column) of tabs with 8px between them (spacing/button/2xs).
+ * column) of tabs with spacing/button/2xs between them.
  *
  * It also carries the tab semantics: role="tablist", a roving tab stop on the
  * selected tab, and the arrow keys (Left/Right for Horizontal, Up/Down for

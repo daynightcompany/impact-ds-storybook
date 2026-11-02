@@ -14,7 +14,7 @@ export interface RadiobuttonProps extends Omit<InputHTMLAttributes<HTMLInputElem
  * Impact DS Radiobutton — converted from the Figma "Radiobutton" component
  * (node 3386:13813). Same accessible pattern and prop shape as Checkbox.
  *
- * The selected marker is a plain ring (2px stroke), not a checkmark —
+ * The selected marker is a plain ring, not a checkmark —
  * Figma's own "check-alternative" glyph on this component is set to
  * visible:false, confirmed directly on the node.
  */

@@ -29,7 +29,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "cell selector" component set (node 9587:5668) in the SMAL Impact Design System file. Source of truth for variants: Figma. Selector is `switch`, `radio` or `check`; Subtitle adds a second line (and makes the title semibold); Selected is the control\'s checked state; "Show icon" is `showIcon`. The row is 48px tall (64px with a subtitle) on Desktop and fills its container (Figma draws it 924px wide). The whole row is the click target and the title names the input. Put rows in a Cell group to get dividers and, for radios, a shared selection. Use the Breakpoint switch in the toolbar to see the Mobile values.',
+          'Converted from the Figma "cell selector" component set (node 9587:5668) in the SMAL Impact Design System file. Source of truth for variants: Figma. Selector is `switch`, `radio` or `check`; Subtitle adds a second line (and makes the title semibold); Selected is the control\'s checked state; "Show icon" is `showIcon`. The row is taller with a subtitle and fills its container. The whole row is the click target and the title names the input. Put rows in a Cell group to get dividers and, for radios, a shared selection. Use the Breakpoint switch in the toolbar to see the Mobile values.',
       },
     },
   },

@@ -16,7 +16,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Tab" component sets (node 9587:4382 for Primary tabs, 9587:4584 for Secondary tabs): a row or column of tabs, 8px apart. It owns the selection and the tab semantics: `value` / `defaultValue` match the `value` of a Tab, Left/Right (Up/Down when Vertical), Home and End move focus and select, and only the selected tab is in the tab order. Variant and size are set once on the list.',
+          'Converted from the Figma "Tab" component sets (node 9587:4382 for Primary tabs, 9587:4584 for Secondary tabs): a row or column of tabs, spacing/button/2xs apart. It owns the selection and the tab semantics: `value` / `defaultValue` match the `value` of a Tab, Left/Right (Up/Down when Vertical), Home and End move focus and select, and only the selected tab is in the tab order. Variant and size are set once on the list.',
       },
     },
   },

@@ -143,12 +143,22 @@
 }
 
 /* Inside a Text input group the field has no box of its own: the group draws
-   the stroke and the divider, a hovered or focused field draws its own. Kept
+   the outer stroke, the field draws the dividers, and a field that is hovered,
+   focused, open or in error draws a complete rounded stroke of its own. Kept
    above the state rules so those still win. */
 .grouped {
+  --field-divider: var(--theme-color-border-primary);
   flex: 1 1 310px;
   min-width: min(310px, 100%);
-  background: var(--theme-color-background-primary);
+  /* The dividers: a band of borderStroke/s above the field and one to its left,
+     over the last row of what is above and the last column of what is before
+     (in the first row and the first column the group cuts them off). */
+  box-shadow:
+    0 calc(-1 * var(--theme-borderstroke-s)) 0 0 var(--field-divider),
+    calc(-1 * var(--theme-borderstroke-s)) 0 0 0 var(--field-divider);
+  transition:
+    box-shadow 0.3s ease-out,
+    background-color 0.3s ease-out;
 }
 .grouped .box {
   --field-stroke-color: transparent;
@@ -159,6 +169,7 @@
   --field-stroke-color: var(--theme-color-interactive-hover-primary);
 }
 .grouped .box:focus-within,
+.grouped .box[data-open='true'],
 .grouped[data-state='focus'] .box,
 [data-state='focus'] .grouped .box {
   --field-stroke-color: var(--theme-color-font-interactive-idle-secondary);
@@ -168,6 +179,26 @@
 }
 .grouped .box.disabled {
   --field-stroke-color: transparent;
+}
+
+/* A field with a stroke of its own (the states above, but a disabled one has
+   none) is raised over the fields after it and fills with white, which fades in
+   with the stroke: the white covers the dividers of the fields after it, in
+   the corners as well, and its own dividers fade out, so its stroke takes
+   their place with no double line. The group's outer stroke stays under the
+   stroke of the box (z-index) and over the white, so it runs on where the
+   corners curve away. */
+.grouped:has(.box:is(:hover, :focus-within, [data-open='true'], .error):not(.disabled)),
+.grouped:is([data-state='hover'], [data-state='focus']):not(:has(.box.disabled)),
+:is([data-state='hover'], [data-state='focus']) .grouped:not(:has(.box.disabled)) {
+  --field-divider: transparent;
+  position: relative;
+  background-color: var(--theme-color-background-primary);
+}
+.grouped .box:is(:hover, :focus-within, [data-open='true'], .error):not(.disabled),
+.grouped:is([data-state='hover'], [data-state='focus']) .box:not(.disabled),
+:is([data-state='hover'], [data-state='focus']) .grouped .box:not(.disabled) {
+  z-index: 1;
 }
 
 /* ---- inside the box --------------------------------------------------- */

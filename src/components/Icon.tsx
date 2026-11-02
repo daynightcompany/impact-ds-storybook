@@ -25,7 +25,7 @@ export type IconName =
 
 /**
  * Glyph outlines, read from the Figma "icons" component set (node 9587:483):
- * 24 x 24 box, 1px stroke, round caps and joins, no fill. Not ported yet:
+ * 24 x 24 box, a thin stroke, round caps and joins, no fill. Not ported yet:
  * fb, inst, YT, IN (the filled brand marks).
  */
 export const ICON_GLYPHS: Record<IconName, readonly string[]> = {
@@ -89,7 +89,7 @@ interface IconProps {
   /** Glyph from the Figma icon set. Defaults to the generic circle placeholder. */
   name?: IconName;
   /**
-   * Keep the stroke at 1px however large or small the icon is drawn. Figma
+   * Keep the stroke at its set weight however large or small the icon is drawn. Figma
    * scales an icon's geometry but not its stroke weight, so an icon box that
    * CSS shrinks or stretches (24 -> 32, 24 -> 16) needs this to match.
    */

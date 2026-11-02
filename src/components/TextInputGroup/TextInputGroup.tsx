@@ -10,12 +10,13 @@ export type TextInputGroupProps = HTMLAttributes<HTMLDivElement>;
 
 /**
  * Impact DS Text input group — converted from the Figma "Text Input group"
- * component set (node 9587:5242): two or more fields in one box with a 1px
+ * component set (node 9587:5242): two or more fields in one box with a
  * divider between them, e.g. a first and a last name. The children are
  * <InputField>s (or a <Dropdown>); inside the group they lose their own stroke,
- * and a hovered or focused field draws its own.
+ * and a hovered or focused field draws its own, in place of the dividers
+ * around it.
  *
- * Fields are 310px wide at the least and share the row, so they wrap into rows
+ * Fields have a minimum width and share the row, so they wrap into rows
  * when the group is narrower than two fields (as on Mobile), with a horizontal
  * divider between the rows. Give the group an accessible name with `aria-label`.
  */

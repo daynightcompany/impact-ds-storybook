@@ -20,7 +20,7 @@
   border: 0;
 }
 
-/* Track. Figma: 4px padding and 4px between the items (spacing/button/3xs),
+/* Track. Figma: spacing/button/3xs padding and between the items,
    fill border/secondary while Off and supportive/feedback/success while On. The
    two columns are equal, so the thumb is the same size on either side. */
 .track {
@@ -42,12 +42,17 @@
 }
 
 /* Types follow the Figma ladder:
-     Primary    track 40px, 8px corners, S items (32px tall, 4px corners, text sm)
-     Secondary  track 48px, rounded,     M items (40px tall, rounded,     text md)
+     Primary    S items (text sm), small corners on the track and the items
+     Secondary  M items (text md), rounded
+   The item height is a minimum taken from the button sizing group
+   sizing/button/* (--breakpoint-sizing-button-s at Primary, -m at Secondary);
+   the track adds its padding around the items.
    Item padding is the button group spacing/button/*:
-     --sb-pad-y  3xs (4/4) at Primary, 2xs (8/8) at Secondary
-     --sb-pad-x  2xs (8/8) at Primary, xs (12/8) at Secondary */
+     --sb-pad-y  3xs at Primary, 2xs at Secondary
+     --sb-pad-x  2xs at Primary, xs at Secondary
+     --sb-min    the minimum height of an item */
 .primary {
+  --sb-min: var(--breakpoint-sizing-button-s);
   --sb-pad-y: var(--breakpoint-spacing-button-3xs);
   --sb-pad-x: var(--breakpoint-spacing-button-2xs);
   --sb-radius: var(--breakpoint-cornerradius-xs);
@@ -58,6 +63,7 @@
   line-height: var(--font-interactive-label-text-sm-sans-regular-line-height);
 }
 .secondary {
+  --sb-min: var(--breakpoint-sizing-button-m);
   --sb-pad-y: var(--breakpoint-spacing-button-2xs);
   --sb-pad-x: var(--breakpoint-spacing-button-xs);
   --sb-radius: var(--breakpoint-cornerradius-rounded);
@@ -90,6 +96,7 @@
   align-items: center;
   justify-content: center;
   gap: var(--breakpoint-spacing-button-3xs);
+  min-height: var(--sb-min);
   padding: var(--sb-pad-y) var(--sb-pad-x);
   border-radius: var(--sb-radius);
   white-space: nowrap;

@@ -42,7 +42,7 @@ export interface DialogHeaderProps extends Omit<HTMLAttributes<HTMLDivElement>, 
 /**
  * Impact DS Dialog header — converted from the Figma "Dialog/Header" component
  * (node 9587:6860): left icons, a centred title and right icons with a close
- * button, 16px around and between (spacing/s). Four booleans (Left icons,
+ * button, spacing/s around and between. Four booleans (Left icons,
  * Title, Right icons, Additional icons) and three slots.
  *
  * The title takes the space the two icon groups leave: both groups grow

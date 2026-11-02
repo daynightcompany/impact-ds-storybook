@@ -20,7 +20,7 @@ export interface ProfilePhotoProps extends Omit<ButtonHTMLAttributes<HTMLButtonE
   pressed?: boolean;
   /** What the round photo shows: the account icon, initials or the grey image placeholder. */
   type?: AvatarType;
-  /** Diameter in px; Figma draws it at 100. The badge keeps its 24px size. */
+  /** Diameter in pixels; Figma draws it large. The badge keeps its own size. */
   size?: number;
   /** Initials, or a replacement for the default icon (see Avatar). */
   children?: ReactNode;
@@ -28,7 +28,7 @@ export interface ProfilePhotoProps extends Omit<ButtonHTMLAttributes<HTMLButtonE
 
 /**
  * Impact DS Profile photo — converted from the Figma "Profile Photo" component
- * set (node 9587:3436): a 100px Avatar with a 24px round action badge at its
+ * set (node 9587:3436): a large Avatar with a round action badge at its
  * bottom-right corner. Adjustment add / edit x State default / pressed.
  *
  * The whole thing is one button (give it an `aria-label`, e.g. "Change profile

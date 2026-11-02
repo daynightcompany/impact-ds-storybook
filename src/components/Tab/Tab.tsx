@@ -11,9 +11,9 @@ import '../../styles/tokens.extras.css';
 /** Primary = underlined text tab, Secondary = filled pill. */
 export type TabVariant = 'Primary' | 'Secondary';
 /**
- * Figma size ladder (Desktop height): L = 56px (40px on Mobile), XL = 64px
- * (48px on Mobile). Mobile values come from the breakpoint tokens, not from a
- * prop.
+ * Figma size ladder: L and XL. The height of each comes from the button
+ * sizing tokens (sizing/button/*), so both are a step smaller on Mobile.
+ * Mobile values come from the breakpoint tokens, not from a prop.
  */
 export type TabSize = 'L' | 'XL';
 export type TabIcon = 'False' | 'Leading' | 'Trailing' | 'Only';
@@ -43,7 +43,7 @@ export interface TabProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 
  * layouts x Unselected/Selected x idle/hover/disabled.
  *
  * Primary: unselected tabs sit at 50% opacity and come to full opacity on
- * hover; the selected tab has a 2px bottom stroke. Secondary: unselected tabs
+ * hover; the selected tab has a bottom stroke. Secondary: unselected tabs
  * are text only and fill on hover; the selected tab is a filled pill with a
  * ring. Hover is CSS, Disabled is the native `disabled` attribute.
  *

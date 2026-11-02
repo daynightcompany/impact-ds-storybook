@@ -25,7 +25,7 @@ export interface DropdownProps
   label?: string;
   /** The selected value. The field is Populated when there is one. */
   value?: ReactNode;
-  /** Figma boolean "Icon": a 24px icon at the start. `true` shows the placeholder icon; pass a node to use your own. */
+  /** Figma boolean "Icon": an icon at the start. `true` shows the placeholder icon; pass a node to use your own. */
   icon?: boolean | ReactNode;
   /** Figma boolean "Chevron" (on in the Figma Dropdown). */
   chevron?: boolean;

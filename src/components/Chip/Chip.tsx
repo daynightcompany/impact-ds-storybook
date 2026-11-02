@@ -7,8 +7,9 @@ import '../../styles/tokens.text-modes.css';
 import '../../styles/tokens.extras.css';
 
 /**
- * Figma size ladder (Desktop height): M = 40px, XL = 64px (48px on Mobile).
- * Mobile values come from the breakpoint tokens, not from a prop.
+ * Figma size ladder: M and XL. The height of each comes from the button
+ * sizing tokens (sizing/button/*), so XL is a step smaller on Mobile. Mobile
+ * values come from the breakpoint tokens, not from a prop.
  */
 export type ChipSize = 'M' | 'XL';
 /**

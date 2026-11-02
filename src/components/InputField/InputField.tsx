@@ -30,7 +30,7 @@ export interface InputFieldProps
    * field is focused, the label gliding up to make room for it.
    */
   placeholder?: string;
-  /** Figma boolean "Icon": a 24px icon at the start. `true` shows the placeholder icon; pass a node to use your own. */
+  /** Figma boolean "Icon": an icon at the start. `true` shows the placeholder icon; pass a node to use your own. */
   icon?: boolean | ReactNode;
   /** Figma boolean "Chevron": a chevron at the end. */
   chevron?: boolean;
@@ -47,7 +47,7 @@ export interface InputFieldProps
 
 /**
  * Impact DS Input field — converted from the Figma "Base/Input Field" component
- * set (node 9587:4908) and its "Input field" wrapper (node 9587:5220): a 56px
+ * set (node 9587:4908) and its "Input field" wrapper (node 9587:5220): a
  * box with a label that is the placeholder while the field is empty and a small
  * caption above the value afterwards; it glides from one to the other when the
  * value arrives or goes (Smart animate, 300ms ease out, as in the Figma

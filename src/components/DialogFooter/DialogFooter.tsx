@@ -54,9 +54,9 @@ function renderButton(value: DialogFooterButton, hierarchy: ButtonHierarchy): Re
  * button. Figma has three of the four combinations; 2 CTA / Vertical is the
  * same stack of two.
  *
- * Spacing: 3 CTA Horizontal pads 16px (spacing/s); the others pad spacing/l
- * (32px, 24px on Mobile). In 2 CTA and Vertical the buttons share the width
- * and are at least 176px wide, so two of them wrap into a stack in a narrow
+ * Spacing: 3 CTA Horizontal pads spacing/s; the others pad spacing/l.
+ * In 2 CTA and Vertical the buttons share the width and keep a minimum
+ * width, so two of them wrap into a stack in a narrow
  * dialog, exactly like the Figma auto layout. Inside a Dialog or Popup the
  * instance padding is overridden, here through `--dialog-footer-padding`.
  */

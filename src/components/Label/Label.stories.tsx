@@ -17,7 +17,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Base/Label" component (node 9587:4638) in the SMAL Impact Design System file. Note: this is a purple pill/tag, not a form-field HTML label. Sizes: S is 32px tall, L is 56px (40px on Mobile). Use the Breakpoint switch in the toolbar to see the Mobile values. `tone` reflects the documented manual-override color options shown on the page — Figma itself only defines Size/Icon as real variants.',
+          'Converted from the Figma "Base/Label" component (node 9587:4638) in the SMAL Impact Design System file. Note: this is a purple pill/tag, not a form-field HTML label. Sizes: S and L take their height from the button sizing tokens (sizing/button/*), and L is a step smaller on Mobile. Use the Breakpoint switch in the toolbar to see the Mobile values. `tone` reflects the documented manual-override color options shown on the page — Figma itself only defines Size/Icon as real variants.',
       },
     },
   },

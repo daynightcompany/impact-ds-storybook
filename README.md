@@ -45,7 +45,7 @@ Color ships three modes, switchable live from the Storybook toolbar:
 | Night | `impact-night-mode` |
 | SMAL | `smal` |
 
-Spacing, radius and text sizes also have a **Mobile** mode (375); Desktop (1920) is the default. The components only read tokens, so every size follows the mode.
+Spacing, radius and text sizes also have a **Mobile** mode (375); Desktop (1920) is the default. The components only read tokens, so every size follows the mode. Heights follow the button size rule: `sizing/button/s`, `m`, `l` and `xl` (`--breakpoint-sizing-button-*`) set the minimum height of Button, Chip, Tab, Label and Switch button, and L and XL are a step smaller on Mobile.
 
 - **In Storybook**, switch it with the **Breakpoint** item in the toolbar. It follows the toolbar, not the preview width, so the Viewport tool alone doesn't change it.
 - **In an app**, call the `useBreakpointTokens()` hook once near the root. It follows the viewport width: Mobile below 768px, Desktop at 768px and up.
@@ -80,7 +80,7 @@ Also known, no action needed: `--theme-opacity-*` is exported in `px` (not usabl
 
 | Component | Status |
 |---|---|
-| Button | ✅ Implemented — all hierarchies (Primary/Secondary/Tertiary) × sizes (L/XL) × icon layouts × states, Desktop and Mobile |
+| Button | ✅ Implemented — all hierarchies (Primary/Secondary/Tertiary) × sizes (M/L/XL) × icon layouts × states, Desktop and Mobile |
 | Label | ✅ Implemented — sizes (S/L) × icon × tone, Desktop and Mobile |
 | Checkbox | ✅ Implemented — all states |
 | Radiobutton | ✅ Implemented — all states |
@@ -99,7 +99,7 @@ Also known, no action needed: `--theme-opacity-*` is exported in `px` (not usabl
 | Dialog footer | ✅ Implemented — 3 CTA / 2 CTA × Horizontal / Vertical, Primary / Secondary / Tertiary button booleans |
 | Input field | ✅ Implemented — the Figma "Input field" and its "Base" field: icon, chevron, required, helper text, link booleans × idle/hover/focused/error/disabled × empty/populated; the label glides from the placeholder into the caption when there is a value (also in Input field area and Dropdown) |
 | Input field area | ✅ Implemented — grows with the text (minimum and maximum rows), helper text and link |
-| Text input group | ✅ Implemented — fields in one box with 1px dividers, wrapping into rows when narrow |
+| Text input group | ✅ Implemented — fields in one box with dividers, wrapping into rows when narrow |
 | Dropdown | ✅ Implemented — the dropdown field (button) with the same booleans and states; opens a Popup: the "Open" story is the list view from the Figma demo, "Interactive" opens it from the field as a popover |
 | Search | ✅ Implemented — icon / clear booleans, tags ("Populated multi"), all states |
 | Spinbox | ✅ Implemented — number with increase / decrease buttons, min / max / step, keyboard |

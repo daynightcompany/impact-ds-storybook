@@ -41,7 +41,7 @@ export const DisabledOn: Story = {
 };
 
 // Real icons from Figma's shared icon library (Other=sun/moon, Type=stroke,
-// Size=24px — matching the icon slot's actual 24x24 size, not a smaller
+// Size=24 — matching the icon slot's actual 24x24 size, not a smaller
 // variant scaled/padded to fit). Day (off) = sun, night (on) = moon.
 const SunIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">

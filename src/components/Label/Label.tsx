@@ -7,11 +7,11 @@ import '../../styles/tokens.text-modes.css';
 import '../../styles/tokens.extras.css';
 
 /**
- * Figma size ladder (Desktop height):
- * S = 32px (32px on Mobile), L = 56px (40px on Mobile).
+ * Figma size ladder: S and L. The height of each comes from the button sizing
+ * tokens (sizing/button/*), so L is a step smaller on Mobile.
  * Mobile values come from the breakpoint tokens, not from a prop.
  * With or without an icon a size has the same height: the L icon follows
- * spacing/l (32 Desktop, 24 Mobile), the same variable as the text line height.
+ * spacing/l, the same variable as the text line height.
  */
 export type LabelSize = 'S' | 'L';
 export type LabelTone =

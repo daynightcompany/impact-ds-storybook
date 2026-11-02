@@ -18,7 +18,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Segment control" component set (node 9587:3615), built on "Base/SwitchButton" 9587:3563. Source of truth for variants: Figma. M is 40px tall with 4px corners and S segments, L is 48px tall and rounded with M segments; the selected segment is a white pill. The Items slot is the children: put one `SegmentItem` per segment. It is a radio group: Tab enters it once and the arrow keys move and select. `value` / `defaultValue` match the `value` of a SegmentItem. Figma has no hover or disabled state: an unselected segment fills on hover like a Tab/Secondary, and disabled fades to 30%. Use the Breakpoint switch in the toolbar to see the Mobile values.',
+          'Converted from the Figma "Segment control" component set (node 9587:3615), built on "Base/SwitchButton" 9587:3563. Source of truth for variants: Figma. M has small corners and S segments, L is taller and rounded with M segments; the selected segment is a white pill. The Items slot is the children: put one `SegmentItem` per segment. It is a radio group: Tab enters it once and the arrow keys move and select. `value` / `defaultValue` match the `value` of a SegmentItem. Figma has no hover or disabled state: an unselected segment fills on hover like a Tab/Secondary, and disabled fades to 30%. Use the Breakpoint switch in the toolbar to see the Mobile values.',
       },
     },
   },

@@ -35,13 +35,13 @@ const KIND_OF_GROUP = { Radio: 'radio', Switch: 'switch', Checkbox: 'check', Lin
 
 /**
  * Impact DS Cell selector — converted from the Figma "cell selector" component
- * set (node 9587:5668): a row with an optional 24px icon, a title (and
+ * set (node 9587:5668): a row with an optional icon, a title (and
  * optional subtitle) and a Checkbox, Radiobutton or Switch on the right.
  * Selector (check / radio / switch) x Subtitle x Selected; "Show icon" is a
  * boolean. Selected is the control's checked state, so use `checked` /
  * `defaultChecked` / `onChange` as on the control itself.
  *
- * The row is 48px tall (64px with a subtitle) at Desktop and takes the width
+ * The row is taller with a subtitle and takes the width
  * of its container. The whole row is the click target: the control's label is
  * stretched over it, and the title names the input for assistive tech.
  *

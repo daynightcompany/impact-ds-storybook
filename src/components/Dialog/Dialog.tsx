@@ -24,7 +24,7 @@ export interface DialogSectionProps extends Omit<HTMLAttributes<HTMLDivElement>,
 
 /**
  * A titled set of cells in a Dialog: the title (MD regular) and the cells under
- * it, 8px (spacing/xs) apart. The Figma Selectors, Checkbox content and Switch
+ * it, spacing/xs apart. The Figma Selectors, Checkbox content and Switch
  * content slots are made of these.
  */
 export function DialogSection({ title = 'Title', role = 'group', className, children, ...rest }: DialogSectionProps) {
@@ -134,15 +134,15 @@ export interface DialogProps extends Omit<HTMLAttributes<HTMLElement>, 'title' |
   modal?: boolean;
   /** A `modal` dialog is open. */
   open?: boolean;
-  /** Width of the panel. Figma has 375px; it never exceeds the space it is in. */
+  /** Width of the panel: a number of pixels or any CSS length. The default is the Figma width; it never exceeds the space it is in. */
   width?: number | string;
   ref?: Ref<HTMLElement>;
 }
 
 /**
  * Impact DS Dialog — converted from the Figma "Dialog" component set (node
- * 9587:6878): a 375px panel with the M corner radius and Shadow M, on the
- * primary background, with a 32px (spacing/l, 24px on Mobile) padding and gap.
+ * 9587:6878): a panel with the M corner radius and Shadow M, on the
+ * primary background, with spacing/l padding and gap.
  * Form Default or Select; the booleans Header, Footer, Radio, Checkboxes,
  * Switches, Tabs and Search and the slots Form fields, Selectors, Checkbox
  * content and Switch content are props. The slots take any node; `true` shows

@@ -25,7 +25,7 @@ export interface PopupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'childr
   footer?: Slot;
   /** The list: Figma has a Cell group of checkbox cells here. It is the part that scrolls. */
   children?: ReactNode;
-  /** Width of the panel. Figma has 688px; it never exceeds the space it is in. */
+  /** Width of the panel: a number of pixels or any CSS length. The default is the Figma width; it never exceeds the space it is in. */
   width?: number | string;
   /**
    * Opens the popup from an element as a popover (see <Popover>): set it to the
@@ -39,7 +39,7 @@ export interface PopupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'childr
   onOpenChange?: (open: boolean, reason: PopoverCloseReason) => void;
   /** Only with `anchorRef`. */
   placement?: PopoverPlacement;
-  /** Only with `anchorRef`: the gap to the anchor, in px (spacing/s, 16px, unless given). */
+  /** Only with `anchorRef`: the gap to the anchor, in pixels (spacing/s unless given). */
   offset?: number;
   /** Only with `anchorRef`: makes the popup as wide as the anchor instead of `width`. */
   matchAnchorWidth?: boolean;
@@ -50,7 +50,7 @@ export interface PopupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'childr
 
 /**
  * Impact DS Popup — converted from the Figma "Popup/Dropdown" component (node
- * 9723:19631): a 688px panel with 24px (spacing/m) padding and between its
+ * 9723:19631): a panel with spacing/m padding and between its
  * parts, a Search field, a row of Tabs, a list (a Cell group of checkbox cells)
  * and a Footer, on the primary background with the M corner radius and Shadow M.
  * The booleans Search, Tabs and Footer are props (all on in Figma); turn them

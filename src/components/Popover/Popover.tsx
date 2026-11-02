@@ -21,7 +21,7 @@ export interface PopoverProps extends Omit<HTMLAttributes<HTMLDivElement>, 'popo
   anchorRef: RefObject<HTMLElement | null>;
   /** `bottom-start` lines the popover's start edge up with the anchor's, below it. */
   placement?: PopoverPlacement;
-  /** Gap between the anchor and the popover, in px. Defaults to spacing/s (16px), the gap in the Figma Dropdown demo. */
+  /** Gap between the anchor and the popover, in pixels. Defaults to spacing/s, the gap in the Figma Dropdown demo. */
   offset?: number;
   /** Makes the popover as wide as the anchor (`--popover-width`). */
   matchAnchorWidth?: boolean;

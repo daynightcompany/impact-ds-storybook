@@ -7,7 +7,7 @@ const meta = {
   tags: ['autodocs'],
   argTypes: {
     hierarchy: { control: 'select', options: ['Primary', 'Secondary', 'Tertiary'] },
-    size: { control: 'select', options: ['L', 'XL'] },
+    size: { control: 'select', options: ['M', 'L', 'XL'] },
     icon: { control: 'select', options: ['False', 'Leading', 'Trailing', 'Only'] },
     disabled: { control: 'boolean' },
   },
@@ -15,7 +15,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Base/Button" component (node 9587:3078) in the SMAL Impact Design System file. Source of truth for variants: Figma. Sizes follow the Figma ladder: L is 56px tall (40px on Mobile), XL is 64px (48px on Mobile); every layout of a size has the same height. Use the Breakpoint switch in the toolbar to see the Mobile values.',
+          'Converted from the Figma "Base/Button" component (node 9587:3078) in the SMAL Impact Design System file. Source of truth for variants: Figma. Sizes follow the Figma ladder: M, L and XL. Their heights come from the button sizing tokens (sizing/button/*), where L and XL are a step smaller on Mobile; every layout of a size has the same height. Use the Breakpoint switch in the toolbar to see the Mobile values.',
       },
     },
   },
@@ -34,6 +34,10 @@ export const Secondary: Story = {
 
 export const Tertiary: Story = {
   args: { hierarchy: 'Tertiary', size: 'L', icon: 'False', children: 'Button' },
+};
+
+export const Medium: Story = {
+  args: { hierarchy: 'Primary', size: 'M', icon: 'False', children: 'Button' },
 };
 
 export const ExtraLarge: Story = {
@@ -68,7 +72,7 @@ export const AllVariants: Story = {
   },
   render: () => (
     <div style={{ display: 'grid', gap: 32 }}>
-      {(['L', 'XL'] as const).map((size) => (
+      {(['M', 'L', 'XL'] as const).map((size) => (
         <div key={size} style={{ display: 'grid', gap: 16 }}>
           <span style={{ fontSize: 12, color: '#888' }}>Size {size}</span>
           {(['Primary', 'Secondary', 'Tertiary'] as const).map((hierarchy) => (

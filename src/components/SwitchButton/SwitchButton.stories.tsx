@@ -19,7 +19,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Switch Button" component set (node 9587:3589), built on "Base/SwitchButton" 9587:3563. Source of truth for variants: Figma. Type is Primary (40px tall, 8px corners) or Secondary (48px tall, rounded); State is the checked state. Off shows a white thumb on the left item over a grey track; On slides it to the right item over a green track and turns the left label light. `offLabel` and `onLabel` are the Items slot: text or icons, both items the same width. Built on a real native input (role="switch") — tab to it and press Space. Figma has no hover or disabled state: hover fills the inactive item like a Tab/Secondary, and disabled fades to 30%. Use the Breakpoint switch in the toolbar to see the Mobile values.',
+          'Converted from the Figma "Switch Button" component set (node 9587:3589), built on "Base/SwitchButton" 9587:3563. Source of truth for variants: Figma. Type is Primary (small corners, S items) or Secondary (rounded, M items); State is the checked state. Off shows a white thumb on the left item over a grey track; On slides it to the right item over a green track and turns the left label light. `offLabel` and `onLabel` are the Items slot: text or icons, both items the same width. Built on a real native input (role="switch") — tab to it and press Space. Figma has no hover or disabled state: hover fills the inactive item like a Tab/Secondary, and disabled fades to 30%. Use the Breakpoint switch in the toolbar to see the Mobile values.',
       },
     },
   },

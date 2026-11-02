@@ -5,7 +5,7 @@ import '../../styles/tokens.text-modes.css';
 // Hand-maintained companion to tokens.css: font import + alpha-color stopgap.
 import '../../styles/tokens.extras.css';
 
-/** Primary = 40px tall with 8px corners and S items, Secondary = 48px, rounded, M items. */
+/** Primary has small corners and S items, Secondary is rounded with M items. */
 export type SwitchButtonType = 'Primary' | 'Secondary';
 
 export interface SwitchButtonProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'size' | 'children'> {

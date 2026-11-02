@@ -6,7 +6,7 @@ export type ChipGroupProps = HTMLAttributes<HTMLDivElement>;
 
 /**
  * Impact DS Chip group — converted from the Figma "Chip group" component
- * (node 9587:4156): a wrapping row of chips with 8px between them in both
+ * (node 9587:4156): a wrapping row of chips with a small gap between them in both
  * directions (spacing/button/2xs). The group only lays the chips out; which
  * chips are selected, and whether one or many can be, is up to the app.
  */

@@ -16,7 +16,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Divider" component (node 9587:594): a 1px line in border/primary that fills the width of its container. Used between the rows of a Cell group.',
+          'Converted from the Figma "Divider" component (node 9587:594): a line in border/primary that fills the width of its container. Used between the rows of a Cell group.',
       },
     },
   },

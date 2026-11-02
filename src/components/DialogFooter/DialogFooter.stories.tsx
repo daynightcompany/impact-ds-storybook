@@ -25,7 +25,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Dialog/Footer" component set (node 9587:6837) in the SMAL Impact Design System file. Button width is `3 CTA` (Tertiary at the start, Secondary and Primary at the end) or `2 CTA` (Secondary and Primary share the width, so Tertiary is never shown). Layout is Horizontal or Vertical. The booleans Primary, Secondary and Tertiary button show or hide a button: `true` shows the default button, a string is its label, a node replaces it. Buttons that share the width are at least 176px wide, so two of them wrap into a stack in a narrow dialog, as in Figma. In the wide footer the end group stays at the end when Tertiary is hidden (Figma moves it to the start). Use the Breakpoint switch in the toolbar to see the Mobile values.',
+          'Converted from the Figma "Dialog/Footer" component set (node 9587:6837) in the SMAL Impact Design System file. Button width is `3 CTA` (Tertiary at the start, Secondary and Primary at the end) or `2 CTA` (Secondary and Primary share the width, so Tertiary is never shown). Layout is Horizontal or Vertical. The booleans Primary, Secondary and Tertiary button show or hide a button: `true` shows the default button, a string is its label, a node replaces it. Buttons that share the width keep a minimum width, so two of them wrap into a stack in a narrow dialog, as in Figma. In the wide footer the end group stays at the end when Tertiary is hidden (Figma moves it to the start). Use the Breakpoint switch in the toolbar to see the Mobile values.',
       },
     },
   },

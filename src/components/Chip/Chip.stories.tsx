@@ -19,7 +19,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Chips" component set (node 9587:3985, built on "Base/Chip" 9587:3893) in the SMAL Impact Design System file. Source of truth for variants: Figma. M is 40px tall, XL is 64px (48px on Mobile); every icon layout of a size has the same height. Unselected is text only and fills on hover; Selected is a filled pill with a ring; Disabled is an outlined pill at 30% opacity whether selected or not. The close layouts (Both, Trailing Close, Only 2) render a separate close button, wired with `onClose`. The icon layouts Only and Only 2 have no label: pass an `aria-label`. Use the Breakpoint switch in the toolbar to see the Mobile values.',
+          'Converted from the Figma "Chips" component set (node 9587:3985, built on "Base/Chip" 9587:3893) in the SMAL Impact Design System file. Source of truth for variants: Figma. M and XL take their height from the button sizing tokens (sizing/button/*), and XL is a step smaller on Mobile; every icon layout of a size has the same height. Unselected is text only and fills on hover; Selected is a filled pill with a ring; Disabled is an outlined pill at 30% opacity whether selected or not. The close layouts (Both, Trailing Close, Only 2) render a separate close button, wired with `onClose`. The icon layouts Only and Only 2 have no label: pass an `aria-label`. Use the Breakpoint switch in the toolbar to see the Mobile values.',
       },
     },
   },

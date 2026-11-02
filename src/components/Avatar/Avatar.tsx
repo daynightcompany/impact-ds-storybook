@@ -16,11 +16,12 @@ export type AvatarType = 'Icon' | 'Initials' | 'Image';
 export interface AvatarProps extends Omit<HTMLAttributes<HTMLElement>, 'children'> {
   type?: AvatarType;
   /**
-   * Diameter in px. Figma draws the Avatar at 40; the Profile photo scales it
-   * to 100. The content (24px icon, 16px initials) keeps its size either way.
+   * Diameter in pixels. Figma draws the Avatar at its default size; the
+   * Profile photo scales it up. The content (icon, initials) keeps its size
+   * either way.
    */
   size?: number;
-  /** Figma Selected: a 2px ring in the primary interactive colour. */
+  /** Figma Selected: a ring in the primary interactive colour. */
   selected?: boolean;
   /**
    * Figma State=Pressed. An avatar with an `onClick` shows this by itself
@@ -51,9 +52,9 @@ function ImageGlyph() {
  * 9587:3379) in the SMAL Impact Design System file. Type (Icon / Initials /
  * Image) x Selected x State (Default / Pressed).
  *
- * A round, 1px outlined badge. Pressed greys the fill (a tint over the Image
- * placeholder) and drops the outline, Selected swaps the outline for a 2px
- * ring. The Figma prototype goes to Pressed on hover as well as on press, so an
+ * A round, outlined badge. Pressed greys the fill (a tint over the Image
+ * placeholder) and drops the outline, Selected swaps the outline for a ring.
+ * The Figma prototype goes to Pressed on hover as well as on press, so an
  * avatar with an `onClick` (it renders as a button) shows the Pressed look
  * under the pointer and while it is held down, easing in over 300ms (50ms for
  * the press itself); without an `onClick` it is a plain, non-interactive

@@ -20,7 +20,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Tab/Primary" (node 9587:4270) and "Tab/Secondary" (node 9587:4499) component sets. Source of truth for variants: Figma. L is 56px tall (40px on Mobile), XL is 64px (48px on Mobile). Primary is an underlined text tab (unselected tabs sit at 50% opacity), Secondary is a filled pill. A Tab on its own is a toggle button; put tabs in a Tab list for the tab semantics and arrow-key navigation. The Only layout has no label: pass an `aria-label`. Use the Breakpoint switch in the toolbar to see the Mobile values.',
+          'Converted from the Figma "Tab/Primary" (node 9587:4270) and "Tab/Secondary" (node 9587:4499) component sets. Source of truth for variants: Figma. L and XL take their height from the button sizing tokens (sizing/button/*), and both are a step smaller on Mobile. Primary is an underlined text tab (unselected tabs sit at 50% opacity), Secondary is a filled pill. A Tab on its own is a toggle button; put tabs in a Tab list for the tab semantics and arrow-key navigation. The Only layout has no label: pass an `aria-label`. Use the Breakpoint switch in the toolbar to see the Mobile values.',
       },
     },
   },

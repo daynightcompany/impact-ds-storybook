@@ -19,22 +19,24 @@
     outline-color 0.15s ease;
 }
 
-/* Sizes follow the Figma ladder (Base/Tab/Primary and Base/Tab/Secondary).
-   Every spacing and text value is a token that switches with the Mobile
-   breakpoint mode:
-     L  = 56px Desktop / 40px Mobile
-     XL = 64px Desktop / 48px Mobile
+/* Sizes follow the Figma ladder (Base/Tab/Primary and Base/Tab/Secondary): L
+   and XL. Every spacing and text value is a token that switches with the
+   Mobile breakpoint mode. The height is a minimum taken from the button sizing
+   group sizing/button/* (--breakpoint-sizing-button-l and -xl), where both
+   are a step smaller on Mobile.
    Spacing comes from the button group spacing/button/*
-   (--breakpoint-spacing-button-*: 2xs 8/8, xs 12/8, s 16/12, m 24/16).
+   (--breakpoint-spacing-button-*).
      --tab-pad-text  padding on the side that carries the label
      --tab-pad-icon  padding on a side that carries an icon
-   The icon box is a fixed 24 at L; at XL it follows spacing/l (32 Desktop,
-   24 Mobile), the same variable as the text line height. */
+   The icon box is a fixed size at L; at XL it follows spacing/l, the same
+   variable as the text line height. */
 .size-l {
+  min-height: var(--breakpoint-sizing-button-l);
   --tab-icon: 24px;
   --tab-pad-y: var(--breakpoint-spacing-button-xs);
 }
 .size-xl {
+  min-height: var(--breakpoint-sizing-button-xl);
   --tab-icon: var(--breakpoint-spacing-l);
   --tab-pad-y: var(--breakpoint-spacing-button-s);
 }
@@ -55,6 +57,10 @@
 .icon-leading { padding-left: var(--tab-pad-icon); }
 .icon-trailing { padding-right: var(--tab-pad-icon); }
 .icon-only { padding: var(--tab-pad-y) var(--tab-pad-icon); }
+/* The icon-only tab is square: its minimum width is the sizing token of its
+   size, the same one as the minimum height. */
+.icon-only.size-l { min-width: var(--breakpoint-sizing-button-l); }
+.icon-only.size-xl { min-width: var(--breakpoint-sizing-button-xl); }
 
 /* ── Primary ─ underlined text tab ─────────────────────────────────────── */
 .primary {
@@ -69,11 +75,6 @@
   opacity: 0.5;
 }
 .primary.size-xl { --tab-gap: var(--breakpoint-spacing-button-s); }
-/* Icon only at L: the vertical padding gives 48 Desktop / 24 Mobile, lifted by
-   the 56 / 40 minimum height (spacing/3xl). Figma sets no minimum width, so
-   Mobile is 48 wide. */
-.primary.size-l.icon-only { min-height: var(--breakpoint-spacing-3xl); }
-
 /* Hover brings an unselected tab to full opacity. */
 .primary:hover:not(.selected):not(:disabled) {
   opacity: 1;
@@ -104,14 +105,9 @@
   font-size: var(--font-interactive-label-text-2xl-sans-regular-size);
   line-height: var(--font-interactive-label-text-2xl-sans-regular-line-height);
 }
-/* Icon only: equal padding, plus a minimum size at L so it stays as tall as a
-   text tab (Desktop 12 + 24 + 12 = 48 is lifted to 56; Mobile 8 + 24 + 8 = 40
-   already sits at the 40 minimum). */
+/* Icon only: equal padding; the minimum width and height of its size keep it
+   as tall as a text tab. */
 .secondary.icon-only { padding: var(--tab-pad-y); }
-.secondary.size-l.icon-only {
-  min-width: var(--breakpoint-spacing-3xl);
-  min-height: var(--breakpoint-spacing-3xl);
-}
 
 .secondary:hover:not(.selected):not(:disabled) {
   background: var(--theme-color-border-tertiary);

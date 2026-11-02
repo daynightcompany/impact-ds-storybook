@@ -17,7 +17,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Profile Photo" component set (node 9587:3436) in the SMAL Impact Design System file: a 100px Avatar with a 24px round action badge at its bottom-right corner. Adjustment is `add` (a plus, for a missing photo) or `edit` (a pencil). The whole thing is one button; hovering or pressing it (the Figma prototype goes to Pressed on both, ease in over 300ms) greys the photo like the Avatar\'s Pressed state and moves the badge to the hover colour. Use `pressed` to show that look statically.',
+          'Converted from the Figma "Profile Photo" component set (node 9587:3436) in the SMAL Impact Design System file: a large Avatar with a round action badge at its bottom-right corner. Adjustment is `add` (a plus, for a missing photo) or `edit` (a pencil). The whole thing is one button; hovering or pressing it (the Figma prototype goes to Pressed on both, ease in over 300ms) greys the photo like the Avatar\'s Pressed state and moves the badge to the hover colour. Use `pressed` to show that look statically.',
       },
     },
   },

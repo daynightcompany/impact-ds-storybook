@@ -1,26 +1,30 @@
-/* Figma "Text Input group": fields in one box, 56px high each, side by side
-   with a 1px divider, wrapping into rows when the box is narrower than two
-   fields (a field is 310px wide at the least). The container's colour is the
-   stroke colour, so the 1px gap between fields shows as the vertical divider;
-   when the fields wrap, each field draws the 1px divider above itself. */
+/* Figma "Text Input group": fields in one box, side by side with a divider,
+   wrapping into rows when the box is narrower than two fields (a field has a
+   minimum width, see .grouped in Field.module.css).
+
+   Layers, back to front: the white of the box; the fields, each with the
+   dividers it draws above and to the left of itself (over the last row or
+   column of what is before it, see .grouped in Field.module.css); the outer
+   stroke (border/primary, borderStroke/s, drawn inside); and, above that, the
+   rounded stroke of a field that is hovered, focused, open or in error. That
+   field also takes the dividers around it away, so its stroke replaces them,
+   and where its corners curve away from the box the outer stroke runs on
+   underneath, as in the Figma states. */
 .group {
   position: relative;
+  /* The raised stroke stays inside the group's own stacking context. */
+  isolation: isolate;
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
-  column-gap: 1px;
   width: 100%;
   overflow: hidden;
   border-radius: var(--breakpoint-cornerradius-m);
-  background: var(--theme-color-border-primary);
+  background: var(--theme-color-background-primary);
 }
 
-.group > * {
-  box-shadow: 0 -1px 0 0 var(--theme-color-border-primary);
-}
-
-/* The outer stroke, drawn inside (border/primary, borderStroke/s), under a
-   hovered or focused field so that field's own stroke shows on top. */
+/* Last child, positioned: painted over the fields (and the white that covers the
+   dividers of a field with a stroke of its own), under their raised strokes. */
 .group::after {
   content: '';
   position: absolute;
@@ -29,11 +33,4 @@
   border-radius: inherit;
   box-shadow: inset 0 0 0 var(--theme-borderstroke-s) var(--theme-color-border-primary);
   pointer-events: none;
-}
-.group > *:hover,
-.group > *:focus-within,
-.group > [data-state='hover'],
-.group > [data-state='focus'] {
-  position: relative;
-  z-index: 1;
 }

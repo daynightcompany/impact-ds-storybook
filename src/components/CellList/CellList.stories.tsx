@@ -29,7 +29,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "cell list" component set (node 9587:5774) in the SMAL Impact Design System file. Source of truth for variants: Figma. Subtitle and Avatar are variants (a `subtitle` adds a second line and makes the title semibold; `avatar` replaces the left icon with an avatar); Label, Chevron and Icon left are booleans (`label` is shown when you pass text, `chevron` and `iconLeft` default to true). The row is 48px tall (64px with a subtitle) on Desktop and fills its container (Figma draws it 924px wide). It is a button, or a link when you pass an `href`. Figma has no hover or pressed state for it. Put rows in a Cell group to get dividers. Use the Breakpoint switch in the toolbar to see the Mobile values.',
+          'Converted from the Figma "cell list" component set (node 9587:5774) in the SMAL Impact Design System file. Source of truth for variants: Figma. Subtitle and Avatar are variants (a `subtitle` adds a second line and makes the title semibold; `avatar` replaces the left icon with an avatar); Label, Chevron and Icon left are booleans (`label` is shown when you pass text, `chevron` and `iconLeft` default to true). The row is taller with a subtitle and fills its container. It is a button, or a link when you pass an `href`. Figma has no hover or pressed state for it. Put rows in a Cell group to get dividers. Use the Breakpoint switch in the toolbar to see the Mobile values.',
       },
     },
   },

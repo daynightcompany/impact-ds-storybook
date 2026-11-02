@@ -76,7 +76,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Dialog" component set (node 9587:6878): a 375px panel in two forms. Default is a form: the "Form fields" slot (text inputs and dropdowns), then the Radio, Checkboxes and Switches groups (the slots "Selectors", "Checkbox content" and "Switch content"). Select is a list to choose from: Search, Tabs and the list. Both have the Header and Footer booleans. Figma draws it in the Mobile mode, so use the Breakpoint switch in the toolbar: on Mobile the drag handle shows above the sheet, and every size follows the switch. The slots take any node, and `true` shows the placeholders Figma has there. With `modal` and `open` it opens over a backdrop (see the "Modal" story); without them it is only the panel.',
+          'Converted from the Figma "Dialog" component set (node 9587:6878): a panel in two forms. Default is a form: the "Form fields" slot (text inputs and dropdowns), then the Radio, Checkboxes and Switches groups (the slots "Selectors", "Checkbox content" and "Switch content"). Select is a list to choose from: Search, Tabs and the list. Both have the Header and Footer booleans. Figma draws it in the Mobile mode, so use the Breakpoint switch in the toolbar: on Mobile the drag handle shows above the sheet, and every size follows the switch. The slots take any node, and `true` shows the placeholders Figma has there. With `modal` and `open` it opens over a backdrop (see the "Modal" story); without them it is only the panel.',
       },
     },
   },

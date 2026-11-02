@@ -22,7 +22,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Avatar" component set (node 9587:3379) in the SMAL Impact Design System file. Source of truth for variants: Figma. Type is Icon, Initials or Image (the grey picture placeholder); Selected adds a 2px ring; Pressed greys the fill (a tint over the placeholder) and drops the outline. The Figma prototype goes to Pressed on hover as well as on press (ease out 300ms, the press itself ease in-out 50ms) and a click toggles Selected, so give the avatar an `onClick` to make it a button that does the same (the stories here have one, so try them); use `pressed` to show the look statically. Figma draws it at 40px and the Profile photo scales it to 100px; the content keeps its 24px size at any `size`. Use the Breakpoint switch in the toolbar to see the Mobile values.',
+          'Converted from the Figma "Avatar" component set (node 9587:3379) in the SMAL Impact Design System file. Source of truth for variants: Figma. Type is Icon, Initials or Image (the grey picture placeholder); Selected adds a ring; Pressed greys the fill (a tint over the placeholder) and drops the outline. The Figma prototype goes to Pressed on hover as well as on press (ease out 300ms, the press itself ease in-out 50ms) and a click toggles Selected, so give the avatar an `onClick` to make it a button that does the same (the stories here have one, so try them); use `pressed` to show the look statically. Figma draws it at its default size and the Profile photo scales it up; the content keeps its own size at any `size`. Use the Breakpoint switch in the toolbar to see the Mobile values.',
       },
     },
   },

@@ -11,8 +11,8 @@ export type { SegmentControlSize };
 
 export interface SegmentControlProps extends Omit<HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange'> {
   /**
-   * Figma Size: M = 40px tall with 4px corners (Desktop and Mobile), L = 48px
-   * tall and fully rounded.
+   * Figma Size: M has small corners and S segments, L is taller and fully
+   * rounded with M segments.
    */
   size?: SegmentControlSize;
   /** Selected segment (controlled). Matches the `value` of a <SegmentItem>. */
@@ -30,7 +30,7 @@ export interface SegmentControlProps extends Omit<HTMLAttributes<HTMLDivElement>
  * component set (node 9587:3615), built on "Base/SwitchButton" 9587:3563. 2
  * sizes; the Items slot holds the segments, each a <SegmentItem>.
  *
- * A track with 4px padding and 4px between segments; the selected segment is a
+ * A track with spacing/button/3xs padding and between segments; the selected segment is a
  * white pill. Figma has no hover or disabled state: an unselected segment
  * fills like a Tab/Secondary on hover and a disabled one fades to 30%.
  *

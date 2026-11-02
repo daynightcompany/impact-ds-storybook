@@ -11,7 +11,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Chip group" component (node 9587:4156). A wrapping row of chips, 8px apart in both directions (spacing/button/2xs). The group only lays out; selection is up to the app, as the stories show.',
+          'Converted from the Figma "Chip group" component (node 9587:4156). A wrapping row of chips, spacing/button/2xs apart in both directions. The group only lays out; selection is up to the app, as the stories show.',
       },
     },
   },

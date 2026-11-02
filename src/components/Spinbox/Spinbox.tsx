@@ -37,8 +37,8 @@ export interface SpinboxProps
 
 /**
  * Impact DS Spinbox — converted from the Figma "Spinbox" component (node
- * 9587:5318): a 56px box with the number, a divider and a pair of chevrons that
- * add or take one `step`. It hugs its width (95px for one digit). The number is
+ * 9587:5318): a box with the number, a divider and a pair of chevrons that
+ * add or take one `step`. It hugs its width. The number is
  * a text field with the `spinbutton` role: type it, press ArrowUp / ArrowDown
  * (PageUp / PageDown by ten steps, Home / End for `min` / `max`) or press the
  * chevrons, which stay out of the tab order like the arrows of a native number

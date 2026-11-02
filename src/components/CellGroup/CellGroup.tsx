@@ -28,7 +28,7 @@ export interface CellGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'de
 /**
  * Impact DS Cell group — converted from the Figma "Cell group" component set
  * (node 9587:5878): a vertical stack of cells with a Divider between them and
- * 8px (spacing/2xs) above and below each Divider. Type Link / Radio / Switch /
+ * spacing/2xs above and below each Divider. Type Link / Radio / Switch /
  * Checkbox; the Items slot is the children.
  *
  * Dividers are added between the children for you. A Link group is a list; a

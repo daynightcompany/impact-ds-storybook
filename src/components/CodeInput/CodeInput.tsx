@@ -41,7 +41,7 @@ const ACCEPT = { numeric: /[^0-9]/g, alphanumeric: /[^a-zA-Z0-9]/g } as const;
 /**
  * Impact DS Code input — converted from the Figma "Code input" (node 9587:5359)
  * and its "Base/Input Field" set (node 9587:5028): a verification code with one
- * 56px box per character, sharing the width, with the helper text and link of
+ * box per character, sharing the width, with the helper text and link of
  * the Base field below. The Figma booleans Link and Helper text are props;
  * Idle, Hover, Focused and Disabled are the browser's own states, `error` sets
  * Error, and Empty / Populated follow the boxes.
@@ -51,7 +51,7 @@ const ACCEPT = { numeric: /[^0-9]/g, alphanumeric: /[^a-zA-Z0-9]/g } as const;
  * (or a one-time-code autofill) fills from the box you are in. Boxes are never
  * left with a gap, so `value` is always the code typed so far.
  *
- * Figma's Code input frame has 8px between the boxes, its Base set 12px
+ * Figma's Code input frame has a smaller gap between the boxes than its Base set
  * (spacing/xs); the Base set is followed.
  */
 export function CodeInput({

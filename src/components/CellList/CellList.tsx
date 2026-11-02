@@ -34,11 +34,11 @@ export interface CellListProps extends Omit<HTMLAttributes<HTMLElement>, 'title'
 
 /**
  * Impact DS Cell list — converted from the Figma "cell list" component set
- * (node 9587:5774): a navigation row with an optional 24px icon or 40px
+ * (node 9587:5774): a navigation row with an optional icon or
  * avatar, a title (and optional subtitle), an optional label and a chevron.
  * Subtitle x Avatar are variants; Label, Chevron and Icon left are booleans.
  *
- * The row is 48px tall (64px with a subtitle) at Desktop and takes the width
+ * The row is taller with a subtitle and takes the width
  * of its container. It is a button, or a link when you give it an `href`.
  * Figma has no hover or pressed state for it.
  */

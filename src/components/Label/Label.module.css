@@ -8,8 +8,12 @@
 }
 
 /* Spacing uses the button group spacing/button/*
-   (--breakpoint-spacing-button-*), as in Figma Base/Label. */
+   (--breakpoint-spacing-button-*), as in Figma Base/Label. The height is a
+   minimum taken from the button sizing group sizing/button/*
+   (--breakpoint-sizing-button-s and -l), where L is a step smaller on
+   Mobile. */
 .size-s {
+  min-height: var(--breakpoint-sizing-button-s);
   gap: var(--breakpoint-spacing-button-2xs);
   padding: var(--breakpoint-spacing-button-3xs) var(--breakpoint-spacing-button-s);
   font-family: var(--font-interactive-label-text-md-sans-regular-family), sans-serif;
@@ -23,8 +27,9 @@
   padding: var(--breakpoint-spacing-button-3xs) var(--breakpoint-spacing-button-3xs) var(--breakpoint-spacing-button-3xs) var(--breakpoint-spacing-button-s);
 }
 
-/* L = 56px Desktop / 40px Mobile, with or without icon */
+/* L, with or without icon */
 .size-l {
+  min-height: var(--breakpoint-sizing-button-l);
   gap: var(--breakpoint-spacing-button-2xs);
   padding: var(--breakpoint-spacing-button-xs) var(--breakpoint-spacing-button-m);
   font-family: var(--font-interactive-label-text-2xl-sans-regular-family), sans-serif;
@@ -37,9 +42,8 @@
   padding-right: var(--breakpoint-spacing-button-xs);
 }
 
-/* Icon box. S is a fixed 24. L follows spacing/l (32 Desktop, 24 Mobile),
-   the same variable as the text line height, so a label with an icon keeps
-   the height of one without. Whatever sits inside (the default Icon or a
+/* Icon box. S is a fixed size. L follows spacing/l, the same variable as the
+   text line height, so a label with an icon keeps the height of one without. Whatever sits inside (the default Icon or a
    custom iconElement) fills the box. */
 .icon {
   display: inline-flex;

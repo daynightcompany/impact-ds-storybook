@@ -26,7 +26,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Cell group" component set (node 9587:5878) in the SMAL Impact Design System file. Type is Link (cell list rows), Radio, Switch or Checkbox (cell selector rows); the Items slot is the children. A Divider is added between the rows for you, with 8px above and below it. A Link group is a list. A Radio group is a radio group: give each `CellSelector` a `value` and the group a `value` / `defaultValue` and `onValueChange`; Tab enters it once and the arrow keys move and select. Use the Breakpoint switch in the toolbar to see the Mobile values.',
+          'Converted from the Figma "Cell group" component set (node 9587:5878) in the SMAL Impact Design System file. Type is Link (cell list rows), Radio, Switch or Checkbox (cell selector rows); the Items slot is the children. A Divider is added between the rows for you, with spacing/2xs above and below it. A Link group is a list. A Radio group is a radio group: give each `CellSelector` a `value` and the group a `value` / `defaultValue` and `onValueChange`; Tab enters it once and the arrow keys move and select. Use the Breakpoint switch in the toolbar to see the Mobile values.',
       },
     },
   },

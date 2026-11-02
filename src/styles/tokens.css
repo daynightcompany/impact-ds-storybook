@@ -119,6 +119,10 @@
   --breakpoint-fontsize-9xl: 160px;
   --breakpoint-device-mobile: false;
   --breakpoint-device-desktop: true;
+  --breakpoint-sizing-button-s: 32px;
+  --breakpoint-sizing-button-m: 40px;
+  --breakpoint-sizing-button-l: 56px;
+  --breakpoint-sizing-button-xl: 64px;
   --shadow-shadow-s: 0px 6px 20px -6px var(--theme-color-border-tertiary);
   --shadow-shadow-m: 0px 9px 22px -5px var(--theme-color-border-tertiary);
   --shadow-shadow-l: 0px 14px 43px -6px var(--theme-color-border-tertiary);
@@ -542,4 +546,6 @@
   --breakpoint-fontsize-9xl: 80px;
   --breakpoint-device-mobile: true;
   --breakpoint-device-desktop: false;
+  --breakpoint-sizing-button-l: 48px;
+  --breakpoint-sizing-button-xl: 56px;
 }

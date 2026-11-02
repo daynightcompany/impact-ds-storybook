@@ -41,7 +41,7 @@ export interface InputFieldAreaProps
 /**
  * Impact DS Input field area — converted from the Figma "Input field area"
  * component set (node 9587:5270): the Base/Input Field box for several lines of
- * text. The 56px box (one line) grows with the text, 24px a line, with the label
+ * text. The box (one line) grows with the text, a line at a time, with the label
  * above the text and the helper text under the box. Idle, Hover, Focused and
  * Disabled are the browser's own states; `error` sets Error; Empty and Populated
  * follow the text, and the label glides between the placeholder and the caption
