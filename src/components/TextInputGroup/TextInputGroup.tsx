@@ -14,7 +14,8 @@ export type TextInputGroupProps = HTMLAttributes<HTMLDivElement>;
  * divider between them, e.g. a first and a last name. The children are
  * <InputField>s (or a <Dropdown>); inside the group they lose their own stroke,
  * and a hovered or focused field draws its own, in place of the dividers
- * around it.
+ * around it. While one field is focused, open or in error, hovering another
+ * one only changes the colour of the outline that is already there.
  *
  * Fields have a minimum width and share the row, so they wrap into rows
  * when the group is narrower than two fields (as on Mobile), with a horizontal

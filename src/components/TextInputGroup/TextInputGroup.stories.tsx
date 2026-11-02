@@ -19,7 +19,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Text Input group" component set (node 9587:5242): fields in one box with a divider between them. The children are Input fields (or a Dropdown) that lose their own stroke inside the group; a hovered or focused field draws its own stroke in place of the dividers around it, and each field\'s label glides into its caption as in the Input field. Fields have a minimum width and share the row, so they wrap into rows when the group is narrower than two fields (as on Mobile), with a horizontal divider between the rows. The AllVariants story shows Hover and Focused by putting `data-state` on a wrapper. Use the Breakpoint switch in the toolbar to see the Mobile values.',
+          'Converted from the Figma "Text Input group" component set (node 9587:5242): fields in one box with a divider between them. The children are Input fields (or a Dropdown) that lose their own stroke inside the group; a hovered or focused field draws its own stroke in place of the dividers around it (while one field is focused, open or in error, hovering another one only changes the colour of the outline that is already there), and each field\'s label glides into its caption as in the Input field. Fields have a minimum width and share the row, so they wrap into rows when the group is narrower than two fields (as on Mobile), with a horizontal divider between the rows. The AllVariants story shows Hover and Focused by putting `data-state` on a wrapper. Use the Breakpoint switch in the toolbar to see the Mobile values.',
       },
     },
   },

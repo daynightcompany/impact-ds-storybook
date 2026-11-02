@@ -144,10 +144,11 @@
 
 /* Inside a Text input group the field has no box of its own: the group draws
    the outer stroke, the field draws the dividers, and a field that is hovered,
-   focused, open or in error draws a complete rounded stroke of its own. Kept
-   above the state rules so those still win. */
+   focused, open or in error draws a complete rounded stroke of its own (a hovered
+   one only recolours the lines that are there while another field is active, see
+   below). Kept above the state rules so those still win. */
 .grouped {
-  --field-divider: var(--theme-color-border-primary);
+  --field-divider: var(--group-stroke, var(--theme-color-border-primary));
   flex: 1 1 310px;
   min-width: min(310px, 100%);
   /* The dividers: a band of borderStroke/s above the field and one to its left,
@@ -199,6 +200,24 @@
 .grouped:is([data-state='hover'], [data-state='focus']) .box:not(.disabled),
 :is([data-state='hover'], [data-state='focus']) .grouped .box:not(.disabled) {
   z-index: 1;
+}
+
+/* A field that is hovered while another field of the group is focused, open or in error draws no stroke of its
+   own: it would meet the stroke of the other field in two curved corners. The lines that are already there take the
+   hover colour instead, the group's outer stroke and the dividers (--group-stroke, eased like every stroke), and the
+   other field keeps its stroke as it is. The group is the box with .fieldGroup, which the Text input group adds.
+   Fields that show a Hover or Focus demo state (data-state) are left as they are. */
+.fieldGroup:has(.box:is(:focus-within, [data-open='true'], .error):not(.disabled), .grouped[data-state='focus'] .box:not(.disabled)):has(.grouped:not([data-state]) .box:hover:not(:focus-within, [data-open='true'], .error, .disabled)) {
+  --group-stroke: var(--theme-color-interactive-hover-primary);
+}
+.fieldGroup:has(.box:is(:focus-within, [data-open='true'], .error):not(.disabled), .grouped[data-state='focus'] .box:not(.disabled)) > .grouped:not([data-state]):has(.box:hover:not(:focus-within, [data-open='true'], .error, .disabled)) {
+  --field-divider: var(--group-stroke, var(--theme-color-border-primary));
+  position: static;
+  background-color: transparent;
+}
+.fieldGroup:has(.box:is(:focus-within, [data-open='true'], .error):not(.disabled), .grouped[data-state='focus'] .box:not(.disabled)) > .grouped:not([data-state]) .box:hover:not(:focus-within, [data-open='true'], .error, .disabled) {
+  --field-stroke-color: transparent;
+  z-index: auto;
 }
 
 /* ---- inside the box --------------------------------------------------- */
