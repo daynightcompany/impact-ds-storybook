@@ -1,4 +1,6 @@
 .list {
+  /* The underline of the selected tab is positioned against the list (see below). */
+  position: relative;
   box-sizing: border-box;
   display: flex;
   gap: var(--breakpoint-spacing-button-2xs);
@@ -15,4 +17,37 @@
   flex-direction: column;
   align-items: flex-start;
   width: fit-content;
+}
+
+/* Primary tabs: the underline of the selected tab is one line for the whole
+   list. When another tab is selected it slides there and takes the width of
+   that tab, 300ms ease-out as in the Figma prototype. TabList.tsx hands the
+   position and width of the selected tab over as --tabline-x, --tabline-bottom
+   and --tabline-w, and marks the list with data-indicator: "slide" normally,
+   "jump" while the line is put in place without moving (the first time, or when
+   the layout changes). Until then the tabs draw a line of their own, see
+   .primary::before in Tab.module.css. */
+.list[data-indicator]::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--tabline-w);
+  height: var(--theme-borderstroke-m);
+  transform: translate(var(--tabline-x), calc(var(--tabline-bottom) - 100%));
+  background: var(--theme-color-interactive-idle-stroke);
+  pointer-events: none;
+  transition: transform 0.3s ease-out, width 0.3s ease-out, opacity 0.3s ease-out;
+}
+.list[data-indicator='jump']::after {
+  transition: none;
+}
+/* The selected tab is disabled: its whole tab, line included, is at 30% opacity. */
+.list[data-indicator][data-indicator-disabled]::after {
+  opacity: 0.3;
+}
+@media (prefers-reduced-motion: reduce) {
+  .list[data-indicator]::after {
+    transition: none;
+  }
 }

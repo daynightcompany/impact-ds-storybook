@@ -15,8 +15,10 @@
   cursor: pointer;
   outline: var(--theme-borderstroke-m) solid transparent;
   outline-offset: calc(-1 * var(--theme-borderstroke-m));
-  transition: opacity 0.15s ease, background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease,
-    outline-color 0.15s ease;
+  /* 300ms ease-out, as in the Figma prototype: the label of the tab that is
+     selected next comes up while the underline slides to it. */
+  transition: opacity 0.3s ease-out, background-color 0.3s ease-out, color 0.3s ease-out,
+    outline-color 0.3s ease-out;
 }
 
 /* Sizes follow the Figma ladder (Base/Tab/Primary and Base/Tab/Secondary): L
@@ -80,10 +82,30 @@
   opacity: 1;
   color: var(--theme-color-interactive-hover-primary);
 }
-/* Selected: full opacity and a 2px bottom stroke drawn inside the tab. */
+/* Selected: full opacity and a bottom stroke (borderStroke/m, interactive/idle/stroke)
+   across the whole tab, drawn inside it. As in Figma it is a straight line: a
+   border on the bottom edge only, so the corner radius does not bend its ends.
+   It fades in and out; in a TabList it is replaced by the list's underline,
+   which slides from tab to tab (see TabList.module.css). */
 .primary.selected {
   opacity: 1;
-  box-shadow: inset 0 calc(-1 * var(--theme-borderstroke-m)) 0 0 var(--theme-color-interactive-idle-stroke);
+}
+.primary::before {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: var(--theme-borderstroke-m);
+  background: var(--theme-color-interactive-idle-stroke);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-out;
+}
+.primary.selected::before {
+  opacity: 1;
+}
+[data-indicator] > .primary::before {
+  opacity: 0;
+  transition: none;
 }
 
 /* ── Secondary ─ filled pill ───────────────────────────────────────────── */

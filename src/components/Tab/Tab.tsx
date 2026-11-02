@@ -43,7 +43,8 @@ export interface TabProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 
  * layouts x Unselected/Selected x idle/hover/disabled.
  *
  * Primary: unselected tabs sit at 50% opacity and come to full opacity on
- * hover; the selected tab has a bottom stroke. Secondary: unselected tabs
+ * hover; the selected tab has a straight bottom stroke (in a <TabList> that
+ * line slides to the tab that is selected next). Secondary: unselected tabs
  * are text only and fill on hover; the selected tab is a filled pill with a
  * ring. Hover is CSS, Disabled is the native `disabled` attribute.
  *
