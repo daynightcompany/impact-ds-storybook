@@ -1,0 +1,44 @@
+/* Figma Accordion list (node 9587:6366): a surface/primary card, spacing/3xl above and
+   below and spacing/l at the sides, cornerRadius/l, holding one Items column. */
+.list {
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--breakpoint-spacing-3xl) var(--breakpoint-spacing-l);
+  background: var(--theme-color-surface-primary);
+  border-radius: var(--breakpoint-cornerradius-l);
+}
+
+/* Figma Items slot: spacing/s between the rows. Every row is at most 1024 wide
+   and sits in the middle when the list is wider than that. */
+.items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--breakpoint-spacing-s);
+}
+
+.items > * {
+  width: 100%;
+  max-width: 1024px;
+}
+
+/* Figma Headline: the title, spacing/xl, a divider. */
+.headline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--breakpoint-spacing-xl);
+}
+
+.title {
+  color: var(--theme-color-font-interactive-idle-secondary);
+  font-family: var(--font-interactive-label-text-2xl-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-2xl-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-2xl-sans-regular-size);
+  line-height: var(--font-interactive-label-text-2xl-sans-regular-line-height);
+}
+
+/* The list's dividers are border/tertiary (the Divider component's own fill is border/primary).
+   .list .divider outranks the Divider's one-class rule whatever order the sheets load in. */
+.list .divider {
+  background: var(--theme-color-border-tertiary);
+}

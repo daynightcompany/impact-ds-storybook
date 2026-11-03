@@ -1,0 +1,29 @@
+/* Figma Card Badge: a strip as wide as its card (372 in Figma), padding
+   spacing/2xs above and below and spacing/m at the sides, the text centered
+   in Interactive-Label Text/XS/Sans Semibold. The top corners are 12; Figma
+   does not bind them to a radius token. */
+.badge {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  padding: var(--breakpoint-spacing-2xs) var(--breakpoint-spacing-m);
+  border-radius: 12px 12px 0 0;
+  text-align: center;
+  font-family: var(--font-interactive-label-text-xs-sans-semibold-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-xs-sans-semibold-weight);
+  font-size: var(--font-interactive-label-text-xs-sans-semibold-size);
+  line-height: var(--font-interactive-label-text-xs-sans-semibold-line-height);
+}
+
+.default {
+  background: var(--theme-color-surface-primary);
+  color: var(--theme-color-font-interactive-idle-secondary);
+}
+
+/* Figma draws the Promo text in the same colour as Default, which is white in
+   Night and SMAL: about 2.5:1 on the green. The green is the same in every
+   theme, so the text is forced black (8.5:1), as in Label's feedback tones. */
+.promo {
+  background: var(--theme-color-supportive-feedback-success);
+  color: var(--theme-color-supportive-neutral-forcedblack);
+}

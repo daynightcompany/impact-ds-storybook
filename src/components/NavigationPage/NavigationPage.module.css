@@ -1,0 +1,112 @@
+/* Figma "Navigation/Page": spacing/2xs above and below and spacing/s at the
+   sides on the background colour, around a row that is as high as its
+   tallest part: the 24 icons (and the 24 line of the title). The bar itself is
+   56 high (a fixed height in Figma, the same on Mobile), with the row in the
+   middle; a larger title makes it taller. */
+.page {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 56px;
+  padding: var(--breakpoint-spacing-2xs) var(--breakpoint-spacing-s);
+  background: var(--theme-color-background-primary);
+  color: var(--theme-color-font-interactive-idle-secondary);
+}
+
+.content {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+/* Left and right groups grow equally, so the title stays centred. They never
+   get narrower than their icons: a long title is shortened (ellipsis) instead
+   of running under them. */
+.left,
+.right {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  min-width: min-content;
+}
+.left {
+  gap: var(--breakpoint-spacing-2xs);
+}
+.right {
+  justify-content: flex-end;
+  gap: var(--breakpoint-spacing-xs);
+}
+.additional {
+  display: flex;
+  align-items: center;
+  gap: var(--breakpoint-spacing-xs);
+}
+
+/* Title: MD regular (16/24 Desktop, 14/24 Mobile), centred. */
+.title {
+  flex: 0 1 auto;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  font-family: var(--font-interactive-label-text-md-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-md-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-md-sans-regular-size);
+  line-height: var(--font-interactive-label-text-md-sans-regular-line-height);
+  color: var(--theme-color-font-interactive-idle-secondary);
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* The 24 icon of the back arrow and the close icon. The button is drawn as big
+   as the icon (Figma: no button around it); the hit area reaches a little
+   further out, 44 high and as wide as the gaps allow. */
+.action {
+  position: relative;
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: var(--breakpoint-cornerradius-rounded);
+  background: none;
+  color: var(--theme-color-font-interactive-idle-secondary);
+  cursor: pointer;
+}
+.action::after {
+  content: '';
+  position: absolute;
+  inset: -10px -4px;
+}
+.action > svg {
+  width: 100%;
+  height: 100%;
+}
+.action:focus-visible {
+  outline: 2px solid var(--theme-color-interactive-idle-primary);
+  outline-offset: 2px;
+}
+
+/* 24px icon holder (the Figma "icons" instance) of the additional icons. */
+.placeholder {
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: var(--theme-color-font-interactive-idle-secondary);
+}
+.placeholder > svg {
+  width: 100%;
+  height: 100%;
+}

@@ -1,0 +1,55 @@
+/* Figma "Table row": spacing/s padding and gap, cornerRadius/s, a fixed height
+   of 72 (the one value not bound to a variable). The Cells slot is one band of
+   cells, centred in the row; here that band is the grid track, so
+   `align-content` centres it and `align-items` puts every cell at its top.
+   The columns are set once for all rows by the Table (--table-columns); with
+   no Table every cell is an equal column. */
+.row {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: var(--table-columns, none);
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  column-gap: var(--breakpoint-spacing-s);
+  align-content: center;
+  align-items: start;
+  width: 100%;
+  min-height: 72px;
+  padding: var(--breakpoint-spacing-s);
+  border-radius: var(--breakpoint-cornerradius-s);
+  transition: background-color 0.3s ease-out;
+}
+
+.type-default {
+  background: var(--theme-color-surface-primary);
+}
+
+/* Hover is the border/tertiary tint (an alpha colour, laid over what is behind
+   the row). A Default row takes it under the pointer. */
+.type-hover,
+.type-default:hover {
+  background: var(--theme-color-border-tertiary);
+}
+
+/* The header has no fill of its own beyond the page colour and centres its
+   cells: the 56 high chips are taller than the 40 inside the padding, so they
+   spill over it evenly, as in Figma. */
+.type-header {
+  align-items: center;
+  height: 72px;
+  background: var(--theme-color-background-primary);
+}
+
+.cell {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .row {
+    transition: none;
+  }
+}

@@ -1,0 +1,51 @@
+/* Figma Text/Links: the text in font/interactive/idle/secondary with a stroke
+   along the bottom edge of the text box, drawn inside it. The stroke is
+   borderStroke/s and becomes borderStroke/m on hover. It is an inset shadow
+   here, so the box keeps the size of the text. No corner radius, so the line
+   stays straight. */
+.link {
+  box-sizing: border-box;
+  display: inline-block;
+  max-width: 100%;
+  color: var(--theme-color-font-interactive-idle-secondary);
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: inset 0 calc(-1 * var(--theme-borderstroke-s)) 0 0 currentColor;
+  transition: box-shadow 0.3s ease-out;
+}
+
+.link:hover,
+.link.hover {
+  box-shadow: inset 0 calc(-1 * var(--theme-borderstroke-m)) 0 0 currentColor;
+}
+
+.link:focus-visible {
+  outline: 2px solid var(--theme-color-interactive-idle-primary);
+  outline-offset: 2px;
+}
+
+/* Sizes: L = Interactive-Label Text/2XL, M = MD, S = XS (all Sans Regular). */
+.size-l {
+  font-family: var(--font-interactive-label-text-2xl-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-2xl-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-2xl-sans-regular-size);
+  line-height: var(--font-interactive-label-text-2xl-sans-regular-line-height);
+}
+.size-m {
+  font-family: var(--font-interactive-label-text-md-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-md-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-md-sans-regular-size);
+  line-height: var(--font-interactive-label-text-md-sans-regular-line-height);
+}
+.size-s {
+  font-family: var(--font-interactive-label-text-xs-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-xs-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-xs-sans-regular-size);
+  line-height: var(--font-interactive-label-text-xs-sans-regular-line-height);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link {
+    transition: none;
+  }
+}

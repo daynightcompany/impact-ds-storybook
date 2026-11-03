@@ -1,0 +1,61 @@
+/* Figma "Breadcrumb": a row of Buttons (Tertiary, size L) with spacing/2xs
+   between them. The pages are links drawn with the Button's own classes
+   (Button.module.css); only what a link needs on top of that is here. */
+/* The row is as wide as its items (Figma: hug), and wraps only when its
+   container is narrower than that. */
+.breadcrumb {
+  width: fit-content;
+  max-width: 100%;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--breakpoint-spacing-2xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+}
+/* The item that the "more" button revealed takes focus, with no ring of its own. */
+.item:focus {
+  outline: none;
+}
+
+/* A link is not underlined like text; keyboard focus gets the ring the
+   header buttons have (the Button's inner stroke is transparent). */
+.link {
+  text-decoration: none;
+}
+.link:focus-visible,
+.more:focus-visible {
+  outline-color: var(--theme-color-interactive-idle-primary);
+  outline-offset: 2px;
+}
+
+/* An item without an href is text: no hover tint, no pointer. */
+.text.text {
+  cursor: default;
+}
+.text.text:hover {
+  background: transparent;
+}
+
+/* The arrow between two items: a Tertiary L icon-only Button in Figma (padding
+   spacing/button/xs around the 24 icon, at least as big as the L sizing token
+   so it is square), here without being interactive. */
+.separator {
+  box-sizing: border-box;
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--breakpoint-sizing-button-l);
+  min-height: var(--breakpoint-sizing-button-l);
+  padding: var(--breakpoint-spacing-button-xs);
+  color: var(--theme-color-font-interactive-idle-secondary);
+}

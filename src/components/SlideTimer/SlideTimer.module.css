@@ -1,0 +1,37 @@
+/* Figma Slide timer: the bars and the arrows in a row, gap spacing/m, centered. */
+.timer {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--breakpoint-spacing-m);
+}
+
+.bars {
+  display: flex;
+  align-items: center;
+  gap: var(--breakpoint-spacing-m);
+}
+
+/* A slide that is not the current one: a solid 40 x 4 bar (Figma's Progress at 100%). */
+.bar {
+  flex: none;
+  box-sizing: border-box;
+  width: 40px;
+  height: var(--breakpoint-spacing-3xs);
+  border-radius: var(--breakpoint-cornerradius-rounded);
+  background: var(--theme-color-interactive-idle-primary);
+}
+
+/* The current slide: a 75px bar that fills over the slide's time.
+   (.bars .current outranks Progress's own full-width rule whatever order the sheets load in.) */
+.bars .current {
+  flex: none;
+  width: 75px;
+}
+
+/* The arrows: Figma's Slider frame, gap spacing/xs. */
+.slider {
+  display: flex;
+  align-items: center;
+  gap: var(--breakpoint-spacing-xs);
+}

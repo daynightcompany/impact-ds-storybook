@@ -1,0 +1,187 @@
+/* Figma Accordion (node 9587:6333): a surface/primary container that fills its width.
+   Expanded=False: a pill (cornerRadius/2xl), spacing/m around a header whose own
+   side padding is spacing/m, so the headline sits spacing/m + spacing/m from the edge.
+   Expanded=True: a card (cornerRadius/xl), spacing/2xl above and below, spacing/m at
+   the sides, spacing/xl between header, body text and image.
+   The paddings live on the header button and the panel, not on the container, so
+   the whole pill is the click target and the focus ring follows its shape.
+   The variables below carry the two states; they animate through the padding
+   of the elements that use them. */
+.accordion {
+  --accordion-pt: var(--breakpoint-spacing-m);
+  --accordion-pi: calc(var(--breakpoint-spacing-m) * 2);
+  --accordion-pb: var(--breakpoint-spacing-m);
+  --accordion-content-pi: var(--breakpoint-spacing-m);
+  --accordion-content-pb: var(--breakpoint-spacing-2xl);
+  --accordion-radius: var(--breakpoint-cornerradius-2xl);
+  box-sizing: border-box;
+  width: 100%;
+  background: var(--theme-color-surface-primary);
+  border-radius: var(--accordion-radius);
+  transition: border-radius 0.3s ease-out;
+}
+
+.accordion[data-expanded='true'] {
+  --accordion-pt: var(--breakpoint-spacing-2xl);
+  --accordion-pi: var(--breakpoint-spacing-m);
+  --accordion-pb: 0px;
+  --accordion-radius: var(--breakpoint-cornerradius-xl);
+}
+
+.heading {
+  margin: 0;
+  font: inherit;
+}
+
+/* Header: headline on the left (fills), the 32 x 32 plus or minus on the right, spacing/xl between. */
+.trigger {
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--breakpoint-spacing-xl);
+  width: 100%;
+  margin: 0;
+  padding: var(--accordion-pt) var(--accordion-pi) var(--accordion-pb);
+  border: 0;
+  border-radius: var(--accordion-radius);
+  background: none;
+  color: var(--theme-color-font-interactive-idle-secondary);
+  font-family: var(--font-interactive-label-text-3xl-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-3xl-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-3xl-sans-regular-size);
+  line-height: var(--font-interactive-label-text-3xl-sans-regular-line-height);
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    padding 0.3s ease-out,
+    border-radius 0.3s ease-out;
+}
+
+.trigger:focus-visible {
+  outline: 2px solid var(--theme-color-interactive-idle-primary);
+  outline-offset: 2px;
+}
+
+.title {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+/* Figma IconPadding: 32 wide, as tall as the header, the icon centered in it. */
+.icon {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  width: 32px;
+}
+
+.icon svg {
+  display: block;
+}
+
+/* Panel: grows from 0 to its content (a 0fr to 1fr grid row), and stays out of
+   the tab order and the accessibility tree while it is closed. */
+.panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition:
+    grid-template-rows 0.3s ease-out,
+    visibility 0s linear 0.3s;
+}
+
+.accordion[data-expanded='true'] .panel {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  transition:
+    grid-template-rows 0.3s ease-out,
+    visibility 0s;
+}
+
+.clip {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.content {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--breakpoint-spacing-xl);
+  padding: var(--breakpoint-spacing-xl) var(--accordion-content-pi) var(--accordion-content-pb);
+}
+
+/* Figma BodyText: spacing/m between the paragraph and the quote, at most 1080 wide. */
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--breakpoint-spacing-m);
+  width: 100%;
+  max-width: 1080px;
+}
+
+.body-text {
+  margin: 0;
+  color: var(--theme-color-font-paragraph-primary);
+  font-family: var(--font-paragraph-body-text-l-sans-family), sans-serif;
+  font-weight: var(--font-paragraph-body-text-l-sans-weight);
+  font-style: var(--font-paragraph-body-text-l-sans-style);
+  font-size: var(--font-paragraph-body-text-l-sans-size);
+  line-height: var(--font-paragraph-body-text-l-sans-line-height);
+}
+
+.quote {
+  margin: 0;
+  color: var(--theme-color-font-paragraph-secondary);
+  font-family: var(--font-paragraph-body-text-xl-serif-family), serif;
+  font-weight: var(--font-paragraph-body-text-xl-serif-weight);
+  font-style: var(--font-paragraph-body-text-xl-serif-style);
+  font-size: var(--font-paragraph-body-text-xl-serif-size);
+  line-height: var(--font-paragraph-body-text-xl-serif-line-height);
+}
+
+/* Figma image-placeholder: clips its content to cornerRadius/m. */
+.media {
+  overflow: hidden;
+  border-radius: var(--breakpoint-cornerradius-m);
+}
+
+.media > img,
+.media > video {
+  display: block;
+  width: 100%;
+}
+
+/* Inside an Accordion list (Figma "Features" items): no fill, no side padding,
+   a 2XL headline, and the pill radius in both states. Opening keeps the
+   list's spacing/m above the headline. */
+.accordion.list {
+  --accordion-pi: 0px;
+  --accordion-content-pi: 0px;
+  --accordion-content-pb: var(--breakpoint-spacing-m);
+  --accordion-radius: var(--breakpoint-cornerradius-2xl);
+  background: transparent;
+}
+
+.accordion.list[data-expanded='true'] {
+  --accordion-pt: var(--breakpoint-spacing-m);
+}
+
+.accordion.list .trigger {
+  font-family: var(--font-interactive-label-text-2xl-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-2xl-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-2xl-sans-regular-size);
+  line-height: var(--font-interactive-label-text-2xl-sans-regular-line-height);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accordion,
+  .trigger,
+  .panel,
+  .accordion[data-expanded='true'] .panel {
+    transition: none;
+  }
+}

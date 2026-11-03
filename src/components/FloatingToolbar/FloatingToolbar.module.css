@@ -1,0 +1,32 @@
+/* Figma Floating toolbar: a row, padding spacing/2xs, gap spacing/2xs,
+   background/primary, cornerRadius/m and the drop shadow 0 14 43 -6
+   (shadow/l). The label and the buttons are centered on one line; the buttons
+   are Tertiary, size L. Figma clips the frame; not here, so a focus ring or a
+   popover on an item is not cut off. */
+.toolbar {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--breakpoint-spacing-2xs);
+  padding: var(--breakpoint-spacing-2xs);
+  border-radius: var(--breakpoint-cornerradius-m);
+  background: var(--theme-color-background-primary);
+  box-shadow: var(--shadow-shadow-l);
+  color: var(--theme-color-font-interactive-idle-secondary);
+}
+
+/* With the label: spacing/s at the left, and Figma's frame is 393 wide, which
+   leaves spacing/s at the right too (padding spacing/2xs plus the gap that
+   the empty Items slot adds after the last button). */
+.labelled {
+  padding-inline: var(--breakpoint-spacing-s);
+}
+
+/* Interactive-Label Text/MD/Sans Regular. */
+.label {
+  white-space: nowrap;
+  font-family: var(--font-interactive-label-text-md-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-md-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-md-sans-regular-size);
+  line-height: var(--font-interactive-label-text-md-sans-regular-line-height);
+}

@@ -23,13 +23,15 @@
   min-width: 0;
 }
 
-/* Left and right groups grow equally, so the title stays centred. */
+/* Left and right groups grow equally, so the title stays centred. They never
+   get narrower than their buttons: a long title is shortened (ellipsis)
+   instead of running under them. */
 .left,
 .right {
   display: flex;
   flex: 1 1 0;
   align-items: center;
-  min-width: 0;
+  min-width: min-content;
 }
 .left {
   gap: var(--breakpoint-spacing-2xs);

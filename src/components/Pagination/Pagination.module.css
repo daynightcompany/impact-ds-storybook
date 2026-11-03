@@ -1,0 +1,74 @@
+/* Figma Pagination, Desktop: Back, the pages and Next in a row, gap spacing/m,
+   centered. The pages are Button instances (Tertiary, L) with spacing/2xs
+   between them. */
+.pagination {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--breakpoint-spacing-m);
+  color: var(--theme-color-font-interactive-idle-secondary);
+}
+
+/* Mobile with the info: gap spacing/2xs. Mobile with the pages: gap spacing/3xs. */
+.mobile {
+  gap: var(--breakpoint-spacing-2xs);
+}
+.mobile-pages {
+  gap: var(--breakpoint-spacing-3xs);
+}
+
+.pages {
+  display: flex;
+  align-items: center;
+  gap: var(--breakpoint-spacing-2xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.item {
+  display: flex;
+}
+
+/* The dots are as large as a page button: Figma draws them as a Button with
+   the text "..." (padding spacing/button, text Interactive-Label Text/XL). */
+.gap {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--breakpoint-sizing-button-l);
+  padding: var(--breakpoint-spacing-button-xs) var(--breakpoint-spacing-button-m);
+  font-family: var(--font-interactive-label-text-xl-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-xl-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-xl-sans-regular-size);
+  line-height: var(--font-interactive-label-text-xl-sans-regular-line-height);
+}
+
+/* Desktop info: Interactive-Label Text/XS/Sans Regular. */
+.info-desktop {
+  font-family: var(--font-interactive-label-text-xs-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-xs-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-xs-sans-regular-size);
+  line-height: var(--font-interactive-label-text-xs-sans-regular-line-height);
+  white-space: nowrap;
+}
+
+/* Mobile info: Interactive-Label Text/SM/Sans Regular, centered in a box as high
+   as the buttons. It fills what is left between Back and Next (Figma: fill
+   container, in a frame 320 wide). */
+.info-mobile {
+  box-sizing: border-box;
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: var(--breakpoint-sizing-button-l);
+  text-align: center;
+  white-space: nowrap;
+  font-family: var(--font-interactive-label-text-sm-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-sm-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-sm-sans-regular-size);
+  line-height: var(--font-interactive-label-text-sm-sans-regular-line-height);
+}

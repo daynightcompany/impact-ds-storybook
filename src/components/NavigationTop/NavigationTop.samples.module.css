@@ -1,0 +1,14 @@
+/* Story samples only. Figma binds these buttons to the device variables:
+   device/desktop hides the three icon buttons on Mobile, device/mobile shows
+   the side bar's extra button on Mobile only. The attribute is the one the
+   Mobile breakpoint mode sets on the page (src/styles/breakpoint.ts). */
+:global([data-breakpoint='375-mobile']) .desktop-only {
+  display: none;
+}
+
+.mobile-only.mobile-only {
+  display: none;
+}
+:global([data-breakpoint='375-mobile']) .mobile-only.mobile-only {
+  display: inline-flex;
+}

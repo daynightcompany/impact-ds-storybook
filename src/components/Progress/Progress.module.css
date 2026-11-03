@@ -1,0 +1,48 @@
+/* Figma Progress: the track and the fill are both spacing/3xs high (4px) with
+   cornerRadius/rounded ends. The track is border/tertiary, the fill
+   interactive/idle/primary. */
+.progress {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  height: var(--breakpoint-spacing-3xs);
+  overflow: hidden;
+  border-radius: var(--breakpoint-cornerradius-rounded);
+  background: var(--theme-color-border-tertiary);
+}
+
+.fill {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--theme-color-interactive-idle-primary);
+  /* A new value moves the fill, ease out over 300ms (the easing of the Figma prototypes). */
+  transition: width 0.3s ease-out;
+}
+
+/* Progress animation: from the 5px start that Figma's "0" frame draws to 100%,
+   in a straight line, so the time left reads off the bar. Held at its start
+   (`paused`) it shows that 5px mark. */
+.animated .fill {
+  transition: none;
+  animation: fill linear forwards;
+}
+.paused .fill {
+  animation-play-state: paused;
+}
+
+@keyframes fill {
+  from {
+    width: 5px;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fill {
+    transition: none;
+  }
+}

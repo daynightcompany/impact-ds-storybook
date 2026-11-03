@@ -1,0 +1,50 @@
+/* Figma "Navigation/Side": a column on the surface colour, spacing/m above
+   and below and spacing/s at the sides. It is as wide as its content (the 56
+   wide logo and tabs: 88), at least 72, and as tall as its container. The top
+   group and the icons sit at the two ends. */
+.side {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--breakpoint-spacing-xl);
+  width: fit-content;
+  min-width: 72px;
+  height: 100%;
+  padding: var(--breakpoint-spacing-m) var(--breakpoint-spacing-s);
+  background: var(--theme-color-surface-primary);
+  /* The logo is drawn in the paragraph colour (currentColor). */
+  color: var(--theme-color-font-paragraph-primary);
+}
+
+/* "Logo and menu": spacing/l apart. */
+.start {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--breakpoint-spacing-l);
+}
+
+/* The logo instance is drawn 56 wide. */
+.logo {
+  width: 56px;
+}
+.logo svg,
+.logo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Figma binds the menu's visibility to device/desktop: not shown on Mobile. */
+:global([data-breakpoint='375-mobile']) .menu {
+  display: none;
+}
+
+.icons {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--breakpoint-spacing-2xs);
+}

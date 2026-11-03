@@ -1,0 +1,33 @@
+/* Figma Tooltip / Fixed Icon=Yes: padding 8 / 16, gap 16, radius cornerRadius/s,
+   fill interactive/idle/primary, text Interactive-Label Text/SM/Sans Regular in
+   font/interactive/idle/primary, a 24px icon that never shrinks. */
+.tooltip {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--breakpoint-spacing-s);
+  max-width: 100%;
+  padding: var(--breakpoint-spacing-2xs) var(--breakpoint-spacing-s);
+  border-radius: var(--breakpoint-cornerradius-s);
+  background: var(--theme-color-interactive-idle-primary);
+  color: var(--theme-color-font-interactive-idle-primary);
+  font-family: var(--font-interactive-label-text-sm-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-sm-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-sm-sans-regular-size);
+  line-height: var(--font-interactive-label-text-sm-sans-regular-line-height);
+}
+
+.text {
+  min-width: 0;
+}
+
+.icon {
+  display: inline-flex;
+  flex: none;
+  width: 24px;
+  height: 24px;
+}
+.icon > * {
+  width: 100%;
+  height: 100%;
+}

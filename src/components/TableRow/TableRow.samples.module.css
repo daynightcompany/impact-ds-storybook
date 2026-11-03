@@ -1,0 +1,48 @@
+/* The text block of the Figma Table rows (Text/Card text block, Size M): a
+   Title in Interactive-Label Text/MD and a Subtitle in /XS, both in the
+   secondary interactive font colour. */
+.title {
+  font-family: var(--font-interactive-label-text-md-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-md-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-md-sans-regular-size);
+  line-height: var(--font-interactive-label-text-md-sans-regular-line-height);
+  color: var(--theme-color-font-interactive-idle-secondary);
+}
+
+.subtitle {
+  font-family: var(--font-interactive-label-text-xs-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-xs-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-xs-sans-regular-size);
+  line-height: var(--font-interactive-label-text-xs-sans-regular-line-height);
+  color: var(--theme-color-font-interactive-idle-secondary);
+}
+
+/* The header chips of the Figma table are a Chip M with its padding and text
+   enlarged: padding spacing/button/xs, /m, /xs and /s (top, right, bottom,
+   left) and Interactive-Label Text/XL, so 56 high instead of 40. The doubled
+   class wins over the Chip's own size rules. */
+.header-chip.header-chip {
+  --chip-pad-y: var(--breakpoint-spacing-button-xs);
+  --chip-pad-text: var(--breakpoint-spacing-button-m);
+  --chip-pad-icon: var(--breakpoint-spacing-button-s);
+  font-family: var(--font-interactive-label-text-xl-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-xl-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-xl-sans-regular-size);
+  line-height: var(--font-interactive-label-text-xl-sans-regular-line-height);
+}
+
+/* Figma scales the Checkbox in the table to 75%: 18 x 18 instead of 24 x 24
+   (box 15, stroke 0.75, radius 3). */
+.select {
+  display: block;
+  width: 18px;
+  height: 18px;
+}
+
+.select-scale {
+  display: flex;
+  width: 24px;
+  height: 24px;
+  transform: scale(0.75);
+  transform-origin: 0 0;
+}

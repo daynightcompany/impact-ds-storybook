@@ -1,0 +1,49 @@
+.loader {
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: none;
+}
+
+.size-m {
+  width: 24px;
+  height: 24px;
+  --loader-stroke: var(--theme-borderstroke-m);
+}
+.size-l {
+  width: 48px;
+  height: 48px;
+  --loader-stroke: var(--theme-borderstroke-l);
+}
+
+.svg {
+  width: 100%;
+  height: 100%;
+  /* The Figma frames are still; this is the turn, 1s per round, linear. */
+  animation: spin 1s linear infinite;
+}
+
+.track {
+  stroke: var(--theme-color-border-tertiary);
+  stroke-width: var(--loader-stroke);
+}
+
+.arc {
+  stroke: var(--theme-color-interactive-idle-primary);
+  stroke-width: var(--loader-stroke);
+  stroke-linecap: round;
+  stroke-dasharray: 120 240;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* A loader is feedback, not decoration: it keeps turning with reduced motion,
+   only slower. */
+@media (prefers-reduced-motion: reduce) {
+  .svg {
+    animation-duration: 3s;
+  }
+}

@@ -1,0 +1,72 @@
+.notification {
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--breakpoint-cornerradius-rounded);
+}
+
+/* Figma Category=dot alert: a 12 x 12 box with an 8px dot in feedback/error and
+   a 1px ring (borderStroke/s) in interactive/idle/tertiary drawn OUTSIDE it. */
+.dot-alert {
+  position: relative;
+  width: 12px;
+  height: 12px;
+}
+.dot-alert::before {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-radius: inherit;
+  background: var(--theme-color-supportive-feedback-error);
+  box-shadow: 0 0 0 var(--theme-borderstroke-s) var(--theme-color-interactive-idle-tertiary);
+}
+
+/* Figma Category=dot warning / dot success: the full 12px circle in the
+   feedback color, with a 2px ring (borderStroke/m) in
+   interactive/idle/tertiary drawn INSIDE it. */
+.dot-warning,
+.dot-success {
+  width: 12px;
+  height: 12px;
+  outline: var(--theme-borderstroke-m) solid var(--theme-color-interactive-idle-tertiary);
+  outline-offset: calc(-1 * var(--theme-borderstroke-m));
+}
+.dot-warning {
+  background: var(--theme-color-supportive-feedback-warning);
+}
+.dot-success {
+  background: var(--theme-color-supportive-feedback-success);
+}
+
+/* Figma Category=counter: a 24px ring (borderStroke/s, interactive/idle/primary)
+   with the count in Interactive-Label Text/XS/Sans Regular. The count grows the
+   ring into a pill. */
+.counter,
+.warning {
+  min-width: 24px;
+  height: 24px;
+  font-family: var(--font-interactive-label-text-xs-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-xs-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-xs-sans-regular-size);
+  line-height: var(--font-interactive-label-text-xs-sans-regular-line-height);
+  text-align: center;
+}
+.counter {
+  padding: 0 var(--breakpoint-spacing-2xs);
+  background: var(--theme-color-interactive-idle-secondary);
+  color: var(--theme-color-font-interactive-idle-secondary);
+  outline: var(--theme-borderstroke-s) solid var(--theme-color-interactive-idle-primary);
+  outline-offset: calc(-1 * var(--theme-borderstroke-s));
+}
+
+/* Figma Category=warning: a 24px circle in feedback/warning with a "!". Figma
+   binds the mark to font/interactive/idle/secondary, which is white in Night
+   and SMAL (unreadable on the yellow); forced black keeps it readable in all
+   three themes, as on the Label's feedback tones. */
+.warning {
+  width: 24px;
+  background: var(--theme-color-supportive-feedback-warning);
+  color: var(--theme-color-supportive-neutral-forcedblack);
+}

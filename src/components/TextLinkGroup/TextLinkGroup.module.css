@@ -1,0 +1,29 @@
+/* Figma Text/Links group. Horizontal: a row that wraps, as wide as its
+   container, gap spacing/m in both directions. Vertical: a column that hugs
+   its links, left aligned, gap spacing/s. */
+.group {
+  box-sizing: border-box;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.horizontal {
+  flex-flow: row wrap;
+  align-items: flex-start;
+  gap: var(--breakpoint-spacing-m);
+  width: 100%;
+}
+
+.vertical {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--breakpoint-spacing-s);
+}
+
+/* A flex item, so the link's own height is the height of the row. */
+.item {
+  display: flex;
+}

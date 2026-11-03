@@ -1,0 +1,42 @@
+/* Figma Slide Indicator: marks in a row, gap spacing/2xs (8), centered. */
+.indicator {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--breakpoint-spacing-2xs);
+  min-height: 6px;
+}
+
+/* A page that is not the current one: a 6px dot in border/tertiary. */
+.mark {
+  box-sizing: border-box;
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--breakpoint-cornerradius-rounded);
+  background: var(--theme-color-border-tertiary);
+  /* Moving to another page resizes the marks, ease out over 300ms (the easing of the Figma prototypes). */
+  transition:
+    width 0.3s ease-out,
+    height 0.3s ease-out,
+    background-color 0.3s ease-out;
+}
+
+/* The current page: a 24 x 6 bar in interactive/idle/primary (Figma's Progress at 100%). */
+.active {
+  width: 24px;
+  background: var(--theme-color-interactive-idle-primary);
+}
+
+/* The edge of the window while more pages lie beyond it. */
+.tiny {
+  width: 2px;
+  height: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mark {
+    transition: none;
+  }
+}

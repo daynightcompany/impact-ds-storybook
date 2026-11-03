@@ -1,0 +1,59 @@
+/* Figma "Navigation/Top": a row on the background colour with spacing/xs above
+   and below and spacing/m at the sides, spacing/xl between the logo-and-menu
+   group and the icons. The bar is as tall as its tallest part: the 56 high
+   tabs and buttons give the 80 of the Desktop bar. */
+.top {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: var(--breakpoint-spacing-xl);
+  width: 100%;
+  padding: var(--breakpoint-spacing-xs) var(--breakpoint-spacing-m);
+  background: var(--theme-color-background-primary);
+  /* The logo is drawn in the paragraph colour (currentColor). */
+  color: var(--theme-color-font-paragraph-primary);
+}
+
+/* "Logo and menu": spacing/l apart, filling the space the icons leave. */
+.start {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  gap: var(--breakpoint-spacing-l);
+  min-width: 0;
+}
+
+/* The logo instance is drawn 96 wide (Figma: max width 96). */
+.logo {
+  flex: 0 1 96px;
+  min-width: 0;
+  max-width: 96px;
+}
+.logo svg,
+.logo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* The menu fills the rest of the group. Its tabs wrap onto more rows when
+   they do not fit, as the Figma tab list does. */
+.menu {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.menu :global([role='tablist']) {
+  flex-wrap: wrap;
+}
+
+/* Figma binds the menu's visibility to device/desktop: not shown on Mobile. */
+:global([data-breakpoint='375-mobile']) .menu {
+  display: none;
+}
+
+.icons {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--breakpoint-spacing-2xs);
+}
