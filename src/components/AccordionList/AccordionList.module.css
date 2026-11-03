@@ -42,3 +42,12 @@
 .list .divider {
   background: var(--theme-color-border-tertiary);
 }
+
+/* Figma "Preview (Primary)" (frame 28882:19717): the Accordions as they are on their own, in one
+   column with spacing/none between them, each as wide as the list. No card, headline or dividers. */
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--breakpoint-spacing-none);
+  width: 100%;
+}

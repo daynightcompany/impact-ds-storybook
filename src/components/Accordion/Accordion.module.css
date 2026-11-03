@@ -155,7 +155,7 @@
   width: 100%;
 }
 
-/* Inside an Accordion list (Figma "Features" items): no fill, no side padding,
+/* Inside a Secondary Accordion list (Figma "Features" items): no fill, no side padding,
    a 2XL headline, and the pill radius in both states. Opening keeps the
    list's spacing/m above the headline. */
 .accordion.list {

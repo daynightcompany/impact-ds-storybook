@@ -8,9 +8,9 @@ import '../../styles/tokens.text-modes.css';
 import '../../styles/tokens.extras.css';
 
 /**
- * Set by `AccordionList`: an Accordion inside it is drawn the way the Figma
- * "Accordion list" draws its `Features` items (no fill, no side padding, a
- * 2XL headline).
+ * Set by the Secondary `AccordionList`: an Accordion inside it is drawn the way
+ * the Figma "Accordion list" draws its `Features` items (no fill, no side
+ * padding, a 2XL headline). The Primary list leaves it off.
  */
 export const AccordionListContext = createContext(false);
 

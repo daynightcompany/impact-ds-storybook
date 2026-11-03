@@ -9,9 +9,15 @@ import '../../styles/tokens.text-modes.css';
 import '../../styles/tokens.extras.css';
 
 export interface AccordionListProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
-  /** The headline above the items (Figma "How we help"). Leave it out for a list without one. */
+  /**
+   * Figma "Preview (Primary)" and "Preview (Secondary)" on the Accordion page.
+   * Primary stacks the accordions as they are on their own, with no space between them.
+   * Secondary is the card with a headline and dividers, where the accordions take the list's "Features" look.
+   */
+  variant?: 'Primary' | 'Secondary';
+  /** The headline above the items (Figma "How we help"). Secondary only: Primary has no headline. Leave it out for a list without one. */
   title?: ReactNode;
-  /** The accordions (Figma `Items` slot). A divider is drawn between neighbours. */
+  /** The accordions (Figma `Items` slot). Secondary draws a divider between neighbours. */
   children?: ReactNode;
 }
 
@@ -20,13 +26,30 @@ const present = (node: ReactNode) => node !== undefined && node !== null && node
 /**
  * Impact DS Accordion list — converted from the Figma "Accordion list"
  * component (node 9587:6366 in the SMAL Impact Design System (Public) Figma
- * file). A card that holds a headline, a divider and a stack of Accordions
- * with a divider between each two. The Accordions inside it switch to the
- * list's look (the Figma "Features" items): no fill of their own, no side
- * padding, a 2XL headline.
+ * file) and the two previews next to it on the Accordion page (node 9587:76744).
+ *
+ * Secondary (the default, the Figma component): a card that holds a headline,
+ * a divider and a stack of Accordions with a divider between each two. The
+ * Accordions inside it switch to the list's look (the Figma "Features" items):
+ * no fill of their own, no side padding, a 2XL headline.
+ *
+ * Primary (Figma "Preview (Primary)", frame 28882:19717): the Accordions as they
+ * are on their own, one under the other with spacing/none between them, and no
+ * card, headline or dividers.
  */
-export function AccordionList({ title, children, className, ...rest }: AccordionListProps) {
+export function AccordionList({ variant = 'Secondary', title, children, className, ...rest }: AccordionListProps) {
   const titleId = useId();
+
+  if (variant === 'Primary') {
+    return (
+      <AccordionListContext.Provider value={false}>
+        <div className={[styles.stack, className].filter(Boolean).join(' ')} {...rest}>
+          {children}
+        </div>
+      </AccordionListContext.Provider>
+    );
+  }
+
   const titled = present(title);
   const classes = [styles.list, className].filter(Boolean).join(' ');
   const items = Children.toArray(children).flatMap((item, index) => [
