@@ -1,6 +1,9 @@
-import type { HTMLAttributes, ReactNode } from 'react';
+import { cloneElement, isValidElement } from 'react';
+import type { HTMLAttributes, ReactElement, ReactNode } from 'react';
 import styles from './NavigationTop.module.css';
 import { ImpactLogo } from '../Logos';
+import { TabList } from '../TabList/TabList';
+import type { TabListProps } from '../TabList/TabList';
 import '../../styles/tokens.css';
 // Hand-maintained companion to tokens.css: font import + alpha-color stopgap.
 import '../../styles/tokens.extras.css';
@@ -14,6 +17,9 @@ export interface NavigationTopProps extends HTMLAttributes<HTMLElement> {
   /**
    * The menu (Figma "Tab" instance): a `TabList` of Secondary tabs, size L. It
    * fills the space between the logo and the icons, and is not shown on Mobile.
+   * The tabs that do not fit the width go under a "…" button that opens a menu
+   * of them: a `TabList` passed here gets `overflow="menu"` unless it sets its
+   * own `overflow`.
    */
   menu?: ReactNode;
   /**
@@ -34,13 +40,21 @@ export interface NavigationTopProps extends HTMLAttributes<HTMLElement> {
  *
  * Like Figma, the menu is not shown on Mobile. Which icons are shown on Mobile
  * is up to the icons you pass (Figma shows the Avatar only).
+ *
+ * The menu never breaks the bar: the tabs that do not fit its width are hidden
+ * behind a "…" button, which opens a menu of them (see `TabList`).
  */
 export function NavigationTop({ logo = <ImpactLogo />, menu, icons, className, ...rest }: NavigationTopProps) {
+  // A TabList that says nothing about overflow gets the "…" menu.
+  const shown =
+    isValidElement(menu) && menu.type === TabList && (menu.props as TabListProps).overflow === undefined
+      ? cloneElement(menu as ReactElement<TabListProps>, { overflow: 'menu' })
+      : menu;
   return (
     <nav className={[styles.top, className].filter(Boolean).join(' ')} {...rest}>
       <div className={styles.start}>
         <div className={styles.logo}>{logo}</div>
-        {menu && <div className={styles.menu}>{menu}</div>}
+        {shown && <div className={styles.menu}>{shown}</div>}
       </div>
       {icons && <div className={styles.icons}>{icons}</div>}
     </nav>

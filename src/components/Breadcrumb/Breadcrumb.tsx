@@ -1,9 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
 import type { AnchorHTMLAttributes, HTMLAttributes, ReactNode } from 'react';
 import styles from './Breadcrumb.module.css';
 import buttonStyles from '../Button/Button.module.css';
-import { Button } from '../Button/Button';
 import { Icon } from '../Icon';
+import { MoreMenu } from '../Menu/Menu';
 import '../../styles/tokens.css';
 import '../../styles/tokens.text-modes.css';
 // Hand-maintained companion to tokens.css: font import + alpha-color stopgap.
@@ -17,9 +16,10 @@ export interface BreadcrumbItem extends Omit<AnchorHTMLAttributes<HTMLAnchorElem
 export interface BreadcrumbProps extends Omit<HTMLAttributes<HTMLElement>, 'children'> {
   /**
    * The path, from the first page to the current one, which is the last item
-   * (Figma's "Current page"). An item with an `href` is a link; without one
-   * it is plain text. Any other anchor attribute (`onClick` for a client-side
-   * router, say) goes to the link.
+   * (Figma's "Current page": drawn disabled, at 30%, and never a link). An
+   * item with an `href` is a link; without one it is plain text. Any other
+   * anchor attribute (`onClick` for a client-side router, say) goes to the link,
+   * and to its entry in the "more" menu.
    */
   items: BreadcrumbItem[];
   /**
@@ -29,7 +29,7 @@ export interface BreadcrumbProps extends Omit<HTMLAttributes<HTMLElement>, 'chil
    * `maxItems` 4 (the default) and five or more items.
    */
   maxItems?: number;
-  /** Accessible name of the "more" button. */
+  /** Accessible name of the "more" button (and of the menu it opens). */
   moreLabel?: string;
 }
 
@@ -41,9 +41,11 @@ export interface BreadcrumbProps extends Omit<HTMLAttributes<HTMLElement>, 'chil
  * items. Figma's items are Buttons; here they are links (`a`), drawn with the
  * Button's own classes, so they look and behave like the Buttons.
  *
- * The "more" button shows the folded items (and goes away) when it is pressed;
- * focus moves to the first of them. A `nav` landmark with an ordered list: the
- * arrows are decoration, and the last item has `aria-current="page"`.
+ * The "more" button opens a menu (a popover) listing the folded items, as
+ * links; choosing one goes there, Escape closes the menu. The current page, the
+ * last item, is drawn disabled as in Figma (30%). A `nav` landmark with an
+ * ordered list: the arrows are decoration, and the last item has
+ * `aria-current="page"`.
  */
 export function Breadcrumb({
   items,
@@ -53,23 +55,10 @@ export function Breadcrumb({
   className,
   ...rest
 }: BreadcrumbProps) {
-  const [expanded, setExpanded] = useState(false);
-  const revealed = useRef<HTMLLIElement>(null);
-
-  // Pressing "more" moves focus to the first item it reveals.
-  useEffect(() => {
-    if (!expanded) return;
-    const item = revealed.current;
-    const link = item?.querySelector<HTMLElement>('a');
-    (link ?? item)?.focus();
-  }, [expanded]);
-
   const last = items.length - 1;
-  const folded = !expanded && items.length > Math.max(maxItems, 3);
+  const folded = items.length > Math.max(maxItems, 3);
   // The entries of the list: an item (by index) or the "more" button.
-  const entries: (number | 'more')[] = folded
-    ? [0, 'more', last - 1, last]
-    : items.map((_, index) => index);
+  const entries: (number | 'more')[] = folded ? [0, 'more', last - 1, last] : items.map((_, index) => index);
 
   return (
     <nav aria-label={ariaLabel} className={[styles.breadcrumb, className].filter(Boolean).join(' ')} {...rest}>
@@ -83,20 +72,14 @@ export function Breadcrumb({
             ) : null;
 
           if (entry === 'more') {
+            // The items between the first one and the last two are in the menu, as links.
+            const hidden = items
+              .slice(1, last - 1)
+              .map(({ label, id, href, target, rel, download, onClick }) => ({ label, id, href, target, rel, download, onClick }));
             return [
               separator,
               <li key="more" className={styles.item}>
-                <Button
-                  type="button"
-                  hierarchy="Tertiary"
-                  size="L"
-                  icon="Only"
-                  iconElement={<Icon name="more" size={24} />}
-                  className={styles.more}
-                  aria-label={moreLabel}
-                  aria-expanded="false"
-                  onClick={() => setExpanded(true)}
-                />
+                <MoreMenu label={moreLabel} size="L" className={styles.more} items={hidden} />
               </li>,
             ];
           }
@@ -105,20 +88,27 @@ export function Breadcrumb({
           const classes = [buttonStyles.button, buttonStyles.tertiary, buttonStyles['size-l'], styles.link, itemClassName]
             .filter(Boolean)
             .join(' ');
-          const current = entry === last ? ('page' as const) : undefined;
-          // The first item that "more" revealed takes focus.
-          const first = expanded && entry === 1;
+          if (entry === last) {
+            // The current page: Figma's disabled Tertiary Button. It is the page you are on, so it
+            // is not a link; `aria-disabled` keeps it out of the contrast check, as a disabled Button.
+            return [
+              separator,
+              <li key={`item-${entry}`} className={styles.item}>
+                <a className={`${classes} ${styles.current}`} role="link" aria-disabled="true" aria-current="page">
+                  {label}
+                </a>
+              </li>,
+            ];
+          }
           return [
             separator,
-            <li key={`item-${entry}`} className={styles.item} ref={first ? revealed : undefined} tabIndex={first ? -1 : undefined}>
+            <li key={`item-${entry}`} className={styles.item}>
               {href !== undefined ? (
-                <a className={classes} href={href} aria-current={current} {...anchor}>
+                <a className={classes} href={href} {...anchor}>
                   {label}
                 </a>
               ) : (
-                <span className={`${classes} ${styles.text}`} aria-current={current}>
-                  {label}
-                </span>
+                <span className={`${classes} ${styles.text}`}>{label}</span>
               )}
             </li>,
           ];

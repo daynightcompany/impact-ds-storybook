@@ -23,8 +23,8 @@ export interface NavigationPageProps extends Omit<HTMLAttributes<HTMLDivElement>
   rightIcons?: boolean;
   /**
    * Figma boolean "Additional icons" (shown only with `rightIcons`). `true`
-   * shows a placeholder icon; pass a node to fill the Figma "Additional icons
-   * content" slot.
+   * shows a placeholder icon, a button like the back arrow and the close icon;
+   * pass a node to fill the Figma "Additional icons content" slot.
    */
   additionalIcons?: boolean | ReactNode;
   /** Called by the back arrow. */
@@ -47,11 +47,12 @@ export interface NavigationPageProps extends Omit<HTMLAttributes<HTMLDivElement>
  * and three slots as the Dialog header: Left icons, Title, Right icons and
  * Additional icons.
  *
- * The icons are 24 icons here, not Buttons: the back arrow and the close icon
- * are real buttons with the hit area a little larger than they are drawn. The
- * title is the heading of the page (`h1`) in the MD label style, centred while
- * the left icons are shown and at the start when they are not, because both
- * groups grow equally.
+ * The icons are 24 icons here, not Buttons: the back arrow, the close icon and
+ * the placeholder icon are real buttons (they take the keyboard focus and show
+ * a ring), with a hit area a little larger than they are drawn. The title is
+ * the heading of the page (`h1`) in the MD label style, centred while the left
+ * icons are shown and at the start when they are not, because both groups grow
+ * equally.
  */
 export function NavigationPage({
   title = 'Page title',
@@ -91,9 +92,9 @@ export function NavigationPage({
             {additionalIcons && (
               <div className={styles.additional}>
                 {additionalIcons === true ? (
-                  <span className={styles.placeholder} aria-hidden>
+                  <button type="button" className={styles.action} aria-label="Action">
                     <Icon name="placeholder" size={24} />
-                  </span>
+                  </button>
                 ) : (
                   additionalIcons
                 )}

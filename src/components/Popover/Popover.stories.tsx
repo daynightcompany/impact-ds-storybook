@@ -9,7 +9,19 @@ const meta = {
   component: Popover,
   tags: ['autodocs'],
   argTypes: {
-    placement: { control: 'select', options: ['bottom-start', 'bottom-end', 'top-start', 'top-end'] },
+    placement: {
+      control: 'select',
+      options: [
+        'bottom-start',
+        'bottom-end',
+        'top-start',
+        'top-end',
+        'right-start',
+        'right-end',
+        'left-start',
+        'left-end',
+      ],
+    },
     offset: { control: 'number' },
     matchAnchorWidth: { control: 'boolean' },
     autoFocus: { control: 'boolean' },
@@ -25,7 +37,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'The positioned shell behind a popup that opens from an element, such as the Popup (it has no Figma counterpart: Figma draws the panel only). It is in the browser\'s top layer, so no ancestor clips it; it is placed against the anchor, flips to the other side when there is no room, limits its height to the room that is left, and follows the anchor on scroll and resize. The anchor owns the toggle. The popover closes by itself on Escape, on a press outside and when the focus moves away, by calling `onOpenChange(false, reason)`, and gives the focus back to the anchor. It has `role="dialog"`: give it an `aria-label`. It sits spacing/s from the anchor, as in the Figma Dropdown demo, unless you give it an `offset`, fades and slides in from the anchor (ease out, 300ms, the easing of the Figma prototypes) and fades out again in 150ms; with a reduced-motion preference it only appears and disappears.',
+          'The positioned shell behind a popup that opens from an element, such as the Popup (it has no Figma counterpart: Figma draws the panel only). It is in the browser\'s top layer, so no ancestor clips it; it is placed against the anchor (below, above or beside it, lined up with its start or end edge), flips to the opposite side when there is no room, limits its height to the room that is left, and follows the anchor on scroll and resize. The anchor owns the toggle. The popover closes by itself on Escape, on a press outside and when the focus moves away, by calling `onOpenChange(false, reason)`, and gives the focus back to the anchor. It has `role="dialog"`: give it an `aria-label`. It sits spacing/s from the anchor, as in the Figma Dropdown demo, unless you give it an `offset`, fades and slides in from the anchor (ease out, 300ms, the easing of the Figma prototypes) and fades out again in 150ms; with a reduced-motion preference it only appears and disappears.',
       },
     },
   },
@@ -87,11 +99,20 @@ export const Default: Story = {
   },
 };
 
-/** The four placements. Near the edge of the viewport a popover flips to the other side. */
+/** The eight placements: below, above or beside the anchor. Near the edge of the viewport a popover flips to the opposite side. */
 export const Placements: Story = {
   parameters: { layout: 'padded', chromatic: { delay: 700 } },
   render: function Render() {
-    const placements: PopoverPlacement[] = ['bottom-start', 'bottom-end', 'top-start', 'top-end'];
+    const placements: PopoverPlacement[] = [
+      'bottom-start',
+      'bottom-end',
+      'top-start',
+      'top-end',
+      'right-start',
+      'right-end',
+      'left-start',
+      'left-end',
+    ];
     const [active, setActive] = useState<PopoverPlacement>('bottom-start');
     const anchor = useRef<HTMLButtonElement>(null);
     const [open, setOpen] = useState(true);

@@ -17,12 +17,16 @@
   color: var(--theme-color-font-paragraph-primary);
 }
 
-/* "Logo and menu": spacing/l apart. */
+/* "Logo and menu": spacing/l apart. The group takes the height the icons leave,
+   and can be shorter than its content: the menu then hides the tabs that do not
+   fit behind a "…" button (TabList overflow="menu"). */
 .start {
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
   align-items: flex-start;
   gap: var(--breakpoint-spacing-l);
+  min-height: 0;
 }
 
 /* The logo instance is drawn 56 wide. */
@@ -34,6 +38,14 @@
   display: block;
   width: 100%;
   height: auto;
+}
+
+/* The menu fills the height the logo leaves. */
+.menu {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
 }
 
 /* Figma binds the menu's visibility to device/desktop: not shown on Mobile. */

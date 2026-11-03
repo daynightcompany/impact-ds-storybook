@@ -36,14 +36,12 @@
   height: auto;
 }
 
-/* The menu fills the rest of the group. Its tabs wrap onto more rows when
-   they do not fit, as the Figma tab list does. */
+/* The menu fills the rest of the group, whatever its tabs need: the tabs that
+   do not fit are hidden behind a "…" button (TabList overflow="menu"), so the
+   bar keeps its height and the icons stay in place. */
 .menu {
   flex: 1 1 0;
   min-width: 0;
-}
-.menu :global([role='tablist']) {
-  flex-wrap: wrap;
 }
 
 /* Figma binds the menu's visibility to device/desktop: not shown on Mobile. */

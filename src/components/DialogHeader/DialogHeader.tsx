@@ -26,8 +26,9 @@ export interface DialogHeaderProps extends Omit<HTMLAttributes<HTMLDivElement>, 
   rightIcons?: boolean;
   /**
    * Figma boolean "Additional icons" (shown only with `rightIcons`). `true`
-   * shows two placeholder icons; pass a node to fill the Figma "Additional
-   * icons content" slot.
+   * shows two placeholder icons as Buttons (size M, Tertiary, icon only, like
+   * the back arrow and the close button) that react to hover, press and focus;
+   * pass a node to fill the Figma "Additional icons content" slot with your own.
    */
   additionalIcons?: boolean | ReactNode;
   /** Called by the back arrow. */
@@ -48,8 +49,10 @@ export interface DialogHeaderProps extends Omit<HTMLAttributes<HTMLDivElement>, 
  * button, spacing/s at the sides and between, spacing/2xs above and below. The
  * back arrow and the close button are the Button component (size M, Tertiary,
  * icon only), as in Figma: round buttons that are as tall as the sizing token
- * of Button M, with the icon spacing/button/2xs inside them. Four booleans
- * (Left icons, Title, Right icons, Additional icons) and three slots.
+ * of Button M, with the icon spacing/button/2xs inside them. The two
+ * placeholder icons of the additional icons are the same Button, so they react
+ * like the arrow and the close button. Four booleans (Left icons, Title, Right
+ * icons, Additional icons) and three slots.
  *
  * The title takes the space the two icon groups leave: both groups grow
  * equally, so it stays centred while the left icons are shown and sits at the
@@ -104,12 +107,18 @@ export function DialogHeader({
               <div className={styles.additional}>
                 {additionalIcons === true ? (
                   <>
-                    <span className={styles.placeholder} aria-hidden>
-                      <Icon name="placeholder" size={24} />
-                    </span>
-                    <span className={styles.placeholder} aria-hidden>
-                      <Icon name="placeholder" size={24} />
-                    </span>
+                    {[1, 2].map((n) => (
+                      <Button
+                        key={n}
+                        type="button"
+                        hierarchy="Tertiary"
+                        size="M"
+                        icon="Only"
+                        iconElement={<Icon name="placeholder" size={24} />}
+                        className={styles.action}
+                        aria-label={`Action ${n}`}
+                      />
+                    ))}
                   </>
                 ) : (
                   additionalIcons

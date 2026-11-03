@@ -51,3 +51,99 @@
     transition: none;
   }
 }
+
+/* ── overflow="menu" ─ the tabs that do not fit, behind a "…" button ──────── */
+
+/* The list and its "…" button, in a row (a column when Vertical), with the gap
+   of the tabs. The wrapper takes the room its container gives it, whatever the
+   tabs need, and TabList.tsx fits the tabs to it. */
+.overflow {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  gap: var(--breakpoint-spacing-button-2xs);
+  min-width: 0;
+  min-height: 0;
+}
+.overflow-horizontal {
+  flex: 1 1 auto;
+  flex-direction: row;
+  align-items: flex-start;
+}
+.overflow-vertical {
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: flex-start;
+  width: fit-content;
+  max-height: 100%;
+}
+.overflow > .list {
+  flex: 0 1 auto;
+  min-width: 0;
+  min-height: 0;
+}
+
+/* A tab that does not fit stays in the page and keeps its size, so it can be
+   measured, but it is out of the layout (placed against the start of the list,
+   outside it), invisible and out of reach. */
+.list > [data-overflow-hidden] {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+}
+.horizontal > [data-overflow-hidden] {
+  top: 0;
+  right: 100%;
+}
+.vertical > [data-overflow-hidden] {
+  bottom: 100%;
+  left: 0;
+}
+
+/* The "…" button: a Tertiary Button that is only in the layout while tabs are
+   hidden (it is measured either way). */
+.more {
+  flex: none;
+}
+.overflow:not([data-overflowing]) > .more {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+}
+.overflow-horizontal:not([data-overflowing]) > .more {
+  top: 0;
+  right: 100%;
+}
+.overflow-vertical:not([data-overflowing]) > .more {
+  bottom: 100%;
+  left: 0;
+}
+.overflow[data-overflowing] > .more {
+  position: relative;
+}
+
+/* The selected tab is one of the hidden ones: the button has its look. Secondary:
+   the filled pill with a ring; Primary: the stroke along the bottom. */
+.overflow[data-variant='secondary'] > .more[data-current] {
+  background: var(--theme-color-interactive-idle-primary);
+  color: var(--theme-color-font-interactive-idle-primary);
+  outline-color: var(--theme-color-interactive-hover-secondary);
+}
+.overflow[data-variant='primary'] > .more[data-current]::before {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: var(--theme-borderstroke-m);
+  background: var(--theme-color-interactive-idle-stroke);
+  pointer-events: none;
+}
+
+/* Keyboard focus: a ring 2px outside the button, like the tabs'. */
+.overflow > .more:focus-visible::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border: 2px solid var(--theme-color-interactive-idle-primary);
+  border-radius: inherit;
+  pointer-events: none;
+}

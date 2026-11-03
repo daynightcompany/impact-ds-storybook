@@ -61,7 +61,7 @@
   white-space: nowrap;
 }
 
-/* The 24 icon of the back arrow and the close icon. The button is drawn as big
+/* The 24 icon of the back arrow, the close icon and the placeholder icon. The button is drawn as big
    as the icon (Figma: no button around it); the hit area reaches a little
    further out, 44 high and as wide as the gaps allow. */
 .action {
@@ -93,20 +93,4 @@
 .action:focus-visible {
   outline: 2px solid var(--theme-color-interactive-idle-primary);
   outline-offset: 2px;
-}
-
-/* 24px icon holder (the Figma "icons" instance) of the additional icons. */
-.placeholder {
-  box-sizing: border-box;
-  display: inline-flex;
-  flex: none;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  color: var(--theme-color-font-interactive-idle-secondary);
-}
-.placeholder > svg {
-  width: 100%;
-  height: 100%;
 }

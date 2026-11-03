@@ -3,8 +3,25 @@ import type { FocusEvent, HTMLAttributes, ReactNode, Ref, RefObject } from 'reac
 import styles from './Popover.module.css';
 import '../../styles/tokens.css';
 
-/** Where the popover sits against its anchor. It flips to the other side when there is no room. */
-export type PopoverPlacement = 'bottom-start' | 'bottom-end' | 'top-start' | 'top-end';
+/**
+ * Where the popover sits against its anchor: the side (`bottom`, `top`, `right`
+ * or `left`) and which edge of the anchor it lines up with (`start` is the
+ * left or top edge, `end` the right or bottom edge). It flips to the opposite
+ * side when there is no room.
+ */
+export type PopoverPlacement =
+  | 'bottom-start'
+  | 'bottom-end'
+  | 'top-start'
+  | 'top-end'
+  | 'right-start'
+  | 'right-end'
+  | 'left-start'
+  | 'left-end';
+
+type PopoverSide = 'bottom' | 'top' | 'right' | 'left';
+
+const sideOf = (placement: PopoverPlacement) => placement.split('-')[0] as PopoverSide;
 
 /** Why the popover asked to close: Escape, a press outside, or the focus moving away. */
 export type PopoverCloseReason = 'escape' | 'outside' | 'focus-out';
@@ -19,7 +36,10 @@ export interface PopoverProps extends Omit<HTMLAttributes<HTMLDivElement>, 'popo
   onOpenChange?: (open: boolean, reason: PopoverCloseReason) => void;
   /** The element the popover opens from, usually the button that toggles it. */
   anchorRef: RefObject<HTMLElement | null>;
-  /** `bottom-start` lines the popover's start edge up with the anchor's, below it. */
+  /**
+   * `bottom-start` lines the popover's start edge up with the anchor's, below
+   * it; `right-start` puts it beside the anchor, top edges lined up.
+   */
   placement?: PopoverPlacement;
   /** Gap between the anchor and the popover, in pixels. Defaults to spacing/s, the gap in the Figma Dropdown demo. */
   offset?: number;
@@ -135,7 +155,7 @@ export function Popover({
     if (open) {
       if (el && SUPPORTS_POPOVER && !el.matches(':popover-open')) {
         // The side it slides in from (see the CSS) is the one asked for, until place() decides.
-        el.dataset.side = placement.startsWith('top') ? 'top' : 'bottom';
+        el.dataset.side = sideOf(placement);
         el.showPopover();
       }
       wasOpen.current = true;
@@ -197,9 +217,31 @@ export function Popover({
       const width = el.offsetWidth;
       const naturalHeight = el.offsetHeight;
 
+      const preferredSide = sideOf(placement);
+      if (preferredSide === 'right' || preferredSide === 'left') {
+        // Beside the anchor: flip to the other side when it is the one with more room.
+        const room = {
+          right: viewportWidth - a.right - gap - VIEWPORT_MARGIN,
+          left: a.left - gap - VIEWPORT_MARGIN,
+        };
+        const opposite = preferredSide === 'right' ? 'left' : 'right';
+        const sideways =
+          width <= room[preferredSide] || room[preferredSide] >= room[opposite] ? preferredSide : opposite;
+        const tall = Math.min(naturalHeight, Math.max(MIN_HEIGHT, viewportHeight - 2 * VIEWPORT_MARGIN));
+        const wanted = placement.endsWith('end') ? a.bottom - tall : a.top;
+        const y = Math.min(Math.max(VIEWPORT_MARGIN, wanted), viewportHeight - tall - VIEWPORT_MARGIN);
+        const x = sideways === 'right' ? a.right + gap : a.left - gap - width;
+
+        el.style.setProperty('--popover-max-height', `${tall}px`);
+        el.style.top = `${Math.round(y * 100) / 100}px`;
+        el.style.left = `${Math.round(Math.min(Math.max(VIEWPORT_MARGIN, x), viewportWidth - width - VIEWPORT_MARGIN) * 100) / 100}px`;
+        el.dataset.side = sideways;
+        return;
+      }
+
       const roomBelow = viewportHeight - a.bottom - gap - VIEWPORT_MARGIN;
       const roomAbove = a.top - gap - VIEWPORT_MARGIN;
-      const preferred = placement.startsWith('top') ? 'top' : 'bottom';
+      const preferred = preferredSide;
       const room = { top: roomAbove, bottom: roomBelow };
       const other = preferred === 'top' ? 'bottom' : 'top';
       const side = naturalHeight <= room[preferred] || room[preferred] >= room[other] ? preferred : other;

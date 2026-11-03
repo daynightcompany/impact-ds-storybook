@@ -11,10 +11,13 @@ import '../../styles/tokens.extras.css';
 
 const values = Array.from({ length: 9 }, (_, index) => `tab-${index + 1}`);
 
-/** Figma's menu of the top bar: nine Secondary tabs of size L, the first selected. */
+/**
+ * Figma's menu of the top bar: nine Secondary tabs of size L, the first selected.
+ * Tabs that do not fit the width go under a "…" button.
+ */
 export function TopMenu() {
   return (
-    <TabList variant="Secondary" size="L" defaultValue="tab-1" aria-label="Pages">
+    <TabList variant="Secondary" size="L" defaultValue="tab-1" aria-label="Pages" overflow="menu" moreLabel="More pages">
       {values.map((value) => (
         <Tab key={value} value={value}>
           Tab
@@ -24,10 +27,21 @@ export function TopMenu() {
   );
 }
 
-/** Figma's menu of the side bar: nine Secondary tabs of size L with only the icon, the first selected. */
+/**
+ * Figma's menu of the side bar: nine Secondary tabs of size L with only the icon,
+ * the first selected. Tabs that do not fit the height go under a "…" button.
+ */
 export function SideMenu() {
   return (
-    <TabList variant="Secondary" size="L" orientation="Vertical" defaultValue="tab-1" aria-label="Pages">
+    <TabList
+      variant="Secondary"
+      size="L"
+      orientation="Vertical"
+      defaultValue="tab-1"
+      aria-label="Pages"
+      overflow="menu"
+      moreLabel="More pages"
+    >
       {values.map((value, index) => (
         <Tab key={value} value={value} icon="Only" aria-label={`Page ${index + 1}`} />
       ))}
@@ -37,7 +51,8 @@ export function SideMenu() {
 
 /**
  * Figma's icons: three icon buttons that are not shown on Mobile, and the
- * Avatar. The side bar also has a button that only Mobile shows.
+ * Avatar, which is a button too (hover, press and focus states). The side bar
+ * also has a button that only Mobile shows.
  */
 export function SampleIcons({ mobileButton = false }: { mobileButton?: boolean }) {
   return (
@@ -53,7 +68,9 @@ export function SampleIcons({ mobileButton = false }: { mobileButton?: boolean }
           aria-label={`Action ${n}`}
         />
       ))}
-      <Avatar type="Initials">DN</Avatar>
+      <Avatar type="Initials" aria-label="Account" onClick={() => undefined}>
+        DN
+      </Avatar>
       {mobileButton && (
         <Button
           type="button"

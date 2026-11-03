@@ -21,11 +21,6 @@
 .item {
   display: flex;
 }
-/* The item that the "more" button revealed takes focus, with no ring of its own. */
-.item:focus {
-  outline: none;
-}
-
 /* A link is not underlined like text; keyboard focus gets the ring the
    header buttons have (the Button's inner stroke is transparent). */
 .link {
@@ -38,11 +33,18 @@
 }
 
 /* An item without an href is text: no hover tint, no pointer. */
-.text.text {
+.text.text,
+.current.current {
   cursor: default;
 }
-.text.text:hover {
+.text.text:hover,
+.current.current:hover {
   background: transparent;
+}
+
+/* The current page is Figma's Tertiary Button in its Disabled state: 30%. */
+.current.current {
+  opacity: 0.3;
 }
 
 /* The arrow between two items: a Tertiary L icon-only Button in Figma (padding

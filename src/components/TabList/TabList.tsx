@@ -1,11 +1,19 @@
 import { useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import type { HTMLAttributes, KeyboardEvent } from 'react';
 import styles from './TabList.module.css';
+import { MoreMenu } from '../Menu/Menu';
+import type { MoreMenuItem } from '../Menu/Menu';
 import { TabContext } from '../Tab/TabContext';
 import type { TabSize, TabVariant } from '../Tab/Tab';
 import '../../styles/tokens.css';
 
 export type TabListOrientation = 'Horizontal' | 'Vertical';
+
+/**
+ * What happens to the tabs that do not fit the list: `none` leaves them to the
+ * layout, `menu` hides them behind a "…" button that opens a menu of them.
+ */
+export type TabListOverflow = 'none' | 'menu';
 
 export interface TabListProps extends Omit<HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange'> {
   /** Variant of every tab in the list. */
@@ -14,11 +22,102 @@ export interface TabListProps extends Omit<HTMLAttributes<HTMLDivElement>, 'defa
   size?: TabSize;
   /** Figma Position. */
   orientation?: TabListOrientation;
-  /** Selected tab (controlled). Matches the `value` of a <Tab>. */
+  /** Selected tab (controlled). Matches the `value` of a `Tab`. */
   value?: string;
   /** Initially selected tab (uncontrolled). */
   defaultValue?: string;
   onValueChange?: (value: string) => void;
+  /**
+   * What happens to the tabs that do not fit the width of the list (the
+   * height, when it is Vertical). `menu` shows the tabs that fit and hides the
+   * rest behind a "…" button at the end of the list, which opens a menu of the
+   * hidden ones. The list measures the room it has, so give it a container
+   * that does not grow with it: a width of its own, or one that shrinks
+   * (`min-width: 0` in a flex row); for Vertical, a height.
+   */
+  overflow?: TabListOverflow;
+  /** Accessible name of the "…" button and of its menu, with `overflow="menu"`. */
+  moreLabel?: string;
+}
+
+/** Set on a tab that does not fit (`overflow="menu"`): it is out of the layout and out of reach. */
+const HIDDEN = 'data-overflow-hidden';
+
+const isSelected = (tab: HTMLElement) => tab.getAttribute('aria-selected') === 'true';
+
+/**
+ * Shows the tabs that fit the wrapper and hides the rest (`overflow="menu"`).
+ * It measures the natural size of every tab (a hidden tab keeps its size, see
+ * the CSS), keeps as many from the start as leave room for the "…" button, and
+ * marks the others. Everything is done on the elements, so it takes no render
+ * and cannot flicker: it runs in a layout effect, before the browser paints.
+ * When the selected tab is one of the hidden ones the "…" button is marked as
+ * the current one, and the first tab becomes the list's tab stop, so the
+ * keyboard can still get in.
+ */
+function fitTabs(
+  wrapper: HTMLElement,
+  list: HTMLElement,
+  more: HTMLElement,
+  vertical: boolean,
+  state: { forced: HTMLElement | null },
+) {
+  const tabs = Array.from(list.querySelectorAll<HTMLElement>(':scope > [role="tab"]'));
+  const extent = (element: HTMLElement) => {
+    const box = element.getBoundingClientRect();
+    return vertical ? box.height : box.width;
+  };
+  const style = getComputedStyle(list);
+  const gap = parseFloat(vertical ? style.rowGap : style.columnGap) || 0;
+  const available = extent(wrapper);
+  const sizes = tabs.map(extent);
+  const total = sizes.reduce((sum, size) => sum + size, 0) + gap * Math.max(0, tabs.length - 1);
+
+  let count = tabs.length;
+  if (total > available + 0.5) {
+    // The "…" button takes room too: keep the tabs that fit beside it.
+    let used = extent(more);
+    count = 0;
+    for (const size of sizes) {
+      if (used + gap + size > available + 0.5) break;
+      used += gap + size;
+      count += 1;
+    }
+  }
+
+  tabs.forEach((tab, index) => tab.toggleAttribute(HIDDEN, index >= count));
+  wrapper.toggleAttribute('data-overflowing', count < tabs.length);
+
+  // The selected tab is hidden: the "…" button stands for it, and the first tab is the tab stop.
+  const selected = tabs.findIndex(isSelected);
+  const current = selected >= count;
+  more.toggleAttribute('data-current', current);
+  if (state.forced && state.forced !== tabs[selected]) state.forced.tabIndex = -1;
+  state.forced = null;
+  if (current && count > 0) {
+    tabs[0].tabIndex = 0;
+    state.forced = tabs[0];
+  }
+}
+
+/** Takes the marks of `fitTabs` off again. */
+function resetTabs(wrapper: HTMLElement, list: HTMLElement, more: HTMLElement, state: { forced: HTMLElement | null }) {
+  for (const tab of Array.from(list.querySelectorAll<HTMLElement>(`:scope > [${HIDDEN}]`))) tab.removeAttribute(HIDDEN);
+  wrapper.removeAttribute('data-overflowing');
+  more.removeAttribute('data-current');
+  if (state.forced && !isSelected(state.forced)) state.forced.tabIndex = -1;
+  state.forced = null;
+}
+
+/** The hidden tabs as the items of the menu: choosing one presses that tab. */
+function hiddenItems(list: HTMLElement): MoreMenuItem[] {
+  return Array.from(list.querySelectorAll<HTMLElement>(`:scope > [role="tab"][${HIDDEN}]`)).map((tab, index) => ({
+    key: tab.id || String(index),
+    label: tab.getAttribute('aria-label') || tab.textContent?.trim() || tab.title || 'Tab',
+    selected: isSelected(tab),
+    disabled: (tab as HTMLButtonElement).disabled,
+    onSelect: () => tab.click(),
+  }));
 }
 
 /** The tab each list's underline was last put under. */
@@ -36,7 +135,7 @@ const placedUnder = new WeakMap<HTMLElement, HTMLElement>();
  */
 function placeUnderline(list: HTMLElement, animate: boolean) {
   const tab = list.querySelector<HTMLButtonElement>(':scope > [role="tab"][aria-selected="true"]');
-  if (!tab || tab.offsetWidth === 0) {
+  if (!tab || tab.offsetWidth === 0 || tab.hasAttribute(HIDDEN)) {
     list.removeAttribute('data-indicator');
     list.removeAttribute('data-indicator-disabled');
     return;
@@ -81,6 +180,13 @@ function placeUnderline(list: HTMLElement, animate: boolean) {
  * Vertical, Home and End) that move focus and select, skipping disabled tabs.
  * Tab panels are up to the app: give each panel role="tabpanel" and
  * `aria-labelledby` the id of its tab.
+ *
+ * With `overflow="menu"` the tabs that do not fit the width (the height, when
+ * Vertical) are hidden behind a "…" button at the end of the list. The button
+ * opens a menu of the hidden tabs (below the list, beside it when Vertical);
+ * choosing one selects that tab. While the selected tab is hidden the button
+ * has the selected look. The button sits outside the `tablist` element, which
+ * keeps only tabs, and the arrow keys skip the hidden tabs.
  */
 export function TabList({
   variant = 'Primary',
@@ -89,7 +195,10 @@ export function TabList({
   value: valueProp,
   defaultValue,
   onValueChange,
+  overflow = 'none',
+  moreLabel = 'More tabs',
   className,
+  style,
   children,
   onKeyDown,
   ...rest
@@ -98,6 +207,11 @@ export function TabList({
   const controlled = valueProp !== undefined;
   const value = controlled ? valueProp : inner;
   const ref = useRef<HTMLDivElement>(null);
+  const menuOverflow = overflow === 'menu';
+  const vertical = orientation === 'Vertical';
+  const wrapper = useRef<HTMLDivElement>(null);
+  const more = useRef<HTMLButtonElement>(null);
+  const [hidden, setHidden] = useState<MoreMenuItem[]>([]);
 
   const select = useCallback(
     (next: string) => {
@@ -146,6 +260,47 @@ export function TabList({
     if (list && slides) placeUnderline(list, true);
   });
 
+  // overflow="menu": keep the tabs that fit, hide the rest behind the "…" button. It
+  // runs again when the room changes (the wrapper), when a tab changes size (a font
+  // that loads, a new label), when tabs come or go, and after every render.
+  const fit = useRef<(() => void) | undefined>(undefined);
+  useLayoutEffect(() => {
+    const box = wrapper.current;
+    const list = ref.current;
+    const button = more.current;
+    if (!menuOverflow || !box || !list || !button) return undefined;
+    const state: { forced: HTMLElement | null } = { forced: null };
+    const measure = () => {
+      fitTabs(box, list, button, vertical, state);
+      if (slides) placeUnderline(list, false);
+    };
+    fit.current = measure;
+    measure();
+    const resize = typeof ResizeObserver === 'undefined' ? undefined : new ResizeObserver(measure);
+    const watch = () => {
+      resize?.disconnect();
+      resize?.observe(box);
+      resize?.observe(button);
+      for (const tab of Array.from(list.children)) resize?.observe(tab);
+    };
+    watch();
+    const mutation = new MutationObserver(() => {
+      watch();
+      measure();
+    });
+    mutation.observe(list, { childList: true });
+    void document.fonts?.ready.then(measure);
+    return () => {
+      fit.current = undefined;
+      resize?.disconnect();
+      mutation.disconnect();
+      resetTabs(box, list, button, state);
+    };
+  }, [menuOverflow, vertical, slides]);
+  useLayoutEffect(() => {
+    fit.current?.();
+  });
+
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     onKeyDown?.(event);
     if (event.defaultPrevented) return;
@@ -154,7 +309,9 @@ export function TabList({
     const nextKey = vertical ? 'ArrowDown' : 'ArrowRight';
     if (![previousKey, nextKey, 'Home', 'End'].includes(event.key)) return;
 
-    const tabs = Array.from(ref.current?.querySelectorAll<HTMLButtonElement>('[role="tab"]:not(:disabled)') ?? []);
+    const tabs = Array.from(
+      ref.current?.querySelectorAll<HTMLButtonElement>(`[role="tab"]:not(:disabled):not([${HIDDEN}])`) ?? [],
+    );
     if (tabs.length === 0) return;
     const current = tabs.indexOf(event.target as HTMLButtonElement);
     let target: number;
@@ -169,18 +326,46 @@ export function TabList({
     tabs[target].click();
   };
 
+  const list = (
+    <div
+      ref={ref}
+      role="tablist"
+      aria-orientation={vertical ? 'vertical' : 'horizontal'}
+      className={[styles.list, styles[orientation.toLowerCase()], !menuOverflow && className].filter(Boolean).join(' ')}
+      style={menuOverflow ? undefined : style}
+      onKeyDown={handleKeyDown}
+      {...rest}
+    >
+      {children}
+    </div>
+  );
+
   return (
     <TabContext.Provider value={context}>
-      <div
-        ref={ref}
-        role="tablist"
-        aria-orientation={orientation === 'Vertical' ? 'vertical' : 'horizontal'}
-        className={[styles.list, styles[orientation.toLowerCase()], className].filter(Boolean).join(' ')}
-        onKeyDown={handleKeyDown}
-        {...rest}
-      >
-        {children}
-      </div>
+      {menuOverflow ? (
+        <div
+          ref={wrapper}
+          className={[styles.overflow, styles[`overflow-${orientation.toLowerCase()}`], className].filter(Boolean).join(' ')}
+          style={style}
+          data-variant={variant.toLowerCase()}
+        >
+          {list}
+          <MoreMenu
+            ref={more}
+            label={moreLabel}
+            size={size}
+            className={styles.more}
+            placement={vertical ? 'right-start' : 'bottom-start'}
+            items={hidden}
+            onOpenChange={(open) => {
+              // The menu lists the tabs that are hidden right now.
+              if (open && ref.current) setHidden(hiddenItems(ref.current));
+            }}
+          />
+        </div>
+      ) : (
+        list
+      )}
     </TabContext.Provider>
   );
 }

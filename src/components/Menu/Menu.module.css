@@ -1,0 +1,96 @@
+/* The list a "…" button opens (no Figma counterpart; built on Popover). The
+   panel is the one of the Figma Popup/Dropdown (background/primary,
+   cornerRadius/m, Shadow M); the rows are drawn like a Secondary Tab of size L:
+   text only, filled on hover, the selected one filled with a ring.
+   Inside a Popover that limits the height, the panel shrinks and scrolls. */
+.menu {
+  box-sizing: border-box;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--breakpoint-spacing-2xs);
+  min-width: 160px;
+  max-width: 100%;
+  min-height: 0;
+  padding: var(--breakpoint-spacing-xs);
+  overflow: hidden auto;
+  border-radius: var(--breakpoint-cornerradius-m);
+  background: var(--theme-color-background-primary);
+  box-shadow: var(--shadow-shadow-m);
+  color: var(--theme-color-font-interactive-idle-secondary);
+}
+
+/* A row: a Secondary Tab of size L as wide as the panel. The label is
+   shortened with an ellipsis when it is wider than the panel. */
+.item {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  min-height: var(--breakpoint-sizing-button-l);
+  margin: 0;
+  padding: var(--breakpoint-spacing-button-xs) var(--breakpoint-spacing-button-m);
+  border: none;
+  border-radius: var(--breakpoint-cornerradius-rounded);
+  background: transparent;
+  color: var(--theme-color-font-interactive-idle-secondary);
+  font-family: var(--font-interactive-label-text-xl-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-xl-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-xl-sans-regular-size);
+  line-height: var(--font-interactive-label-text-xl-sans-regular-line-height);
+  text-align: left;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  outline: var(--theme-borderstroke-m) solid transparent;
+  outline-offset: calc(-1 * var(--theme-borderstroke-m));
+  -webkit-tap-highlight-color: transparent;
+  /* 300ms ease-out, as the tabs. */
+  transition:
+    background-color 0.3s ease-out,
+    color 0.3s ease-out,
+    outline-color 0.3s ease-out;
+}
+
+.label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item:hover:not([aria-disabled='true']):not([aria-checked='true']) {
+  background: var(--theme-color-border-tertiary);
+}
+
+/* Selected: a filled row with a ring (the Secondary Tab's selected look). */
+.item[aria-checked='true'] {
+  background: var(--theme-color-interactive-idle-primary);
+  color: var(--theme-color-font-interactive-idle-primary);
+  outline-color: var(--theme-color-interactive-hover-secondary);
+}
+
+/* Disabled: 30%, like a disabled Button or Tab. */
+.item[aria-disabled='true'] {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Keyboard focus: a ring 2px outside the row, so it never fights the ring
+   drawn inside the selected one. */
+.item:focus-visible::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border: 2px solid var(--theme-color-interactive-idle-primary);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item {
+    transition: none;
+  }
+}

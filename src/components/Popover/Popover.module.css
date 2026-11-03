@@ -16,8 +16,10 @@
      reads it unless it is given an `offset`. */
   --popover-offset: var(--breakpoint-spacing-s);
   /* Where it slides in from: down from above when it opens below its anchor
-     (Popover.tsx puts the side in data-side), up from below when it opens above. */
+     (Popover.tsx puts the side in data-side), up from below when it opens above,
+     and sideways when it opens beside it. */
   --popover-shift: -8px;
+  --popover-shift-x: 0px;
   position: fixed;
   inset: auto;
   box-sizing: border-box;
@@ -33,7 +35,7 @@
   outline: none;
   /* The closed look, which it fades out to. */
   opacity: 0;
-  transform: translateY(var(--popover-shift));
+  transform: translate(var(--popover-shift-x), var(--popover-shift));
   pointer-events: none;
   transition:
     opacity 0.15s ease-out,
@@ -43,6 +45,14 @@
 }
 .popover[data-side='top'] {
   --popover-shift: 8px;
+}
+.popover[data-side='right'] {
+  --popover-shift: 0px;
+  --popover-shift-x: -8px;
+}
+.popover[data-side='left'] {
+  --popover-shift: 0px;
+  --popover-shift-x: 8px;
 }
 .popover:popover-open {
   display: flex;
@@ -60,7 +70,7 @@
 @starting-style {
   .popover:popover-open {
     opacity: 0;
-    transform: translateY(var(--popover-shift));
+    transform: translate(var(--popover-shift-x), var(--popover-shift));
   }
 }
 
