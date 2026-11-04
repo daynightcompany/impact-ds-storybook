@@ -18,7 +18,7 @@ export type TabListOverflow = 'none' | 'menu';
 export interface TabListProps extends Omit<HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange'> {
   /** Variant of every tab in the list. */
   variant?: TabVariant;
-  /** Size of every tab in the list. */
+  /** Size of every tab in the list. L by default; a Popup, a Dropdown and a Dialog make it M when a list has no size. */
   size?: TabSize;
   /** Figma Position. */
   orientation?: TabListOrientation;

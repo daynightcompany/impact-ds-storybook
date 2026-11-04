@@ -14,7 +14,8 @@ export interface PopupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'childr
   search?: Slot;
   /**
    * Figma boolean "Tabs". `true` shows a Primary tab list of placeholder tabs;
-   * pass your own <TabList> to use real ones.
+   * pass your own <TabList> to use real ones. The tabs are size M here (40 high,
+   * like the Button M and the Chip M); a <TabList> with its own `size` keeps it.
    */
   tabs?: Slot;
   /**

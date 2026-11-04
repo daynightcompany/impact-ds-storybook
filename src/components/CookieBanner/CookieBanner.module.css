@@ -1,0 +1,46 @@
+/* Figma "Cookie banner" (node 9587:6802): a wrapping row on the primary
+   background, padding spacing/m, 40 (spacing/xl) between the text and the
+   buttons, corner radius m, Shadow L, never narrower than 375. */
+.banner {
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--breakpoint-spacing-xl);
+  width: 100%;
+  min-width: min(375px, 100%);
+  padding: var(--breakpoint-spacing-m);
+  border-radius: var(--breakpoint-cornerradius-m);
+  background: var(--theme-color-background-primary);
+  box-shadow: var(--shadow-shadow-l);
+  color: var(--theme-color-font-paragraph-primary);
+}
+
+/* Paragraph-Body Text S Regular. It takes half of the row and wraps the
+   buttons under it when it would get narrower than 287. */
+.text {
+  flex: 1 0 0;
+  min-width: min(287px, 100%);
+  margin: 0;
+  font-family: var(--font-paragraph-body-text-s-sans-regular-family), sans-serif;
+  font-weight: var(--font-paragraph-body-text-s-sans-regular-weight);
+  font-size: var(--font-paragraph-body-text-s-sans-regular-size);
+  line-height: var(--font-paragraph-body-text-s-sans-regular-line-height);
+  overflow-wrap: break-word;
+}
+
+/* The buttons share the other half, 12 (spacing/xs) apart, at least 176 each,
+   so on a narrow banner they stack over the full width. */
+.buttons {
+  display: flex;
+  flex: 1 0 0;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--breakpoint-spacing-xs);
+  min-width: min(176px, 100%);
+}
+.buttons > * {
+  flex: 1 0 0;
+  min-width: min(176px, 100%);
+}

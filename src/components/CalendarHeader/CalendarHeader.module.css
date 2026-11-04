@@ -1,0 +1,66 @@
+/* Figma "Calendar header" (node 9587:7016): a row, vertically centred, of an
+   optional arrow, the container with the chips and an optional arrow. It is as
+   wide as its content. With one arrow the other side has spacing/xl of room
+   (Figma pads the frame), so the three variants are about as wide. It never gets
+   narrower than its content: in a column that is too narrow it overhangs the end
+   of the column and the chips keep clear of the arrows. */
+.header {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  color: var(--theme-color-font-interactive-idle-secondary);
+}
+
+/* Single select off: the frame fills the width and the title is centred. */
+.fill {
+  width: 100%;
+}
+
+.arrows-left {
+  padding-inline-end: var(--breakpoint-spacing-xl);
+}
+.arrows-right {
+  padding-inline-start: var(--breakpoint-spacing-xl);
+}
+
+.arrow {
+  flex: none;
+}
+
+/* The chips touch each other (Figma: no gap) and are centred in the room the
+   arrows leave. */
+.container {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Month and year: Chip M with the trailing chevron, but with 24 of padding at the
+   start, 12 above and below and the label text XL, which makes them 56 high, as
+   high as the arrows. The doubled class wins over the Chip's own size rules. */
+.chip.chip {
+  --chip-pad-y: var(--breakpoint-spacing-button-xs);
+  --chip-pad-text: var(--breakpoint-spacing-button-m);
+  font-family: var(--font-interactive-label-text-xl-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-xl-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-xl-sans-regular-size);
+  line-height: var(--font-interactive-label-text-xl-sans-regular-line-height);
+}
+
+/* Single select off: the month as text, set like the chip's label, in the same
+   box as the label-only chip (24 at the sides). */
+.title {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--breakpoint-sizing-button-m);
+  padding: var(--breakpoint-spacing-button-xs) var(--breakpoint-spacing-button-m);
+  font-family: var(--font-interactive-label-text-xl-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-xl-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-xl-sans-regular-size);
+  line-height: var(--font-interactive-label-text-xl-sans-regular-line-height);
+  white-space: nowrap;
+}

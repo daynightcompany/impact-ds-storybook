@@ -1,0 +1,156 @@
+/* Figma "Banner" (node 9587:6765): five layouts of one auto layout bar. The
+   first three and the slim one are white cards (corner radius s, content
+   clipped); Primary is a square bar in the brand orange. Padding and gaps are
+   spacing tokens, so they follow the breakpoint mode. */
+.banner {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  color: var(--theme-color-font-interactive-idle-secondary);
+}
+
+.icon,
+.ghost,
+.prim-sec,
+.none {
+  overflow: clip;
+  border-radius: var(--breakpoint-cornerradius-s);
+  background: var(--theme-color-background-primary);
+}
+
+/* Icon: title and text, the close icon at the end, never wrapping. */
+.icon {
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: var(--breakpoint-spacing-2xs);
+  padding: var(--breakpoint-spacing-m);
+}
+
+/* Ghost and Prim & Sec: the text takes the room the buttons leave and the
+   buttons wrap under it when it would get narrower than 272. */
+.ghost,
+.prim-sec {
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--breakpoint-spacing-m);
+  padding: var(--breakpoint-spacing-m);
+}
+.prim-sec {
+  justify-content: flex-end;
+}
+
+/* None: one slim line, the text and the link wrap together. */
+.none {
+  align-items: flex-start;
+  gap: var(--breakpoint-spacing-3xs);
+  padding: var(--breakpoint-spacing-2xs) var(--breakpoint-spacing-xs);
+}
+
+/* Primary: the bar in the brand orange, wrapping like the two above. */
+.primary {
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--breakpoint-spacing-l);
+  padding: var(--breakpoint-spacing-xs) var(--breakpoint-spacing-m);
+  background: var(--theme-color-supportive-neutral-orange);
+}
+
+/* Title and text: Interactive-Label Text XL Semibold and MD Regular. */
+.content {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: var(--breakpoint-spacing-3xs);
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+.ghost .content,
+.prim-sec .content {
+  flex: 1 0 0;
+  min-width: min(272px, 100%);
+}
+.title,
+.text,
+.promo {
+  margin: 0;
+}
+.title {
+  font-family: var(--font-interactive-label-text-xl-sans-semibold-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-xl-sans-semibold-weight);
+  font-size: var(--font-interactive-label-text-xl-sans-semibold-size);
+  line-height: var(--font-interactive-label-text-xl-sans-semibold-line-height);
+}
+.text {
+  font-family: var(--font-interactive-label-text-md-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-md-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-md-sans-regular-size);
+  line-height: var(--font-interactive-label-text-md-sans-regular-line-height);
+}
+
+/* Prim & Sec: the two buttons stay together, 8px (spacing/2xs) apart. */
+.buttons {
+  display: flex;
+  flex: none;
+  gap: var(--breakpoint-spacing-2xs);
+}
+
+/* The close icon is a Tertiary icon-only Button M (40) whose margin takes it
+   back to the 24px of the Figma icon, so the layout is the Figma one and the
+   round hover fill and the focus ring have room. */
+.close {
+  flex: none;
+  margin: calc(-1 * var(--breakpoint-spacing-2xs));
+}
+
+/* None: Interactive-Label Text SM Regular, the link in the tertiary text colour. */
+.line {
+  display: flex;
+  flex: 1 1 0;
+  flex-wrap: wrap;
+  gap: var(--breakpoint-spacing-2xs);
+  min-width: 0;
+  font-family: var(--font-interactive-label-text-sm-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-sm-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-sm-sans-regular-size);
+  line-height: var(--font-interactive-label-text-sm-sans-regular-line-height);
+  overflow-wrap: break-word;
+}
+.message {
+  color: var(--theme-color-font-interactive-idle-secondary);
+}
+.link {
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: var(--breakpoint-cornerradius-xs, 4px);
+  background: none;
+  color: var(--theme-color-font-interactive-idle-tertiary);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+/* Figma colours the link with font/interactive/idle/tertiary, which is #2d2d2d
+   on black in the Night theme (about 1.5:1), so Night uses the colour of the
+   text there. */
+:global([data-theme='impact-night-mode']) .link {
+  color: var(--theme-color-font-interactive-idle-secondary);
+}
+.link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.link:focus-visible {
+  outline: var(--theme-borderstroke-m) solid var(--theme-color-interactive-idle-primary);
+  outline-offset: 2px;
+}
+
+/* Primary: Interactive-Label Text 2XL Regular, at least 300 wide. */
+.promo {
+  flex: 1 0 0;
+  min-width: min(300px, 100%);
+  font-family: var(--font-interactive-label-text-2xl-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-2xl-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-2xl-sans-regular-size);
+  line-height: var(--font-interactive-label-text-2xl-sans-regular-line-height);
+  overflow-wrap: break-word;
+}

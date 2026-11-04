@@ -119,7 +119,10 @@ export interface DialogProps extends Omit<HTMLAttributes<HTMLElement>, 'title' |
   switches?: Slot;
   /** `Select` form. Figma boolean "Search": `true` shows an empty search field, a node replaces it. */
   search?: Slot;
-  /** `Select` form. Figma boolean "Tabs": `true` shows placeholder tabs, a node (a <TabList>) replaces them. */
+  /**
+   * `Select` form. Figma boolean "Tabs": `true` shows placeholder tabs, a node (a <TabList>) replaces them.
+   * The tabs are size M here (40 high); a <TabList> with its own `size` keeps it.
+   */
   tabs?: Slot;
   /** `Select` form: the list to choose from (a <CellGroup>). */
   children?: ReactNode;

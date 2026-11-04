@@ -13,7 +13,8 @@ export type TabVariant = 'Primary' | 'Secondary';
 /**
  * Size ladder: M, L and XL. M is not in Figma's Tab sets (they have L and XL):
  * it follows the M of the Button and the Chip, 40 high on both breakpoints, for
- * tabs that sit beside default-size components. The height of each comes from
+ * tabs that sit beside default-size components: it is the size of the tabs in a
+ * Popup, a Dropdown and a Dialog. The height of each comes from
  * the button sizing tokens (sizing/button/*), so L and XL are a step smaller on
  * Mobile. Mobile values come from the breakpoint tokens, not from a prop.
  */

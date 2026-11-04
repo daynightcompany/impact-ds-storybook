@@ -60,7 +60,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Popup/Dropdown" (node 9723:19631): a panel with a Search, a row of Tabs, a list and a Footer. The Figma booleans Search, Tabs and Footer are props (all on in Figma); turn them off for a simple dropdown popover that is only a list. The list is the part that scrolls when the panel has a height limit. Give it an `anchorRef` and it opens from that element as a popover (see the "Dropdown with a popup" and "Simple dropdown" stories); the Breakpoint switch in the toolbar shows the Mobile values (on Mobile Figma uses the Dialog\'s Select form instead).',
+          'Converted from the Figma "Popup/Dropdown" (node 9723:19631): a panel with a Search, a row of Tabs, a list and a Footer. The Figma booleans Search, Tabs and Footer are props (all on in Figma); turn them off for a simple dropdown popover that is only a list. The Tabs are size M (40 high, like the Button M and the Chip M), which is 16 less than the L tabs of Figma; a <TabList> you pass keeps its own `size`. The list is the part that scrolls when the panel has a height limit. Give it an `anchorRef` and it opens from that element as a popover (see the "Dropdown with a popup" and "Simple dropdown" stories); the Breakpoint switch in the toolbar shows the Mobile values (on Mobile Figma uses the Dialog\'s Select form instead).',
       },
     },
   },

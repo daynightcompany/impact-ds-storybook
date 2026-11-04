@@ -1,7 +1,7 @@
-import type { ReactNode } from 'react';
+import { cloneElement, isValidElement, type ReactElement, type ReactNode } from 'react';
 import { Search } from '../Search/Search';
 import { Tab } from '../Tab/Tab';
-import { TabList } from '../TabList/TabList';
+import { TabList, type TabListProps } from '../TabList/TabList';
 import { DialogFooter } from '../DialogFooter/DialogFooter';
 
 /** A boolean-or-node slot: `false`, `null` and `undefined` hide it. */
@@ -17,12 +17,21 @@ export function searchSlot(slot: Slot): ReactNode {
   return slot === true ? <Search /> : slot;
 }
 
-/** The Figma Tab instance: `true` shows a Primary tab list of placeholder tabs, a node replaces it. */
+/**
+ * The Figma Tab instance: `true` shows a Primary tab list of placeholder tabs, a
+ * node replaces it. Tabs in a popup or a dialog are size M (40 high), the size of
+ * the Button M and the Chip M that sit beside them, so the placeholders are M and
+ * a <TabList> that sets no `size` is M here too. A `size` you set is kept.
+ */
 export function tabsSlot(slot: Slot): ReactNode {
   if (!isShown(slot)) return null;
-  if (slot !== true) return slot;
+  if (slot !== true) {
+    return isValidElement(slot) && slot.type === TabList && (slot.props as TabListProps).size === undefined
+      ? cloneElement(slot as ReactElement<TabListProps>, { size: 'M' })
+      : slot;
+  }
   return (
-    <TabList variant="Primary" size="L" defaultValue="tab-1" aria-label="Sections">
+    <TabList variant="Primary" size="M" defaultValue="tab-1" aria-label="Sections">
       {[1, 2, 3, 4].map((number) => (
         <Tab key={number} value={`tab-${number}`}>
           Tab {number}

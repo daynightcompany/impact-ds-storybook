@@ -1,0 +1,77 @@
+/* Figma "Time picker" (node 9587:7046): a vertical stack of rows, 4px
+   (spacing/3xs) apart. A row of the Day grid is 7 label-only Chips (M, "Icon=False
+   Fixed") 4px apart, 50 wide and 40 high; the first row holds the weekdays. Month
+   and Year are rows of 3 chips. Figma's chips hug a two digit number, so on Mobile,
+   where the button padding is smaller, they come out 40 wide: here the cell width
+   is that number. The rows of a range are joined by a band (border/tertiary, a
+   pill) behind the chips. */
+.picker {
+  --gap: var(--breakpoint-spacing-3xs);
+  --cell-w: 50px;
+  --grid-w: calc(7 * var(--cell-w) + 6 * var(--gap));
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  /* The Month and Year grids are as wide as the Day grid, so the picker keeps its
+     width when the view changes. Where there is less room the cells shrink. */
+  width: var(--grid-w);
+  max-width: 100%;
+  color: var(--theme-color-font-interactive-idle-secondary);
+}
+:global([data-breakpoint='375-mobile']) .picker {
+  --cell-w: 40px;
+}
+
+.row {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  gap: var(--gap);
+}
+
+/* The band: from the first to the last day of the range in this row, as wide as
+   the columns it covers and the gaps between them. */
+.row[data-band]::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: calc(
+    var(--band-from) * ((100% - (var(--cols) - 1) * var(--gap)) / var(--cols) + var(--gap))
+  );
+  width: calc(
+    (var(--band-to) - var(--band-from) + 1) * ((100% - (var(--cols) - 1) * var(--gap)) / var(--cols)) +
+      (var(--band-to) - var(--band-from)) * var(--gap)
+  );
+  border-radius: var(--breakpoint-cornerradius-rounded);
+  background: var(--theme-color-border-tertiary);
+  pointer-events: none;
+}
+
+/* A day, a month or a year: the Chip, as wide as its column. The doubled class
+   wins over the Chip's own padding rules. */
+.cell.cell {
+  width: 100%;
+  min-width: 0;
+  padding-inline: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The weekdays: the text of a chip, in the same boxes. */
+.weekday {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--breakpoint-sizing-button-m);
+  font-family: var(--font-interactive-label-text-lg-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-lg-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-lg-sans-regular-size);
+  line-height: var(--font-interactive-label-text-lg-sans-regular-line-height);
+  user-select: none;
+}
+
+/* The days before the first of the month. */
+.blank {
+  min-height: var(--breakpoint-sizing-button-m);
+}
