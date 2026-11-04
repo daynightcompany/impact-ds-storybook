@@ -1,9 +1,47 @@
+/* The panel and, on Mobile, the drag handle above it. Figma draws the Popup for
+   Desktop only and has its Mobile form in the Dialog (Form=Select): a vertical
+   stack, 8px (spacing/2xs) apart, of the drag handle and the panel, which is
+   as wide as the viewport, at most the 688 of the Popup, so the 375 wide sheet
+   on Mobile. */
+.sheet {
+  --popup-default-width: clamp(375px, var(--breakpoint-viewport-width), 688px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--breakpoint-spacing-2xs);
+  min-height: 0;
+  max-width: 100%;
+}
+
+/* Figma "Drag Skeleton": a 32 x 4 pill over the middle of the panel, on Mobile
+   only (the $device/mobile variable). Decorative. It is as wide as the panel, so
+   the pill is centred on it. */
+.handle {
+  position: relative;
+  display: none;
+  flex: none;
+  width: var(--popover-width, var(--popup-width, var(--popup-default-width)));
+  max-width: 100%;
+  height: 4px;
+}
+.handle::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: calc(50% - 16px);
+  width: 32px;
+  border-radius: var(--breakpoint-cornerradius-s);
+  background: var(--theme-color-border-tertiary);
+}
+:global([data-breakpoint='375-mobile']) .handle {
+  display: block;
+}
+
 /* Figma "Popup/Dropdown" (node 9723:19631): vertical, 24px (spacing/m) padding
    and gap, primary background, corner radius m, Shadow M, clipped.
 
-   Width: 688px in Figma. It follows --popover-width when a Popover sets it (the
-   popup is as wide as its anchor), else --popup-width (the `width` prop), and
-   never exceeds the space it is in.
+   Width: 688px in Figma, the 375 of the sheet on Mobile. It follows
+   --popover-width when a Popover sets it (the popup is as wide as its anchor),
+   else --popup-width (the `width` prop), and never exceeds the space it is in.
 
    Height: as tall as the parts. Inside a Popover that limits the height, the
    panel shrinks and only the list scrolls. */
@@ -12,7 +50,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--breakpoint-spacing-m);
-  width: var(--popover-width, var(--popup-width, 688px));
+  width: var(--popover-width, var(--popup-width, var(--popup-default-width)));
   max-width: 100%;
   min-height: 0;
   padding: var(--breakpoint-spacing-m);

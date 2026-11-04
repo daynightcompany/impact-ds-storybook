@@ -26,6 +26,12 @@ export interface DialogFooterProps extends HTMLAttributes<HTMLDivElement> {
    */
   buttonWidth?: DialogFooterButtonWidth;
   layout?: DialogFooterLayout;
+  /**
+   * Not in Figma. On the Mobile breakpoint the buttons stand one under another
+   * across the footer, as in `layout="Vertical"`, whatever the `layout` is: a
+   * Popup does so, because Figma has its Mobile form in a Dialog.
+   */
+  stackOnMobile?: boolean;
   /** Figma boolean "Primary button". */
   primaryButton?: DialogFooterButton;
   /** Figma boolean "Secondary button". */
@@ -65,6 +71,7 @@ function renderButton(value: DialogFooterButton, hierarchy: ButtonHierarchy): Re
 export function DialogFooter({
   buttonWidth = '3 CTA',
   layout = 'Horizontal',
+  stackOnMobile = false,
   primaryButton = true,
   secondaryButton = true,
   tertiaryButton = true,
@@ -77,6 +84,7 @@ export function DialogFooter({
     styles.footer,
     wide ? styles.wide : styles.fill,
     stacked && styles.stacked,
+    stackOnMobile && !stacked && styles.stackOnMobile,
     className,
   ]
     .filter(Boolean)

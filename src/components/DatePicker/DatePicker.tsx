@@ -167,6 +167,12 @@ function focusDay(root: HTMLElement | null, date: Date): boolean {
  * and a second month (`device/desktop`); on Mobile it is the 375 wide sheet with
  * a drag handle above it (`device/mobile`), one month, and the fields and the
  * footer buttons stacked. Use the Breakpoint switch in the toolbar to see both.
+ *
+ * Where the panel has less room than the 1024 of Figma (a docs page, a small
+ * window) the two months share the width and their days narrow (50 wide in Figma,
+ * 44 at the least): both months stay side by side, with the presets beside them,
+ * from 913 wide; under that the presets run in a row above the dates, and under
+ * 736 the months drop under each other.
  */
 export function DatePicker({
   type = 'Custom',

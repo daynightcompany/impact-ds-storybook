@@ -49,14 +49,21 @@
 }
 
 /* Figma "Container": the presets and the dates, wrapping when the dates would
-   get narrower than their minimum (the 310 of Figma on Mobile, a Day grid of 374
-   on Desktop, so the list drops above them before a month is squeezed). */
+   get narrower than their minimum: the 310 of Figma on Mobile, and on Desktop
+   two months of --month-min and the gap between them, so both months stay side
+   by side, with the presets beside them, in a panel as narrow as 913 (a docs
+   page is 936 wide); under that the list drops above the dates. */
 .body {
+  --month-min: 332px;
   box-sizing: border-box;
+  container-type: inline-size;
   display: flex;
   flex-wrap: wrap;
   gap: var(--breakpoint-spacing-m);
   padding: var(--breakpoint-spacing-m);
+}
+:global([data-breakpoint='375-mobile']) .body {
+  --month-min: 304px;
 }
 
 .presets {
@@ -66,6 +73,21 @@
   display: none;
 }
 
+/* Where the list no longer fits beside the dates (its 153, the 24 gap and the
+   688 of two months make 865 of room), it takes the whole row above them, and
+   the chips run along it, wrapping, instead of standing in a tall column. */
+@container (max-width: 864px) {
+  .presets {
+    flex: 1 1 100%;
+  }
+  .presets .presetList {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+  }
+}
+
 /* Figma "Custom block": the fields, the months and the footer, spacing/xl
    apart (24 on Mobile). */
 .custom {
@@ -73,32 +95,45 @@
   flex: 1 1 0;
   flex-direction: column;
   gap: var(--breakpoint-spacing-xl);
-  min-width: min(374px, 100%);
+  min-width: min(calc(2 * var(--month-min) + var(--breakpoint-spacing-m)), 100%);
 }
 :global([data-breakpoint='375-mobile']) .custom {
   min-width: min(310px, 100%);
 }
 
-/* Figma "Range twin": the two months share the width and drop under each other
-   when each would get narrower than its grid: 304 (the Day grid of Mobile, the
-   minimum of the Figma frame) and 374 on Desktop (7 days of 50 and 6 gaps of 4),
-   which also keeps the Calendar header, 344 wide with "March 2027", whole. */
+/* Figma "Range twin": the two months share the width, 387.5 each in the 1024
+   panel of Figma, and drop under each other only when each would get narrower
+   than --month-min: 304 on Mobile (the Day grid of the Figma frame, 7 days of 40)
+   and 332 on Desktop (7 days of 44, the least a touch target is, and 6 gaps of
+   4). Down to there the Day grid shrinks with its column (the 7 days of 50 of the
+   Figma panel become 44 wide); the Calendar header keeps its width, so it can
+   reach past the end of a narrow column, into the gap and the room the next
+   header leaves empty for its missing arrow. */
 .twin {
   display: flex;
   flex-wrap: wrap;
   gap: var(--breakpoint-spacing-m);
+  /* The stacking order of the months stays inside it. */
+  isolation: isolate;
 }
 .month {
   display: flex;
   flex: 1 1 0;
   flex-direction: column;
-  min-width: min(374px, 100%);
-}
-:global([data-breakpoint='375-mobile']) .month {
-  min-width: min(304px, 100%);
+  min-width: min(var(--month-min), 100%);
 }
 :global([data-breakpoint='375-mobile']) .second {
   display: none;
+}
+
+/* A Calendar header is as wide as its content, so in a narrow column (the days
+   shrink, the header does not) the arrow at the end of the left one reaches past
+   its column, over the room the next header keeps free for its missing arrow. The
+   left month is painted over the right one, so that arrow stays whole to the
+   pointer. */
+.month:not(.second) {
+  position: relative;
+  z-index: 1;
 }
 
 /* The Footer instance has no padding here and is at most 400 wide, at the end of

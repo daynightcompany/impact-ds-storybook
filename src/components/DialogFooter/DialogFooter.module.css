@@ -74,3 +74,23 @@
   flex: none;
   min-width: 0;
 }
+
+/* stackOnMobile (not in Figma): on Mobile the buttons stand one under another
+   across the footer, 16px (spacing/s) apart, as in Vertical. */
+:global([data-breakpoint='375-mobile']) .stackOnMobile .buttons {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  justify-content: flex-end;
+  gap: var(--breakpoint-spacing-s);
+}
+:global([data-breakpoint='375-mobile']) .stackOnMobile .group {
+  display: contents;
+}
+:global([data-breakpoint='375-mobile']) .stackOnMobile .slot {
+  flex: none;
+  min-width: 0;
+}
+:global([data-breakpoint='375-mobile']) .stackOnMobile .slot > * {
+  flex: 1 1 auto;
+}

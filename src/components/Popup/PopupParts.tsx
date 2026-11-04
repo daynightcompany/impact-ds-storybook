@@ -42,7 +42,14 @@ export function tabsSlot(slot: Slot): ReactNode {
 }
 
 /** The Figma Dialog/Footer instance: `true` shows the default footer, a node (a <DialogFooter>) replaces it. */
-export function footerSlot(slot: Slot, defaults: { buttonWidth: '3 CTA' | '2 CTA' }): ReactNode {
+export function footerSlot(
+  slot: Slot,
+  defaults: { buttonWidth: '3 CTA' | '2 CTA'; stackOnMobile?: boolean },
+): ReactNode {
   if (!isShown(slot)) return null;
-  return slot === true ? <DialogFooter buttonWidth={defaults.buttonWidth} /> : slot;
+  return slot === true ? (
+    <DialogFooter buttonWidth={defaults.buttonWidth} stackOnMobile={defaults.stackOnMobile} />
+  ) : (
+    slot
+  );
 }

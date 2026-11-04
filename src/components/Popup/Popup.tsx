@@ -20,13 +20,14 @@ export interface PopupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'childr
   tabs?: Slot;
   /**
    * Figma boolean "Footer". `true` shows the 3 CTA footer (Tertiary at the
-   * start, Secondary and Primary at the end); pass your own <DialogFooter> to
-   * name the buttons and handle them.
+   * start, Secondary and Primary at the end, one under another on Mobile); pass
+   * your own <DialogFooter> to name the buttons and handle them (give it
+   * `stackOnMobile` to stack its buttons on Mobile too).
    */
   footer?: Slot;
   /** The list: Figma has a Cell group of checkbox cells here. It is the part that scrolls. */
   children?: ReactNode;
-  /** Width of the panel: a number of pixels or any CSS length. The default is the Figma width; it never exceeds the space it is in. */
+  /** Width of the panel: a number of pixels or any CSS length. The default is the Figma width, the 375 wide sheet on Mobile; it never exceeds the space it is in. */
   width?: number | string;
   /**
    * Opens the popup from an element as a popover (see <Popover>): set it to the
@@ -61,6 +62,14 @@ export interface PopupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'childr
  * the room that is left in the viewport), the Search, Tabs and Footer stay and
  * the list scrolls.
  *
+ * Figma draws the Popup for Desktop only and has its Mobile form in the Dialog
+ * (Form=Select), so on the Mobile breakpoint the Popup takes that form: the
+ * panel is the 375 wide sheet (as wide as the viewport, 688 at the most), with a
+ * drag handle above it and the footer buttons one under another. The handle
+ * belongs to a sheet, so a popup that opens from an element and a plain list
+ * (no Search, Tabs or Footer, as under a Dropdown) do not have it. A `width`
+ * you set is kept.
+ *
  * Give it an `anchorRef` and it opens from that element as a popover: pair it
  * with a <Dropdown> as in the "Dropdown with a popup" story. `aria-label`,
  * `aria-labelledby` and `id` then go to the popover (a dialog); everything else
@@ -92,22 +101,27 @@ export function Popup({
 
   const searchNode = searchSlot(search);
   const tabsNode = tabsSlot(tabs);
-  const footerNode = footerSlot(footer, { buttonWidth: '3 CTA' });
+  const footerNode = footerSlot(footer, { buttonWidth: '3 CTA', stackOnMobile: true });
+  // The drag handle of the Mobile sheet: not for a popover, nor for a plain list under a Dropdown.
+  const sheet = !anchored && (isShown(searchNode) || isShown(tabsNode) || isShown(footerNode));
 
   const panel = (
-    <div
-      {...rest}
-      ref={ref}
-      id={anchored ? undefined : id}
-      aria-label={anchored ? undefined : ariaLabel}
-      aria-labelledby={anchored ? undefined : ariaLabelledBy}
-      className={[styles.popup, className].filter(Boolean).join(' ')}
-      style={{ ...widthStyle, ...style }}
-    >
-      {isShown(searchNode) && <div className={styles.fixed}>{searchNode}</div>}
-      {isShown(tabsNode) && <div className={`${styles.fixed} ${styles.tabs}`}>{tabsNode}</div>}
-      {children != null && <div className={styles.list}>{children}</div>}
-      {isShown(footerNode) && <div className={`${styles.fixed} ${styles.footer}`}>{footerNode}</div>}
+    <div className={styles.sheet} style={widthStyle}>
+      {sheet && <div className={styles.handle} aria-hidden />}
+      <div
+        {...rest}
+        ref={ref}
+        id={anchored ? undefined : id}
+        aria-label={anchored ? undefined : ariaLabel}
+        aria-labelledby={anchored ? undefined : ariaLabelledBy}
+        className={[styles.popup, className].filter(Boolean).join(' ')}
+        style={{ ...widthStyle, ...style }}
+      >
+        {isShown(searchNode) && <div className={styles.fixed}>{searchNode}</div>}
+        {isShown(tabsNode) && <div className={`${styles.fixed} ${styles.tabs}`}>{tabsNode}</div>}
+        {children != null && <div className={styles.list}>{children}</div>}
+        {isShown(footerNode) && <div className={`${styles.fixed} ${styles.footer}`}>{footerNode}</div>}
+      </div>
     </div>
   );
 
