@@ -130,16 +130,78 @@
 
 /* A modal dialog: the native <dialog> in the top layer, centred on Desktop and
    a bottom sheet on Mobile. There is no scrim token, so the backdrop is a
-   neutral 40% black. */
+   neutral 40% black.
+
+   Motion, as for the Popover (no Figma counterpart): it fades in over 300ms,
+   ease out (the easing of the Figma prototypes), while it rises spacing/s; the
+   Mobile sheet slides up from the bottom edge instead. It fades out again over
+   150ms, and the backdrop with it. `display` and `overlay` are transitioned as
+   well, so the dialog stays in the top layer until it is gone, while
+   `pointer-events` already gives the page back. With a reduced-motion
+   preference it only appears and disappears. */
 .modal {
+  /* Where it comes from when it opens, and goes back to when it closes. */
+  --dialog-shift: var(--breakpoint-spacing-s);
+  /* The closed look, which it fades out to. The `display` of .dialog would
+     override the one the UA gives a closed <dialog>, so it is hidden here. */
+  display: none;
   max-width: 100%;
   max-height: calc(100dvh - 2 * var(--breakpoint-spacing-s));
   margin: auto;
+  opacity: 0;
+  transform: translateY(var(--dialog-shift));
+  pointer-events: none;
+  transition:
+    opacity 0.15s ease-out,
+    transform 0.15s ease-out,
+    overlay 0.15s ease-out allow-discrete,
+    display 0.15s ease-out allow-discrete;
 }
 :global([data-breakpoint='375-mobile']) .modal {
+  --dialog-shift: 100%;
   max-height: calc(100dvh - var(--breakpoint-spacing-s));
   margin: auto auto 0;
 }
+.modal[open] {
+  display: flex;
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+  /* The entrance is slower than the exit. */
+  transition-duration: 0.3s;
+}
+/* Where it starts from when it opens. */
+@starting-style {
+  .modal[open] {
+    opacity: 0;
+    transform: translateY(var(--dialog-shift));
+  }
+}
+
 .modal::backdrop {
+  background: rgb(0 0 0 / 0);
+  pointer-events: none;
+  transition:
+    background-color 0.15s ease-out,
+    overlay 0.15s ease-out allow-discrete,
+    display 0.15s ease-out allow-discrete;
+}
+.modal[open]::backdrop {
   background: rgb(0 0 0 / 0.4);
+  pointer-events: auto;
+  transition-duration: 0.3s;
+}
+@starting-style {
+  .modal[open]::backdrop {
+    background: rgb(0 0 0 / 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal,
+  .modal[open],
+  .modal::backdrop,
+  .modal[open]::backdrop {
+    transition: none;
+  }
 }

@@ -99,19 +99,19 @@ export interface DialogProps extends Omit<HTMLAttributes<HTMLElement>, 'title' |
   form?: DialogForm;
   /**
    * Figma boolean "Header". `true` shows the header with the `title` and a
-   * close button (`onClose`); pass your own <DialogHeader> to change it.
+   * close button (`onClose`); pass your own `<DialogHeader>` to change it.
    */
   header?: Slot;
   /** The title in the header (Figma "Title"). */
   title?: ReactNode;
   /**
    * Figma boolean "Footer". `true` shows the 2 CTA footer (the buttons stack
-   * when the dialog is narrow); pass your own <DialogFooter> to name the buttons.
+   * when the dialog is narrow); pass your own `<DialogFooter>` to name the buttons.
    */
   footer?: Slot;
   /** `Default` form. The Figma slot "Form fields": the text inputs and dropdowns. `true` shows placeholders. */
   formFields?: Slot;
-  /** `Default` form. Figma boolean "Radio" and its slot "Selectors": a <DialogSection> of radio cells. */
+  /** `Default` form. Figma boolean "Radio" and its slot "Selectors": a `<DialogSection>` of radio cells. */
   radio?: Slot;
   /** `Default` form. Figma boolean "Checkboxes" and its slot "Checkbox content". */
   checkboxes?: Slot;
@@ -120,19 +120,21 @@ export interface DialogProps extends Omit<HTMLAttributes<HTMLElement>, 'title' |
   /** `Select` form. Figma boolean "Search": `true` shows an empty search field, a node replaces it. */
   search?: Slot;
   /**
-   * `Select` form. Figma boolean "Tabs": `true` shows placeholder tabs, a node (a <TabList>) replaces them.
-   * The tabs are size M here (40 high); a <TabList> with its own `size` keeps it.
+   * `Select` form. Figma boolean "Tabs": `true` shows placeholder tabs, a node (a `<TabList>`) replaces them.
+   * The tabs are size M here (40 high); a `<TabList>` with its own `size` keeps it.
    */
   tabs?: Slot;
-  /** `Select` form: the list to choose from (a <CellGroup>). */
+  /** `Select` form: the list to choose from (a `<CellGroup>`). */
   children?: ReactNode;
   /** Called by the close button, and, in a `modal` dialog, by Escape and a press on the backdrop. */
   onClose?: () => void;
   /**
    * Shows the dialog as a modal: it opens in the top layer over a backdrop,
    * centred (a bottom sheet on Mobile), with the focus kept inside, and closes
-   * on Escape. Control it with `open` and `onClose`. Without it the dialog is
-   * just the panel, in the flow.
+   * on Escape. Control it with `open` and `onClose`. It fades in and out with
+   * its backdrop (the Mobile sheet slides up from the bottom edge); with a
+   * reduced-motion preference it only appears and disappears. Without `modal`
+   * the dialog is just the panel, in the flow.
    */
   modal?: boolean;
   /** A `modal` dialog is open. */

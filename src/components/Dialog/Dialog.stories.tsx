@@ -76,7 +76,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Dialog" component set (node 9587:6878): a panel in two forms. Default is a form: the "Form fields" slot (text inputs and dropdowns), then the Radio, Checkboxes and Switches groups (the slots "Selectors", "Checkbox content" and "Switch content"). Select is a list to choose from: Search, Tabs (size M, 40 high, unless a <TabList> you pass sets its own `size`) and the list. Both have the Header and Footer booleans. Desktop and Mobile are different layouts (use the Breakpoint switch in the toolbar). Desktop is a panel 720 wide (640 for Select): the text inputs of a group sit side by side, and the 2 CTA footer is at most 460 wide, at the end, with the two buttons in a row. Mobile is the 375 wide sheet: the drag handle shows above it, the text inputs are stacked, and the two footer buttons are stacked across the full width. The panel never exceeds the space it is in, and every size inside follows the switch. The slots take any node, and `true` shows the placeholders Figma has there. With `modal` and `open` it opens over a backdrop (see the "Modal" story); without them it is only the panel.',
+          'Converted from the Figma "Dialog" component set (node 9587:6878): a panel in two forms. Default is a form: the "Form fields" slot (text inputs and dropdowns), then the Radio, Checkboxes and Switches groups (the slots "Selectors", "Checkbox content" and "Switch content"). Select is a list to choose from: Search, Tabs (size M, 40 high, unless a `<TabList>` you pass sets its own `size`) and the list. Both have the Header and Footer booleans. Desktop and Mobile are different layouts (use the Breakpoint switch in the toolbar). Desktop is a panel 720 wide (640 for Select): the text inputs of a group sit side by side, and the 2 CTA footer is at most 460 wide, at the end, with the two buttons in a row. Mobile is the 375 wide sheet: the drag handle shows above it, the text inputs are stacked, and the two footer buttons are stacked across the full width. The panel never exceeds the space it is in, and every size inside follows the switch. The slots take any node, and `true` shows the placeholders Figma has there. With `modal` and `open` it opens over a backdrop (see the "Modal" story); without them it is only the panel.',
       },
     },
   },
@@ -163,10 +163,15 @@ export const WithoutFooter: Story = {
   args: { footer: false, formFields: false, radio: false, switches: false },
 };
 
-/** Opens as a modal: the native <dialog> over a backdrop, kept in focus, closed by Escape, the close button or a press outside. */
+/**
+ * Opens as a modal: the native `<dialog>` over a backdrop, kept in focus, closed by Escape, the close button or a press outside.
+ * It fades in (300ms) and rises into place while the backdrop fades in, and leaves in 150ms; on Mobile the sheet slides up from the bottom.
+ * With a reduced-motion preference it only appears and disappears.
+ */
 export const Modal: Story = {
   args: { form: 'Select', title: 'Countries' },
-  parameters: { layout: 'padded' },
+  // The play function opens it: wait for the entrance to end before the snapshot.
+  parameters: { layout: 'padded', chromatic: { delay: 700 } },
   render: function Render(args) {
     const [open, setOpen] = useState(false);
     return (
