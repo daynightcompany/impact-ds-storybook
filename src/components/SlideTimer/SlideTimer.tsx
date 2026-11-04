@@ -1,8 +1,8 @@
-import type { HTMLAttributes } from 'react';
+import { useState } from 'react';
+import type { CSSProperties, HTMLAttributes } from 'react';
 import styles from './SlideTimer.module.css';
 import { Button } from '../Button/Button';
 import { Icon } from '../Icon';
-import { Progress } from '../Progress/Progress';
 import '../../styles/tokens.css';
 // Hand-maintained companion to tokens.css: font import + alpha-color stopgap.
 import '../../styles/tokens.extras.css';
@@ -27,10 +27,13 @@ export interface SlideTimerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'o
 /**
  * Impact DS Slide timer — converted from the Figma "Slide timer" component
  * set (node 9587:6174 in the SMAL Impact Design System (Public) Figma file).
- * One bar per slide: the current slide's bar is wider and fills over
- * `duration` (the Progress animation), the others are solid. The arrows are
- * Tertiary icon buttons. It controls nothing itself: show the slide that
- * `onSlideChange` asks for, with the same `slide` prop.
+ * One bar per slide. Every bar is inactive (a track in border/tertiary); only
+ * the progress is active: the current slide's bar is wider and its fill
+ * (interactive/idle/primary) grows over `duration`. When the slide changes the
+ * bars glide to their new widths and the fill that was running fades out where
+ * it stopped, ease out over 300ms. The arrows are Tertiary icon buttons. It
+ * controls nothing itself: show the slide that `onSlideChange` asks for, with
+ * the same `slide` prop.
  */
 export function SlideTimer({
   slide = 1,
@@ -49,6 +52,18 @@ export function SlideTimer({
   const next = current === total ? 1 : current + 1;
   const previous = current === 1 ? total : current - 1;
 
+  // The bar that was current a moment ago keeps its fill, which fades out where it
+  // stopped (`leaving`), and a bar that becomes current again starts a fresh fill (`runs`
+  // counts how often each bar has been the current one, and keys its fill).
+  const [seen, setSeen] = useState(current);
+  const [leaving, setLeaving] = useState<number | null>(null);
+  const [runs, setRuns] = useState<Record<number, number>>({ [current]: 1 });
+  if (seen !== current) {
+    setSeen(current);
+    setLeaving(seen);
+    setRuns({ ...runs, [current]: (runs[current] ?? 0) + 1 });
+  }
+
   return (
     <div
       role="group"
@@ -56,21 +71,25 @@ export function SlideTimer({
       className={[styles.timer, className].filter(Boolean).join(' ')}
       {...rest}
     >
-      <div className={styles.bars} aria-hidden>
-        {Array.from({ length: total }, (_, i) => i + 1).map((n) =>
-          n === current ? (
-            // A new key per slide starts the bar again
-            <Progress
-              key={`current-${n}`}
-              className={styles.current}
-              duration={duration}
-              paused={paused}
-              onComplete={() => onSlideChange?.(next)}
-            />
-          ) : (
-            <span key={n} className={styles.bar} />
-          ),
-        )}
+      <div className={styles.bars} data-paused={paused ? '' : undefined} aria-hidden>
+        {Array.from({ length: total }, (_, i) => i + 1).map((n) => {
+          const isCurrent = n === current;
+          return (
+            <span
+              key={n}
+              className={styles.bar}
+              data-current={isCurrent ? '' : undefined}
+              data-leaving={!isCurrent && n === leaving ? '' : undefined}
+            >
+              <span
+                key={`${n}-${runs[n] ?? 0}`}
+                className={styles.fill}
+                style={{ '--slide-duration': `${duration}ms` } as CSSProperties}
+                onAnimationEnd={isCurrent ? () => onSlideChange?.(next) : undefined}
+              />
+            </span>
+          );
+        })}
       </div>
       {showSlider && (
         <div className={styles.slider}>

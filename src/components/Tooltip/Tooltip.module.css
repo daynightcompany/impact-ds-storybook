@@ -31,3 +31,17 @@
   width: 100%;
   height: 100%;
 }
+
+/* The wrapper around a trigger (TooltipTrigger.tsx): it is the popover's anchor,
+   and it holds the bubble in the DOM, so the pointer going from the trigger onto
+   the bubble never leaves it. */
+.trigger {
+  display: inline-flex;
+  max-width: 100%;
+}
+
+/* The bubble sits spacing/2xs from its trigger (the Popover's default is spacing/s).
+   Doubled, to win over the Popover's own rule, whichever stylesheet comes last. */
+.popover.popover {
+  --popover-offset: var(--breakpoint-spacing-2xs);
+}

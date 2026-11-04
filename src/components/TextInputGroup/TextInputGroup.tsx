@@ -1,4 +1,5 @@
-import type { HTMLAttributes } from 'react';
+import { Children } from 'react';
+import type { CSSProperties, HTMLAttributes } from 'react';
 import styles from './TextInputGroup.module.css';
 import { FieldGroupContext, cx } from '../Field/FieldParts';
 import '../../styles/tokens.css';
@@ -17,13 +18,23 @@ export type TextInputGroupProps = HTMLAttributes<HTMLDivElement>;
  * around it. While one field is focused, open or in error, hovering another
  * one only changes the colour of the outline that is already there.
  *
- * Fields have a minimum width and share the row, so they wrap into rows
- * when the group is narrower than two fields (as on Mobile), with a horizontal
- * divider between the rows. Give the group an accessible name with `aria-label`.
+ * Responsive: the fields share one row while each of them has its minimum
+ * width (310). When the group is narrower than that, whatever the reason (a
+ * narrow container, a layout that changes), they regroup into a vertical
+ * stack, one field per row, with a horizontal divider between the rows. On
+ * Mobile the stack is always vertical. Give the group an accessible name with
+ * `aria-label`.
  */
-export function TextInputGroup({ className, children, ...rest }: TextInputGroupProps) {
+export function TextInputGroup({ className, style, children, ...rest }: TextInputGroupProps) {
+  // The room the row needs is one minimum width per field (see .group in the CSS).
+  const fields = Math.max(1, Children.toArray(children).length);
   return (
-    <div role="group" {...rest} className={cx(styles.group, className)}>
+    <div
+      role="group"
+      {...rest}
+      style={{ '--group-fields': fields, ...style } as CSSProperties}
+      className={cx(styles.group, className)}
+    >
       <FieldGroupContext.Provider value>{children}</FieldGroupContext.Provider>
     </div>
   );

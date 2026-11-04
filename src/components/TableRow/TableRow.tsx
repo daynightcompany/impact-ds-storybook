@@ -35,10 +35,11 @@ const RowTypeContext = createContext<TableRowType>('Default');
  * and Header.
  *
  * A row is a CSS grid whose columns come from the Table (`columns`); on its
- * own, every cell is an equal column. As in Figma the cells form one band,
- * centred in the row, with each cell at the top of it; a header row centres
- * its cells instead. A Default row is at least 72 high and grows with its
- * content, a Header row is 72 high.
+ * own, every cell is an equal column. The cells form one band, centred in the
+ * row, and every cell is centred on the same horizontal line (Figma puts the
+ * cells of a data row at the top of the band; this is centred on request).
+ * A Default row is at least 72 high and grows with its content, a Header row
+ * is 72 high. A row is never narrower than the minimum widths of its columns.
  *
  * Built from divs with the row, columnheader and cell roles, so it belongs
  * inside a Table (role table).

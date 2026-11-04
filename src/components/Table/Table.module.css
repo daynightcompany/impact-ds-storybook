@@ -1,10 +1,22 @@
 /* Figma "Table": a vertical stack of rows with spacing/3xs between them. The
    column widths for all rows are the custom property --table-columns (set from
-   the `columns` prop), which the rows read. */
+   the `columns` prop), which the rows read. The rows keep the minimum widths of
+   their columns, so a table narrower than that scrolls sideways (Mobile)
+   instead of squeezing them: Figma's mobile frames show the first column and
+   the rest off screen. */
 .table {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: var(--breakpoint-spacing-3xs);
   width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+/* A tab stop while it scrolls (Table.tsx): the ring is drawn inside, where the
+   scrolling box does not cut it off. */
+.table:focus-visible {
+  outline: 2px solid var(--theme-color-interactive-idle-primary);
+  outline-offset: -2px;
 }

@@ -1,6 +1,13 @@
-/* Figma "Text Input group": fields in one box, side by side with a divider,
-   wrapping into rows when the box is narrower than two fields (a field has a
-   minimum width, see .grouped in Field.module.css).
+/* Figma "Text Input group": fields in one box, side by side with a divider.
+   A field has a minimum width (310, see .grouped in Field.module.css). While
+   the box has room for every field at that width they share one row; when it
+   has not, the fields regroup into a vertical stack with a divider between
+   the rows: all of them, so three fields never end up as two and one (the
+   flex-basis below is huge when the box is narrower than --group-fields times
+   the minimum width, and zero otherwise, which puts each field on a row of its
+   own or all of them on one). The room is the box's own width, so it follows
+   the layout it is in, with no media query. On Mobile the stack is always
+   vertical, whatever the width.
 
    Layers, back to front: the white of the box; the fields, each with the
    dividers it draws above and to the left of itself (over the last row or
@@ -14,6 +21,9 @@
    and the dividers take the hover colour instead (see .fieldGroup in
    Field.module.css). */
 .group {
+  /* The minimum width of a field, and how many there are (set by TextInputGroup.tsx). */
+  --group-min: 310px;
+  --group-fields: 2;
   /* Lets the fields' states reach the group (see .fieldGroup in Field.module.css). */
   composes: fieldGroup from '../Field/Field.module.css';
   position: relative;
@@ -41,4 +51,19 @@
   box-shadow: inset 0 0 0 var(--theme-borderstroke-s) var(--group-stroke, var(--theme-color-border-primary));
   transition: box-shadow 0.3s ease-out;
   pointer-events: none;
+}
+
+/* One row of equal fields while the box is at least --group-fields minimum
+   widths wide, else one field per row. Doubled, to win over .grouped. */
+.group.group > * {
+  flex: 1 1 calc((var(--group-min) * var(--group-fields) - 100%) * 1000);
+}
+
+/* Mobile: always a vertical stack. */
+:global([data-breakpoint='375-mobile']) .group {
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+:global([data-breakpoint='375-mobile']) .group.group > * {
+  flex: none;
 }

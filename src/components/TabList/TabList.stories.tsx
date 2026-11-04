@@ -9,7 +9,7 @@ const meta = {
   tags: ['autodocs'],
   argTypes: {
     variant: { control: 'select', options: ['Primary', 'Secondary'] },
-    size: { control: 'select', options: ['L', 'XL'] },
+    size: { control: 'select', options: ['M', 'L', 'XL'] },
     orientation: { control: 'select', options: ['Horizontal', 'Vertical'] },
     overflow: { control: 'inline-radio', options: ['none', 'menu'] },
     moreLabel: { control: 'text' },
@@ -41,6 +41,18 @@ export const Primary: Story = {
 
 export const Secondary: Story = {
   args: { variant: 'Secondary', size: 'L', orientation: 'Horizontal', defaultValue: 'overview', 'aria-label': 'Sections' },
+  render: Primary.render,
+};
+
+/** Size M is not in Figma yet: it is built like the Button M and the Chip M, 40 high. */
+export const Medium: Story = {
+  args: { variant: 'Primary', size: 'M', orientation: 'Horizontal', defaultValue: 'overview', 'aria-label': 'Sections' },
+  render: Primary.render,
+};
+
+export const MediumSecondary: Story = {
+  name: 'Medium secondary',
+  args: { variant: 'Secondary', size: 'M', orientation: 'Horizontal', defaultValue: 'overview', 'aria-label': 'Sections' },
   render: Primary.render,
 };
 

@@ -11,17 +11,19 @@ import '../../styles/tokens.extras.css';
 /** Primary = underlined text tab, Secondary = filled pill. */
 export type TabVariant = 'Primary' | 'Secondary';
 /**
- * Figma size ladder: L and XL. The height of each comes from the button
- * sizing tokens (sizing/button/*), so both are a step smaller on Mobile.
- * Mobile values come from the breakpoint tokens, not from a prop.
+ * Size ladder: M, L and XL. M is not in Figma's Tab sets (they have L and XL):
+ * it follows the M of the Button and the Chip, 40 high on both breakpoints, for
+ * tabs that sit beside default-size components. The height of each comes from
+ * the button sizing tokens (sizing/button/*), so L and XL are a step smaller on
+ * Mobile. Mobile values come from the breakpoint tokens, not from a prop.
  */
-export type TabSize = 'L' | 'XL';
+export type TabSize = 'M' | 'L' | 'XL';
 export type TabIcon = 'False' | 'Leading' | 'Trailing' | 'Only';
 
 export interface TabProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'size'> {
   /** Defaults to the variant of the surrounding TabList, else Primary. */
   variant?: TabVariant;
-  /** Defaults to the size of the surrounding TabList, else L. */
+  /** Defaults to the size of the surrounding TabList, else L. M is the size of the Button M and the Chip M. */
   size?: TabSize;
   icon?: TabIcon;
   /** Replaces the placeholder icon. */
@@ -40,7 +42,8 @@ export interface TabProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 
  * Impact DS Tab — converted from the Figma "Tab/Primary" (node 9587:4270) and
  * "Tab/Secondary" (node 9587:4499) component sets, built on "Base/Tab/Primary"
  * 9587:4194 and "Base/Tab/Secondary" 9587:4432. 2 variants x 2 sizes x 4 icon
- * layouts x Unselected/Selected x idle/hover/disabled.
+ * layouts x Unselected/Selected x idle/hover/disabled, plus the size M that
+ * Figma does not have yet (same logic as the Button M and the Chip M).
  *
  * Primary: unselected tabs sit at 50% opacity and come to full opacity on
  * hover; the selected tab has a straight bottom stroke (in a <TabList> that

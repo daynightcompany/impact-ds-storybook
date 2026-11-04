@@ -1,14 +1,20 @@
-/* Figma "Dialog" (node 9587:6878), drawn in the Mobile mode: a vertical stack,
-   8px (spacing/2xs) apart, of the drag handle and the Content frame (primary
-   background, corner radius m, Shadow M, padding spacing/l above and at the
-   sides, none below as the footer brings its own, 24px (spacing/l) between the
-   parts). 375px wide, hugging its height. */
+/* Figma "Dialog" (node 9587:6878): a vertical stack, 8px (spacing/2xs) apart,
+   of the drag handle and the Content frame (primary background, corner radius
+   m, Shadow M, padding spacing/l above and at the sides, none below as the
+   footer brings its own, spacing/l between the parts). Its width is bound to
+   viewport/width, with a minimum of 375 and a maximum of 720 (640 for
+   Form=Select), so it is 720 wide on Desktop (viewport 1920) and 375 wide on
+   Mobile (viewport 375), the full-width sheet; it hugs its height. The padding,
+   the gaps, the radius and the sizes inside follow the breakpoint tokens. */
 .dialog {
+  --dialog-max-width: 720px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: var(--breakpoint-spacing-2xs);
-  width: var(--dialog-width, 375px);
+  width: var(--dialog-width, clamp(375px, var(--breakpoint-viewport-width), var(--dialog-max-width)));
+  /* It never exceeds the space it is in, even where that is under 375. */
+  min-width: min(375px, 100%);
   max-width: 100%;
   margin: 0;
   padding: 0;
@@ -16,6 +22,11 @@
   overflow: visible;
   background: transparent;
   color: var(--theme-color-font-interactive-idle-secondary);
+}
+
+/* Form=Select is at most 640 wide. */
+.select {
+  --dialog-max-width: 640px;
 }
 
 /* Figma "Drag Skeleton": a 32 x 4 pill, on Mobile only (its visibility is
@@ -61,9 +72,15 @@
   --dialog-header-padding: 0;
 }
 
-/* The Footer instance: spacing/l above and below, none at the sides. */
+/* The Footer instance: spacing/l above and below, none at the sides. The 2 CTA
+   footer is at most 460 wide and sits at the end of the dialog (Figma: min
+   324, max 460); on Mobile the dialog is narrower than that, so the two buttons
+   stack across the full width. */
 .footer {
   --dialog-footer-padding: var(--breakpoint-spacing-l) 0;
+  --dialog-footer-max-width: 460px;
+  display: flex;
+  justify-content: flex-end;
 }
 
 /* Default form: the inner Content frame, spacing/l between its groups. */

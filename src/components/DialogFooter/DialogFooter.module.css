@@ -11,6 +11,8 @@
 }
 .fill {
   padding: var(--dialog-footer-padding, var(--breakpoint-spacing-l));
+  /* Figma: the 2 CTA footer is at most 460 wide (a Dialog sets it). */
+  max-width: var(--dialog-footer-max-width, none);
 }
 
 .buttons {

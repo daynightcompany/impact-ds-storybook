@@ -11,8 +11,8 @@ export type TextLinkSize = 'L' | 'M' | 'S';
 export interface TextLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   size?: TextLinkSize;
   /**
-   * Figma State=Hover. The link shows this by itself under the pointer; set
-   * it to show the hover look statically.
+   * Figma State=Hover. The link shows this by itself under the pointer (the
+   * line is gone); set it to show the hover look statically.
    */
   hover?: boolean;
   /** The text of the link (Figma: "Link"). */
@@ -23,7 +23,9 @@ export interface TextLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
  * Impact DS Text link — converted from the Figma "Text/Links" component set
  * (node 9587:6262 in the SMAL Impact Design System (Public) Figma file). A
  * real `a` element: the text in the label style of its size with a line along the
- * bottom of the text box, which gets thicker on hover. Figma names the
+ * bottom of the text box. On hover the line goes: it retracts to the right and
+ * comes back when the pointer leaves, ease out over 300ms (Figma's hover
+ * variants draw it thicker; this is a change on request). Figma names the
  * hover variants Size6, Size5 and Size4 (they are L, M and S).
  */
 export function TextLink({

@@ -19,7 +19,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Text Input group" component set (node 9587:5242): fields in one box with a divider between them. The children are Input fields (or a Dropdown) that lose their own stroke inside the group; a hovered or focused field draws its own stroke in place of the dividers around it (while one field is focused, open or in error, hovering another one only changes the colour of the outline that is already there), and each field\'s label glides into its caption as in the Input field (a focused field that is still empty keeps its label at half opacity). Fields have a minimum width and share the row, so they wrap into rows when the group is narrower than two fields (as on Mobile), with a horizontal divider between the rows. The AllVariants story shows Hover and Focused by putting `data-state` on a wrapper. Use the Breakpoint switch in the toolbar to see the Mobile values.',
+          'Converted from the Figma "Text Input group" component set (node 9587:5242): fields in one box with a divider between them. The children are Input fields (or a Dropdown) that lose their own stroke inside the group; a hovered or focused field draws its own stroke in place of the dividers around it (while one field is focused, open or in error, hovering another one only changes the colour of the outline that is already there), and each field\'s label glides into its caption as in the Input field (a focused field that is still empty keeps its label at half opacity). Responsive: on a wide layout the fields share one row, each at least 310 wide; when the group has no room for all of them at that width (a narrower container, a layout that changes) they regroup into a vertical stack, one field per row, with a horizontal divider between the rows (all of them at once, so three fields never end up as two and one). On Mobile the stack is always vertical. Drag the corner of the box in the Resizable story to see it change. The AllVariants story shows Hover and Focused by putting `data-state` on a wrapper. Use the Breakpoint switch in the toolbar to see the Mobile values.',
       },
     },
   },
@@ -63,6 +63,12 @@ export const ThreeFields: Story = {
   ),
 };
 
+/** Not wide enough for all three fields at their minimum width, though two would fit: all of them stack. */
+export const ThreeFieldsStacked: Story = {
+  name: 'Three fields, stacked',
+  render: ThreeFields.render,
+};
+
 export const WithDropdown: Story = {
   render: (args) => (
     <TextInputGroup {...args}>
@@ -72,7 +78,7 @@ export const WithDropdown: Story = {
   ),
 };
 
-/** Narrower than two fields: the fields wrap into rows. */
+/** Wide enough for one field only: the fields regroup into a vertical stack. */
 export const Narrow: Story = {
   decorators: [
     (Story) => (
@@ -81,6 +87,19 @@ export const Narrow: Story = {
       </div>
     ),
   ],
+};
+
+/** Drag the bottom-right corner of the box: the fields stack once there is no room for each of them side by side, and line up again when there is. */
+export const Resizable: Story = {
+  parameters: { chromatic: { disableSnapshot: true } },
+  decorators: [
+    (Story) => (
+      <div style={{ width: 960, minWidth: 200, overflow: 'auto', resize: 'horizontal', paddingBottom: 12 }}>
+        <Story />
+      </div>
+    ),
+  ],
+  render: ThreeFields.render,
 };
 
 /** Figma states Idle, Hover and Populated (first field focused), wide and narrow. */

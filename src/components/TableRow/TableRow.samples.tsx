@@ -13,8 +13,13 @@ import '../../styles/tokens.text-modes.css';
 // Hand-maintained companion to tokens.css: font import + alpha-color stopgap.
 import '../../styles/tokens.extras.css';
 
-/** Figma's columns: an avatar (40), four equal columns and a checkbox (18). */
-export const sampleColumns = '40px repeat(4, minmax(0, 1fr)) 18px';
+/**
+ * Figma's columns: an avatar (40), four equal columns and a checkbox (18). The
+ * equal columns are at least 120 wide (Figma's are at least 100, and a heading
+ * chip is about 110), so on Mobile the table scrolls sideways instead of
+ * squeezing them.
+ */
+export const sampleColumns = '40px repeat(4, minmax(120px, 1fr)) 18px';
 
 /** Figma's text block (Text/Card text block): a title and, optionally, a subtitle. */
 export function TextBlock({ title = 'Title', subtitle }: { title?: string; subtitle?: string }) {

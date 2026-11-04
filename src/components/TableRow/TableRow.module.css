@@ -1,9 +1,14 @@
 /* Figma "Table row": spacing/s padding and gap, cornerRadius/s, a fixed height
    of 72 (the one value not bound to a variable). The Cells slot is one band of
    cells, centred in the row; here that band is the grid track, so
-   `align-content` centres it and `align-items` puts every cell at its top.
-   The columns are set once for all rows by the Table (--table-columns); with
-   no Table every cell is an equal column. */
+   `align-content` centres it and `align-items` centres every cell on the
+   same horizontal line (Figma has them at the top of the band; they are
+   centred here on request, so a one-line cell, a two-line block, a Label and a
+   Checkbox all sit on the middle of the row). The columns are set once for
+   all rows by the Table (--table-columns); with no Table every cell is an
+   equal column. A row is never narrower than its columns' minimum widths
+   (`min-width: min-content`), so the Table scrolls sideways when it is
+   narrower than that, as on Mobile. */
 .row {
   box-sizing: border-box;
   display: grid;
@@ -12,8 +17,9 @@
   grid-auto-columns: minmax(0, 1fr);
   column-gap: var(--breakpoint-spacing-s);
   align-content: center;
-  align-items: start;
+  align-items: center;
   width: 100%;
+  min-width: min-content;
   min-height: 72px;
   padding: var(--breakpoint-spacing-s);
   border-radius: var(--breakpoint-cornerradius-s);
@@ -31,11 +37,10 @@
   background: var(--theme-color-border-tertiary);
 }
 
-/* The header has no fill of its own beyond the page colour and centres its
-   cells: the 56 high chips are taller than the 40 inside the padding, so they
-   spill over it evenly, as in Figma. */
+/* The header has no fill of its own beyond the page colour: its cells are
+   centred like the others, and the 56 high chips are taller than the 40 inside
+   the padding, so they spill over it evenly, as in Figma. */
 .type-header {
-  align-items: center;
   height: 72px;
   background: var(--theme-color-background-primary);
 }

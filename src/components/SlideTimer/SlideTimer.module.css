@@ -12,21 +12,67 @@
   gap: var(--breakpoint-spacing-m);
 }
 
-/* A slide that is not the current one: a solid 40 x 4 bar (Figma's Progress at 100%). */
+/* Every slide's bar is inactive: a 40 x 4 track in border/tertiary. Only the
+   progress is active (the fill below). The current slide's bar is the one that
+   is 75 wide, and it eases between the two widths, so while one bar grows
+   the other shrinks by the same amount and the arrows do not move. */
 .bar {
+  position: relative;
   flex: none;
   box-sizing: border-box;
+  overflow: hidden;
   width: 40px;
   height: var(--breakpoint-spacing-3xs);
   border-radius: var(--breakpoint-cornerradius-rounded);
-  background: var(--theme-color-interactive-idle-primary);
+  background: var(--theme-color-border-tertiary);
+  transition: width 0.3s ease-out;
+}
+.bar[data-current] {
+  width: 75px;
 }
 
-/* The current slide: a 75px bar that fills over the slide's time.
-   (.bars .current outranks Progress's own full-width rule whatever order the sheets load in.) */
-.bars .current {
-  flex: none;
-  width: 75px;
+/* The progress: interactive/idle/primary, from the 5px start of Figma's
+   "Progress animation" to the full bar in a straight line, so the time left
+   reads off the bar. It is only there on the current bar. The bar that was
+   current a moment ago keeps the same animation, held where it stopped, while
+   it fades out; every other bar has no animation and is invisible. */
+.fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  display: block;
+  width: 0;
+  border-radius: inherit;
+  background: var(--theme-color-interactive-idle-primary);
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+}
+.bar[data-current] .fill,
+.bar[data-leaving] .fill {
+  animation: fill var(--slide-duration) linear forwards;
+}
+.bar[data-current] .fill {
+  opacity: 1;
+}
+.bars[data-paused] .bar[data-current] .fill,
+.bar[data-leaving] .fill {
+  animation-play-state: paused;
+}
+
+/* A fill that starts (a slide begins, or the page loads) fades in rather than
+   appearing, as the one that stops fades out. */
+@starting-style {
+  .bar[data-current] .fill {
+    opacity: 0;
+  }
+}
+
+@keyframes fill {
+  from {
+    width: 5px;
+  }
+  to {
+    width: 100%;
+  }
 }
 
 /* The arrows: Figma's Slider frame, gap spacing/xs. */
@@ -34,4 +80,11 @@
   display: flex;
   align-items: center;
   gap: var(--breakpoint-spacing-xs);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar,
+  .fill {
+    transition: none;
+  }
 }

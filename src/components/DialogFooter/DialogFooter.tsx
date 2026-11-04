@@ -58,7 +58,9 @@ function renderButton(value: DialogFooterButton, hierarchy: ButtonHierarchy): Re
  * In 2 CTA and Vertical the buttons share the width and keep a minimum
  * width, so two of them wrap into a stack in a narrow
  * dialog, exactly like the Figma auto layout. Inside a Dialog or Popup the
- * instance padding is overridden, here through `--dialog-footer-padding`.
+ * instance padding is overridden, here through `--dialog-footer-padding`; a
+ * Dialog also limits these two layouts to 460 wide (`--dialog-footer-max-width`,
+ * Figma's maximum for the 2 CTA footer) and puts the footer at its end.
  */
 export function DialogFooter({
   buttonWidth = '3 CTA',

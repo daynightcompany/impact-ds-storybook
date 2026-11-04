@@ -6,16 +6,21 @@ import '../../styles/tokens.css';
 /**
  * Where the popover sits against its anchor: the side (`bottom`, `top`, `right`
  * or `left`) and which edge of the anchor it lines up with (`start` is the
- * left or top edge, `end` the right or bottom edge). It flips to the opposite
- * side when there is no room.
+ * left or top edge, `end` the right or bottom edge; with neither, as in `top`,
+ * it is centred on the anchor). It flips to the opposite side when there is
+ * no room.
  */
 export type PopoverPlacement =
+  | 'bottom'
   | 'bottom-start'
   | 'bottom-end'
+  | 'top'
   | 'top-start'
   | 'top-end'
+  | 'right'
   | 'right-start'
   | 'right-end'
+  | 'left'
   | 'left-start'
   | 'left-end';
 
@@ -38,7 +43,8 @@ export interface PopoverProps extends Omit<HTMLAttributes<HTMLDivElement>, 'popo
   anchorRef: RefObject<HTMLElement | null>;
   /**
    * `bottom-start` lines the popover's start edge up with the anchor's, below
-   * it; `right-start` puts it beside the anchor, top edges lined up.
+   * it; `right-start` puts it beside the anchor, top edges lined up; `top`
+   * centres it above the anchor.
    */
   placement?: PopoverPlacement;
   /** Gap between the anchor and the popover, in pixels. Defaults to spacing/s, the gap in the Figma Dropdown demo. */
@@ -47,6 +53,12 @@ export interface PopoverProps extends Omit<HTMLAttributes<HTMLDivElement>, 'popo
   matchAnchorWidth?: boolean;
   /** Moves the focus into the popover when it opens. Turn it off for a popover that only informs. */
   autoFocus?: boolean;
+  /**
+   * Gives the focus back to the anchor when the popover closes from inside
+   * (Escape, or the app closing it). Turn it off for a popover that never takes
+   * the focus, such as a tooltip, so closing it moves nothing.
+   */
+  restoreFocus?: boolean;
   /** Keeps the children mounted while the popover is closed (their state survives). */
   keepMounted?: boolean;
   children?: ReactNode;
@@ -111,9 +123,9 @@ function firstFocusable(root: HTMLElement): HTMLElement | null {
  * The anchor owns the toggle: open on its click and close on its next one.
  * The popover closes by itself on Escape, on a press outside it and on focus
  * moving away, by calling `onOpenChange(false, reason)`; the focus returns to
- * the anchor after Escape or when the app closes it from inside. It has
- * `role="dialog"`: give it an `aria-label`, and point the anchor's
- * `aria-controls` at its `id`.
+ * the anchor after Escape or when the app closes it from inside (unless
+ * `restoreFocus` is off). It has `role="dialog"`: give it an `aria-label`,
+ * and point the anchor's `aria-controls` at its `id`.
  */
 export function Popover({
   open,
@@ -123,6 +135,7 @@ export function Popover({
   offset,
   matchAnchorWidth = false,
   autoFocus = true,
+  restoreFocus = true,
   keepMounted = false,
   role = 'dialog',
   className,
@@ -167,7 +180,7 @@ export function Popover({
     const active = document.activeElement;
     const focusWasInside = !active || active === document.body || Boolean(el?.contains(active));
     if (el && SUPPORTS_POPOVER && el.matches(':popover-open')) el.hidePopover();
-    if (focusWasInside && !skipRestoreFocus.current) {
+    if (restoreFocus && focusWasInside && !skipRestoreFocus.current) {
       // After the key press or click that closed it: moved at once, a keydown (Enter in a list)
       // would go on to press the anchor button as well and open the popover again.
       window.setTimeout(() => {
@@ -177,7 +190,7 @@ export function Popover({
       }, 0);
     }
     skipRestoreFocus.current = false;
-  }, [open, placement, anchorRef]);
+  }, [open, placement, restoreFocus, anchorRef]);
 
   // Once the fade-out has run, take the children out of the page. Without the
   // Popover API, or with reduced motion, there is nothing to wait for.
@@ -228,7 +241,11 @@ export function Popover({
         const sideways =
           width <= room[preferredSide] || room[preferredSide] >= room[opposite] ? preferredSide : opposite;
         const tall = Math.min(naturalHeight, Math.max(MIN_HEIGHT, viewportHeight - 2 * VIEWPORT_MARGIN));
-        const wanted = placement.endsWith('end') ? a.bottom - tall : a.top;
+        const wanted = placement.endsWith('end')
+          ? a.bottom - tall
+          : placement.endsWith('start')
+            ? a.top
+            : a.top + (a.height - tall) / 2;
         const y = Math.min(Math.max(VIEWPORT_MARGIN, wanted), viewportHeight - tall - VIEWPORT_MARGIN);
         const x = sideways === 'right' ? a.right + gap : a.left - gap - width;
 
@@ -248,7 +265,11 @@ export function Popover({
 
       const height = Math.min(naturalHeight, Math.max(MIN_HEIGHT, room[side]));
       const top = side === 'bottom' ? a.bottom + gap : a.top - gap - height;
-      const left = placement.endsWith('end') ? a.right - width : a.left;
+      const left = placement.endsWith('end')
+        ? a.right - width
+        : placement.endsWith('start')
+          ? a.left
+          : a.left + (a.width - width) / 2;
 
       el.style.setProperty('--popover-max-height', `${height}px`);
       el.style.top = `${Math.round(top * 100) / 100}px`;

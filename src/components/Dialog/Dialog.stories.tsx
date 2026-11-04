@@ -76,7 +76,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Dialog" component set (node 9587:6878): a panel in two forms. Default is a form: the "Form fields" slot (text inputs and dropdowns), then the Radio, Checkboxes and Switches groups (the slots "Selectors", "Checkbox content" and "Switch content"). Select is a list to choose from: Search, Tabs and the list. Both have the Header and Footer booleans. Figma draws it in the Mobile mode, so use the Breakpoint switch in the toolbar: on Mobile the drag handle shows above the sheet, and every size follows the switch. The slots take any node, and `true` shows the placeholders Figma has there. With `modal` and `open` it opens over a backdrop (see the "Modal" story); without them it is only the panel.',
+          'Converted from the Figma "Dialog" component set (node 9587:6878): a panel in two forms. Default is a form: the "Form fields" slot (text inputs and dropdowns), then the Radio, Checkboxes and Switches groups (the slots "Selectors", "Checkbox content" and "Switch content"). Select is a list to choose from: Search, Tabs and the list. Both have the Header and Footer booleans. Desktop and Mobile are different layouts (use the Breakpoint switch in the toolbar). Desktop is a panel 720 wide (640 for Select): the text inputs of a group sit side by side, and the 2 CTA footer is at most 460 wide, at the end, with the two buttons in a row. Mobile is the 375 wide sheet: the drag handle shows above it, the text inputs are stacked, and the two footer buttons are stacked across the full width. The panel never exceeds the space it is in, and every size inside follows the switch. The slots take any node, and `true` shows the placeholders Figma has there. With `modal` and `open` it opens over a backdrop (see the "Modal" story); without them it is only the panel.',
       },
     },
   },
@@ -143,9 +143,9 @@ export const CustomSlots: Story = {
   ),
 };
 
-/** Form fields only, no header. */
+/** Form fields only, no header (so the dialog gets its name from `aria-label`). */
 export const FieldsOnly: Story = {
-  args: { header: false, radio: false, checkboxes: false, switches: false },
+  args: { header: false, radio: false, checkboxes: false, switches: false, 'aria-label': 'Your details' },
 };
 
 /** Select without the Search and Tabs: a plain list in a dialog. */
@@ -210,7 +210,7 @@ export const Modal: Story = {
   },
 };
 
-/** Both forms side by side, as Figma has them. */
+/** Both forms side by side: the Desktop panels are 720 and 640 wide, the Mobile sheets 375 (switch the Breakpoint in the toolbar). */
 export const AllVariants: Story = {
   parameters: {
     chromatic: {

@@ -134,7 +134,11 @@ export interface DialogProps extends Omit<HTMLAttributes<HTMLElement>, 'title' |
   modal?: boolean;
   /** A `modal` dialog is open. */
   open?: boolean;
-  /** Width of the panel: a number of pixels or any CSS length. The default is the Figma width; it never exceeds the space it is in. */
+  /**
+   * Width of the panel: a number of pixels or any CSS length. The default is
+   * the Figma width, 720 on Desktop and 375 on Mobile (at most 640 for the
+   * `Select` form); it never exceeds the space it is in.
+   */
   width?: number | string;
   ref?: Ref<HTMLElement>;
 }
@@ -152,10 +156,13 @@ export interface DialogProps extends Omit<HTMLAttributes<HTMLElement>, 'title' |
  * then the footer. Select: the header, a Search, Tabs, the list (`children`)
  * and the footer, like the Popup does on Desktop.
  *
- * Figma draws the Dialog in the Mobile mode: a drag handle sits above the sheet
- * on Mobile only (it is decorative here), and every size follows the Breakpoint
- * switch. Figma has no padding under the last part, as the footer brings its
- * own; without a footer the panel gets the same padding.
+ * Desktop and Mobile differ as in Figma: the panel is 720 wide on Desktop (640
+ * for `Select`) and the 375 wide sheet on Mobile, where a drag handle sits above
+ * it (it is decorative here). Every size inside follows the Breakpoint switch:
+ * the fields wrap into a column when they do not fit side by side, and the 2
+ * CTA footer (at most 460 wide, at the end of the dialog) stacks its buttons
+ * across the sheet. Figma has no padding under the last part, as the footer
+ * brings its own; without a footer the panel gets the same padding.
  */
 export function Dialog({
   form = 'Default',
@@ -223,7 +230,9 @@ export function Dialog({
       </div>
     );
 
-  const classes = [styles.dialog, modal && styles.modal, className].filter(Boolean).join(' ');
+  const classes = [styles.dialog, form === 'Select' && styles.select, modal && styles.modal, className]
+    .filter(Boolean)
+    .join(' ');
   const rootStyle = {
     ...(width !== undefined ? { '--dialog-width': typeof width === 'number' ? `${width}px` : width } : null),
     ...style,

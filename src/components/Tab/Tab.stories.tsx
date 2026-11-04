@@ -10,7 +10,7 @@ const meta = {
   tags: ['autodocs'],
   argTypes: {
     variant: { control: 'select', options: ['Primary', 'Secondary'] },
-    size: { control: 'select', options: ['L', 'XL'] },
+    size: { control: 'select', options: ['M', 'L', 'XL'] },
     icon: { control: 'select', options: ICONS },
     selected: { control: 'boolean' },
     disabled: { control: 'boolean' },
@@ -20,7 +20,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Tab/Primary" (node 9587:4270) and "Tab/Secondary" (node 9587:4499) component sets. Source of truth for variants: Figma. L and XL take their height from the button sizing tokens (sizing/button/*), and both are a step smaller on Mobile. Primary is an underlined text tab (unselected tabs sit at 50% opacity), Secondary is a filled pill. A Tab on its own is a toggle button; put tabs in a Tab list for the tab semantics and arrow-key navigation. The Only layout has no label: pass an `aria-label`. Use the Breakpoint switch in the toolbar to see the Mobile values.',
+          'Converted from the Figma "Tab/Primary" (node 9587:4270) and "Tab/Secondary" (node 9587:4499) component sets. Source of truth for variants: Figma. L and XL take their height from the button sizing tokens (sizing/button/*), and both are a step smaller on Mobile. M is not in Figma\'s Tab sets yet: it is built like the Button M and the Chip M (40 high on Desktop and Mobile, Interactive-Label Text LG, spacing/button/2xs around an icon), for tabs that sit beside default-size components. Primary is an underlined text tab (unselected tabs sit at 50% opacity), Secondary is a filled pill. A Tab on its own is a toggle button; put tabs in a Tab list for the tab semantics and arrow-key navigation. The Only layout has no label: pass an `aria-label`. Use the Breakpoint switch in the toolbar to see the Mobile values.',
       },
     },
   },
@@ -43,6 +43,11 @@ export const Secondary: Story = {
 
 export const SecondarySelected: Story = {
   args: { variant: 'Secondary', size: 'L', icon: 'False', selected: true, children: 'Tab' },
+};
+
+/** Not in Figma yet: the Button M and Chip M size, 40 high. */
+export const Medium: Story = {
+  args: { variant: 'Primary', size: 'M', icon: 'False', selected: true, children: 'Tab' },
 };
 
 export const ExtraLarge: Story = {
@@ -84,7 +89,7 @@ export const AllVariants: Story = {
   render: () => (
     <div style={{ display: 'grid', gap: 32 }}>
       {(['Primary', 'Secondary'] as const).map((variant) =>
-        (['L', 'XL'] as const).map((size) => (
+        (['M', 'L', 'XL'] as const).map((size) => (
           <div key={`${variant}-${size}`} style={{ display: 'grid', gap: 16 }}>
             <span style={{ fontSize: 12, color: '#888' }}>
               {variant}, size {size}
