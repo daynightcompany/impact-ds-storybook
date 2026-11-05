@@ -49,8 +49,10 @@ function renderButton(
  * background with Shadow L and corner radius m: the text on one side, two XL
  * buttons (Primary and Secondary) on the other. It fills the width it is in;
  * the text takes the room the buttons leave and the buttons drop under it when
- * it would get narrower than 287, and stack when they would get narrower than
- * 176 each, as in the Figma auto layout. On a phone it is text over two full
+ * it would get narrower than 287. The buttons stack over the full width when
+ * they would get narrower than 176 each, as in the Figma auto layout, or than
+ * their labels need (a label never wraps or runs out of its button, so long
+ * labels stack the buttons earlier). On a phone it is text over two full
  * width buttons. It does not position itself: put it at the edge of the screen
  * (or in a Popover or Dialog) and set `role="region"` with an `aria-label`, or
  * `role="dialog"`, as it suits the page. Padding, gaps, radius and the buttons

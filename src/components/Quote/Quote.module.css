@@ -1,0 +1,106 @@
+/* Figma "Quote" (node 9587:7416). A figure as wide as the space it is in, with
+   the quote on a card (L, M) or on its own (S). */
+.quote {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  margin: 0;
+  color: var(--theme-color-font-paragraph-primary);
+}
+.card {
+  box-sizing: border-box;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-width: 0;
+}
+.text {
+  width: 100%;
+  margin: 0;
+  overflow-wrap: break-word;
+}
+.author {
+  width: 100%;
+  margin: 0;
+  overflow-wrap: break-word;
+}
+
+/* Size=L: spacing/6xl above and below, spacing/m at the sides, on the surface
+   colour with corner radius m. Paragraph-Body Text 8XL (-5% letter spacing, in em:
+   tokens.css has -5px) filled with a gradient from purple down to wine. */
+.size-l .card {
+  align-items: center;
+  gap: var(--breakpoint-spacing-m);
+  padding: var(--breakpoint-spacing-6xl) var(--breakpoint-spacing-m);
+  border-radius: var(--breakpoint-cornerradius-m);
+  background: var(--theme-color-surface-primary);
+}
+.size-l .text {
+  font-family: var(--font-paragraph-body-text-8xl-sans-family), sans-serif;
+  font-weight: var(--font-paragraph-body-text-8xl-sans-weight);
+  font-size: var(--font-paragraph-body-text-8xl-sans-size);
+  line-height: var(--font-paragraph-body-text-8xl-sans-line-height);
+  letter-spacing: -0.05em;
+  color: transparent;
+  background-image: linear-gradient(
+    to bottom,
+    var(--theme-color-supportive-neutral-purple),
+    var(--theme-color-supportive-neutral-wine)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Size=M: spacing/6xl of room around a card with spacing/3xl above and below and
+   spacing/m at the sides, radius m. The quote is centred, 2XL (-5%), and the
+   author is 3XS, 24 under it. */
+.size-m {
+  padding: var(--breakpoint-spacing-6xl);
+}
+.size-m .card {
+  align-items: center;
+  justify-content: center;
+  gap: var(--breakpoint-spacing-m);
+  padding: var(--breakpoint-spacing-3xl) var(--breakpoint-spacing-m);
+  border-radius: var(--breakpoint-cornerradius-m);
+  background: var(--theme-color-surface-primary);
+  text-align: center;
+}
+.size-m .text {
+  font-family: var(--font-paragraph-body-text-2xl-sans-family), sans-serif;
+  font-weight: var(--font-paragraph-body-text-2xl-sans-weight);
+  font-size: var(--font-paragraph-body-text-2xl-sans-size);
+  line-height: var(--font-paragraph-body-text-2xl-sans-line-height);
+  letter-spacing: -0.05em;
+}
+
+/* Size=S: the quote in Paragraph-Body Text L Serif (italic), the author in M
+   Sans Semi Bold (the M style with weight 600: tokens.css has no M semi bold),
+   24 apart. */
+.size-s .card {
+  align-items: flex-start;
+  gap: var(--breakpoint-spacing-m);
+}
+.size-s .text {
+  font-family: var(--font-paragraph-body-text-l-serif-family), serif;
+  font-weight: var(--font-paragraph-body-text-l-serif-weight);
+  font-style: var(--font-paragraph-body-text-l-serif-style);
+  font-size: var(--font-paragraph-body-text-l-serif-size);
+  line-height: var(--font-paragraph-body-text-l-serif-line-height);
+}
+.size-s .author {
+  font-family: var(--font-paragraph-body-text-m-sans-family), sans-serif;
+  font-weight: 600;
+  font-size: var(--font-paragraph-body-text-m-sans-size);
+  line-height: var(--font-paragraph-body-text-m-sans-line-height);
+}
+
+/* The author of L and M: Paragraph-Body Text 3XS Sans Regular (the caption). */
+.size-l .author,
+.size-m .author {
+  font-family: var(--font-paragraph-body-text-3xs-sans-regular-family), sans-serif;
+  font-weight: var(--font-paragraph-body-text-3xs-sans-regular-weight);
+  font-size: var(--font-paragraph-body-text-3xs-sans-regular-size);
+  line-height: var(--font-paragraph-body-text-3xs-sans-regular-line-height);
+}

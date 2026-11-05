@@ -29,8 +29,10 @@
   overflow-wrap: break-word;
 }
 
-/* The buttons share the other half, 12 (spacing/xs) apart, at least 176 each,
-   so on a narrow banner they stack over the full width. */
+/* The buttons share the other half, 12 (spacing/xs) apart, each at least 176
+   wide and never narrower than its label (the buttons do not wrap their text).
+   When they do not fit side by side, because the banner is narrow or the labels
+   are long, they stack over the full width of the row. */
 .buttons {
   display: flex;
   flex: 1 0 0;
@@ -38,9 +40,11 @@
   align-items: center;
   justify-content: flex-end;
   gap: var(--breakpoint-spacing-xs);
-  min-width: min(176px, 100%);
+  min-width: min-content;
 }
 .buttons > * {
-  flex: 1 0 0;
-  min-width: min(176px, 100%);
+  flex: 1 0 auto;
+  width: 176px;
+  min-width: min-content;
+  max-width: 100%;
 }

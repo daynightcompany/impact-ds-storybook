@@ -26,7 +26,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Cookie banner" component (node 9587:6802) in the SMAL Impact Design System file. A card with the text on one side and two XL buttons (Primary and Secondary) on the other, on the primary background with Shadow L. It fills the width it is in: the text takes half of the row and the buttons the other half; when the text would get narrower than 287 the buttons drop under it, and when each button would get narrower than 176 they stack over the full width, as on a phone. The banner does not position itself: place it at the edge of the screen. Give it `role="region"` with an `aria-label`, or `role="dialog"`, as it suits the page. The labels of the buttons are Figma\'s placeholders ("Button" and "Reject all"); pass a string or a node to change them. Source of truth for variants: Figma. Use the Breakpoint switch in the toolbar to see the Mobile values.',
+          'Converted from the Figma "Cookie banner" component (node 9587:6802) in the SMAL Impact Design System file. A card with the text on one side and two XL buttons (Primary and Secondary) on the other, on the primary background with Shadow L. It fills the width it is in: the text takes half of the row and the buttons the other half; when the text would get narrower than 287 the buttons drop under it, and when each button would get narrower than 176, or than its label needs, they stack over the full width, as on a phone. The banner does not position itself: place it at the edge of the screen. Give it `role="region"` with an `aria-label`, or `role="dialog"`, as it suits the page. The labels of the buttons are Figma\'s placeholders ("Button" and "Reject all"); pass a string or a node to change them. Source of truth for variants: Figma. Use the Breakpoint switch in the toolbar to see the Mobile values.',
       },
     },
   },
@@ -66,7 +66,7 @@ export const OneButton: Story = {
   args: { role: 'region', 'aria-label': 'Cookie consent', secondaryButton: false, primaryButton: 'Got it' },
 };
 
-/** Your own buttons replace the default ones. */
+/** Your own buttons replace the default ones. These labels are long: a button is never narrower than its label, so the buttons stack as soon as they do not fit side by side. */
 export const CustomButtons: Story = {
   args: {
     role: 'region',

@@ -1,0 +1,103 @@
+/* Figma "SalesCardsTextStyle/SalesCardsTextStyle" (node 9587:7464): a wrapping
+   row with spacing/m of padding and between the text and the buttons. As wide as
+   the space it is in, at most 514, never narrower than 324. Its height is the
+   height of what it holds (262 at 514 wide). */
+.card {
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: var(--breakpoint-spacing-m);
+  width: 100%;
+  min-width: min(324px, 100%);
+  max-width: 514px;
+  padding: var(--breakpoint-spacing-m);
+  color: var(--theme-color-font-paragraph-primary);
+}
+
+/* The text: the prices over the name and the slogan, spacing/3xs (4) apart. It
+   takes half of the row and wraps the buttons under it when it would get
+   narrower than 272. */
+.content {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  gap: var(--breakpoint-spacing-3xs);
+  min-width: min(272px, 100%);
+}
+
+/* The two prices side by side at the bottom line, 8 (spacing/2xs) apart; the
+   smaller one has 4 (spacing/3xs) below it, and wraps under the large one when
+   the room is short. */
+.prices {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  align-content: flex-end;
+  gap: var(--breakpoint-spacing-2xs);
+  width: 100%;
+}
+.discountBox {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--breakpoint-spacing-2xs);
+  padding-bottom: var(--breakpoint-spacing-3xs);
+}
+
+.names {
+  display: flex;
+  flex-direction: column;
+  gap: var(--breakpoint-spacing-3xs);
+  width: 100%;
+}
+.name,
+.slogan {
+  width: 100%;
+  margin: 0;
+  overflow-wrap: break-word;
+}
+
+/* Paragraph-Body Text XL: the large price and the name. */
+.fullPrice,
+.name {
+  font-family: var(--font-paragraph-body-text-xl-sans-family), sans-serif;
+  font-weight: var(--font-paragraph-body-text-xl-sans-weight);
+  font-size: var(--font-paragraph-body-text-xl-sans-size);
+  line-height: var(--font-paragraph-body-text-xl-sans-line-height);
+}
+.fullPrice {
+  white-space: nowrap;
+}
+
+/* Paragraph-Body Text M: the smaller price and the slogan. */
+.discountPrice,
+.slogan {
+  font-family: var(--font-paragraph-body-text-m-sans-family), sans-serif;
+  font-weight: var(--font-paragraph-body-text-m-sans-weight);
+  font-size: var(--font-paragraph-body-text-m-sans-size);
+  line-height: var(--font-paragraph-body-text-m-sans-line-height);
+}
+.discountPrice {
+  white-space: nowrap;
+}
+
+/* The buttons share the other half, 12 (spacing/xs) apart, each at least 176
+   wide and never narrower than its label (the buttons do not wrap their text),
+   at the end of the row. When they do not fit side by side, because the card is
+   narrow or the labels are long, they stack over the full width. */
+.buttons {
+  display: flex;
+  flex: 1 0 0;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--breakpoint-spacing-xs);
+  min-width: min-content;
+}
+.buttons > * {
+  flex: 1 0 auto;
+  width: 176px;
+  min-width: min-content;
+  max-width: 100%;
+}

@@ -26,7 +26,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Dialog/Footer" component set (node 9587:6837) in the SMAL Impact Design System file. Button width is `3 CTA` (Tertiary at the start, Secondary and Primary at the end) or `2 CTA` (Secondary and Primary share the width, so Tertiary is never shown). Layout is Horizontal or Vertical. The booleans Primary, Secondary and Tertiary button show or hide a button: `true` shows the default button, a string is its label, a node replaces it. Buttons that share the width keep a minimum width, so two of them wrap into a stack in a narrow dialog, as in Figma. In the wide footer the end group stays at the end when Tertiary is hidden (Figma moves it to the start). `stackOnMobile` (not in Figma) makes the buttons stand one under another on the Mobile breakpoint, as Vertical does; the Popup does so. Use the Breakpoint switch in the toolbar to see the Mobile values.',
+          'Converted from the Figma "Dialog/Footer" component set (node 9587:6837) in the SMAL Impact Design System file. Button width is `3 CTA` (Tertiary at the start, Secondary and Primary at the end) or `2 CTA` (Secondary and Primary share the width, so Tertiary is never shown). Layout is Horizontal or Vertical. The booleans Primary, Secondary and Tertiary button show or hide a button: `true` shows the default button, a string is its label, a node replaces it. Buttons that share the width keep a minimum width (176, or what their label needs), so two of them wrap into a stack in a narrow dialog or when the labels are long, as in Figma. In the wide footer the end group stays at the end when Tertiary is hidden (Figma moves it to the start). `stackOnMobile` (not in Figma) makes the buttons stand one under another on the Mobile breakpoint, as Vertical does; the Popup does so. Use the Breakpoint switch in the toolbar to see the Mobile values.',
       },
     },
   },
@@ -40,6 +40,19 @@ export const Default: Story = {};
 
 export const TwoCTA: Story = {
   args: { buttonWidth: '2 CTA' },
+  decorators: [
+    (Story) => (
+      <div style={{ width: 460 }}>
+        <Story />
+      </div>
+    ),
+  ],
+};
+
+/** Long labels: a button is never narrower than its label, so the two buttons stack as soon as they do not fit side by side. */
+export const LongLabels: Story = {
+  name: 'Long labels',
+  args: { buttonWidth: '2 CTA', secondaryButton: 'Manage preferences', primaryButton: 'Accept necessary only' },
   decorators: [
     (Story) => (
       <div style={{ width: 460 }}>

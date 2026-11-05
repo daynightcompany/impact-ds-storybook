@@ -1,0 +1,64 @@
+/* Figma "Text/PopupTextStyle" (node 9587:7449): a column, 24 (spacing/m) between
+   the text and the button, left aligned. As wide as the space it is in (900 in the
+   Figma frame), never narrower than 272. */
+.text {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--breakpoint-spacing-m);
+  width: 100%;
+  min-width: min(272px, 100%);
+  color: var(--theme-color-font-paragraph-primary);
+}
+
+/* The headline over the copies, 32 (spacing/l, 24 on Mobile) apart. */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--breakpoint-spacing-l);
+  width: 100%;
+}
+
+/* The pre title and the body text, 16 (spacing/s) apart. */
+.copies {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--breakpoint-spacing-s);
+  width: 100%;
+}
+
+.headline,
+.preTitle,
+.body {
+  width: 100%;
+  margin: 0;
+  overflow-wrap: break-word;
+}
+
+/* Paragraph-Body Text 3XL (-5% letter spacing, in em: tokens.css has -5px). */
+.headline {
+  font-family: var(--font-paragraph-body-text-3xl-sans-family), sans-serif;
+  font-weight: var(--font-paragraph-body-text-3xl-sans-weight);
+  font-size: var(--font-paragraph-body-text-3xl-sans-size);
+  line-height: var(--font-paragraph-body-text-3xl-sans-line-height);
+  letter-spacing: -0.05em;
+}
+
+/* Paragraph-Body Text XL. */
+.preTitle {
+  font-family: var(--font-paragraph-body-text-xl-sans-family), sans-serif;
+  font-weight: var(--font-paragraph-body-text-xl-sans-weight);
+  font-size: var(--font-paragraph-body-text-xl-sans-size);
+  line-height: var(--font-paragraph-body-text-xl-sans-line-height);
+}
+
+/* Paragraph-Body Text L. */
+.body {
+  font-family: var(--font-paragraph-body-text-l-sans-family), sans-serif;
+  font-weight: var(--font-paragraph-body-text-l-sans-weight);
+  font-size: var(--font-paragraph-body-text-l-sans-size);
+  line-height: var(--font-paragraph-body-text-l-sans-line-height);
+}

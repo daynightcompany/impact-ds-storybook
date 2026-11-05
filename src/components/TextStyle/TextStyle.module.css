@@ -1,0 +1,95 @@
+/* Figma "Text/PrimaryTextStyle" (node 9587:7396): a column of the title, the
+   body text and the disclaimer, left aligned, as wide as the space it is in (924
+   in the Figma frame) and never narrower than 272. Primary has spacing/xl between
+   the parts, the other two have spacing/m. */
+.text {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  min-width: min(272px, 100%);
+  color: var(--theme-color-font-paragraph-primary);
+}
+.title,
+.body,
+.disclaimer {
+  width: 100%;
+  margin: 0;
+  overflow-wrap: break-word;
+}
+.disclaimer {
+  color: var(--theme-color-font-paragraph-secondary);
+}
+
+/* Hierarchy=Primary: Paragraph-Body Text 6XL title (the -5% letter spacing of the
+   style is in em: tokens.css has it as -5px), L body, M disclaimer. */
+.primary {
+  gap: var(--breakpoint-spacing-xl);
+}
+.primary .title {
+  font-family: var(--font-paragraph-body-text-6xl-sans-family), sans-serif;
+  font-weight: var(--font-paragraph-body-text-6xl-sans-weight);
+  font-size: var(--font-paragraph-body-text-6xl-sans-size);
+  line-height: var(--font-paragraph-body-text-6xl-sans-line-height);
+  letter-spacing: -0.05em;
+}
+.primary .body {
+  font-family: var(--font-paragraph-body-text-l-sans-family), sans-serif;
+  font-weight: var(--font-paragraph-body-text-l-sans-weight);
+  font-size: var(--font-paragraph-body-text-l-sans-size);
+  line-height: var(--font-paragraph-body-text-l-sans-line-height);
+}
+.primary .disclaimer {
+  font-family: var(--font-paragraph-body-text-m-sans-family), sans-serif;
+  font-weight: var(--font-paragraph-body-text-m-sans-weight);
+  font-size: var(--font-paragraph-body-text-m-sans-size);
+  line-height: var(--font-paragraph-body-text-m-sans-line-height);
+}
+
+/* Hierarchy=Secondary: 2XL title, M body, S disclaimer. */
+.secondary {
+  gap: var(--breakpoint-spacing-m);
+}
+.secondary .title {
+  font-family: var(--font-paragraph-body-text-2xl-sans-family), sans-serif;
+  font-weight: var(--font-paragraph-body-text-2xl-sans-weight);
+  font-size: var(--font-paragraph-body-text-2xl-sans-size);
+  line-height: var(--font-paragraph-body-text-2xl-sans-line-height);
+  letter-spacing: -0.05em;
+}
+.secondary .body {
+  font-family: var(--font-paragraph-body-text-m-sans-family), sans-serif;
+  font-weight: var(--font-paragraph-body-text-m-sans-weight);
+  font-size: var(--font-paragraph-body-text-m-sans-size);
+  line-height: var(--font-paragraph-body-text-m-sans-line-height);
+}
+.secondary .disclaimer {
+  font-family: var(--font-paragraph-body-text-s-sans-regular-family), sans-serif;
+  font-weight: var(--font-paragraph-body-text-s-sans-regular-weight);
+  font-size: var(--font-paragraph-body-text-s-sans-regular-size);
+  line-height: var(--font-paragraph-body-text-s-sans-regular-line-height);
+}
+
+/* Hierarchy=Tertiary: XL title (no tracking), S body, XS disclaimer. */
+.tertiary {
+  gap: var(--breakpoint-spacing-m);
+}
+.tertiary .title {
+  font-family: var(--font-paragraph-body-text-xl-sans-family), sans-serif;
+  font-weight: var(--font-paragraph-body-text-xl-sans-weight);
+  font-size: var(--font-paragraph-body-text-xl-sans-size);
+  line-height: var(--font-paragraph-body-text-xl-sans-line-height);
+}
+.tertiary .body {
+  font-family: var(--font-paragraph-body-text-s-sans-regular-family), sans-serif;
+  font-weight: var(--font-paragraph-body-text-s-sans-regular-weight);
+  font-size: var(--font-paragraph-body-text-s-sans-regular-size);
+  line-height: var(--font-paragraph-body-text-s-sans-regular-line-height);
+}
+.tertiary .disclaimer {
+  font-family: var(--font-paragraph-body-text-xs-sans-regular-family), sans-serif;
+  font-weight: var(--font-paragraph-body-text-xs-sans-regular-weight);
+  font-size: var(--font-paragraph-body-text-xs-sans-regular-size);
+  line-height: var(--font-paragraph-body-text-xs-sans-regular-line-height);
+}

@@ -1,0 +1,74 @@
+/* Figma "Text/Card text block" (node 9587:7484): a column, left aligned, as wide as
+   the space it is in (924 in the Figma frame) with the text at most 640 wide. */
+.block {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 640px;
+}
+.eyebrow,
+.title,
+.subtitle {
+  margin: 0;
+  max-width: 100%;
+  overflow-wrap: break-word;
+}
+
+/* Interactive-Label Text XS Sans Regular: the eyebrow (and the subtitle of M). */
+.eyebrow,
+.size-m .subtitle {
+  font-family: var(--font-interactive-label-text-xs-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-xs-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-xs-sans-regular-size);
+  line-height: var(--font-interactive-label-text-xs-sans-regular-line-height);
+  color: var(--theme-color-font-interactive-idle-secondary);
+}
+.title {
+  color: var(--theme-color-font-interactive-idle-secondary);
+}
+
+/* Size=L: 8 (spacing/2xs) between the lines, the title Interactive-Label Text
+   3XL Sans Regular (32 on 40), the subtitle Paragraph-Body Text L Sans in the
+   paragraph colour. The text is at least 300 wide. */
+.size-l .container {
+  gap: var(--breakpoint-spacing-2xs);
+  min-width: min(300px, 100%);
+}
+.size-l .title {
+  font-family: var(--font-interactive-label-text-3xl-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-3xl-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-3xl-sans-regular-size);
+  line-height: var(--font-interactive-label-text-3xl-sans-regular-line-height);
+}
+.size-l .subtitle {
+  font-family: var(--font-paragraph-body-text-l-sans-family), sans-serif;
+  font-weight: var(--font-paragraph-body-text-l-sans-weight);
+  font-size: var(--font-paragraph-body-text-l-sans-size);
+  line-height: var(--font-paragraph-body-text-l-sans-line-height);
+  color: var(--theme-color-font-paragraph-primary);
+}
+
+/* Size=M: no space between the lines, the title Interactive-Label Text MD Sans
+   Regular (16 on 24). At least 100 wide. */
+.size-m {
+  min-width: min(100px, 100%);
+}
+.size-m .container {
+  gap: var(--breakpoint-spacing-none);
+  min-width: min(100px, 100%);
+}
+.size-m .title {
+  font-family: var(--font-interactive-label-text-md-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-md-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-md-sans-regular-size);
+  line-height: var(--font-interactive-label-text-md-sans-regular-line-height);
+}

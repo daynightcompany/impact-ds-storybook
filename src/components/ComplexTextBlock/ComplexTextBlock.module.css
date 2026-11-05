@@ -1,0 +1,84 @@
+/* Figma "Text/Complex text block" (node 9587:7512): the text in a column on the
+   surface colour, centred in the block, with spacing/6xl of padding (40 on Mobile).
+   As wide as the space it is in (1872 in the Figma frame). Its height is the
+   height of the content (730 in the Figma frame); give it more, and the column
+   stays in the middle. */
+.block {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--breakpoint-spacing-m);
+  width: 100%;
+  padding: var(--breakpoint-spacing-6xl);
+  background: var(--theme-color-surface-primary);
+  color: var(--theme-color-font-interactive-idle-secondary);
+}
+
+/* The column of text, left aligned, 32 (spacing/l, 24 on Mobile) between the
+   lines, at most 640 wide and at least 300. */
+.content {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--breakpoint-spacing-l);
+  width: 100%;
+  min-width: 300px;
+  max-width: 640px;
+}
+.uptitle,
+.title,
+.subtitle,
+.quote,
+.body {
+  width: 100%;
+  margin: 0;
+  overflow-wrap: break-word;
+}
+
+/* Paragraph-Body Text M Sans: the uptitle and the body text. */
+.uptitle,
+.body {
+  font-family: var(--font-paragraph-body-text-m-sans-family), sans-serif;
+  font-weight: var(--font-paragraph-body-text-m-sans-weight);
+  font-size: var(--font-paragraph-body-text-m-sans-size);
+  line-height: var(--font-paragraph-body-text-m-sans-line-height);
+}
+
+/* Paragraph-Body Text 5XL Sans (-5% letter spacing, in em: tokens.css has -5px). */
+.title {
+  font-family: var(--font-paragraph-body-text-5xl-sans-family), sans-serif;
+  font-weight: var(--font-paragraph-body-text-5xl-sans-weight);
+  font-size: var(--font-paragraph-body-text-5xl-sans-size);
+  line-height: var(--font-paragraph-body-text-5xl-sans-line-height);
+  letter-spacing: -0.05em;
+}
+
+/* Paragraph-Body Text L Sans. */
+.subtitle {
+  font-family: var(--font-paragraph-body-text-l-sans-family), sans-serif;
+  font-weight: var(--font-paragraph-body-text-l-sans-weight);
+  font-size: var(--font-paragraph-body-text-l-sans-size);
+  line-height: var(--font-paragraph-body-text-l-sans-line-height);
+}
+
+/* Paragraph-Body Text XL Serif (italic). */
+.quote {
+  font-family: var(--font-paragraph-body-text-xl-serif-family), serif;
+  font-weight: var(--font-paragraph-body-text-xl-serif-weight);
+  font-style: var(--font-paragraph-body-text-xl-serif-style);
+  font-size: var(--font-paragraph-body-text-xl-serif-size);
+  line-height: var(--font-paragraph-body-text-xl-serif-line-height);
+}
+
+/* The buttons: a wrapping row, 12 (spacing/xs, 8 on Mobile) apart. */
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--breakpoint-spacing-xs);
+  width: 100%;
+  min-width: min(176px, 100%);
+}

@@ -47,8 +47,10 @@
   margin-left: auto;
 }
 
-/* 2 CTA and Vertical: buttons fill the row, 16px (spacing/s) apart, at least
-   176px each, so they wrap into a stack when the dialog is narrow. */
+/* 2 CTA and Vertical: buttons fill the row, 16px (spacing/s) apart, each at
+   least 176px wide and never narrower than its label (the buttons do not wrap
+   their text), so they wrap into a stack when the dialog is narrow or the
+   labels are long. */
 .fill .buttons {
   justify-content: flex-end;
   gap: var(--breakpoint-spacing-s);
@@ -58,7 +60,7 @@
 }
 .fill .slot {
   flex: 1 1 176px;
-  min-width: 176px;
+  min-width: min-content;
 }
 .fill .slot > * {
   flex: 1 1 auto;

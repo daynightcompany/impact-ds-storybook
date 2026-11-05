@@ -1,0 +1,55 @@
+/* Figma "Text/BannerTextContainer" (node 9587:7434): a wrapping row, 40
+   (spacing/xl, 24 on Mobile) between the text and the button, both at the
+   bottom of the row. As wide as the space it is in (924 in the Figma frame),
+   never narrower than 272. */
+.banner {
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  align-content: flex-end;
+  gap: var(--breakpoint-spacing-xl);
+  width: 100%;
+  min-width: min(272px, 100%);
+  color: var(--theme-color-font-paragraph-primary);
+}
+
+/* The text takes the room the button leaves; the button wraps under it when the
+   text would get narrower than 272 (the minimum of the headline in Figma). */
+.content {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: var(--breakpoint-spacing-2xs);
+  min-width: min(272px, 100%);
+}
+
+/* Paragraph-Body Text L in the secondary (grey) colour. */
+.intro {
+  margin: 0;
+  font-family: var(--font-paragraph-body-text-l-sans-family), sans-serif;
+  font-weight: var(--font-paragraph-body-text-l-sans-weight);
+  font-size: var(--font-paragraph-body-text-l-sans-size);
+  line-height: var(--font-paragraph-body-text-l-sans-line-height);
+  color: var(--theme-color-font-paragraph-secondary);
+  overflow-wrap: break-word;
+}
+
+/* Paragraph-Body Text 3XL (-5% letter spacing, in em: tokens.css has -5px). */
+.headline {
+  margin: 0;
+  font-family: var(--font-paragraph-body-text-3xl-sans-family), sans-serif;
+  font-weight: var(--font-paragraph-body-text-3xl-sans-weight);
+  font-size: var(--font-paragraph-body-text-3xl-sans-size);
+  line-height: var(--font-paragraph-body-text-3xl-sans-line-height);
+  letter-spacing: -0.05em;
+  overflow-wrap: break-word;
+}
+
+.button {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--breakpoint-spacing-s);
+}
