@@ -1,0 +1,27 @@
+/* Figma "Gallery preview" (node 9587:7965): a frame as wide as the viewport (1920 on
+   Desktop, 375 on Mobile) and 1080 high on both, filled with surface/primary,
+   that clips what is outside it. Its tiles lie in rows that wrap, spacing/s
+   apart, with spacing/m above and below and spacing/4xl at the sides. The rows
+   are centered both ways: what does not fit is cut off equally at both ends. */
+.preview {
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  gap: var(--breakpoint-spacing-s);
+  width: var(--breakpoint-viewport-width);
+  max-width: 100%;
+  height: 1080px;
+  padding: var(--breakpoint-spacing-m) var(--breakpoint-spacing-4xl);
+  overflow: clip;
+  background: var(--theme-color-surface-primary);
+}
+
+/* A tile keeps its own size and has rounded corners (cornerRadius/l). */
+.preview > * {
+  flex: none;
+  overflow: clip;
+  border-radius: var(--breakpoint-cornerradius-l);
+}

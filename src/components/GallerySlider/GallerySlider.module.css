@@ -1,0 +1,152 @@
+/* Figma "Gallery slider" (node 9587:7903): a frame as big as the viewport (1920 x
+   1080 on Desktop, 375 x 812 on Mobile, never wider than the space it is in),
+   with spacing/2xl above and below and spacing/m at the sides. The pictures
+   fill the whole frame behind the content, which is a column: the title at the
+   top, the page marks at the bottom and, on Desktop, the two buttons at the
+   sides in the middle. */
+.slider {
+  position: relative;
+  box-sizing: border-box;
+  width: var(--breakpoint-viewport-width);
+  max-width: 100%;
+  height: var(--breakpoint-viewport-height);
+  padding: var(--breakpoint-spacing-2xl) var(--breakpoint-spacing-m);
+}
+
+/* The layer of the pictures: the whole frame, padding included. It is the
+   labelled region that the keys and swipes work on. */
+.slides {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  touch-action: pan-y;
+  user-select: none;
+}
+.slides:focus-visible {
+  outline: 2px solid var(--theme-color-interactive-idle-primary);
+  outline-offset: -2px;
+}
+.slides img {
+  -webkit-user-drag: none;
+}
+
+/* Image=Background: one picture at a time fills the frame, with rounded
+   corners (cornerRadius/l: 24 on Desktop, 16 on Mobile). The frame has no fill
+   of its own and does not clip. */
+.background .slides {
+  overflow: clip;
+  border-radius: var(--breakpoint-cornerradius-l);
+}
+.background .slide {
+  --image-preview-height: 100%;
+  position: absolute;
+  inset: 0;
+}
+.background .slide > img,
+.background .slide > video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.slide[hidden] {
+  display: none;
+}
+
+/* Image=Peeking: the frame clips and is filled with background/primary. The
+   pictures are cards (the Figma HeroImageContainer) in a row, the current one
+   in the middle: 1322 x 884 with cornerRadius/4xl, spacing 138 between them,
+   so the next one peeks in at the right edge over the last 161 of the frame
+   (Figma draws the card 1 to the left of the middle and 6 above it; that is
+   not copied here). The sizes are measured from the frame, so that a frame
+   that is narrower keeps the same look in proportion: the card is 68.85% of
+   the frame wide, and 81.85% high, with a gap of 7.19%. --offset is how many
+   places a card is from the current one. */
+.peeking {
+  --slide-width: min(1322px, 68.8542%);
+  --slide-height: min(884px, 81.8519%);
+  --slide-gap: min(138px, 7.1875%);
+  --slide-radius: var(--breakpoint-cornerradius-4xl);
+  overflow: clip;
+  background: var(--theme-color-background-primary);
+}
+.peeking .slide.slide {
+  --hero-image-width: 100%;
+  --hero-image-height: 100%;
+  position: absolute;
+  top: calc(50% - var(--slide-height) / 2);
+  left: calc(50% - var(--slide-width) / 2 + var(--offset, 0) * (var(--slide-width) + var(--slide-gap)));
+  width: var(--slide-width);
+  height: var(--slide-height);
+  border-radius: var(--slide-radius);
+  transition: left 0.3s ease-out;
+}
+/* Without Next image peeking only the current card shows. */
+.no-peek .slide:not(.current) {
+  visibility: hidden;
+}
+/* Moving over several places at once (from the last picture to the first) happens at once. */
+.slides[data-jump] .slide.slide {
+  transition: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .peeking .slide.slide {
+    transition: none;
+  }
+}
+/* On Mobile Figma draws the card as big as the frame, square, with nothing peeking. */
+:global([data-breakpoint='375-mobile']) .peeking {
+  --slide-width: 100%;
+  --slide-height: 100%;
+  --slide-gap: 0px;
+  --slide-radius: var(--breakpoint-cornerradius-none);
+}
+
+/* The content: a column over the pictures, as high as the padding box of the
+   frame. It lets clicks through to the pictures, except on the buttons. */
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+/* The Figma "Text conteiner": the title block is 40 high on both Desktop and
+   Mobile, with the text in the middle of it. On Desktop the title fills it
+   (32 on 40); on Mobile (24 on 24) it sits 8 lower than the top of the content. */
+.title {
+  display: grid;
+  flex: none;
+  align-content: center;
+  min-height: 40px;
+}
+
+/* The Figma "Slider buttons": a row with the two buttons at its ends, in the
+   middle of the space between the title and the page marks. Desktop only. */
+.buttons {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--breakpoint-spacing-2xs);
+  min-height: 0;
+}
+.button {
+  flex: none;
+  pointer-events: auto;
+}
+:global([data-breakpoint='375-mobile']) .buttons {
+  display: none;
+}
+
+/* The Figma "Pagination": the Slide indicator at the bottom in the middle,
+   with spacing/m above it. */
+.pagination {
+  display: flex;
+  flex: none;
+  justify-content: center;
+  margin-top: auto;
+  padding-top: var(--breakpoint-spacing-m);
+}

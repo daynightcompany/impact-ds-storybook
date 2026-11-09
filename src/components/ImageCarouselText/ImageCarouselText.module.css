@@ -1,0 +1,71 @@
+/* Figma "Image carousel text" (node 9587:8004): a row with spacing/m between a
+   2 wide line and the text. The line is as high as the text, in the colour of
+   the text: font/paragraph/primary when Active, font/paragraph/secondary when
+   Inactive. The row is as wide as the space it is in. */
+.item {
+  box-sizing: border-box;
+  display: flex;
+  align-items: stretch;
+  gap: var(--breakpoint-spacing-m);
+  width: 100%;
+}
+
+.state-active {
+  color: var(--theme-color-font-paragraph-primary);
+}
+
+/* State=Inactive: the secondary colour, and the whole item at opacity/50. */
+.state-inactive {
+  color: var(--theme-color-font-paragraph-secondary);
+  opacity: 0.5;
+}
+
+.line {
+  flex: none;
+  width: 2px;
+  background: currentColor;
+}
+
+/* The text: the title and the line under it, spacing/2xs apart. */
+.text {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  gap: var(--breakpoint-spacing-2xs);
+  min-width: 0;
+}
+.title,
+.subtitle {
+  margin: 0;
+  overflow-wrap: break-word;
+  color: inherit;
+}
+
+/* Paragraph-Body Text L Sans: the title (24 on 36 on Desktop). */
+.title {
+  font-family: var(--font-paragraph-body-text-l-sans-family), sans-serif;
+  font-weight: var(--font-paragraph-body-text-l-sans-weight);
+  font-size: var(--font-paragraph-body-text-l-sans-size);
+  line-height: var(--font-paragraph-body-text-l-sans-line-height);
+}
+
+/* Paragraph-Body Text M Sans: the line under it (20 on 30 on Desktop). */
+.subtitle {
+  font-family: var(--font-paragraph-body-text-m-sans-family), sans-serif;
+  font-weight: var(--font-paragraph-body-text-m-sans-weight);
+  font-size: var(--font-paragraph-body-text-m-sans-size);
+  line-height: var(--font-paragraph-body-text-m-sans-line-height);
+}
+
+/* The Figma "Text layers" frame of the image carousel: the items in a column,
+   spacing/l apart, centered, 327 wide (never wider than the space it is in). */
+.layers {
+  box-sizing: border-box;
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: var(--breakpoint-spacing-l);
+  width: min(327px, 100%);
+}

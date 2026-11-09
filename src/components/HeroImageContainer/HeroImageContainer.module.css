@@ -17,7 +17,10 @@
 /* The Figma "Image": viewport/width x viewport/height, which is 1920 x 1080 on
    Desktop and 375 x 812 on Mobile, centered in the container (it is cropped at
    the sides when the container is narrower). An Image preview in it fills it
-   (--image-preview-height: 100%), an img or a video is cropped to it. */
+   (--image-preview-height: 100%), an img or a video is cropped to it. A frame
+   that holds the container as a card can set --hero-image-width and
+   --hero-image-height (100% makes the image as big as the container, so that
+   a picture is fitted to the card as a whole, not cropped from the middle). */
 .image {
   --image-preview-height: 100%;
   box-sizing: border-box;
@@ -25,8 +28,8 @@
   flex: none;
   align-items: center;
   justify-content: center;
-  width: var(--breakpoint-viewport-width);
-  height: var(--breakpoint-viewport-height);
+  width: var(--hero-image-width, var(--breakpoint-viewport-width));
+  height: var(--hero-image-height, var(--breakpoint-viewport-height));
   overflow: clip;
   border-radius: var(--breakpoint-cornerradius-none);
 }

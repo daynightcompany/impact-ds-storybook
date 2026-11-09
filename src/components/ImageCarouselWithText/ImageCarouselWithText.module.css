@@ -1,0 +1,46 @@
+/* Figma "Image carousel with text/Left/Top" (node 9587:7983): a frame as big as
+   the viewport (1920 x 1080 on Desktop, 375 x 812 on Mobile), with spacing/6xl
+   around the slot, filled with background/primary. It is a row that wraps, with
+   the slot in the middle of it. The frame is never wider than the space it is
+   in, and never lower than the viewport. */
+.carousel {
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: center;
+  column-gap: var(--breakpoint-spacing-4xl);
+  row-gap: var(--breakpoint-spacing-2xl);
+  width: var(--breakpoint-viewport-width);
+  max-width: 100%;
+  min-height: var(--breakpoint-viewport-height);
+  padding: var(--breakpoint-spacing-6xl);
+  background: var(--theme-color-background-primary);
+}
+
+/* The Figma slot: takes the width that is left, a row that wraps with
+   spacing/4xl between its items, centered. */
+.slot {
+  box-sizing: border-box;
+  display: flex;
+  flex: 1 0 0;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: center;
+  gap: var(--breakpoint-spacing-4xl);
+  min-width: 1px;
+}
+
+/* The picture of the Figma default content: takes the width that is left beside
+   the text items (or the whole row when it wraps below them) with rounded
+   corners (cornerRadius/l). Figma draws it 876 high on Desktop and 294 on
+   Mobile. */
+.image {
+  --image-preview-height: 876px;
+  flex: 1 0 0;
+  min-width: 1px;
+  border-radius: var(--breakpoint-cornerradius-l);
+}
+:global([data-breakpoint='375-mobile']) .image {
+  --image-preview-height: 294px;
+}
