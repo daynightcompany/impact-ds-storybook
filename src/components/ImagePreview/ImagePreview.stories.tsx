@@ -1,7 +1,6 @@
 import type { CSSProperties } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { ImagePreview } from './ImagePreview';
-import { samplePhoto } from './samplePhotos';
 
 const meta = {
   title: 'Impact DS/Image preview',
@@ -35,12 +34,6 @@ type Story = StoryObj<typeof meta>;
 /** Figma default: the placeholder. */
 export const Default: Story = {};
 
-/** With a picture: it covers the area and is cropped, never stretched. */
-export const WithPicture: Story = {
-  name: 'With a picture',
-  args: { src: samplePhoto(0), alt: 'Hills under a pale sky' },
-};
-
 /** Another height: a card sets `--image-preview-height`, or give the preview a `style` of your own. */
 export const OtherHeight: Story = {
   name: 'Other height',
@@ -60,7 +53,7 @@ export const AllVariants: Story = {
   render: () => (
     <div style={{ display: 'grid', gap: 32 }}>
       <ImagePreview />
-      <ImagePreview src={samplePhoto(3)} alt="" style={{ '--image-preview-height': '240px' } as CSSProperties} />
+      <ImagePreview style={{ '--image-preview-height': '240px' } as CSSProperties} />
     </div>
   ),
 };

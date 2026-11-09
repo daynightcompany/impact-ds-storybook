@@ -1,8 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { CardBadges } from './CardBadges';
-import { CellList } from '../CellList/CellList';
-import { Divider } from '../Divider/Divider';
-import { ListCard } from '../ListCard/ListCard';
 
 const meta = {
   title: 'Impact DS/Card badges',
@@ -31,29 +28,6 @@ type Story = StoryObj<typeof meta>;
 
 /** Figma default: two lists of three rows. */
 export const Default: Story = {};
-
-/** Cards with their own rows. */
-export const RealRows: Story = {
-  name: 'Real rows',
-  args: {
-    children: [
-      <ListCard key="a">
-        <CellList>Shipping</CellList>
-        <Divider aria-hidden="true" />
-        <CellList>Returns</CellList>
-        <Divider aria-hidden="true" />
-        <CellList>Warranty</CellList>
-      </ListCard>,
-      <ListCard key="b">
-        <CellList>Contact us</CellList>
-        <Divider aria-hidden="true" />
-        <CellList>Store finder</CellList>
-        <Divider aria-hidden="true" />
-        <CellList>Careers</CellList>
-      </ListCard>,
-    ],
-  },
-};
 
 /** At a narrow width the two lists go one under the other. */
 export const Narrow: Story = {

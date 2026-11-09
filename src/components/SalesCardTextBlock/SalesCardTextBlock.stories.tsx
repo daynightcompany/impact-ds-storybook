@@ -39,19 +39,7 @@ export const OnePrice: Story = {
 
 export const OneButton: Story = {
   name: 'One button',
-  args: { secondaryButton: false, primaryButton: 'Add to cart' },
-};
-
-export const RealTexts: Story = {
-  name: 'Real texts',
-  args: {
-    fullPrice: '199.99 €',
-    discountPrice: '234.99 €',
-    productName: 'Podcaster Pro',
-    slogan: 'Dynamic vocal microphone',
-    primaryButton: 'Add to cart',
-    secondaryButton: 'Details',
-  },
+  args: { secondaryButton: false },
 };
 
 /** Long labels: a button is never narrower than its label, so the buttons stack as soon as they do not fit side by side. */
@@ -85,7 +73,7 @@ export const AllVariants: Story = {
     <div style={{ display: 'grid', gap: 32 }}>
       <SalesCardTextBlock />
       <SalesCardTextBlock discountPrice={false} />
-      <SalesCardTextBlock secondaryButton={false} primaryButton="Add to cart" />
+      <SalesCardTextBlock secondaryButton={false} />
     </div>
   ),
 };

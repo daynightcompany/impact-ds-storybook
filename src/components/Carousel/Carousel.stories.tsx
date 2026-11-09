@@ -1,34 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { userEvent, within } from 'storybook/test';
 import { Carousel } from './Carousel';
-import { ImagePreview } from '../ImagePreview/ImagePreview';
-import { samplePhoto } from '../ImagePreview/samplePhotos';
 import { ProductCard, type ProductCardSize } from '../ProductCard/ProductCard';
 
-const NAMES = [
-  'Podcaster Pro',
-  'Studio Mic',
-  'Boom Arm',
-  'Pop Filter',
-  'Shock Mount',
-  'Audio Interface',
-  'Monitor Headphones',
-  'Desk Stand',
-  'Cable Kit',
-  'Field Recorder',
-];
-
-/** Product cards with pictures and names, the first `count` of them; links so that the keyboard can reach them. */
+/** `count` product cards of one size, with the texts and the placeholder of Figma; links, so that the keyboard can reach them. */
 function products(count: number, size: ProductCardSize = 'S') {
-  return NAMES.slice(0, count).map((name, index) => (
-    <ProductCard
-      key={name}
-      size={size}
-      productName={name}
-      href={`#${name.toLowerCase().replace(/ /g, '-')}`}
-      picture={<ImagePreview src={samplePhoto(index)} alt="" />}
-    />
-  ));
+  return Array.from({ length: count }, (_, index) => <ProductCard key={index} size={size} href="#product" />);
 }
 
 const meta = {
@@ -64,28 +41,22 @@ type Story = StoryObj<typeof meta>;
 /** Figma default: seven small product cards, here in a 780 wide box so that they do not all fit. The first page is shown, so the button that goes back is disabled. */
 export const Default: Story = {};
 
-/** With pictures and names; each card is a link. */
-export const WithPictures: Story = {
-  name: 'With pictures',
-  args: { label: 'Featured products', children: products(10) },
-};
-
-/** Medium cards. */
+/** The row with Size M product cards (250 x 250). */
 export const MediumCards: Story = {
   name: 'Medium cards',
-  args: { label: 'Featured products', children: products(6, 'M') },
+  args: { children: products(6, 'M') },
 };
 
 /** Everything fits: there is nothing to scroll and both buttons are disabled. */
 export const FewItems: Story = {
   name: 'Few items',
-  args: { label: 'Featured products', children: products(3) },
+  args: { children: products(3) },
 };
 
 /** Pressing Next moves the row by a page, which enables Previous. */
 export const OnTheNextPage: Story = {
   name: 'On the next page',
-  args: { label: 'Featured products', children: products(10) },
+  args: { children: products(10) },
   // The play function scrolls it: wait for the smooth scroll to end before the snapshot.
   parameters: { chromatic: { delay: 1200 } },
   play: async ({ canvasElement }) => {
@@ -106,8 +77,8 @@ export const AllVariants: Story = {
   render: () => (
     <div style={{ display: 'grid', gap: 48 }}>
       <Carousel />
-      <Carousel label="Featured products">{products(10)}</Carousel>
-      <Carousel label="New products">{products(3)}</Carousel>
+      <Carousel label="Carousel 2">{products(10)}</Carousel>
+      <Carousel label="Carousel 3">{products(3)}</Carousel>
     </div>
   ),
 };

@@ -48,19 +48,6 @@ export const TitleAndBody: Story = {
   args: { uptitle: false, subtitle: false, quote: false, cta: false },
 };
 
-export const RealTexts: Story = {
-  name: 'Real texts',
-  args: {
-    uptitle: 'Meet Neo',
-    title: 'Create and work effortlessly.',
-    subtitle: 'The compact studio for people who make things.',
-    quote: '“It took us a week to do what used to take a quarter.”',
-    bodyText: 'Neo brings your files, your team and your tools into one calm place.',
-    primaryButton: 'Get started',
-    secondaryButton: 'Learn more',
-  },
-};
-
 /** At 375 wide: the padding is 40, and the buttons wrap. */
 export const Narrow: Story = {
   decorators: [

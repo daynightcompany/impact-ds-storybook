@@ -2,6 +2,9 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
 import { SlidePreviewCard } from './SlidePreviewCard';
 
+/** The Figma title, repeated until it takes more than two lines. */
+const LONG_TITLE = 'Preview card title Preview card title Preview card title Preview card title';
+
 const meta = {
   title: 'Impact DS/Slide preview card',
   component: SlidePreviewCard,
@@ -33,7 +36,7 @@ export const Inactive: Story = { args: { state: 'Inactive' } };
 /** Two lines fit the row, more are cut off. */
 export const LongTitle: Story = {
   name: 'Long title',
-  args: { children: 'A preview title that is long enough to take more than two lines of the card, so the rest is cut off' },
+  args: { children: LONG_TITLE },
 };
 
 /** A list of previews: one is Active, the others are buttons. */
@@ -41,9 +44,9 @@ export const InAList: Story = {
   name: 'In a list',
   render: () => (
     <div style={{ display: 'grid', gap: 8, width: 272 }}>
-      <SlidePreviewCard state="Inactive">First slide</SlidePreviewCard>
-      <SlidePreviewCard state="Active">Second slide</SlidePreviewCard>
-      <SlidePreviewCard state="Inactive">Third slide</SlidePreviewCard>
+      <SlidePreviewCard state="Inactive" />
+      <SlidePreviewCard state="Active" />
+      <SlidePreviewCard state="Inactive" />
     </div>
   ),
 };
@@ -62,7 +65,7 @@ export const AllVariants: Story = {
     <div style={{ display: 'grid', gap: 24, width: 272 }}>
       <SlidePreviewCard state="Active" />
       <SlidePreviewCard state="Inactive" />
-      <SlidePreviewCard state="Active">A preview title that is long enough to take more than two lines of the card</SlidePreviewCard>
+      <SlidePreviewCard state="Active">{LONG_TITLE}</SlidePreviewCard>
     </div>
   ),
 };

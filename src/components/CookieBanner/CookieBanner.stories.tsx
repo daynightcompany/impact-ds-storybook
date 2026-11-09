@@ -40,16 +40,6 @@ export const Default: Story = {
   args: { role: 'region', 'aria-label': 'Cookie consent' },
 };
 
-/** Labels that say what the buttons do. */
-export const RealLabels: Story = {
-  args: {
-    role: 'region',
-    'aria-label': 'Cookie consent',
-    primaryButton: 'Accept all',
-    secondaryButton: 'Reject all',
-  },
-};
-
 /** At 375 wide: the text over two full width buttons. */
 export const Narrow: Story = {
   args: { role: 'region', 'aria-label': 'Cookie consent' },
@@ -63,7 +53,7 @@ export const Narrow: Story = {
 };
 
 export const OneButton: Story = {
-  args: { role: 'region', 'aria-label': 'Cookie consent', secondaryButton: false, primaryButton: 'Got it' },
+  args: { role: 'region', 'aria-label': 'Cookie consent', secondaryButton: false },
 };
 
 /** Your own buttons replace the default ones. These labels are long: a button is never narrower than its label, so the buttons stack as soon as they do not fit side by side. */

@@ -39,19 +39,7 @@ export const OnePrice: Story = {
 
 export const OneButton: Story = {
   name: 'One button',
-  args: { secondaryButton: false, primaryButton: 'Add to cart' },
-};
-
-export const RealTexts: Story = {
-  name: 'Real texts',
-  args: {
-    fullPrice: '199.99 €',
-    discountPrice: '234.99 €',
-    productName: 'Podcaster Pro',
-    slogan: 'Dynamic vocal microphone',
-    primaryButton: 'Add to cart',
-    secondaryButton: 'Details',
-  },
+  args: { secondaryButton: false },
 };
 
 /** At its least width, 324: the buttons stack. */
@@ -79,7 +67,7 @@ export const AllVariants: Story = {
     <div style={{ display: 'grid', gap: 32 }}>
       <SalesCard />
       <SalesCard discountPrice={false} />
-      <SalesCard secondaryButton={false} primaryButton="Add to cart" />
+      <SalesCard secondaryButton={false} />
     </div>
   ),
 };

@@ -1,8 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { ListCard } from './ListCard';
-import { CellList } from '../CellList/CellList';
-import { Divider } from '../Divider/Divider';
-import { Icon } from '../Icon';
 
 const meta = {
   title: 'Impact DS/List card',
@@ -56,27 +53,6 @@ export const LabelOnly: Story = {
 export const TextBlockOnly: Story = {
   name: 'Text block only',
   args: { showTopContainer: true, showLabel: false },
-};
-
-export const RealTexts: Story = {
-  name: 'Real texts',
-  args: {
-    showTopContainer: true,
-    label: 'Account',
-    title: 'Your account',
-    subtitle: 'Your details, orders and invoices.',
-    children: (
-      <>
-        <CellList icon={<Icon name="account" />}>Profile</CellList>
-        <Divider aria-hidden="true" />
-        <CellList icon={<Icon name="cart" />} label="2 new">
-          Orders
-        </CellList>
-        <Divider aria-hidden="true" />
-        <CellList icon={<Icon name="files" />}>Invoices</CellList>
-      </>
-    ),
-  },
 };
 
 /** At its least width, 160. */

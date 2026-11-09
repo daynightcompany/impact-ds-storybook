@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
 import { CardWithIcons } from './CardWithIcons';
-import { Icon } from '../Icon';
 
 const meta = {
   title: 'Impact DS/Card with icons',
@@ -45,18 +44,6 @@ export const Default: Story = {};
 export const WithoutButtons: Story = {
   name: 'Without buttons',
   args: { cta: false },
-};
-
-export const RealTexts: Story = {
-  name: 'Real texts',
-  args: {
-    icon: <Icon name="cart" size={84} fixedStroke />,
-    eyebrow: 'Free shipping',
-    children: 'Deliveries',
-    subtitle: 'Orders over 50 € arrive in two days.',
-    primaryButton: 'Order now',
-    secondaryButton: 'Details',
-  },
 };
 
 /** At its least width, 272: the text and the buttons stack. */

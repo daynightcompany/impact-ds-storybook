@@ -1,7 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { ProductCard } from './ProductCard';
-import { ImagePreview } from '../ImagePreview/ImagePreview';
-import { samplePhoto } from '../ImagePreview/samplePhotos';
 
 const meta = {
   title: 'Impact DS/Product card',
@@ -47,31 +45,16 @@ export const WithoutLabels: Story = {
   args: { size: 'M', labels: false },
 };
 
-/** A picture instead of the placeholder. */
-export const WithPicture: Story = {
-  name: 'With a picture',
-  args: {
-    size: 'M',
-    productName: 'Podcaster Pro',
-    picture: <ImagePreview src={samplePhoto(2)} alt="" />,
-  },
-};
-
 /** The whole card is a link; the keyboard focus ring is drawn around it. */
 export const AsLink: Story = {
   name: 'As a link',
-  args: {
-    size: 'M',
-    productName: 'Podcaster Pro',
-    href: '#podcaster-pro',
-    picture: <ImagePreview src={samplePhoto(5)} alt="" />,
-  },
+  args: { size: 'M', href: '#product' },
 };
 
 /** A long name wraps under the picture. */
 export const LongName: Story = {
   name: 'Long name',
-  args: { size: 'S', productName: 'Wireless studio headphones with a very long name' },
+  args: { size: 'S', productName: 'Product Name Product Name Product Name Product Name' },
 };
 
 /** All three sizes, with and without the name; Desktop and Mobile are both snapshotted. */
@@ -89,7 +72,7 @@ export const AllVariants: Story = {
       <ProductCard size="L" />
       <div style={{ display: 'flex', alignItems: 'flex-start', gap: 32, flexWrap: 'wrap' }}>
         <ProductCard size="M" />
-        <ProductCard size="M" labels={false} picture={<ImagePreview src={samplePhoto(1)} alt="" />} />
+        <ProductCard size="M" labels={false} />
         <ProductCard size="S" />
         <ProductCard size="S" labels={false} />
       </div>

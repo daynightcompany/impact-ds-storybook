@@ -23,21 +23,11 @@ type Story = StoryObj<typeof meta>;
 /** Figma default: three cards without buttons. */
 export const Default: Story = {};
 
-/** Cards with their own content. */
+/** The cards of the Figma default have no buttons; here they keep theirs (`cta` on). */
 export const WithButtons: Story = {
   name: 'With buttons',
   args: {
-    children: [
-      <CardWithIcons key="a" eyebrow="Step 1" subtitle="Choose a plan" primaryButton="Start" secondaryButton="Learn more">
-        Plan
-      </CardWithIcons>,
-      <CardWithIcons key="b" eyebrow="Step 2" subtitle="Add your team" primaryButton="Invite" secondaryButton="Later">
-        Team
-      </CardWithIcons>,
-      <CardWithIcons key="c" eyebrow="Step 3" subtitle="Go live" primaryButton="Launch" secondaryButton="Preview">
-        Launch
-      </CardWithIcons>,
-    ],
+    children: [0, 1, 2].map((index) => <CardWithIcons key={index} />),
   },
 };
 

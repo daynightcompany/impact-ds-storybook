@@ -50,16 +50,6 @@ export const Small: Story = {
   args: { size: 'S' },
 };
 
-/** Your own text and author. */
-export const CustomText: Story = {
-  name: 'Custom text',
-  args: {
-    size: 'M',
-    children: '“It took us a week to do what used to take a quarter.”',
-    author: 'Jane Doe, head of design',
-  },
-};
-
 /** All three sizes. Desktop and Mobile are both snapshotted. */
 export const AllVariants: Story = {
   parameters: {
