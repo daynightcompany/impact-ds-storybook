@@ -1,0 +1,43 @@
+/* Figma "Image Preview" (node 9587:7876): a centered column as wide as the space
+   it is in, 345.6 high, that clips what it holds. A card that holds it sets
+   --image-preview-height (100% to fill a picture box of its own). */
+.preview {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: var(--image-preview-height, 345.6px);
+  overflow: clip;
+}
+
+/* The placeholder: border/primary with the image icon in surface/primary in
+   the middle. */
+.placeholder {
+  display: flex;
+  flex: 1 0 0;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 0;
+  background: var(--theme-color-border-primary);
+}
+.icon {
+  flex: none;
+  width: 96px;
+  height: 72px;
+  fill: var(--theme-color-surface-primary);
+}
+/* The Figma "Image" component has its own Mobile icon: 64 x 48. */
+:global([data-breakpoint='375-mobile']) .icon {
+  width: 64px;
+  height: 48px;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

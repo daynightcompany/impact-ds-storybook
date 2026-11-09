@@ -1,0 +1,35 @@
+/* Figma "Card/Lists" (node 9587:7814): a column on the primary background, with
+   spacing/s of padding and between its parts, corner radius m and a 5 px
+   background blur (the glass-S effect). As wide as the space it is in (400 in
+   the Figma frame), never narrower than 160. */
+.card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--breakpoint-spacing-s);
+  width: 100%;
+  min-width: min(160px, 100%);
+  padding: var(--breakpoint-spacing-s);
+  border-radius: var(--breakpoint-cornerradius-m);
+  background: var(--theme-color-background-primary);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+}
+
+/* "Top container": the label over the text block, spacing/m apart. */
+.top {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--breakpoint-spacing-m);
+  width: 100%;
+}
+
+/* "List items": the rows and the dividers between them, with no space between. */
+.items {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}

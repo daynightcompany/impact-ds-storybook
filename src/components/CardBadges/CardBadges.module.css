@@ -1,0 +1,29 @@
+/* Figma "Card/Badges" (node 9587:7828): a column that centers its row, as wide
+   as the space it is in (1824 in the Figma frame). */
+.badges {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--breakpoint-spacing-2xs);
+  width: 100%;
+}
+
+/* "Badge lists": a centered row of cards, spacing/2xs apart, that wraps. Each card
+   takes an equal share, between 310 and 640 wide. */
+.lists {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  gap: var(--breakpoint-spacing-2xs);
+  width: 100%;
+}
+/* Doubled so that it wins over the card's own least width whatever the order of the style sheets. */
+.lists.lists > * {
+  flex: 1 0 0;
+  max-width: 640px;
+  min-width: min(310px, 100%);
+}

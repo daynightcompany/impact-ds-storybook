@@ -1,0 +1,64 @@
+/* Figma "Card/Slide preview" (node 9587:7677): a column 272 wide with spacing/xs
+   above and below and spacing/m at the sides, corner radius m. Its row is 56
+   high with 4 (spacing/3xs) on the right. */
+.card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--breakpoint-spacing-2xs);
+  width: 272px;
+  max-width: 100%;
+  margin: 0;
+  padding: var(--breakpoint-spacing-xs) var(--breakpoint-spacing-m);
+  border: 0;
+  border-radius: var(--breakpoint-cornerradius-m);
+  color: var(--theme-color-font-interactive-idle-secondary);
+  font: inherit;
+  text-align: left;
+}
+
+/* State=Active: filled, not interactive. */
+.active {
+  background: var(--theme-color-border-tertiary);
+}
+
+/* State=Inactive: a button with no fill. */
+.inactive {
+  background: transparent;
+  cursor: pointer;
+}
+.inactive:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+.inactive:focus-visible {
+  outline: 2px solid var(--theme-color-interactive-idle-primary);
+  outline-offset: 2px;
+}
+
+.content {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: var(--breakpoint-spacing-s);
+  width: 100%;
+  height: 56px;
+  padding-right: var(--breakpoint-spacing-3xs);
+}
+
+/* Interactive-Label Text SM Sans Regular. Two lines fit the row; more are cut off. */
+.title {
+  display: -webkit-box;
+  flex: 1 0 0;
+  min-width: 0;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  font-family: var(--font-interactive-label-text-sm-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-sm-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-sm-sans-regular-size);
+  line-height: var(--font-interactive-label-text-sm-sans-regular-line-height);
+}

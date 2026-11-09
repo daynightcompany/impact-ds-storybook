@@ -1,0 +1,99 @@
+/* Figma "Card/Articles" (node 9587:7779): a column with corner radius l, as wide
+   as the space it is in (363 in the Figma frame), never narrower than 272. It
+   clips its picture to its corners. */
+.card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: min(272px, 100%);
+  overflow: clip;
+  border-radius: var(--breakpoint-cornerradius-l);
+}
+
+/* The picture box: --image-preview-height makes the Image Preview inside fill
+   it. A picture that is an img or a video is cropped to the box. */
+.picture {
+  --image-preview-height: 100%;
+  overflow: clip;
+}
+.picture > img,
+.picture > video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* The text block is 108 high in every variant of Figma (a fixed height there, on
+   Mobile too, where its smaller type is centered in it). As a least height it
+   keeps the text of cards side by side level and still lets a long title grow. */
+.text {
+  min-height: 108px;
+}
+
+/* The text and the buttons: a column, left aligned. */
+.content {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+/* "CTA block": the buttons, spacing/s apart (they wrap when they do not fit),
+   with spacing/m above them. */
+.cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--breakpoint-spacing-s);
+  width: 100%;
+  padding-top: var(--breakpoint-spacing-m);
+}
+
+/* Image=Top: the picture is 268 high over the text, on a surface/primary box. With Background=Card the
+   card is filled and the text has spacing/m of padding all round; with
+   Background=None there is no fill and the text has it above and below only. */
+.filled .picture,
+.plain .picture {
+  flex: none;
+  height: 268px;
+  background: var(--theme-color-surface-primary);
+}
+.filled {
+  background: var(--theme-color-background-primary);
+}
+.filled .content {
+  padding: var(--breakpoint-spacing-m);
+}
+.plain .content {
+  padding: var(--breakpoint-spacing-m) 0;
+}
+
+/* Image=Background: a 520 high card with the picture behind it and
+   spacing/m of padding. The text is at the top and the buttons at the bottom,
+   at least spacing/8xl apart. */
+.onPicture {
+  position: relative;
+  min-height: 520px;
+  padding: var(--breakpoint-spacing-m);
+}
+.onPicture .picture {
+  position: absolute;
+  inset: 0;
+}
+.onPicture .content {
+  position: relative;
+  flex: 1 0 auto;
+  justify-content: space-between;
+  gap: var(--breakpoint-spacing-8xl);
+}
+
+/* textAndButtonsColor=Secondary: the three lines of the text are in
+   font/paragraph/tertiary. Primary keeps the text block's own colours. The text
+   block sets the colour of each of its lines, so this is stronger than they
+   are, and the buttons keep theirs. */
+.light .text :is(p, div) {
+  color: var(--theme-color-font-paragraph-tertiary);
+}

@@ -1,0 +1,105 @@
+/* Figma "Card/ProductCard" (node 9587:7693): a column with no padding or gap, the
+   picture over the name. L is as wide as the space it is in, M is 250 wide and
+   S is 125 wide. */
+.card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  color: inherit;
+  text-decoration: none;
+}
+.size-l {
+  width: 100%;
+}
+.size-m {
+  flex: none;
+  width: 250px;
+}
+.size-s {
+  flex: none;
+  width: 125px;
+}
+
+/* A link card shows a ring on keyboard focus, 2px outside it unless the box it
+   sits in clips (a carousel sets --focus-ring-offset to draw it inside). */
+.card:focus-visible {
+  outline: 2px solid var(--theme-color-interactive-idle-primary);
+  outline-offset: var(--focus-ring-offset, 2px);
+}
+
+/* The picture box clips the picture to its corners: L is 345.6 high with
+   cornerradius/3xl, M is 250 with cornerradius/xl and S is 125 with
+   cornerradius/s. The Image Preview inside fills it. */
+.picture {
+  --image-preview-height: 100%;
+  flex: none;
+  overflow: clip;
+}
+.picture > img,
+.picture > video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.size-l .picture {
+  height: 345.6px;
+  border-radius: var(--breakpoint-cornerradius-3xl);
+}
+.size-m .picture {
+  height: 250px;
+  border-radius: var(--breakpoint-cornerradius-xl);
+}
+.size-s .picture {
+  height: 125px;
+  border-radius: var(--breakpoint-cornerradius-s);
+}
+
+/* The name: centered, wrapping, with spacing/m above and below (L has
+   spacing/s on the sides as well); S has spacing/s above and below. */
+.name {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--breakpoint-spacing-l);
+  width: 100%;
+}
+.text {
+  flex: 1 0 0;
+  min-width: 0;
+  margin: 0;
+  text-align: center;
+  overflow-wrap: break-word;
+  color: var(--theme-color-font-interactive-idle-secondary);
+}
+.size-l .name {
+  padding: var(--breakpoint-spacing-m) var(--breakpoint-spacing-s);
+}
+.size-m .name {
+  padding: var(--breakpoint-spacing-m) var(--breakpoint-spacing-none);
+}
+.size-s .name {
+  padding: var(--breakpoint-spacing-s) var(--breakpoint-spacing-none);
+}
+
+/* Interactive-Label Text 3XL (L), 2XL (M) and XL (S), Sans Regular. */
+.size-l .text {
+  font-family: var(--font-interactive-label-text-3xl-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-3xl-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-3xl-sans-regular-size);
+  line-height: var(--font-interactive-label-text-3xl-sans-regular-line-height);
+}
+.size-m .text {
+  font-family: var(--font-interactive-label-text-2xl-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-2xl-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-2xl-sans-regular-size);
+  line-height: var(--font-interactive-label-text-2xl-sans-regular-line-height);
+}
+.size-s .text {
+  font-family: var(--font-interactive-label-text-xl-sans-regular-family), sans-serif;
+  font-weight: var(--font-interactive-label-text-xl-sans-regular-weight);
+  font-size: var(--font-interactive-label-text-xl-sans-regular-size);
+  line-height: var(--font-interactive-label-text-xl-sans-regular-line-height);
+}

@@ -1,0 +1,54 @@
+/* Figma "Card/Carousel" (node 9587:7714): a column, spacing/m between the row of
+   items and the header under it. As wide as the space it is in (1728 in the
+   Figma frame). */
+.carousel {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--breakpoint-spacing-m);
+  width: 100%;
+  min-width: 0;
+}
+
+/* "Carousel items": a row with spacing/xs between the items; what does not fit
+   is clipped and scrolls sideways, each item snapping to the start. The clipping
+   would cut off the focus ring of an item at the edge, so the cards inside draw
+   it just inside their edge (--focus-ring-offset). */
+.track {
+  --focus-ring-offset: -2px;
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--breakpoint-spacing-xs);
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.track::-webkit-scrollbar {
+  display: none;
+}
+.track > * {
+  flex: none;
+  scroll-snap-align: start;
+}
+.track:focus-visible {
+  outline: 2px solid var(--theme-color-interactive-idle-primary);
+  outline-offset: -2px;
+}
+
+/* "Carousel header": the buttons at the end of a row, spacing/3xs apart. */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+}
+.controls {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--breakpoint-spacing-3xs);
+}

@@ -1,0 +1,41 @@
+/* Figma "Card/Card row" (node 9587:7766): a band on surface/primary as wide as the
+   space it is in (1872 in the Figma frame). */
+.row {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  background: var(--theme-color-surface-primary);
+}
+
+/* "Container": spacing/6xl above and below the row of cards. */
+.container {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--breakpoint-spacing-2xs);
+  width: 100%;
+  padding: var(--breakpoint-spacing-6xl) 0;
+}
+
+/* "Cards container": 1284 wide, the cards spacing/l apart. It is narrower than
+   that when the space is (spacing/m is kept at its sides), and wraps when the
+   cards would get narrower than 272. */
+.cards {
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--breakpoint-spacing-l);
+  width: min(1284px, 100% - 2 * var(--breakpoint-spacing-m));
+}
+/* Doubled so that it wins over the card's own least width whatever the order of the style sheets. */
+.cards.cards > * {
+  flex: 1 0 0;
+  min-width: min(272px, 100%);
+}

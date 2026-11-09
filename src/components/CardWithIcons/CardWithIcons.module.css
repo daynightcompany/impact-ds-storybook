@@ -1,0 +1,81 @@
+/* Figma "Card/Card with icons" (node 9587:7746): a column on background/primary
+   with spacing/m of padding and corner radius l, as wide as the space it is in
+   (426 in the Figma frame), never narrower than 272. */
+.card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  min-width: min(272px, 100%);
+  padding: var(--breakpoint-spacing-m);
+  overflow: clip;
+  border-radius: var(--breakpoint-cornerradius-l);
+  background: var(--theme-color-background-primary);
+  color: var(--theme-color-font-paragraph-primary);
+}
+
+/* The icon is a 84 x 84 box in the paragraph colour. Its stroke keeps the weight
+   of borderStroke/s (1, 2 in SMAL) however large it is drawn: the Figma layer
+   is bound to that variable. */
+.icon {
+  display: inline-flex;
+  flex: none;
+  width: 84px;
+  height: 84px;
+  color: var(--theme-color-font-paragraph-primary);
+}
+.icon > * {
+  width: 100%;
+  height: 100%;
+}
+.icon svg path {
+  stroke-width: var(--theme-borderstroke-s);
+}
+
+/* "Text variants": a wrapping row with spacing/m between the text and the
+   buttons and spacing/m above. */
+.body {
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: var(--breakpoint-spacing-m);
+  width: 100%;
+  min-width: min(200px, 100%);
+  padding-top: var(--breakpoint-spacing-m);
+}
+
+/* The text takes half of the row and wraps the buttons under it when it would
+   get narrower than 200. Figma gives the text block a fixed height of 108 (on
+   Mobile too, where its smaller type is centered in it); as a least height it
+   keeps the cards of a row level and still lets a long title grow. */
+.text {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  justify-content: center;
+  min-width: min(200px, 100%);
+  min-height: 108px;
+}
+
+/* The buttons share the other half, 12 (spacing/xs) apart, each at least 176
+   wide and never narrower than its label (the buttons do not wrap their text),
+   at the end of the row. When they do not fit side by side, because the card is
+   narrow or the labels are long, they stack over the full width. */
+.buttons {
+  display: flex;
+  flex: 1 0 0;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--breakpoint-spacing-xs);
+  min-width: min-content;
+}
+.buttons > * {
+  flex: 1 0 auto;
+  width: 176px;
+  min-width: min-content;
+  max-width: 100%;
+}

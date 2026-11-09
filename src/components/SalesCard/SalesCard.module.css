@@ -1,0 +1,9 @@
+/* Figma "Card/Sales card" (node 9587:7737): the Sales card text block on a
+   surface/primary card, corner radius m, with spacing/l of padding (the text
+   block alone has spacing/m). The doubled selector wins over the text block's
+   own rules whatever the order of the style sheets. */
+.card.card {
+  padding: var(--breakpoint-spacing-l);
+  border-radius: var(--breakpoint-cornerradius-m);
+  background: var(--theme-color-surface-primary);
+}
