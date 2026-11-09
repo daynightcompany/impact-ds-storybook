@@ -1,0 +1,48 @@
+/* Figma "HeroImageContainer" (node 9587:7867): a centered column as wide as the
+   space it is in, filled with border/primary, that clips what is wider than it.
+   It holds one image, the size of the viewport. */
+.container {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--breakpoint-spacing-2xs);
+  width: 100%;
+  overflow: clip;
+  border-radius: var(--breakpoint-cornerradius-none);
+  background: var(--theme-color-border-primary);
+}
+
+/* The Figma "Image": viewport/width x viewport/height, which is 1920 x 1080 on
+   Desktop and 375 x 812 on Mobile, centered in the container (it is cropped at
+   the sides when the container is narrower). An Image preview in it fills it
+   (--image-preview-height: 100%), an img or a video is cropped to it. */
+.image {
+  --image-preview-height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--breakpoint-viewport-width);
+  height: var(--breakpoint-viewport-height);
+  overflow: clip;
+  border-radius: var(--breakpoint-cornerradius-none);
+}
+.image > img,
+.image > video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* The placeholder icon: surface/primary, 96 x 72 on both (the Figma component
+   holds the Desktop one of the Image variants). */
+.icon {
+  flex: none;
+  width: 96px;
+  height: 72px;
+  fill: var(--theme-color-surface-primary);
+}
