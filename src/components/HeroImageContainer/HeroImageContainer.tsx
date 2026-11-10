@@ -17,12 +17,12 @@ export interface HeroImageContainerProps extends HTMLAttributes<HTMLDivElement> 
  * Impact DS Hero image container — converted from the Figma "HeroImageContainer"
  * component (node 9587:7867 in the SMAL Impact Design System (Public) Figma
  * file): a column as wide as the space it is in, filled with border/primary,
- * that holds one image the size of the viewport (the Figma `viewport/width` and
- * `viewport/height` variables: 1920 x 1080 on Desktop, 375 x 812 on Mobile),
- * centered, and clips what is wider than the space. Without an `image` the
- * image is the Figma "Image" placeholder: an image icon in surface/primary in
- * the middle, 96 x 72 as in the Figma component, which holds the Desktop one of
- * the Image variants on both.
+ * that holds one image as wide as the column and as high as the viewport (the
+ * Figma `viewport/height` variable: 1080 on Desktop, 812 on Mobile), but never
+ * higher than the window (100vh), so that a hero is never taller than the
+ * screen. Without an `image` the image is the Figma "Image" placeholder: an
+ * image icon in surface/primary in the middle, 96 x 72 as in the Figma
+ * component, which holds the Desktop one of the Image variants on both.
  */
 export function HeroImageContainer({ image, className, ...rest }: HeroImageContainerProps) {
   const classes = [styles.container, className].filter(Boolean).join(' ');

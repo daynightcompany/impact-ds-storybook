@@ -1,6 +1,6 @@
 import type { HTMLAttributes, ReactNode } from 'react';
 import styles from './ImageCarouselText.module.css';
-import { TextPart, textSlot, type TextSlot } from '../TextParts';
+import { textSlot, type TextSlot } from '../TextParts';
 import '../../styles/tokens.css';
 import '../../styles/tokens.text-modes.css';
 // Hand-maintained companion to tokens.css: font import + alpha-color stopgap.
@@ -8,8 +8,13 @@ import '../../styles/tokens.extras.css';
 
 export type ImageCarouselTextState = 'Active' | 'Inactive';
 
-export interface ImageCarouselTextProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
-  /** Figma "State": Active is the item of the picture on show, in the paragraph colour; Inactive is the paler item of a picture that is not. */
+export interface ImageCarouselTextProps extends Omit<HTMLAttributes<HTMLElement>, 'title'> {
+  /**
+   * Figma "State": Active is the item of the picture on show, in the paragraph
+   * colour, and is not interactive (it is marked with `aria-current`); Inactive
+   * is the paler item of a picture that is not on show, and is a button that
+   * goes to it: give it `onClick`.
+   */
   state?: ImageCarouselTextState;
   /** The title. Figma shows the placeholder "Placeholder Title". */
   children?: ReactNode;
@@ -22,9 +27,10 @@ export interface ImageCarouselTextProps extends Omit<HTMLAttributes<HTMLDivEleme
  * text" component set (node 9587:8004 in the SMAL Impact Design System
  * (Public) Figma file): a title and a line of text under it, with a thin
  * vertical line at its left, for one picture of an image carousel. The Active
- * item is in the paragraph colour; the Inactive one is in the secondary
- * paragraph colour at half strength. It is as wide as the space it is in (435
- * on the Figma component page, 327 in the carousel). The type follows the
+ * item is in the paragraph colour and is marked with `aria-current`; the
+ * Inactive one is in the secondary paragraph colour at half strength, and is a
+ * button that goes to its picture. It is as wide as the space it is in (435 on
+ * the Figma component page, 327 in the carousel). The type follows the
  * breakpoint tokens, so Mobile is smaller.
  */
 export function ImageCarouselText({
@@ -34,16 +40,33 @@ export function ImageCarouselText({
   className,
   ...rest
 }: ImageCarouselTextProps) {
-  const classes = [styles.item, styles[`state-${state.toLowerCase()}`], className].filter(Boolean).join(' ');
+  const active = state === 'Active';
+  const classes = [styles.item, active ? styles['state-active'] : styles['state-inactive'], className]
+    .filter(Boolean)
+    .join(' ');
   const subtitleNode = textSlot(subtitle, 'Placeholder subtitle');
-  return (
-    <div className={classes} aria-current={state === 'Active' ? 'true' : undefined} {...rest}>
+  const content = (
+    <>
       <span className={styles.line} aria-hidden="true" />
-      <div className={styles.text}>
-        <TextPart className={styles.title}>{children}</TextPart>
-        {subtitleNode != null && <TextPart className={styles.subtitle}>{subtitleNode}</TextPart>}
+      <span className={styles.text}>
+        <span className={styles.title}>{children}</span>
+        {subtitleNode != null && <span className={styles.subtitle}>{subtitleNode}</span>}
+      </span>
+    </>
+  );
+
+  if (active) {
+    return (
+      <div className={classes} aria-current="true" {...(rest as HTMLAttributes<HTMLDivElement>)}>
+        {content}
       </div>
-    </div>
+    );
+  }
+
+  return (
+    <button type="button" className={classes} {...(rest as HTMLAttributes<HTMLButtonElement>)}>
+      {content}
+    </button>
   );
 }
 

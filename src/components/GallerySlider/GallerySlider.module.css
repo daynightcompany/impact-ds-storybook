@@ -1,6 +1,7 @@
 /* Figma "Gallery slider" (node 9587:7903): a frame as big as the viewport (1920 x
-   1080 on Desktop, 375 x 812 on Mobile, never wider than the space it is in),
-   with spacing/2xl above and below and spacing/m at the sides. The pictures
+   1080 on Desktop, 375 x 812 on Mobile), never wider than the space it is in
+   and never higher than the window (100vh), with spacing/2xl above and below
+   and spacing/m at the sides. The pictures
    fill the whole frame behind the content, which is a column: the title at the
    top, the page marks at the bottom and, on Desktop, the two buttons at the
    sides in the middle. */
@@ -9,7 +10,7 @@
   box-sizing: border-box;
   width: var(--breakpoint-viewport-width);
   max-width: 100%;
-  height: var(--breakpoint-viewport-height);
+  height: min(var(--breakpoint-viewport-height), 100vh);
   padding: var(--breakpoint-spacing-2xl) var(--breakpoint-spacing-m);
 }
 

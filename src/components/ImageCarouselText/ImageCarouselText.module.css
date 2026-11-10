@@ -1,13 +1,20 @@
 /* Figma "Image carousel text" (node 9587:8004): a row with spacing/m between a
    2 wide line and the text. The line is as high as the text, in the colour of
    the text: font/paragraph/primary when Active, font/paragraph/secondary when
-   Inactive. The row is as wide as the space it is in. */
+   Inactive. The row is as wide as the space it is in. An Inactive item is a
+   button, so it starts from a plain box. */
 .item {
   box-sizing: border-box;
   display: flex;
   align-items: stretch;
   gap: var(--breakpoint-spacing-m);
   width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  text-align: left;
 }
 
 .state-active {
@@ -18,6 +25,11 @@
 .state-inactive {
   color: var(--theme-color-font-paragraph-secondary);
   opacity: 0.5;
+  cursor: pointer;
+}
+.state-inactive:focus-visible {
+  outline: 2px solid var(--theme-color-interactive-idle-primary);
+  outline-offset: 4px;
 }
 
 .line {

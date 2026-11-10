@@ -214,10 +214,20 @@ export function Popover({
   useLayoutEffect(() => {
     if (!open) return;
     const el = element.current;
-    const anchor = anchorRef.current;
-    if (!el || !anchor) return;
+    if (!el) return;
 
+    // Looked up when it is placed, not here: a popover that is open from the very first render
+    // has its anchor (usually its parent) attached only after this effect has run, so the first
+    // look is in the next frame. Until then the popover is still invisible (it fades in).
+    let observed: HTMLElement | null = null;
     const place = () => {
+      const anchor = anchorRef.current;
+      if (!anchor) return;
+      if (anchor !== observed) {
+        if (observed) observer.unobserve(observed);
+        observer.observe(anchor);
+        observed = anchor;
+      }
       const gap = offset ?? cssOffset(el);
       const a = anchor.getBoundingClientRect();
       const viewportWidth = document.documentElement.clientWidth;
@@ -277,8 +287,6 @@ export function Popover({
       el.dataset.side = side;
     };
 
-    place();
-
     let frame = 0;
     const schedule = () => {
       cancelAnimationFrame(frame);
@@ -286,7 +294,8 @@ export function Popover({
     };
     const observer = new ResizeObserver(schedule);
     observer.observe(el);
-    observer.observe(anchor);
+    place();
+    if (!observed) schedule();
     window.addEventListener('resize', schedule);
     // Capture: a scroll in any ancestor of the anchor moves it.
     document.addEventListener('scroll', schedule, true);

@@ -1,6 +1,6 @@
 /* Figma "HeroImageContainer" (node 9587:7867): a centered column as wide as the
    space it is in, filled with border/primary, that clips what is wider than it.
-   It holds one image, the size of the viewport. */
+   It holds one image, as high as the viewport. */
 .container {
   box-sizing: border-box;
   display: flex;
@@ -15,8 +15,10 @@
 }
 
 /* The Figma "Image": viewport/width x viewport/height, which is 1920 x 1080 on
-   Desktop and 375 x 812 on Mobile, centered in the container (it is cropped at
-   the sides when the container is narrower). An Image preview in it fills it
+   Desktop and 375 x 812 on Mobile. It is as wide as the container (which is as
+   wide as the viewport in the page) and as high as viewport/height, but never
+   higher than the window itself (100vh): a hero that is taller than the screen
+   cannot be seen as a whole. An Image preview in it fills it
    (--image-preview-height: 100%), an img or a video is cropped to it. A frame
    that holds the container as a card can set --hero-image-width and
    --hero-image-height (100% makes the image as big as the container, so that
@@ -28,8 +30,8 @@
   flex: none;
   align-items: center;
   justify-content: center;
-  width: var(--hero-image-width, var(--breakpoint-viewport-width));
-  height: var(--hero-image-height, var(--breakpoint-viewport-height));
+  width: var(--hero-image-width, 100%);
+  height: var(--hero-image-height, min(var(--breakpoint-viewport-height), 100vh));
   overflow: clip;
   border-radius: var(--breakpoint-cornerradius-none);
 }

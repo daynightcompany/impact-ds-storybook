@@ -26,8 +26,12 @@ export interface GallerySliderProps extends Omit<HTMLAttributes<HTMLDivElement>,
   title?: TextSlot;
   /** Figma boolean "Buttons": the round buttons at the sides that go back and on. They are only there on Desktop, as in Figma. */
   buttons?: boolean;
-  /** Figma boolean "Slide indicator": the page marks at the bottom. */
-  slideIndicator?: boolean;
+  /**
+   * Figma boolean "Slide indicator": the page marks at the bottom. `true`
+   * shows the Slide indicator, a node replaces it (a `SlideTimer`, for a
+   * gallery that turns by itself), `false` hides it.
+   */
+  slideIndicator?: boolean | ReactNode;
   /** Figma boolean "Next image peeking": with `Peeking`, the next picture shows at the right edge. Without it only the current picture shows. */
   nextImagePeeking?: boolean;
   /**
@@ -60,16 +64,16 @@ const SWIPE_DISTANCE = 40;
  * Impact DS Gallery slider — converted from the Figma "Gallery slider"
  * component set (node 9587:7903 in the SMAL Impact Design System (Public)
  * Figma file): a frame as big as the viewport (the Figma viewport/width and
- * viewport/height variables: 1920 x 1080 on Desktop, 375 x 812 on Mobile)
- * with a gallery of pictures behind its content. The content is the title at
- * the top left, the Slide indicator at the bottom in the middle and, on
- * Desktop only, two round Tertiary buttons at the sides, in the middle, that
- * go back and on. The `image` variant says how the pictures sit: `Background`
- * fills the frame, `Peeking` shows a large rounded card in the middle of the
- * frame, on the background/primary colour, with the next picture peeking in
- * at the right edge and, after the first one, the one before at the left
- * edge. On Mobile the `Peeking` card fills the frame, as in Figma, and there
- * is no peek.
+ * viewport/height variables: 1920 x 1080 on Desktop, 375 x 812 on Mobile, and
+ * never higher than the window) with a gallery of pictures behind its
+ * content. The content is the title at the top left, the Slide indicator at
+ * the bottom in the middle and, on Desktop only, two round Tertiary buttons at
+ * the sides, in the middle, that go back and on. The `image` variant says
+ * how the pictures sit: `Background` fills the frame, `Peeking` shows a large
+ * rounded card in the middle of the frame, on the background/primary colour,
+ * with the next picture peeking in at the right edge and, after the first
+ * one, the one before at the left edge. On Mobile the `Peeking` card fills
+ * the frame, as in Figma, and there is no peek.
  *
  * The buttons go round at the ends. Swiping or dragging sideways and the left
  * and right arrow keys (when the gallery has focus) turn the page as well,
@@ -153,6 +157,8 @@ export function GallerySlider({
     .filter(Boolean)
     .join(' ');
   const titleNode = textSlot(title, 'Title');
+  const indicatorNode =
+    slideIndicator === true ? <SlideIndicator count={Math.max(total, 1)} page={current} /> : slideIndicator;
 
   return (
     <div className={classes} {...rest}>
@@ -233,11 +239,7 @@ export function GallerySlider({
             />
           </div>
         )}
-        {slideIndicator && (
-          <div className={styles.pagination}>
-            <SlideIndicator count={Math.max(total, 1)} page={current} />
-          </div>
-        )}
+        {indicatorNode != null && indicatorNode !== false && <div className={styles.pagination}>{indicatorNode}</div>}
       </div>
     </div>
   );

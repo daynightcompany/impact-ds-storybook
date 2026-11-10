@@ -41,6 +41,13 @@ function prefersReducedMotion(): boolean {
  * smaller.
  *
  * The row is one labelled region that can be focused. Use `label` to name it.
+ *
+ * In a page the Figma frames let the cards run off the edge of the page, so
+ * that the next card peeks in. For that, set the custom property
+ * `--carousel-bleed` on the carousel to the margin of the page (`style={{
+ * '--carousel-bleed': 'var(--breakpoint-spacing-m)' }}`) and let the frame
+ * clip what runs past it: the row then reaches the edge of the frame at both
+ * ends while the first card and the buttons keep to the margin.
  */
 export function Carousel({
   children,
@@ -78,19 +85,22 @@ export function Carousel({
     const track = trackRef.current;
     if (!track) return;
     const items = Array.from(track.children) as HTMLElement[];
+    // An item snaps to the scroll padding (the bleed), not to the very edge of the row.
+    const inset = parseFloat(getComputedStyle(track).scrollPaddingLeft) || 0;
+    const start = (item: HTMLElement) => item.offsetLeft - inset;
     const left = track.scrollLeft;
     const right = left + track.clientWidth;
     let target: number;
     if (direction === 1) {
       // The first item that is not fully in view comes to the start.
       const next = items.find((item) => item.offsetLeft + item.offsetWidth > right + 1);
-      target = next ? next.offsetLeft : track.scrollWidth;
+      target = next ? start(next) : track.scrollWidth;
     } else {
       // The page before: the items that were cut off at the start come back into view.
-      const before = items.filter((item) => item.offsetLeft < left - 1);
-      const reach = left - track.clientWidth;
-      const previous = before.find((item) => item.offsetLeft >= reach - 1) ?? before[0];
-      target = previous ? previous.offsetLeft : 0;
+      const before = items.filter((item) => start(item) < left - 1);
+      const reach = left - (track.clientWidth - inset);
+      const previous = before.find((item) => start(item) >= reach - 1) ?? before[0];
+      target = previous ? start(previous) : 0;
     }
     track.scrollTo({ left: target, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
   };

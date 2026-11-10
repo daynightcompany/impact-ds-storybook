@@ -1,8 +1,8 @@
 /* Figma "Gallery preview" (node 9587:7965): a frame as wide as the viewport (1920 on
-   Desktop, 375 on Mobile) and 1080 high on both, filled with surface/primary,
-   that clips what is outside it. Its tiles lie in rows that wrap, spacing/s
-   apart, with spacing/m above and below and spacing/4xl at the sides. The rows
-   are centered both ways: what does not fit is cut off equally at both ends. */
+   Desktop, 375 on Mobile) and 1080 high, filled with surface/primary, that
+   clips what is outside it. Its tiles lie in rows that wrap, spacing/s apart,
+   with spacing/m above and below and spacing/4xl at the sides. The rows are
+   centered both ways: what does not fit is cut off equally at both ends. */
 .preview {
   box-sizing: border-box;
   display: flex;
@@ -24,4 +24,23 @@
   flex: none;
   overflow: clip;
   border-radius: var(--breakpoint-cornerradius-l);
+}
+
+/* A GalleryPreviewTile: the size Figma gives it, in --tile-width and
+   --tile-height (the pixels of the Figma frame, without a unit). */
+.tile.tile {
+  --image-preview-height: calc(var(--tile-height) * 1px);
+  width: calc(var(--tile-width) * 1px);
+}
+
+/* Mobile: Figma keeps the Desktop sizes, which are all wider than the frame and
+   cut off at its sides. Here the frame is as high as its content and a tile is
+   at most as wide as the frame, with its proportions, so nothing is cropped. */
+:global([data-breakpoint='375-mobile']) .preview {
+  height: auto;
+}
+:global([data-breakpoint='375-mobile']) .tile.tile {
+  width: min(calc(var(--tile-width) * 1px), 100%);
+  height: auto;
+  aspect-ratio: var(--tile-width) / var(--tile-height);
 }

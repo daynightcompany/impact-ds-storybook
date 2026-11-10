@@ -1,6 +1,32 @@
+import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
 import { SlidePreviewCard } from './SlidePreviewCard';
+import { SlideTimer } from '../SlideTimer/SlideTimer';
+
+/** Figma's Slide timer draws four slides. */
+const SLIDES = 4;
+
+/** How long a card stays Active in the timer demo, in milliseconds. */
+const SHOW_TIME = 3000;
+
+/** The cards of the slides: the one at `slide` (counted from 1) is Active, the others are buttons that go to their slide. */
+function Cards({ slide, onSlide }: { slide: number; onSlide: (slide: number) => void }) {
+  return (
+    <div style={{ display: 'grid', gap: 8, width: 272, maxWidth: '100%' }}>
+      {Array.from({ length: SLIDES }, (_, index) => {
+        const active = slide === index + 1;
+        return (
+          <SlidePreviewCard
+            key={index}
+            state={active ? 'Active' : 'Inactive'}
+            onClick={active ? undefined : () => onSlide(index + 1)}
+          />
+        );
+      })}
+    </div>
+  );
+}
 
 /** The Figma title, repeated until it takes more than two lines. */
 const LONG_TITLE = 'Preview card title Preview card title Preview card title Preview card title';
@@ -19,7 +45,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Card/Slide preview" component set (node 9587:7677) in the SMAL Impact Design System file. Source of truth for variants: Figma. The title of a slide on a rounded card, 272 wide. State is a variant: Active (the slide that is shown) has a border/tertiary fill and is not interactive, it is marked with `aria-current`; Inactive has no fill and is a button that goes to its slide. A title of more than two lines is cut off. The spacing, corner radius and type follow the breakpoint tokens, so Mobile is smaller (use the Breakpoint switch in the toolbar).',
+          'Converted from the Figma "Card/Slide preview" component set (node 9587:7677) in the SMAL Impact Design System file. Source of truth for variants: Figma. The title of a slide on a rounded card, 272 wide. State is a variant: Active (the slide that is shown) has a border/tertiary fill and is not interactive, it is marked with `aria-current`; Inactive has no fill and is a button that goes to its slide. A title of more than two lines is cut off. The spacing, corner radius and type follow the breakpoint tokens, so Mobile is smaller (use the Breakpoint switch in the toolbar). The Manual demo and Timer demo stories switch between the cards, the second one with a `SlideTimer`.',
       },
     },
   },
@@ -68,4 +94,29 @@ export const AllVariants: Story = {
       <SlidePreviewCard state="Active">{LONG_TITLE}</SlidePreviewCard>
     </div>
   ),
+};
+
+/** Press an Inactive card to go to its slide: it becomes the Active one, and the card that was Active goes back to Inactive. */
+export const ManualDemo: Story = {
+  name: 'Manual demo',
+  parameters: { chromatic: { disableSnapshot: true }, docs: { source: { type: 'code' } } },
+  render: function Render() {
+    const [slide, setSlide] = useState(1);
+    return <Cards slide={slide} onSlide={setSlide} />;
+  },
+};
+
+/** A Slide timer under the cards: its bar fills over three seconds, and then the next card is Active (after the last one comes the first). Pressing a card goes to it, and the bar starts again. */
+export const TimerDemo: Story = {
+  name: 'Timer demo',
+  parameters: { chromatic: { disableSnapshot: true }, docs: { source: { type: 'code' } } },
+  render: function Render() {
+    const [slide, setSlide] = useState(1);
+    return (
+      <div style={{ display: 'grid', justifyItems: 'start', gap: 'var(--breakpoint-spacing-m)' }}>
+        <Cards slide={slide} onSlide={setSlide} />
+        <SlideTimer slide={slide} count={SLIDES} duration={SHOW_TIME} showSlider={false} onSlideChange={setSlide} />
+      </div>
+    );
+  },
 };

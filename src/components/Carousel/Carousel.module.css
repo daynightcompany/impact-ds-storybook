@@ -13,7 +13,15 @@
 /* "Carousel items": a row with spacing/xs between the items; what does not fit
    is clipped and scrolls sideways, each item snapping to the start. The clipping
    would cut off the focus ring of an item at the edge, so the cards inside draw
-   it just inside their edge (--focus-ring-offset). */
+   it just inside their edge (--focus-ring-offset).
+
+   --carousel-bleed lets the row run past the width of the carousel at both
+   ends: the Figma page frames let the cards run off the edge of the page, so
+   that the next card peeks in, while the first card and the buttons keep to the
+   page margin. Set it to the margin (spacing/m on a page); it is 0 without it.
+   The row is wider by the bleed at each end and has the same space inside, so
+   the items start where the carousel starts and stop at the margin when it is
+   scrolled to the end. The scroll padding makes an item snap to the margin. */
 .track {
   --focus-ring-offset: -2px;
   position: relative;
@@ -21,7 +29,10 @@
   display: flex;
   align-items: flex-start;
   gap: var(--breakpoint-spacing-xs);
-  width: 100%;
+  width: calc(100% + 2 * var(--carousel-bleed, 0px));
+  margin-inline: calc(-1 * var(--carousel-bleed, 0px));
+  padding-inline: var(--carousel-bleed, 0px);
+  scroll-padding-inline: var(--carousel-bleed, 0px);
   overflow-x: auto;
   overflow-y: hidden;
   overscroll-behavior-x: contain;
