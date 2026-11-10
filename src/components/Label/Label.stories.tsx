@@ -53,9 +53,9 @@ export const AllSizes: Story = {
     },
   },
   render: () => (
-    <div style={{ display: 'grid', gap: 16 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 16 }}>
       {(['S', 'L'] as const).map((size) => (
-        <div key={size} style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+        <div key={size} style={{ display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'center' }}>
           <span style={{ width: 60, fontSize: 12, color: '#888' }}>Size {size}</span>
           <Label size={size}>Label</Label>
           <Label size={size} icon>Label</Label>

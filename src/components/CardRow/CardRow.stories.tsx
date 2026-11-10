@@ -35,7 +35,7 @@ export const WithButtons: Story = {
 export const Narrow: Story = {
   decorators: [
     (Story) => (
-      <div style={{ width: 420 }}>
+      <div style={{ width: 420, maxWidth: '100%' }}>
         <Story />
       </div>
     ),

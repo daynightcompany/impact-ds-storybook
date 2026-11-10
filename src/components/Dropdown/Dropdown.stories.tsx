@@ -86,7 +86,7 @@ function OpenList(args: DropdownProps) {
   const name = args.label ?? 'Options';
 
   return (
-    <div style={{ display: 'grid', gap: 'var(--breakpoint-spacing-s)' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 'var(--breakpoint-spacing-s)' }}>
       <Dropdown {...args} aria-controls={listId} />
       <Popup id={listId} aria-label={name} width="100%" search={false} tabs={false} footer={false}>
         <CellGroup type="Radio" aria-label={name} defaultValue="1">
@@ -178,7 +178,7 @@ const meta = {
   args: { label: 'Label', onClick: fn(), onLinkClick: fn() },
   decorators: [
     (Story) => (
-      <div style={{ width: 327 }}>
+      <div style={{ width: 327, maxWidth: '100%' }}>
         <Story />
       </div>
     ),
@@ -293,11 +293,11 @@ export const AllVariants: Story = {
     },
   },
   render: () => (
-    <div style={{ display: 'grid', gap: 12 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 12 }}>
       {CASES.map(({ name, state, props }) => (
-        <div key={name} style={{ display: 'grid', gap: 4 }}>
+        <div key={name} style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 4 }}>
           <span style={{ fontSize: 11, color: '#888' }}>{name}</span>
-          <div data-state={state} style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 327px)', gap: 24, alignItems: 'start' }}>
+          <div data-state={state} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(327px, 100%), 327px))', gap: 24, alignItems: 'start' }}>
             <Dropdown label="Label" {...props} />
             <Dropdown label="Label" value="Input" {...props} />
           </div>

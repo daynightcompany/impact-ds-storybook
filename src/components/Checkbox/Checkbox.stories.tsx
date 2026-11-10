@@ -45,7 +45,7 @@ export const NoLabel: Story = {
 
 export const AllVariants: Story = {
   render: () => (
-    <div style={{ display: 'grid', gap: 16 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 16 }}>
       <Checkbox>Label</Checkbox>
       <Checkbox defaultChecked>Label</Checkbox>
       <Checkbox disabled>Label</Checkbox>

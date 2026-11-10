@@ -59,7 +59,7 @@ export const TextBlockOnly: Story = {
 export const Narrow: Story = {
   decorators: [
     (Story) => (
-      <div style={{ width: 160 }}>
+      <div style={{ width: 160, maxWidth: '100%' }}>
         <Story />
       </div>
     ),
@@ -78,7 +78,7 @@ export const AllVariants: Story = {
     },
   },
   render: () => (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 400px))', alignItems: 'start', gap: 24 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(280px, 100%), 400px))', alignItems: 'start', gap: 24 }}>
       <ListCard />
       <ListCard showTopContainer />
       <ListCard showTopContainer showLabel={false} />

@@ -326,7 +326,7 @@ export const SimpleDropdown: Story = {
     const byPointer = useRef(false);
 
     return (
-      <div style={{ width: 327, minHeight: 460 }}>
+      <div style={{ width: 327, maxWidth: '100%', minHeight: 460 }}>
         <Dropdown
           ref={anchor}
           label="Country"

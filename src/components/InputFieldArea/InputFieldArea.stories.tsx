@@ -22,7 +22,7 @@ const meta = {
   args: { label: 'Label', helperText: true, onLinkClick: fn() },
   decorators: [
     (Story) => (
-      <div style={{ width: 600 }}>
+      <div style={{ width: 600, maxWidth: '100%' }}>
         <Story />
       </div>
     ),
@@ -104,13 +104,13 @@ export const AllVariants: Story = {
     },
   },
   render: () => (
-    <div style={{ display: 'grid', gap: 24, width: 600 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 24, width: 600, maxWidth: '100%' }}>
       {CASES.flatMap(({ name, state, props }) =>
         [
           { condition: 'Empty', value: undefined },
           { condition: 'Populated', value: LOREM },
         ].map(({ condition, value }) => (
-          <div key={`${name}${condition}`} data-state={state} style={{ display: 'grid', gap: 4 }}>
+          <div key={`${name}${condition}`} data-state={state} style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 4 }}>
             <span style={{ fontSize: 11, color: '#888' }}>
               {name} · {condition}
             </span>

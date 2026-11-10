@@ -1,10 +1,11 @@
 /* Figma "Navigation/Footer": the surface colour with spacing/2xl above and
-   below and spacing/m at the sides, at least 375 wide. One column of content
-   whose two parts, the top and the bottom, are spacing/l apart. */
+   below and spacing/m at the sides, at least 375 wide (less where the space it is
+   in is narrower). One column of content whose two parts, the top and the
+   bottom, are spacing/l apart. */
 .footer {
   box-sizing: border-box;
   width: 100%;
-  min-width: 375px;
+  min-width: min(375px, 100%);
   padding: var(--breakpoint-spacing-2xl) var(--breakpoint-spacing-m);
   background: var(--theme-color-surface-primary);
   /* The logos are drawn in the paragraph colour (currentColor). */

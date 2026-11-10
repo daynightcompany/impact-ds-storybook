@@ -45,7 +45,7 @@ export const Narrow: Story = {
   args: { role: 'region', 'aria-label': 'Cookie consent' },
   decorators: [
     (Story) => (
-      <div style={{ width: 375 }}>
+      <div style={{ width: 375, maxWidth: '100%' }}>
         <Story />
       </div>
     ),

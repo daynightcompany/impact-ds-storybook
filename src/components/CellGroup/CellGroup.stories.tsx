@@ -17,7 +17,7 @@ const meta = {
   args: { onValueChange: fn() },
   decorators: [
     (Story) => (
-      <div style={{ width: 420 }}>
+      <div style={{ width: 420, maxWidth: '100%' }}>
         <Story />
       </div>
     ),
@@ -93,7 +93,7 @@ export const Checkbox: Story = {
 function ControlledRadioDemo() {
   const [value, setValue] = useState('b');
   return (
-    <div style={{ display: 'grid', gap: 16 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 16 }}>
       <CellGroup type="Radio" value={value} onValueChange={setValue} aria-label="Plan">
         <CellSelector value="a">Starter</CellSelector>
         <CellSelector value="b">Team</CellSelector>
@@ -118,7 +118,7 @@ export const AllTypes: Story = {
     },
   },
   render: () => (
-    <div style={{ display: 'grid', gap: 32, width: 420 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 32, width: 420, maxWidth: '100%' }}>
       <CellGroup type="Link" aria-label="Link group">
         <CellList>Title</CellList>
         <CellList>Title</CellList>

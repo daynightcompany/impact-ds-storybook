@@ -33,7 +33,7 @@ export const Default: Story = {};
 export const Narrow: Story = {
   decorators: [
     (Story) => (
-      <div style={{ width: 375 }}>
+      <div style={{ width: 375, maxWidth: '100%' }}>
         <Story />
       </div>
     ),

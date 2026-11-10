@@ -24,9 +24,9 @@ const meta = {
     },
   },
   decorators: [
-    (Story) => (
+    (Story, { parameters }) => (
       <div style={{ padding: 24, background: 'var(--theme-color-surface-primary)' }}>
-        <div style={{ width: 426, maxWidth: '100%' }}>
+        <div style={{ width: parameters.fullWidth ? 'auto' : 426, maxWidth: '100%' }}>
           <Story />
         </div>
       </div>
@@ -50,7 +50,7 @@ export const WithoutButtons: Story = {
 export const Narrow: Story = {
   decorators: [
     (Story) => (
-      <div style={{ width: 272 }}>
+      <div style={{ width: 272, maxWidth: '100%' }}>
         <Story />
       </div>
     ),
@@ -59,9 +59,10 @@ export const Narrow: Story = {
 
 /** Wide enough for the text (200) and the buttons (176 each, so 364 stacked or beside each other): the buttons stand beside the text. */
 export const Wide: Story = {
+  parameters: { fullWidth: true },
   decorators: [
     (Story) => (
-      <div style={{ width: 720 }}>
+      <div style={{ width: 720, maxWidth: '100%' }}>
         <Story />
       </div>
     ),
@@ -79,7 +80,7 @@ export const AllVariants: Story = {
     },
   },
   render: () => (
-    <div style={{ display: 'grid', gap: 24 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 24 }}>
       <CardWithIcons />
       <CardWithIcons cta={false} />
     </div>

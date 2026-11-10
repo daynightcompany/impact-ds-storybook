@@ -18,7 +18,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Segment control" component set (node 9587:3615), built on "Base/SwitchButton" 9587:3563. Source of truth for variants: Figma. M has small corners and S segments, L is taller and rounded with M segments; the selected segment is a white pill. The Items slot is the children: put one `SegmentItem` per segment. It is a radio group: Tab enters it once and the arrow keys move and select. `value` / `defaultValue` match the `value` of a SegmentItem. Figma has no hover or disabled state: an unselected segment fills on hover like a Tab/Secondary, and disabled fades to 30%. Use the Breakpoint switch in the toolbar to see the Mobile values.',
+          'Converted from the Figma "Segment control" component set (node 9587:3615), built on "Base/SwitchButton" 9587:3563. Source of truth for variants: Figma. M has small corners and S segments, L is taller and rounded with M segments; the selected segment is a white pill. The Items slot is the children: put one `SegmentItem` per segment. It is a radio group: Tab enters it once and the arrow keys move and select. `value` / `defaultValue` match the `value` of a SegmentItem. Figma has no hover or disabled state: an unselected segment fills on hover like a Tab/Secondary, and disabled fades to 30%. Where the space is narrower than the control, the segments wrap onto a second row. Use the Breakpoint switch in the toolbar to see the Mobile values.',
       },
     },
   },
@@ -89,7 +89,7 @@ export const Disabled: Story = {
 function ControlledDemo() {
   const [value, setValue] = useState('week');
   return (
-    <div style={{ display: 'grid', gap: 16, justifyItems: 'start' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 16, justifyItems: 'start' }}>
       <SegmentControl size="L" value={value} onValueChange={setValue} aria-label="Range">
         <SegmentItem value="day">Day</SegmentItem>
         <SegmentItem value="week">Week</SegmentItem>
@@ -115,9 +115,9 @@ export const AllVariants: Story = {
     },
   },
   render: () => (
-    <div style={{ display: 'grid', gap: 24, justifyItems: 'start' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 24, justifyItems: 'start' }}>
       {(['M', 'L'] as const).map((size) => (
-        <div key={size} style={{ display: 'grid', gap: 12, justifyItems: 'start' }}>
+        <div key={size} style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 12, justifyItems: 'start' }}>
           <span style={{ fontSize: 12, color: '#888' }}>Size {size}</span>
           <SegmentControl size={size} defaultValue="one" aria-label={`Size ${size}`}>
             <FourSegments />

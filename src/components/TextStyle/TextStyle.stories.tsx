@@ -59,7 +59,7 @@ export const AllVariants: Story = {
     },
   },
   render: () => (
-    <div style={{ display: 'grid', gap: 96 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 96 }}>
       {(['Primary', 'Secondary', 'Tertiary'] as const).map((hierarchy) => (
         <TextStyle key={hierarchy} hierarchy={hierarchy} />
       ))}

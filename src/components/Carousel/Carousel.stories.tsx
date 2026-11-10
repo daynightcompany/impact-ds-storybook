@@ -124,7 +124,7 @@ export const OnTheNextPage: Story = {
 export const AllVariants: Story = {
   parameters: desktopAndMobile,
   render: () => (
-    <div style={{ display: 'grid', gap: 48 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 48 }}>
       <Carousel />
       <Carousel label="Carousel 2">{products(10)}</Carousel>
       <Carousel label="Carousel 3">{products(3)}</Carousel>

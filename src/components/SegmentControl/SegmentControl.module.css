@@ -5,7 +5,9 @@
   position: relative;
   box-sizing: border-box;
   display: inline-flex;
+  flex-wrap: wrap;
   align-items: stretch;
+  max-width: 100%;
   gap: var(--segment-pad);
   padding: var(--segment-pad);
   background: var(--theme-color-border-secondary);

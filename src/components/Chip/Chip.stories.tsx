@@ -81,9 +81,9 @@ export const AllVariants: Story = {
     },
   },
   render: () => (
-    <div style={{ display: 'grid', gap: 32 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 32 }}>
       {(['M', 'XL'] as const).map((size) => (
-        <div key={size} style={{ display: 'grid', gap: 16 }}>
+        <div key={size} style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 16 }}>
           <span style={{ fontSize: 12, color: '#888' }}>Size {size}</span>
           {STATES.map(({ label, selected, disabled }) => (
             <div key={label} style={{ display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'center' }}>

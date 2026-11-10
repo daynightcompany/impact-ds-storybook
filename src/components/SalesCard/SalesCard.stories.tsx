@@ -46,7 +46,7 @@ export const OneButton: Story = {
 export const Narrow: Story = {
   decorators: [
     (Story) => (
-      <div style={{ width: 324 }}>
+      <div style={{ width: 324, maxWidth: '100%' }}>
         <Story />
       </div>
     ),
@@ -64,7 +64,7 @@ export const AllVariants: Story = {
     },
   },
   render: () => (
-    <div style={{ display: 'grid', gap: 32 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 32 }}>
       <SalesCard />
       <SalesCard discountPrice={false} />
       <SalesCard secondaryButton={false} />

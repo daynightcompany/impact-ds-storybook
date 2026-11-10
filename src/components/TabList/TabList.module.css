@@ -6,9 +6,12 @@
   gap: var(--breakpoint-spacing-button-2xs);
 }
 
-/* Figma Position=Horizontal: a row that fills its container, tabs at the start. */
+/* Figma Position=Horizontal: a row that fills its container, tabs at the start.
+   More tabs than the container has room for wrap into a second row; with
+   overflow="menu" they go behind the "…" button instead (see below). */
 .horizontal {
   flex-direction: row;
+  flex-wrap: wrap;
   align-items: flex-start;
 }
 
@@ -81,6 +84,9 @@
   flex: 0 1 auto;
   min-width: 0;
   min-height: 0;
+}
+.overflow > .horizontal {
+  flex-wrap: nowrap;
 }
 
 /* A tab that does not fit stays in the page and keeps its size, so it can be

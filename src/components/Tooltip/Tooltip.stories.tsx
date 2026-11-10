@@ -113,7 +113,7 @@ export const WithoutIcon: Story = {
 export const Wrapping: Story = {
   decorators: [
     (Story) => (
-      <div style={{ width: 240 }}>
+      <div style={{ width: 240, maxWidth: '100%' }}>
         <Story />
       </div>
     ),
@@ -148,8 +148,8 @@ export const Placements: Story = {
         gridTemplateColumns: 'repeat(3, max-content)',
         justifyContent: 'center',
         alignItems: 'center',
-        gap: 24,
-        padding: '72px 200px',
+        gap: 'min(24px, 2vw)',
+        padding: '72px clamp(0px, calc((100% - 340px) / 2), 200px)',
       }}
     >
       {[

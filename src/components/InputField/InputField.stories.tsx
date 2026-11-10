@@ -21,7 +21,7 @@ const meta = {
   args: { label: 'Label', onLinkClick: fn() },
   decorators: [
     (Story) => (
-      <div style={{ width: 327 }}>
+      <div style={{ width: 327, maxWidth: '100%' }}>
         <Story />
       </div>
     ),
@@ -94,7 +94,7 @@ export const Controlled: Story = {
   render: function Render(args) {
     const [value, setValue] = useState('');
     return (
-      <div style={{ display: 'grid', gap: 12 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 12 }}>
         <InputField {...args} value={value} onChange={(event) => setValue(event.target.value)} helperText={`${value.length} characters`} />
       </div>
     );
@@ -112,12 +112,12 @@ const CASES: Case[] = [
 ];
 
 const Sheet = ({ title, extra }: { title: string; extra: Partial<InputFieldProps> }) => (
-  <section style={{ display: 'grid', gap: 12 }}>
+  <section style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 12 }}>
     <h3 style={{ margin: 0, fontSize: 12, fontWeight: 600, color: '#888' }}>{title}</h3>
     {CASES.map(({ name, state, props }) => (
-      <div key={name} style={{ display: 'grid', gap: 4 }}>
+      <div key={name} style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 4 }}>
         <span style={{ fontSize: 11, color: '#888' }}>{name}</span>
-        <div data-state={state} style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 327px)', gap: 24, alignItems: 'start' }}>
+        <div data-state={state} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(327px, 100%), 327px))', gap: 24, alignItems: 'start' }}>
           <InputField label="Label" {...extra} {...props} />
           <InputField label="Label" defaultValue="Input" {...extra} {...props} />
         </div>
@@ -137,7 +137,7 @@ export const AllVariants: Story = {
     },
   },
   render: () => (
-    <div style={{ display: 'grid', gap: 32 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 32 }}>
       <Sheet title="Input field: every boolean off" extra={{}} />
       <Sheet
         title="Base/Input Field: every boolean on"

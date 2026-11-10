@@ -92,7 +92,7 @@ export const WithoutSlideIndicator: Story = {
 export const AllVariants: Story = {
   parameters: desktopAndMobile,
   render: () => (
-    <div style={{ display: 'grid', gap: 48 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 48 }}>
       <GallerySlider image="Background" label="Gallery slider 1" />
       <GallerySlider image="Peeking" label="Gallery slider 2" />
     </div>

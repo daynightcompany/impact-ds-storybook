@@ -20,7 +20,7 @@ const meta = {
   args: { onChange: fn() },
   decorators: [
     (Story) => (
-      <div style={{ width: 420 }}>
+      <div style={{ width: 420, maxWidth: '100%' }}>
         <Story />
       </div>
     ),
@@ -81,9 +81,9 @@ export const AllVariants: Story = {
     },
   },
   render: () => (
-    <div style={{ display: 'grid', gap: 24, width: 420 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 24, width: 420, maxWidth: '100%' }}>
       {KINDS.map((kind) => (
-        <div key={kind} style={{ display: 'grid', gap: 4 }}>
+        <div key={kind} style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 4 }}>
           <span style={{ fontSize: 12, color: '#888' }}>Selector {kind}</span>
           {[false, true].map((subtitle) =>
             [false, true].map((selected) => (

@@ -89,9 +89,9 @@ export const DayNightToggle: Story = {
 
 export const AllSizes: Story = {
   render: () => (
-    <div style={{ display: 'grid', gap: 16 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 16 }}>
       {(['S', 'M', 'L'] as const).map((size) => (
-        <div key={size} style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+        <div key={size} style={{ display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'center' }}>
           <span style={{ width: 24, fontSize: 12, color: '#888' }}>{size}</span>
           <Switch size={size} />
           <Switch size={size} defaultChecked />

@@ -83,7 +83,7 @@ export const AllVariants: Story = {
           { name: 'Four digits', props: { defaultValue: 1234, max: 9999 } },
         ] as const
       ).map(({ name, props }) => (
-        <div key={name} style={{ display: 'grid', gap: 4 }}>
+        <div key={name} style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 4 }}>
           <span style={{ fontSize: 11, color: '#888' }}>{name}</span>
           <Spinbox defaultValue={1} min={0} max={99} {...props} />
         </div>

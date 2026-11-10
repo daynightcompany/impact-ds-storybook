@@ -13,7 +13,7 @@ const SHOW_TIME = 3000;
 /** The cards of the slides: the one at `slide` (counted from 1) is Active, the others go to their slide when they are pressed. */
 function Cards({ slide, onSlide }: { slide: number; onSlide: (slide: number) => void }) {
   return (
-    <div style={{ display: 'grid', gap: 8, width: 272, maxWidth: '100%' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 8, width: 272, maxWidth: '100%' }}>
       {Array.from({ length: SLIDES }, (_, index) => {
         const active = slide === index + 1;
         return (
@@ -69,7 +69,7 @@ export const LongTitle: Story = {
 export const InAList: Story = {
   name: 'In a list',
   render: () => (
-    <div style={{ display: 'grid', gap: 8, width: 272 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 8, width: 272, maxWidth: '100%' }}>
       <SlidePreviewCard state="Inactive" />
       <SlidePreviewCard state="Active" />
       <SlidePreviewCard state="Inactive" />
@@ -88,7 +88,7 @@ export const AllVariants: Story = {
     },
   },
   render: () => (
-    <div style={{ display: 'grid', gap: 24, width: 272 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 24, width: 272, maxWidth: '100%' }}>
       <SlidePreviewCard state="Active" />
       <SlidePreviewCard state="Inactive" />
       <SlidePreviewCard state="Active">{LONG_TITLE}</SlidePreviewCard>
@@ -113,7 +113,7 @@ export const TimerDemo: Story = {
   render: function Render() {
     const [slide, setSlide] = useState(1);
     return (
-      <div style={{ display: 'grid', justifyItems: 'start', gap: 'var(--breakpoint-spacing-m)' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', justifyItems: 'start', gap: 'var(--breakpoint-spacing-m)' }}>
         <Cards slide={slide} onSlide={setSlide} />
         <SlideTimer slide={slide} count={SLIDES} duration={SHOW_TIME} showSlider={false} onSlideChange={setSlide} />
       </div>

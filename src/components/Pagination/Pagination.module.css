@@ -1,9 +1,11 @@
 /* Figma Pagination, Desktop: Back, the pages and Next in a row, gap spacing/m,
    centered. The pages are Button instances (Tertiary, L) with spacing/2xs
-   between them. */
+   between them. A row that is wider than the space it is in (Desktop on a
+   phone) wraps, rather than being cut off. */
 .pagination {
   box-sizing: border-box;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: var(--breakpoint-spacing-m);
@@ -20,8 +22,11 @@
 
 .pages {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   gap: var(--breakpoint-spacing-2xs);
+  min-width: 0;
   margin: 0;
   padding: 0;
   list-style: none;

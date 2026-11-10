@@ -16,7 +16,7 @@ const meta = {
   args: { orientation: 'Horizontal', 'aria-label': 'Links', children: links },
   decorators: [
     (Story) => (
-      <div style={{ width: 924 }}>
+      <div style={{ width: 924, maxWidth: '100%' }}>
         <Story />
       </div>
     ),
@@ -46,7 +46,7 @@ export const Vertical: Story = {
 export const Wrapping: Story = {
   decorators: [
     (Story) => (
-      <div style={{ width: 240 }}>
+      <div style={{ width: 240, maxWidth: '100%' }}>
         <Story />
       </div>
     ),

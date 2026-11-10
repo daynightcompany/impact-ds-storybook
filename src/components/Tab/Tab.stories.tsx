@@ -87,10 +87,10 @@ export const AllVariants: Story = {
     },
   },
   render: () => (
-    <div style={{ display: 'grid', gap: 32 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 32 }}>
       {(['Primary', 'Secondary'] as const).map((variant) =>
         (['M', 'L', 'XL'] as const).map((size) => (
-          <div key={`${variant}-${size}`} style={{ display: 'grid', gap: 16 }}>
+          <div key={`${variant}-${size}`} style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 16 }}>
             <span style={{ fontSize: 12, color: '#888' }}>
               {variant}, size {size}
             </span>

@@ -1,13 +1,17 @@
-/* Figma Slide timer: the bars and the arrows in a row, gap spacing/m, centered. */
+/* Figma Slide timer: the bars and the arrows in a row, gap spacing/m, centered.
+   When the space is narrower than the row, the arrows go under the bars. */
 .timer {
   box-sizing: border-box;
   display: inline-flex;
+  flex-wrap: wrap;
   align-items: center;
+  max-width: 100%;
   gap: var(--breakpoint-spacing-m);
 }
 
 .bars {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: var(--breakpoint-spacing-m);
 }

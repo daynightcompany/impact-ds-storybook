@@ -20,7 +20,7 @@ const meta = {
   args: { onClick: fn() },
   decorators: [
     (Story) => (
-      <div style={{ width: 420 }}>
+      <div style={{ width: 420, maxWidth: '100%' }}>
         <Story />
       </div>
     ),
@@ -92,10 +92,10 @@ export const AllVariants: Story = {
     },
   },
   render: () => (
-    <div style={{ display: 'grid', gap: 4, width: 420 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 4, width: 420, maxWidth: '100%' }}>
       {[false, true].map((avatar) =>
         [false, true].map((subtitle) => (
-          <div key={`${avatar}-${subtitle}`} style={{ display: 'grid', gap: 4 }}>
+          <div key={`${avatar}-${subtitle}`} style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 4 }}>
             <span style={{ fontSize: 12, color: '#888' }}>
               Avatar {String(avatar)}, Subtitle {String(subtitle)}
             </span>

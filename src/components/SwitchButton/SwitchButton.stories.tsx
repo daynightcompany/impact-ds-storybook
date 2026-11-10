@@ -64,7 +64,7 @@ export const WithIcons: Story = {
 function ControlledDemo() {
   const [checked, setChecked] = useState(false);
   return (
-    <div style={{ display: 'grid', gap: 16, justifyItems: 'start' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 16, justifyItems: 'start' }}>
       <SwitchButton
         type="Primary"
         checked={checked}
@@ -92,7 +92,7 @@ export const AllVariants: Story = {
   },
   // Both labels read "Switch", like the Figma instances, so the sizes match.
   render: () => (
-    <div style={{ display: 'grid', gap: 24 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 24 }}>
       {(['Primary', 'Secondary'] as const).map((type) => (
         <div key={type} style={{ display: 'flex', flexWrap: 'wrap', gap: 24, alignItems: 'center' }}>
           <span style={{ width: 80, fontSize: 12, color: '#888' }}>{type}</span>

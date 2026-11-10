@@ -87,11 +87,18 @@
   line-height: var(--font-interactive-label-text-md-sans-regular-line-height);
 }
 
-/* Prim & Sec: the two buttons stay together, 8px (spacing/2xs) apart. */
+/* The buttons stay together, spacing/2xs apart, and only wrap when the banner is
+   narrower than the two of them (then Prim & Sec keeps them at its end). */
 .buttons {
   display: flex;
-  flex: none;
+  flex: 0 1 auto;
+  flex-wrap: wrap;
   gap: var(--breakpoint-spacing-2xs);
+  min-width: 0;
+  max-width: 100%;
+}
+.prim-sec .buttons {
+  justify-content: flex-end;
 }
 
 /* The close icon is a Tertiary icon-only Button M (40) whose margin takes it

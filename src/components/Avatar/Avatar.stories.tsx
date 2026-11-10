@@ -106,13 +106,13 @@ export const AllVariants: Story = {
     },
   },
   render: () => (
-    <div style={{ display: 'grid', gap: 24 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 24 }}>
       {TYPES.map((type) => (
-        <div key={type} style={{ display: 'grid', gap: 12 }}>
+        <div key={type} style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 12 }}>
           <span style={{ fontSize: 12, color: '#888' }}>{type}</span>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 24, alignItems: 'flex-start' }}>
             {STATES.map((state) => (
-              <div key={state.label} style={{ display: 'grid', gap: 8, justifyItems: 'center' }}>
+              <div key={state.label} style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 8, justifyItems: 'center' }}>
                 <Avatar
                   type={type}
                   selected={state.selected}

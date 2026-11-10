@@ -7,3 +7,15 @@
 .sbdocs-preview {
   background: var(--theme-color-background-primary) !important;
 }
+
+/* A narrow window (a phone, or Storybook dragged narrow): the Docs page keeps its
+   own frame thin, so the stories get the width. */
+@media (max-width: 520px) {
+  .sbdocs-wrapper {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+  .sbdocs-preview .docs-story {
+    padding: 8px !important;
+  }
+}

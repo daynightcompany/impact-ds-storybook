@@ -61,7 +61,7 @@ export const AllVariants: Story = {
     },
   },
   render: () => (
-    <div style={{ display: 'grid', gap: 48 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 48 }}>
       <Quote size="L" />
       {/* The Figma M variant is 816 wide. */}
       <div style={{ width: '100%', maxWidth: 816, justifySelf: 'center' }}>

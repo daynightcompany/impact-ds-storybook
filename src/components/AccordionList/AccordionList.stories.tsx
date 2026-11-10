@@ -32,7 +32,7 @@ const meta = {
   args: { variant: 'Secondary', title: 'How we help', children: items() },
   decorators: [
     (Story) => (
-      <div style={{ width: 924 }}>
+      <div style={{ width: 924, maxWidth: '100%' }}>
         <Story />
       </div>
     ),

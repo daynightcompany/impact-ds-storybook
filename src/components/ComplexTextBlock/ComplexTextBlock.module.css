@@ -17,7 +17,7 @@
 }
 
 /* The column of text, left aligned, 32 (spacing/l, 24 on Mobile) between the
-   lines, at most 640 wide and at least 300. */
+   lines, at most 640 wide and at least 300 (less where the block is narrower). */
 .content {
   box-sizing: border-box;
   display: flex;
@@ -25,7 +25,7 @@
   align-items: flex-start;
   gap: var(--breakpoint-spacing-l);
   width: 100%;
-  min-width: 300px;
+  min-width: min(300px, 100%);
   max-width: 640px;
 }
 .uptitle,

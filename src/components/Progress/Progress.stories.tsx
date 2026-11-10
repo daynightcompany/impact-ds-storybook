@@ -16,7 +16,7 @@ const meta = {
   args: { onComplete: fn() },
   decorators: [
     (Story) => (
-      <div style={{ width: 480 }}>
+      <div style={{ width: 480, maxWidth: '100%' }}>
         <Story />
       </div>
     ),

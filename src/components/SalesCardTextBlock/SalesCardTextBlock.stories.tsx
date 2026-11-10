@@ -52,7 +52,7 @@ export const LongLabels: Story = {
 export const Narrow: Story = {
   decorators: [
     (Story) => (
-      <div style={{ width: 375 }}>
+      <div style={{ width: 375, maxWidth: '100%' }}>
         <Story />
       </div>
     ),
@@ -70,7 +70,7 @@ export const AllVariants: Story = {
     },
   },
   render: () => (
-    <div style={{ display: 'grid', gap: 32 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 32 }}>
       <SalesCardTextBlock />
       <SalesCardTextBlock discountPrice={false} />
       <SalesCardTextBlock secondaryButton={false} />

@@ -2,11 +2,14 @@
    background/primary, cornerRadius/m and the drop shadow 0 14 43 -6
    (shadow/l). The label and the buttons are centered on one line; the buttons
    are Tertiary, size L. Figma clips the frame; not here, so a focus ring or a
-   popover on an item is not cut off. */
+   popover on an item is not cut off. In a space narrower than the row the
+   buttons wrap under the label. */
 .toolbar {
   box-sizing: border-box;
   display: inline-flex;
+  flex-wrap: wrap;
   align-items: center;
+  max-width: 100%;
   gap: var(--breakpoint-spacing-2xs);
   padding: var(--breakpoint-spacing-2xs);
   border-radius: var(--breakpoint-cornerradius-m);

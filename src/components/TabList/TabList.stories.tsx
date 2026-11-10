@@ -18,7 +18,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Tab" component sets (node 9587:4382 for Primary tabs, 9587:4584 for Secondary tabs): a row or column of tabs, spacing/button/2xs apart. It owns the selection and the tab semantics: `value` / `defaultValue` match the `value` of a Tab, Left/Right (Up/Down when Vertical), Home and End move focus and select, and only the selected tab is in the tab order. Variant and size are set once on the list (L by default; in a Popup, a Dropdown or a Dialog a list with no size is M). In a list of Primary tabs the underline is one line that slides to the tab that is selected next (it jumps with reduced motion). With `overflow="menu"` the tabs that do not fit the width of the list (the height, when it is Vertical) are hidden behind a "…" button at its end, which opens a menu of them; the list measures the room its container gives it, so the container must not grow with the tabs.',
+          'Converted from the Figma "Tab" component sets (node 9587:4382 for Primary tabs, 9587:4584 for Secondary tabs): a row or column of tabs, spacing/button/2xs apart. It owns the selection and the tab semantics: `value` / `defaultValue` match the `value` of a Tab, Left/Right (Up/Down when Vertical), Home and End move focus and select, and only the selected tab is in the tab order. Variant and size are set once on the list (L by default; in a Popup, a Dropdown or a Dialog a list with no size is M). In a list of Primary tabs the underline is one line that slides to the tab that is selected next (it jumps with reduced motion). With `overflow="menu"` the tabs that do not fit the width of the list (the height, when it is Vertical) are hidden behind a "…" button at its end, which opens a menu of them; the list measures the room its container gives it, so the container must not grow with the tabs. Without `overflow`, a row with more tabs than it has room for wraps onto a second row.',
       },
     },
   },
@@ -102,7 +102,7 @@ const PANELS: Record<string, string> = {
 function TabsWithPanelsDemo() {
   const [value, setValue] = useState('overview');
   return (
-    <div style={{ display: 'grid', gap: 16, maxWidth: 480 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 16, maxWidth: 480 }}>
       <TabList variant="Primary" size="XL" value={value} onValueChange={setValue} aria-label="Sections">
         {Object.keys(PANELS).map((id) => (
           <Tab key={id} value={id} id={`tab-${id}`} aria-controls={`panel-${id}`}>

@@ -65,7 +65,7 @@ export const AllVariants: Story = {
     },
   },
   render: () => (
-    <div style={{ display: 'grid', gap: 32 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 32 }}>
       <ImageCarouselText state="Active" />
       <ImageCarouselText state="Inactive" />
     </div>

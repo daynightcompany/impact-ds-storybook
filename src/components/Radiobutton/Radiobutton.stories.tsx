@@ -45,7 +45,7 @@ export const NoLabel: Story = {
 
 export const Group: Story = {
   render: () => (
-    <div style={{ display: 'grid', gap: 12 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 12 }}>
       <Radiobutton name="story-group" defaultChecked>Option one</Radiobutton>
       <Radiobutton name="story-group">Option two</Radiobutton>
       <Radiobutton name="story-group">Option three</Radiobutton>
@@ -55,7 +55,7 @@ export const Group: Story = {
 
 export const AllVariants: Story = {
   render: () => (
-    <div style={{ display: 'grid', gap: 16 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 16 }}>
       <Radiobutton name="v1">Label</Radiobutton>
       <Radiobutton name="v2" defaultChecked>Label</Radiobutton>
       <Radiobutton name="v3" disabled>Label</Radiobutton>

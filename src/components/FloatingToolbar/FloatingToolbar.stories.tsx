@@ -31,7 +31,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Floating toolbar" component set (node 9587:6245) in the SMAL Impact Design System file. Source of truth for variants: Figma. A pill of actions that floats above the page: a label (`label`, Figma `Label`), your items and, with `close` (Figma `Close`), an X button at the end, on the page background with the large shadow. Figma\'s `Menu items` is however many items you pass as `children`: it draws five buttons, four placeholders and the close button, and an `Items` slot for more. The items are normally Tertiary icon-only Buttons of size L. Use the Breakpoint switch in the toolbar to see the Mobile values.',
+          'Converted from the Figma "Floating toolbar" component set (node 9587:6245) in the SMAL Impact Design System file. Source of truth for variants: Figma. A pill of actions that floats above the page: a label (`label`, Figma `Label`), your items and, with `close` (Figma `Close`), an X button at the end, on the page background with the large shadow. Figma\'s `Menu items` is however many items you pass as `children`: it draws five buttons, four placeholders and the close button, and an `Items` slot for more. The items are normally Tertiary icon-only Buttons of size L. Where the space is narrower than the toolbar, the buttons wrap under the label. Use the Breakpoint switch in the toolbar to see the Mobile values.',
       },
     },
   },

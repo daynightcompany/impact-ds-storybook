@@ -17,7 +17,7 @@ const meta = {
   args: { onBack: fn(), onClose: fn() },
   decorators: [
     (Story) => (
-      <div style={{ width: 375 }}>
+      <div style={{ width: 375, maxWidth: '100%' }}>
         <Story />
       </div>
     ),
@@ -83,12 +83,12 @@ export const AllVariants: Story = {
     },
   },
   render: () => (
-    <div style={{ display: 'grid', gap: 12, width: 375 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 12, width: 375, maxWidth: '100%' }}>
       {BOOLS.flatMap((left) =>
         BOOLS.flatMap((title) =>
           BOOLS.flatMap((right) =>
             BOOLS.map((additional) => (
-              <div key={`${left}${title}${right}${additional}`} style={{ display: 'grid', gap: 2 }}>
+              <div key={`${left}${title}${right}${additional}`} style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 2 }}>
                 <span style={{ fontSize: 11, color: '#888' }}>
                   left {String(left)} · title {String(title)} · right {String(right)} · additional {String(additional)}
                 </span>

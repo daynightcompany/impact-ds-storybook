@@ -8,8 +8,8 @@ const meta = {
   component: TextInputGroup,
   tags: ['autodocs'],
   decorators: [
-    (Story) => (
-      <div style={{ width: 640 }}>
+    (Story, { parameters }) => (
+      <div style={{ width: parameters.fullWidth ? 'auto' : 640, maxWidth: '100%' }}>
         <Story />
       </div>
     ),
@@ -47,9 +47,10 @@ export const Populated: Story = {
 };
 
 export const ThreeFields: Story = {
+  parameters: { fullWidth: true },
   decorators: [
     (Story) => (
-      <div style={{ width: 960 }}>
+      <div style={{ width: 960, maxWidth: '100%' }}>
         <Story />
       </div>
     ),
@@ -82,7 +83,7 @@ export const WithDropdown: Story = {
 export const Narrow: Story = {
   decorators: [
     (Story) => (
-      <div style={{ width: 327 }}>
+      <div style={{ width: 327, maxWidth: '100%' }}>
         <Story />
       </div>
     ),
@@ -91,10 +92,10 @@ export const Narrow: Story = {
 
 /** Drag the bottom-right corner of the box: the fields stack once there is no room for each of them side by side, and line up again when there is. */
 export const Resizable: Story = {
-  parameters: { chromatic: { disableSnapshot: true } },
+  parameters: { fullWidth: true, chromatic: { disableSnapshot: true } },
   decorators: [
     (Story) => (
-      <div style={{ width: 960, minWidth: 200, overflow: 'auto', resize: 'horizontal', paddingBottom: 12 }}>
+      <div style={{ width: 960, maxWidth: '100%', minWidth: 200, overflow: 'auto', resize: 'horizontal', paddingBottom: 12 }}>
         <Story />
       </div>
     ),
@@ -113,14 +114,14 @@ export const AllVariants: Story = {
     },
   },
   render: () => (
-    <div style={{ display: 'grid', gap: 24 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 24 }}>
       {[
         { name: 'Idle', state: undefined, values: [undefined, undefined] },
         { name: 'Hover', state: 'hover' as const, values: [undefined, undefined] },
         { name: 'Populated (first field focused)', state: 'focus' as const, values: ['Input', undefined] },
       ].flatMap(({ name, state, values }) =>
         [640, 327].map((width) => (
-          <div key={`${name}${width}`} style={{ display: 'grid', gap: 4, width }}>
+          <div key={`${name}${width}`} style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 4, width, maxWidth: '100%' }}>
             <span style={{ fontSize: 11, color: '#888' }}>
               {name} · {width}px
             </span>

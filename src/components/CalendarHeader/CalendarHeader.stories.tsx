@@ -50,7 +50,7 @@ export const TitleOnly: Story = {
   args: { singleSelect: false },
   decorators: [
     (Story) => (
-      <div style={{ width: 304 }}>
+      <div style={{ width: 304, maxWidth: '100%' }}>
         <Story />
       </div>
     ),
@@ -64,13 +64,13 @@ export const AllVariants: Story = {
       <CalendarHeader arrows="Left" previousLabel="Previous month, single select, left" />
       <CalendarHeader arrows="Right" nextLabel="Next month, single select, right" />
       <CalendarHeader arrows="Both sides" previousLabel="Previous month, single select" nextLabel="Next month, single select" />
-      <div style={{ width: 304 }}>
+      <div style={{ width: 304, maxWidth: '100%' }}>
         <CalendarHeader singleSelect={false} arrows="Left" previousLabel="Previous month, title, left" />
       </div>
-      <div style={{ width: 304 }}>
+      <div style={{ width: 304, maxWidth: '100%' }}>
         <CalendarHeader singleSelect={false} arrows="Right" nextLabel="Next month, title, right" />
       </div>
-      <div style={{ width: 304 }}>
+      <div style={{ width: 304, maxWidth: '100%' }}>
         <CalendarHeader singleSelect={false} arrows="Both sides" previousLabel="Previous month, title" nextLabel="Next month, title" />
       </div>
     </div>

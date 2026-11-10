@@ -22,7 +22,7 @@ const meta = {
   args: { onClear: fn(), onTagRemove: fn() },
   decorators: [
     (Story) => (
-      <div style={{ width: 327 }}>
+      <div style={{ width: 327, maxWidth: '100%' }}>
         <Story />
       </div>
     ),
@@ -126,11 +126,11 @@ export const AllVariants: Story = {
     },
   },
   render: () => (
-    <div style={{ display: 'grid', gap: 12 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 12 }}>
       {CASES.map(({ name, state, props }) => (
-        <div key={name} style={{ display: 'grid', gap: 4 }}>
+        <div key={name} style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 4 }}>
           <span style={{ fontSize: 11, color: '#888' }}>{name}</span>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 327px)', gap: 24, alignItems: 'start' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(327px, 100%), 327px))', gap: 24, alignItems: 'start' }}>
             <Search placeholder="Label" data-state={state} {...props} />
             <Search placeholder="Label" defaultValue="Input" data-state={state} {...props} />
             <Search tags={TAGS} data-state={state} {...props} />

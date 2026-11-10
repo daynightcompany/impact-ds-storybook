@@ -51,7 +51,7 @@ export const AllVariants: Story = {
     },
   },
   render: () => (
-    <div style={{ display: 'grid', gap: 32 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 32 }}>
       <ImagePreview />
       <ImagePreview style={{ '--image-preview-height': '240px' } as CSSProperties} />
     </div>

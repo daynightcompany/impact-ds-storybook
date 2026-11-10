@@ -122,7 +122,7 @@ export const Placements: Story = {
     const anchor = useRef<HTMLButtonElement>(null);
     const [open, setOpen] = useState(true);
     return (
-      <div style={{ display: 'grid', gap: 16, justifyItems: 'center', padding: '200px 0' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 16, justifyItems: 'center', padding: '200px 0' }}>
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
           {placements.map((placement) => (
             <Button

@@ -79,7 +79,7 @@ export const WithoutButtons: Story = {
 export const Narrow: Story = {
   decorators: [
     (Story) => (
-      <div style={{ width: 272 }}>
+      <div style={{ width: 272, maxWidth: '100%' }}>
         <Story />
       </div>
     ),
@@ -98,7 +98,7 @@ export const AllVariants: Story = {
     },
   },
   render: () => (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(272px, 363px))', alignItems: 'start', gap: 24 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(272px, 100%), 363px))', alignItems: 'start', gap: 24 }}>
       <ArticleCard />
       <ArticleCard background="None" />
       <ArticleCard image="Background" textAndButtonsColor="Secondary" />

@@ -17,7 +17,7 @@ const meta = {
   },
   decorators: [
     (Story) => (
-      <div style={{ width: 640 }}>
+      <div style={{ width: 640, maxWidth: '100%' }}>
         <Story />
       </div>
     ),
@@ -42,7 +42,7 @@ export const TwoCTA: Story = {
   args: { buttonWidth: '2 CTA' },
   decorators: [
     (Story) => (
-      <div style={{ width: 460 }}>
+      <div style={{ width: 460, maxWidth: '100%' }}>
         <Story />
       </div>
     ),
@@ -55,7 +55,7 @@ export const LongLabels: Story = {
   args: { buttonWidth: '2 CTA', secondaryButton: 'Manage preferences', primaryButton: 'Accept necessary only' },
   decorators: [
     (Story) => (
-      <div style={{ width: 460 }}>
+      <div style={{ width: 460, maxWidth: '100%' }}>
         <Story />
       </div>
     ),
@@ -66,7 +66,7 @@ export const Vertical: Story = {
   args: { layout: 'Vertical' },
   decorators: [
     (Story) => (
-      <div style={{ width: 375 }}>
+      <div style={{ width: 375, maxWidth: '100%' }}>
         <Story />
       </div>
     ),
@@ -88,7 +88,7 @@ export const StackedOnMobile: Story = {
   },
   decorators: [
     (Story) => (
-      <div style={{ width: 375 }}>
+      <div style={{ width: 375, maxWidth: '100%' }}>
         <Story />
       </div>
     ),
@@ -140,7 +140,7 @@ export const AllVariants: Story = {
     },
   },
   render: () => (
-    <div style={{ display: 'grid', gap: 24 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 24 }}>
       {(
         [
           { label: '3 CTA · Horizontal', width: 640, props: {} },
@@ -151,7 +151,7 @@ export const AllVariants: Story = {
           { label: '2 CTA · Horizontal in a 327 dialog (wraps)', width: 327, props: { buttonWidth: '2 CTA' as const } },
         ] as const
       ).map(({ label, width, props }) => (
-        <div key={label} style={{ display: 'grid', gap: 4, width }}>
+        <div key={label} style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 4, width, maxWidth: '100%' }}>
           <span style={{ fontSize: 11, color: '#888' }}>{label}</span>
           <DialogFooter {...props} />
         </div>
