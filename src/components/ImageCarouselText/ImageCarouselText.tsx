@@ -1,4 +1,4 @@
-import type { HTMLAttributes, ReactNode } from 'react';
+import type { CSSProperties, HTMLAttributes, ReactNode } from 'react';
 import styles from './ImageCarouselText.module.css';
 import { textSlot, type TextSlot } from '../TextParts';
 import '../../styles/tokens.css';
@@ -20,6 +20,19 @@ export interface ImageCarouselTextProps extends Omit<HTMLAttributes<HTMLElement>
   children?: ReactNode;
   /** The line under the title. `true` shows the Figma placeholder "Placeholder subtitle", a string or a node replaces it, `false` hides it. */
   subtitle?: TextSlot;
+  /**
+   * Makes the line of the Active item the progress of a timer (not in Figma yet,
+   * where the line is whole): the time the line takes to fill from the top to the
+   * bottom, in milliseconds. The part that is not filled yet looks like the line of
+   * an Inactive item. Only the Active item shows it, and an item that becomes
+   * Active starts the line again. Without `duration` the line stays whole, as in
+   * Figma.
+   */
+  duration?: number;
+  /** Holds the progress where it is (with `duration`). */
+  paused?: boolean;
+  /** The line of the Active item is full (with `duration`): time to make the next item Active. */
+  onProgressEnd?: () => void;
 }
 
 /**
@@ -31,23 +44,45 @@ export interface ImageCarouselTextProps extends Omit<HTMLAttributes<HTMLElement>
  * Inactive one is in the secondary paragraph colour at half strength, and is a
  * button that goes to its picture. It is as wide as the space it is in (435 on
  * the Figma component page, 327 in the carousel). The type follows the
- * breakpoint tokens, so Mobile is smaller.
+ * breakpoint tokens, so Mobile is smaller. With `duration` the line of the
+ * Active item is the progress of an auto-advancing carousel, in place of a Slide
+ * timer under the items: it fills from the top, in the paragraph colour, and
+ * `onProgressEnd` says when it is full.
  */
 export function ImageCarouselText({
   state = 'Active',
   children = 'Placeholder Title',
   subtitle,
+  duration,
+  paused = false,
+  onProgressEnd,
   className,
   ...rest
 }: ImageCarouselTextProps) {
   const active = state === 'Active';
+  // Only the Active item shows the progress. An item that becomes Active is a new element
+  // (it was a button, it is a div), so its fill always starts afresh.
+  const timed = active && duration != null && duration > 0;
   const classes = [styles.item, active ? styles['state-active'] : styles['state-inactive'], className]
     .filter(Boolean)
     .join(' ');
   const subtitleNode = textSlot(subtitle, 'Placeholder subtitle');
   const content = (
     <>
-      <span className={styles.line} aria-hidden="true" />
+      <span
+        className={styles.line}
+        data-timed={timed ? '' : undefined}
+        data-paused={paused ? '' : undefined}
+        aria-hidden="true"
+      >
+        {timed && (
+          <span
+            className={styles.fill}
+            style={{ '--item-duration': `${duration}ms` } as CSSProperties}
+            onAnimationEnd={() => onProgressEnd?.()}
+          />
+        )}
+      </span>
       <span className={styles.text}>
         <span className={styles.title}>{children}</span>
         {subtitleNode != null && <span className={styles.subtitle}>{subtitleNode}</span>}

@@ -2,7 +2,6 @@ import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { ImageCarouselWithText, ImageCarouselWithTextImage } from './ImageCarouselWithText';
 import { ImageCarouselText, ImageCarouselTextLayers } from '../ImageCarouselText/ImageCarouselText';
-import { SlideTimer } from '../SlideTimer/SlideTimer';
 
 /** Figma shows four items in the carousel. */
 const ITEMS = 4;
@@ -10,8 +9,19 @@ const ITEMS = 4;
 /** How long an item stays Active in the timer demo, in milliseconds. */
 const SHOW_TIME = 3000;
 
-/** The items of the carousel: the one at `slide` (counted from 1) is Active, the others are buttons that go to their picture. */
-function Items({ slide, onSlide }: { slide: number; onSlide: (slide: number) => void }) {
+/**
+ * The items of the carousel: the one at `slide` (counted from 1) is Active, the others are buttons that go to their picture.
+ * With `duration` the line of the Active item is the timer, and when it is full the next item is Active (after the last one comes the first).
+ */
+function Items({
+  slide,
+  onSlide,
+  duration,
+}: {
+  slide: number;
+  onSlide: (slide: number) => void;
+  duration?: number;
+}) {
   return (
     <>
       {Array.from({ length: ITEMS }, (_, index) => {
@@ -20,6 +30,8 @@ function Items({ slide, onSlide }: { slide: number; onSlide: (slide: number) => 
           <ImageCarouselText
             key={index}
             state={active ? 'Active' : 'Inactive'}
+            duration={duration}
+            onProgressEnd={() => onSlide((slide % ITEMS) + 1)}
             onClick={active ? undefined : () => onSlide(index + 1)}
           />
         );
@@ -40,7 +52,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Image carousel with text/Left/Top" component (node 9587:7983) in the SMAL Impact Design System file. Source of truth for variants: Figma. A frame as big as the viewport, 1920 x 1080 on Desktop and 375 x 812 on Mobile (the Figma viewport/width and viewport/height variables; use the Breakpoint switch in the toolbar), but not higher than the window (100vh), with one slot in the middle of it. Figma fills the slot with a column of four `ImageCarouselText` items, the first one Active, and a picture beside it (an `ImageCarouselWithTextImage`); the slot is a row that wraps, so on Mobile the picture goes below the items. The picture fills the width that is left beside the items and is 80% of the window high at the most (876 at the most, as in Figma); on Mobile it is 294 high. Pass `children` to fill the slot with your own content; the Manual demo and Timer demo stories switch between the items. The frame is as wide as the viewport variable, or as wide as the space it is in when that is narrower.',
+          'Converted from the Figma "Image carousel with text/Left/Top" component (node 9587:7983) in the SMAL Impact Design System file. Source of truth for variants: Figma. A frame as big as the viewport, 1920 x 1080 on Desktop and 375 x 812 on Mobile (the Figma viewport/width and viewport/height variables; use the Breakpoint switch in the toolbar), but not higher than the window (100vh), with one slot in the middle of it. Figma fills the slot with a column of four `ImageCarouselText` items, the first one Active, and a picture beside it (an `ImageCarouselWithTextImage`); the slot is a row that wraps, so on Mobile the picture goes below the items. The picture fills the width that is left beside the items and is 80% of the window high at the most (876 at the most, as in Figma); on Mobile it is 294 high. Pass `children` to fill the slot with your own content; the Manual demo and Timer demo stories switch between the items. In the Timer demo the line of the Active item is the timer (give the `ImageCarouselText` items a `duration`), which Figma does not have yet. The frame is as wide as the viewport variable, or as wide as the space it is in when that is narrower.',
       },
     },
   },
@@ -96,7 +108,7 @@ export const ManualDemo: Story = {
   },
 };
 
-/** A Slide timer under the items: its bar fills over three seconds, and then the next item is Active (after the last one comes the first). Pressing an item goes to it, and the bar starts again. */
+/** The line of the Active item is the timer: it fills from the top over three seconds, and then the next item is Active (after the last one comes the first). Pressing an item goes to it, and its line starts to fill. Figma has the line whole, so this is not in Figma yet. */
 export const TimerDemo: Story = {
   name: 'Timer demo',
   parameters: { chromatic: { disableSnapshot: true }, docs: { source: { type: 'code' } } },
@@ -104,12 +116,9 @@ export const TimerDemo: Story = {
     const [slide, setSlide] = useState(1);
     return (
       <ImageCarouselWithText>
-        <div style={{ display: 'grid', flex: 'none', gap: 'var(--breakpoint-spacing-xl)', width: 'min(327px, 100%)' }}>
-          <ImageCarouselTextLayers>
-            <Items slide={slide} onSlide={setSlide} />
-          </ImageCarouselTextLayers>
-          <SlideTimer slide={slide} count={ITEMS} duration={SHOW_TIME} showSlider={false} onSlideChange={setSlide} />
-        </div>
+        <ImageCarouselTextLayers>
+          <Items slide={slide} onSlide={setSlide} duration={SHOW_TIME} />
+        </ImageCarouselTextLayers>
         <ImageCarouselWithTextImage />
       </ImageCarouselWithText>
     );
