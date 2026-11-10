@@ -12,7 +12,7 @@ export interface SlidePreviewCardProps extends Omit<HTMLAttributes<HTMLElement>,
   state?: SlidePreviewCardState;
   /** The title of the slide (Figma: "Preview card title"). Two lines at most, then it is cut off. */
   children?: ReactNode;
-  /** Only for an Inactive card, which is a button: not the Active one. */
+  /** Only for an Inactive card, which goes to its slide: not the Active one. */
   disabled?: boolean;
 }
 
@@ -20,10 +20,12 @@ export interface SlidePreviewCardProps extends Omit<HTMLAttributes<HTMLElement>,
  * Impact DS Slide preview card — converted from the Figma "Card/Slide preview"
  * component set (node 9587:7677 in the SMAL Impact Design System (Public) Figma
  * file): the title of a slide on a rounded card, 272 wide. Active (the slide
- * that is shown) has a border/tertiary fill and is not interactive: it is
- * marked with `aria-current`. Inactive has no fill and is a button that goes to
- * its slide. The spacing, corner radius and type follow the breakpoint tokens,
- * so Mobile is smaller. Figma has no hover or pressed state for it.
+ * that is shown) has a border/tertiary fill: it is marked with `aria-current`,
+ * it is out of the tab order, and pressing it does nothing. Inactive has no fill
+ * and goes to its slide when it is pressed. The card is a button in both states,
+ * so it stays the same element when the state changes, and the fill eases in and
+ * out over 300ms. The spacing, corner radius and type follow the breakpoint
+ * tokens, so Mobile is smaller. Figma has no hover or pressed state for it.
  */
 export function SlidePreviewCard({
   state = 'Active',
@@ -40,16 +42,15 @@ export function SlidePreviewCard({
     </span>
   );
 
-  if (active) {
-    return (
-      <div className={classes} aria-current="true" {...(rest as HTMLAttributes<HTMLDivElement>)}>
-        {content}
-      </div>
-    );
-  }
-
   return (
-    <button type="button" className={classes} disabled={disabled} {...(rest as HTMLAttributes<HTMLButtonElement>)}>
+    <button
+      type="button"
+      className={classes}
+      aria-current={active ? 'true' : undefined}
+      tabIndex={active ? -1 : undefined}
+      disabled={active ? undefined : disabled}
+      {...(rest as HTMLAttributes<HTMLButtonElement>)}
+    >
       {content}
     </button>
   );

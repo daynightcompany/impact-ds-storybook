@@ -16,14 +16,18 @@
   color: var(--theme-color-font-interactive-idle-secondary);
   font: inherit;
   text-align: left;
+  /* The card is a button in both states, so it stays the same element when the
+     state changes, and the fill eases in and out: ease out over 300ms. */
+  transition: background-color 0.3s ease-out;
 }
 
-/* State=Active: filled, not interactive. */
+/* State=Active: filled. It is the current slide: pressing it does nothing. */
 .active {
   background: var(--theme-color-border-tertiary);
+  cursor: default;
 }
 
-/* State=Inactive: a button with no fill. */
+/* State=Inactive: no fill. */
 .inactive {
   background: transparent;
   cursor: pointer;
@@ -32,9 +36,15 @@
   opacity: 0.3;
   cursor: not-allowed;
 }
-.inactive:focus-visible {
+.card:focus-visible {
   outline: 2px solid var(--theme-color-interactive-idle-primary);
   outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
 }
 
 .content {

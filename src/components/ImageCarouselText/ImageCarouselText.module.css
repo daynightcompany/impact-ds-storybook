@@ -1,8 +1,10 @@
 /* Figma "Image carousel text" (node 9587:8004): a row with spacing/m between a
    2 wide line and the text. The line is as high as the text, in the colour of
    the text: font/paragraph/primary when Active, font/paragraph/secondary when
-   Inactive. The row is as wide as the space it is in. An Inactive item is a
-   button, so it starts from a plain box. */
+   Inactive. The row is as wide as the space it is in. The item is a button in
+   both states, so it starts from a plain box, and it stays the same element when
+   the state changes: that is what lets the change ease (the colour and the
+   strength, ease out over 300ms). */
 .item {
   box-sizing: border-box;
   display: flex;
@@ -15,10 +17,15 @@
   background: transparent;
   font: inherit;
   text-align: left;
+  transition:
+    color 0.3s ease-out,
+    opacity 0.3s ease-out;
 }
 
+/* State=Active: the current item. Pressing it does nothing. */
 .state-active {
   color: var(--theme-color-font-paragraph-primary);
+  cursor: default;
 }
 
 /* State=Inactive: the secondary colour, and the whole item at opacity/50. */
@@ -27,11 +34,12 @@
   opacity: 0.5;
   cursor: pointer;
 }
-.state-inactive:focus-visible {
+.item:focus-visible {
   outline: 2px solid var(--theme-color-interactive-idle-primary);
   outline-offset: 4px;
 }
 
+/* The line is in the colour of the text, so it eases with it. */
 .line {
   position: relative;
   flex: none;
@@ -40,10 +48,11 @@
 }
 
 /* The line as the progress of a timer (not in Figma, where the line is whole; it
-   is only like this on an Active item that is given a duration). The line is then
-   the track, looking like the line of an Inactive item (the secondary colour at
-   opacity/50), and the fill, in the colour of the Active line, grows over it from
-   the top. */
+   is only like this when the item is given a duration). The line is then the
+   track, looking the same in both states, like the line of an Inactive item: the
+   secondary colour at opacity/50 (an Inactive item is already at half strength,
+   so there the track is whole). The fill, in the colour of the Active line, grows
+   over it from the top. */
 .line[data-timed] {
   background: transparent;
 }
@@ -53,29 +62,38 @@
   inset: 0;
   background: var(--theme-color-font-paragraph-secondary);
   opacity: 0.5;
+  transition: opacity 0.3s ease-out;
+}
+.state-inactive .line[data-timed]::before {
+  opacity: 1;
 }
 
 /* The fill grows from the short start of the Slide timer's progress to the whole
-   line, in a straight line, so the time left reads off the line. It is only there
-   on the Active item: an item that stops being Active is a whole line again. */
+   line, in a straight line, so the time left reads off the line. It is only to be
+   seen on the Active item: when the item stops being Active the fill is held where
+   it stopped, and fades out, ease out over 300ms. */
 .fill {
   position: absolute;
   inset: 0 0 auto;
   display: block;
   height: 0;
   background: var(--theme-color-font-paragraph-primary);
-  opacity: 1;
+  opacity: 0;
   transition: opacity 0.3s ease-out;
   animation: grow var(--item-duration) linear forwards;
 }
+.state-active .fill {
+  opacity: 1;
+}
+.state-inactive .fill,
 .line[data-paused] .fill {
   animation-play-state: paused;
 }
 
 /* A fill that starts (an item becomes Active, or the page loads) fades in rather
-   than appearing, ease out over 300ms. */
+   than appearing, as the one that stops fades out. */
 @starting-style {
-  .fill {
+  .state-active .fill {
     opacity: 0;
   }
 }
@@ -90,6 +108,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .item,
+  .line[data-timed]::before,
   .fill {
     transition: none;
   }

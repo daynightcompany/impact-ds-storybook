@@ -26,7 +26,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Image carousel text" component set (node 9587:8004) in the SMAL Impact Design System file. Source of truth for variants: Figma. A title and a line of text under it, with a thin line at the left, for one picture of an image carousel. Figma\'s one variant property is `State`: Active is in the paragraph colour, Inactive is in the secondary paragraph colour at half strength. Inactive is a button that goes to its picture (give it `onClick`); Active is not interactive. The item is as wide as the space it is in; the stories sit in a 435 wide box, as the Figma component page does, and the image carousel uses it 327 wide. The type follows the breakpoint tokens, so Mobile is smaller (use the Breakpoint switch in the toolbar). The Active item is marked with `aria-current`. The Manual demo and Timer demo stories switch between the items. For an auto-advancing carousel, give the items a `duration` (in milliseconds): the line of the Active item is then the timer, filling from the top, in place of a Slide timer under the items, and `onProgressEnd` says when it is full, so that the next item can be made Active; `paused` holds it. Figma has the line whole, so this is not in Figma yet.',
+          'Converted from the Figma "Image carousel text" component set (node 9587:8004) in the SMAL Impact Design System file. Source of truth for variants: Figma. A title and a line of text under it, with a thin line at the left, for one picture of an image carousel. Figma\'s one variant property is `State`: Active is in the paragraph colour, Inactive is in the secondary paragraph colour at half strength. Inactive goes to its picture when it is pressed (give it `onClick`); Active does nothing when it is pressed and is out of the tab order. The item is a button in both states, so it stays the same element when the state changes, and the change eases over 300ms: the colour and strength of the text and of the line. The item is as wide as the space it is in; the stories sit in a 435 wide box, as the Figma component page does, and the image carousel uses it 327 wide. The type follows the breakpoint tokens, so Mobile is smaller (use the Breakpoint switch in the toolbar). The Active item is marked with `aria-current`. The Manual demo and Timer demo stories switch between the items. For an auto-advancing carousel, give the items a `duration` (in milliseconds): the line of the Active item is then the timer, filling from the top, in place of a Slide timer under the items, and `onProgressEnd` says when it is full, so that the next item can be made Active; `paused` holds it. Figma has the line whole, so this is not in Figma yet.',
       },
     },
   },
@@ -72,7 +72,7 @@ export const AllVariants: Story = {
   ),
 };
 
-/** Press an Inactive item to go to its picture: it becomes the Active one, and the one that was Active goes back to Inactive. */
+/** Press an Inactive item to go to its picture: it becomes the Active one, and the one that was Active goes back to Inactive. The change eases. */
 export const ManualDemo: Story = {
   name: 'Manual demo',
   parameters: { chromatic: { disableSnapshot: true }, docs: { source: { type: 'code' } } },
@@ -95,7 +95,7 @@ export const ManualDemo: Story = {
   },
 };
 
-/** The line of the Active item is the timer: it fills from the top over three seconds, and then the next item is Active (after the last one comes the first). Pressing an item goes to it, and its line starts to fill. Figma has the line whole, so this is not in Figma yet. */
+/** The line of the Active item is the timer: it fills from the top over three seconds, and then the next item is Active (after the last one comes the first). Pressing an item goes to it, and its line starts to fill; the line that was running stays where it stopped and fades out. Figma has the line whole, so this is not in Figma yet. */
 export const TimerDemo: Story = {
   name: 'Timer demo',
   parameters: { chromatic: { disableSnapshot: true }, docs: { source: { type: 'code' } } },

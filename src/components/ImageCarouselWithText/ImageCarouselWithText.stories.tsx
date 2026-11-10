@@ -10,7 +10,7 @@ const ITEMS = 4;
 const SHOW_TIME = 3000;
 
 /**
- * The items of the carousel: the one at `slide` (counted from 1) is Active, the others are buttons that go to their picture.
+ * The items of the carousel: the one at `slide` (counted from 1) is Active, the others go to their picture when they are pressed.
  * With `duration` the line of the Active item is the timer, and when it is full the next item is Active (after the last one comes the first).
  */
 function Items({
@@ -91,7 +91,7 @@ export const OwnContent: Story = {
   },
 };
 
-/** Press an Inactive item to go to its picture: it becomes the Active one, and the one that was Active goes back to Inactive. */
+/** Press an Inactive item to go to its picture: it becomes the Active one, and the one that was Active goes back to Inactive. The change eases. */
 export const ManualDemo: Story = {
   name: 'Manual demo',
   parameters: { chromatic: { disableSnapshot: true }, docs: { source: { type: 'code' } } },
@@ -108,7 +108,7 @@ export const ManualDemo: Story = {
   },
 };
 
-/** The line of the Active item is the timer: it fills from the top over three seconds, and then the next item is Active (after the last one comes the first). Pressing an item goes to it, and its line starts to fill. Figma has the line whole, so this is not in Figma yet. */
+/** The line of the Active item is the timer: it fills from the top over three seconds, and then the next item is Active (after the last one comes the first). Pressing an item goes to it, and its line starts to fill; the line that was running stays where it stopped and fades out. Figma has the line whole, so this is not in Figma yet. */
 export const TimerDemo: Story = {
   name: 'Timer demo',
   parameters: { chromatic: { disableSnapshot: true }, docs: { source: { type: 'code' } } },

@@ -10,7 +10,7 @@ const SLIDES = 4;
 /** How long a card stays Active in the timer demo, in milliseconds. */
 const SHOW_TIME = 3000;
 
-/** The cards of the slides: the one at `slide` (counted from 1) is Active, the others are buttons that go to their slide. */
+/** The cards of the slides: the one at `slide` (counted from 1) is Active, the others go to their slide when they are pressed. */
 function Cards({ slide, onSlide }: { slide: number; onSlide: (slide: number) => void }) {
   return (
     <div style={{ display: 'grid', gap: 8, width: 272, maxWidth: '100%' }}>
@@ -45,7 +45,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Card/Slide preview" component set (node 9587:7677) in the SMAL Impact Design System file. Source of truth for variants: Figma. The title of a slide on a rounded card, 272 wide. State is a variant: Active (the slide that is shown) has a border/tertiary fill and is not interactive, it is marked with `aria-current`; Inactive has no fill and is a button that goes to its slide. A title of more than two lines is cut off. The spacing, corner radius and type follow the breakpoint tokens, so Mobile is smaller (use the Breakpoint switch in the toolbar). The Manual demo and Timer demo stories switch between the cards, the second one with a `SlideTimer`.',
+          'Converted from the Figma "Card/Slide preview" component set (node 9587:7677) in the SMAL Impact Design System file. Source of truth for variants: Figma. The title of a slide on a rounded card, 272 wide. State is a variant: Active (the slide that is shown) has a border/tertiary fill: it is marked with `aria-current`, is out of the tab order, and does nothing when it is pressed; Inactive has no fill and goes to its slide when it is pressed. The card is a button in both states, so it stays the same element when the state changes, and the fill eases in and out over 300ms. A title of more than two lines is cut off. The spacing, corner radius and type follow the breakpoint tokens, so Mobile is smaller (use the Breakpoint switch in the toolbar). The Manual demo and Timer demo stories switch between the cards, the second one with a `SlideTimer`.',
       },
     },
   },
@@ -65,7 +65,7 @@ export const LongTitle: Story = {
   args: { children: LONG_TITLE },
 };
 
-/** A list of previews: one is Active, the others are buttons. */
+/** A list of previews: one is Active, the others go to their slide when they are pressed. */
 export const InAList: Story = {
   name: 'In a list',
   render: () => (
@@ -96,7 +96,7 @@ export const AllVariants: Story = {
   ),
 };
 
-/** Press an Inactive card to go to its slide: it becomes the Active one, and the card that was Active goes back to Inactive. */
+/** Press an Inactive card to go to its slide: it becomes the Active one, and the card that was Active goes back to Inactive. The fill eases in and out. */
 export const ManualDemo: Story = {
   name: 'Manual demo',
   parameters: { chromatic: { disableSnapshot: true }, docs: { source: { type: 'code' } } },
