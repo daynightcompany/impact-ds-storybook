@@ -10,8 +10,9 @@ import '../../styles/tokens.css';
 export type TabListOrientation = 'Horizontal' | 'Vertical';
 
 /**
- * What happens to the tabs that do not fit the list: `none` leaves them to the
- * layout, `menu` hides them behind a "…" button that opens a menu of them.
+ * What happens to the tabs that do not fit the list: `none` lets a Horizontal
+ * row scroll sideways (a Vertical one is left to the layout), `menu` hides them
+ * behind a "…" button that opens a menu of them.
  */
 export type TabListOverflow = 'none' | 'menu';
 
@@ -166,6 +167,41 @@ function placeUnderline(list: HTMLElement, animate: boolean) {
   list.setAttribute('data-indicator', 'slide');
 }
 
+/** The tab each row was last scrolled to (see `revealSelected`). */
+const revealedFor = new WeakMap<HTMLElement, HTMLElement>();
+
+/** The room the CSS keeps at both ends of a scrolling row for the focus ring (TabList.module.css). */
+const RING_ROOM = 4;
+
+/**
+ * Brings the selected tab of a row that scrolls sideways (more tabs than room)
+ * into view, so a tab that is chosen, or selected from outside, is never left
+ * half hidden. Only a different selected tab moves the row, so it can be
+ * scrolled by hand without being pulled back. The first time it jumps; later
+ * it eases, unless the person asked for reduced motion. It moves the row only,
+ * never the page. A hidden list is left for the next render.
+ */
+function revealSelected(list: HTMLElement) {
+  const tab = list.querySelector<HTMLElement>(':scope > [role="tab"][aria-selected="true"]');
+  if (!tab) {
+    revealedFor.delete(list);
+    return;
+  }
+  if (list.clientWidth === 0 || revealedFor.get(list) === tab) return;
+  const first = !revealedFor.has(list);
+  revealedFor.set(list, tab);
+  if (list.scrollWidth <= list.clientWidth) return;
+  const box = list.getBoundingClientRect();
+  const rect = tab.getBoundingClientRect();
+  const toStart = rect.left - (box.left + RING_ROOM);
+  const toEnd = rect.right - (box.right - RING_ROOM);
+  // A tab wider than the row is brought to its start.
+  const delta = toStart < 0 ? toStart : toEnd > 0 ? Math.min(toEnd, toStart) : 0;
+  if (delta === 0) return;
+  const still = first || window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+  list.scrollBy?.({ left: delta, behavior: still ? 'auto' : 'smooth' });
+}
+
 /**
  * Impact DS Tab list — converted from the Figma "Tab" component sets (nodes
  * 9587:4382 for Primary tabs and 9587:4584 for Secondary tabs): a row (or
@@ -180,6 +216,10 @@ function placeUnderline(list: HTMLElement, animate: boolean) {
  * Vertical, Home and End) that move focus and select, skipping disabled tabs.
  * Tab panels are up to the app: give each panel role="tabpanel" and
  * `aria-labelledby` the id of its tab.
+ *
+ * A Horizontal list with more tabs than it has room for does not wrap: it
+ * scrolls sideways, without a scrollbar, and brings the selected tab into view
+ * when another one is selected.
  *
  * With `overflow="menu"` the tabs that do not fit the width (the height, when
  * Vertical) are hidden behind a "…" button at the end of the list. The button
@@ -258,6 +298,12 @@ export function TabList({
   useLayoutEffect(() => {
     const list = ref.current;
     if (list && slides) placeUnderline(list, true);
+  });
+  // A row that scrolls sideways shows the selected tab (after the underline, which is placed in the content).
+  const scrolls = !menuOverflow && !vertical;
+  useLayoutEffect(() => {
+    const list = ref.current;
+    if (list && scrolls) revealSelected(list);
   });
 
   // overflow="menu": keep the tabs that fit, hide the rest behind the "…" button. It

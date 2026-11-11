@@ -18,7 +18,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Tab" component sets (node 9587:4382 for Primary tabs, 9587:4584 for Secondary tabs): a row or column of tabs, spacing/button/2xs apart. It owns the selection and the tab semantics: `value` / `defaultValue` match the `value` of a Tab, Left/Right (Up/Down when Vertical), Home and End move focus and select, and only the selected tab is in the tab order. Variant and size are set once on the list (L by default; in a Popup, a Dropdown or a Dialog a list with no size is M). In a list of Primary tabs the underline is one line that slides to the tab that is selected next (it jumps with reduced motion). With `overflow="menu"` the tabs that do not fit the width of the list (the height, when it is Vertical) are hidden behind a "…" button at its end, which opens a menu of them; the list measures the room its container gives it, so the container must not grow with the tabs. Without `overflow`, a row with more tabs than it has room for wraps onto a second row.',
+          'Converted from the Figma "Tab" component sets (node 9587:4382 for Primary tabs, 9587:4584 for Secondary tabs): a row or column of tabs, spacing/button/2xs apart. It owns the selection and the tab semantics: `value` / `defaultValue` match the `value` of a Tab, Left/Right (Up/Down when Vertical), Home and End move focus and select, and only the selected tab is in the tab order. Variant and size are set once on the list (L by default; in a Popup, a Dropdown or a Dialog a list with no size is M). In a list of Primary tabs the underline is one line that slides to the tab that is selected next (it jumps with reduced motion). With `overflow="menu"` the tabs that do not fit the width of the list (the height, when it is Vertical) are hidden behind a "…" button at its end, which opens a menu of them; the list measures the room its container gives it, so the container must not grow with the tabs. Without `overflow`, a row with more tabs than it has room for does not wrap: it scrolls sideways, without a scrollbar, and brings the selected tab into view when another one is selected.',
       },
     },
   },
@@ -130,6 +130,28 @@ const pageTabs = (orientation: 'Horizontal' | 'Vertical') =>
       {`Page ${index + 1}`}
     </Tab>
   ));
+
+/** Without `overflow` the row does not wrap: it scrolls sideways when the tabs are wider than the room (drag the corner of the frame to change its width). */
+export const ScrollsSideways: Story = {
+  name: 'Scrolls sideways',
+  args: { variant: 'Primary', size: 'L', orientation: 'Horizontal', defaultValue: 'page-1', 'aria-label': 'Pages, scrolling' },
+  decorators: [
+    (Story) => (
+      <div style={{ boxSizing: 'border-box', width: 360, maxWidth: '100%', padding: 8, overflow: 'hidden', resize: 'horizontal', border: '1px dashed #888' }}>
+        <Story />
+      </div>
+    ),
+  ],
+  render: (args) => <TabList {...args}>{pageTabs('Horizontal')}</TabList>,
+};
+
+/** The selected tab is out of view: the row is scrolled to it, and it scrolls to the tab that is selected next. */
+export const SelectedTabScrolledIn: Story = {
+  name: 'Selected tab scrolled into view',
+  args: { ...ScrollsSideways.args, variant: 'Secondary', defaultValue: 'page-9', 'aria-label': 'Pages, last selected, scrolling' },
+  decorators: ScrollsSideways.decorators,
+  render: ScrollsSideways.render,
+};
 
 /** `overflow="menu"` in a row of its own width (drag the corner of the frame to change it): the tabs that fit are shown, the rest are behind the "…" button. */
 export const OverflowMenu: Story = {

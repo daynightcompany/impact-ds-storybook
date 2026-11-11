@@ -111,14 +111,11 @@
 }
 
 /* Select form. Figma's tab instance is the width of the sheet, so the tabs run
-   to its right edge: the row bleeds over the padding and scrolls sideways. */
+   to its right edge: the row bleeds over the padding, and the Tab list scrolls
+   sideways in it. */
 .tabs {
   margin-inline-end: calc(-1 * var(--breakpoint-spacing-l));
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-.tabs::-webkit-scrollbar {
-  display: none;
+  min-width: 0;
 }
 .list {
   flex: 1 1 auto;

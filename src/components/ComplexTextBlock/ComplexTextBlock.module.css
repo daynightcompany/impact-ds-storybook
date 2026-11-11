@@ -73,12 +73,19 @@
   line-height: var(--font-paragraph-body-text-xl-serif-line-height);
 }
 
-/* The buttons: a wrapping row, 12 (spacing/xs, 8 on Mobile) apart. */
+/* The buttons: a row, 12 (spacing/xs, 8 on Mobile) apart, each as wide as its
+   label. The row is as wide as the two of them, at most the width of the
+   column. When the column is narrower than the two they stack over its full
+   width, the Primary on top: the row takes the width of the column and the
+   buttons grow to fill it. */
 .buttons {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: var(--breakpoint-spacing-xs);
-  width: 100%;
+  max-width: 100%;
   min-width: min(176px, 100%);
+}
+.buttons > * {
+  flex: 1 0 auto;
 }

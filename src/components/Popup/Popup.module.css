@@ -67,13 +67,10 @@
   min-width: 0;
 }
 
-/* The tab row scrolls sideways when the tabs are wider than the popup. */
+/* The tab row scrolls sideways when the tabs are wider than the popup: the Tab
+   list does it itself, and keeps room for the focus rings of its tabs. */
 .tabs {
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-.tabs::-webkit-scrollbar {
-  display: none;
+  min-width: 0;
 }
 
 /* The Footer instance has no padding of its own inside the popup. */

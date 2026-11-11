@@ -87,15 +87,22 @@
   line-height: var(--font-interactive-label-text-md-sans-regular-line-height);
 }
 
-/* The buttons stay together, spacing/2xs apart, and only wrap when the banner is
-   narrower than the two of them (then Prim & Sec keeps them at its end). */
+/* The buttons stay together, spacing/2xs apart, each as wide as its label (the
+   group is as wide as the two of them, at the end of the banner). When the
+   banner is narrower than the two of them they stack over its full width with
+   the Primary on top, as in the Card with icons and the Cookie banner: the group
+   takes the width of the banner and the buttons grow to fill it, and wrap-reverse
+   puts the first line, the Secondary, under the second, the Primary. */
 .buttons {
   display: flex;
   flex: 0 1 auto;
-  flex-wrap: wrap;
+  flex-wrap: wrap-reverse;
   gap: var(--breakpoint-spacing-2xs);
   min-width: 0;
   max-width: 100%;
+}
+.buttons > * {
+  flex: 1 0 auto;
 }
 .prim-sec .buttons {
   justify-content: flex-end;

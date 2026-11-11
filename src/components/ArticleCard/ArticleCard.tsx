@@ -64,7 +64,8 @@ export interface ArticleCardProps extends Omit<HTMLAttributes<HTMLDivElement>, '
  * white in Day mode, for a dark picture) or the default one (Primary, for a
  * light picture). Figma has only the Left alignment. The spacing, corner
  * radius, type and button size follow the breakpoint tokens, so Mobile is
- * smaller.
+ * smaller. The buttons are as wide as their labels; when the card is narrower
+ * than the two of them they stack over its full width, the Primary on top.
  */
 export function ArticleCard({
   image = 'Top',

@@ -99,6 +99,11 @@ function renderButton(
  * banner is a plain block: it fills the width it is in, does not hide itself
  * and has no role; give it `role="status"` (or `alert`) when it appears after
  * the page has loaded.
+ *
+ * The two buttons of `Prim & Sec` are as wide as their labels, at the end of the
+ * banner. When the banner is narrower than the two of them they stack over its
+ * full width with the Primary on top, like the buttons of the Card with icons
+ * and the Cookie banner.
  */
 export function Banner({
   button = 'Icon',

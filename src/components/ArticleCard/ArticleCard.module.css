@@ -41,15 +41,21 @@
   width: 100%;
 }
 
-/* "CTA block": the buttons, spacing/s apart (they wrap when they do not fit),
-   with spacing/m above them. */
+/* "CTA block": the buttons, spacing/s apart, each as wide as its label, with
+   spacing/m above them. The block is as wide as the two of them, at most the
+   width of the card. When the card is narrower than the two they stack over its
+   full width, the Primary on top: the block takes the width of the card and the
+   buttons grow to fill it. */
 .cta {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
   gap: var(--breakpoint-spacing-s);
-  width: 100%;
+  max-width: 100%;
   padding-top: var(--breakpoint-spacing-m);
+}
+.cta > * {
+  flex: 1 0 auto;
 }
 
 /* Image=Top: the picture is 268 high over the text, on a surface/primary box. With Background=Card the

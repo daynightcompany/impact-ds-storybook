@@ -39,8 +39,10 @@ const BODY =
  * body text and a row of two XL buttons, left aligned in a column at most 640
  * wide, centred on the surface colour with spacing/6xl of padding. It is as wide
  * as the space it is in and as tall as its content; give it a height (or let a
- * hero stretch it) and the column is centred in it. The type, spacing and
- * button sizes follow the breakpoint tokens, so Mobile is smaller.
+ * hero stretch it) and the column is centred in it. The buttons are as wide as
+ * their labels; when the column is narrower than the two of them they stack over
+ * its full width, the Primary on top. The type, spacing and button sizes follow
+ * the breakpoint tokens, so Mobile is smaller.
  */
 export function ComplexTextBlock({
   uptitle,

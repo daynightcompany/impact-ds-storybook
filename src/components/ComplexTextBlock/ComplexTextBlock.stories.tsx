@@ -21,7 +21,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Converted from the Figma "Text/Complex text block" component (node 9587:7512) in the SMAL Impact Design System file. Source of truth for variants: Figma. An uptitle, a title, a subtitle, a quote, a body text and a row of two XL buttons, left aligned in a column at most 640 wide, centred on the surface colour; every line is a boolean in Figma and a prop here (`false` hides it, a string or a node replaces it). It is as wide as the space it is in and as tall as its content. Use the Breakpoint switch in the toolbar to see the Mobile values.',
+          'Converted from the Figma "Text/Complex text block" component (node 9587:7512) in the SMAL Impact Design System file. Source of truth for variants: Figma. An uptitle, a title, a subtitle, a quote, a body text and a row of two XL buttons, left aligned in a column at most 640 wide, centred on the surface colour; every line is a boolean in Figma and a prop here (`false` hides it, a string or a node replaces it). The buttons are as wide as their labels; when the column is narrower than the two of them they stack over its full width, the Primary on top. It is as wide as the space it is in and as tall as its content. Use the Breakpoint switch in the toolbar to see the Mobile values.',
       },
     },
   },

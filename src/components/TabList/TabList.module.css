@@ -7,12 +7,27 @@
 }
 
 /* Figma Position=Horizontal: a row that fills its container, tabs at the start.
-   More tabs than the container has room for wrap into a second row; with
-   overflow="menu" they go behind the "…" button instead (see below). */
+   More tabs than the container has room for do not wrap: the row scrolls
+   sideways, without a scrollbar (TabList.tsx brings the selected tab into view);
+   with overflow="menu" they go behind the "…" button instead (see below).
+   A scrolling box clips the focus ring of a tab, which stands 4px outside it, so
+   the row has 4px of padding above, below and at the start, and at the end, taken
+   back by a negative margin everywhere but at the end: the row takes the room of
+   its tabs and nothing else, and the ring shows. */
 .horizontal {
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: flex-start;
+  margin-block: -4px;
+  margin-inline-start: -4px;
+  padding: 4px;
+  scroll-padding-inline: 4px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+.horizontal::-webkit-scrollbar {
+  display: none;
 }
 
 /* Figma Position=Vertical: a column that hugs its widest tab. */
@@ -85,8 +100,12 @@
   min-width: 0;
   min-height: 0;
 }
+/* The tabs that do not fit are hidden, not scrolled to: the list is a plain row. */
 .overflow > .horizontal {
-  flex-wrap: nowrap;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+  scroll-padding: 0;
 }
 
 /* A tab that does not fit stays in the page and keeps its size, so it can be
